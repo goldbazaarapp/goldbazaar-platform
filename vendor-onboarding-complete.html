@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vendor Onboarding — GoldBazaar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --g: #C9A84C;
+      --gl: #E8C96A;
+      --gd: #9B7B2E;
+      --gp: #F5E6C0;
+      --b0: #000;
+      --b1: #0A0A0A;
+      --b2: #111;
+      --b3: #161616;
+      --b4: #1E1E1E;
+      --fd: 'Playfair Display', Georgia, serif;
+      --fb: 'Inter', -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background: #000;
+      color: #fff;
+      font-family: var(--fb), -apple-system, sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* Navigation */
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(0, 0, 0, 0.94);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-logo img {
+      height: 44px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-center a {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 7px 12px;
+      border-radius: 7px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .nav-center a:hover,
+    .nav-center a.active {
+      color: var(--g);
+      background: rgba(201, 168, 76, 0.07);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-vendor {
+      padding: 8px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.75);
+      transition: all 0.2s;
+    }
+
+    .nav-vendor:hover {
+      border-color: var(--g);
+      color: var(--g);
+    }
+
+    .nav-cta {
+      padding: 8px 20px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--g), var(--gl));
+      color: #000;
+      font-size: 13px;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+
+    .nav-cta:hover {
+      box-shadow: 0 6px 18px rgba(201, 168, 76, 0.38);
+      transform: translateY(-1px);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      width: 21px;
+      height: 1.5px;
+      background: #fff;
+      display: block;
+    }
+
+    #mob-nav {
+      display: none;
+      position: fixed;
+      top: 68px;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: rgba(0, 0, 0, 0.97);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+      backdrop-filter: blur(18px);
+      padding: 20px 28px;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    #mob-nav.open {
+      display: flex;
+    }
+
+    #mob-nav a {
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.72);
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    #mob-nav a:hover {
+      color: var(--g);
+    }
+
+    /* OTP Login Screen */
+    .login-screen {
+      margin-top: 68px;
+      min-height: calc(100vh - 68px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(20, 15, 10, 0.4), rgba(0, 0, 0, 0.2));
+      padding: 32px;
+    }
+
+    .login-container {
+      background: linear-gradient(135deg, rgba(22, 22, 22, 0.95), rgba(17, 17, 17, 0.95));
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 20px;
+      padding: 48px;
+      max-width: 420px;
+      width: 100%;
+      backdrop-filter: blur(10px);
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .login-header h1 {
+      font-family: var(--fd);
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: white;
+    }
+
+    .login-header p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 10px;
+      font-size: 14px;
+      color: #fff;
+      font-family: var(--fb);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .form-group input:focus {
+      border-color: var(--g);
+      background: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
+    }
+
+    .form-group input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .error-message {
+      font-size: 12px;
+      color: #ef4444;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .resend-otp {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    .resend-otp button {
+      color: var(--g);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      font-weight: 600;
+    }
+
+    .resend-otp button:hover {
+      text-decoration: underline;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, var(--g), var(--gl));
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 24px;
+    }
+
+    .login-btn:hover {
+      box-shadow: 0 12px 32px rgba(201, 168, 76, 0.38);
+      transform: translateY(-2px);
+    }
+
+    .login-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .step-indicator {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .step {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(201, 168, 76, 0.2);
+      transition: all 0.3s;
+    }
+
+    .step.active {
+      width: 24px;
+      border-radius: 4px;
+      background: var(--g);
+    }
+
+    /* Main Content */
+    .page-header {
+      margin-top: 68px;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+      background: linear-gradient(180deg, rgba(20, 15, 10, 0.4), rgba(0, 0, 0, 0.2));
+      padding: 32px 0;
+      display: none;
+    }
+
+    .page-header.visible {
+      display: block;
+    }
+
+    .page-header h1 {
+      font-family: var(--fd);
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      margin-bottom: 8px;
+    }
+
+    .page-header p {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.58);
+    }
+
+    /* Tab Navigation */
+    .tab-nav {
+      display: none;
+      gap: 8px;
+      background: rgba(22, 22, 22, 0.5);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+      padding: 0 32px;
+      backdrop-filter: blur(8px);
+    }
+
+    .tab-nav.visible {
+      display: flex;
+    }
+
+    .tab-nav button {
+      padding: 14px 24px;
+      border: none;
+      background: none;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .tab-nav button:hover {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .tab-nav button.active {
+      color: var(--g);
+      border-bottom-color: var(--g);
+    }
+
+    /* Tab Content */
+    .tab-content {
+      display: none;
+      padding: 48px 32px;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--b1);
+      border-top: 1px solid var(--b4);
+      padding: 64px 0 32px;
+      margin-top: 96px;
+    }
+
+    .foot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .foot-grid {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .foot-logo img {
+      height: 64px;
+      width: auto;
+      margin-bottom: 14px;
+    }
+
+    .foot-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.4);
+      line-height: 1.75;
+      max-width: 220px;
+      margin-bottom: 18px;
+    }
+
+    .foot-socials {
+      display: flex;
+      gap: 7px;
+    }
+
+    .fsoc {
+      width: 32px;
+      height: 32px;
+      background: var(--b3);
+      border: 1px solid var(--b4);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .fsoc:hover {
+      background: rgba(201, 168, 76, 0.1);
+      border-color: var(--g);
+      color: var(--g);
+    }
+
+    .foot-col h4 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.28);
+      margin-bottom: 14px;
+    }
+
+    .foot-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .foot-col a {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.48);
+      transition: color 0.2s;
+    }
+
+    .foot-col a:hover {
+      color: var(--g);
+    }
+
+    .foot-bottom {
+      border-top: 1px solid var(--b4);
+      padding-top: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .foot-bottom p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.24);
+    }
+
+    .foot-badges {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .f-badge {
+      padding: 4px 9px;
+      background: var(--b3);
+      border: 1px solid var(--b4);
+      border-radius: 5px;
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.3);
+      letter-spacing: 0.05em;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      #nav {
+        padding: 0 20px;
+      }
+
+      .nav-center,
+      .nav-right {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .page-header,
+      .tab-nav,
+      .tab-content,
+      .login-container {
+        padding: 0 20px;
+      }
+
+      .foot-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .foot-inner {
+        padding: 0 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .foot-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .nav-center,
+      .nav-right {
+        display: none;
+      }
+
+      .tab-nav {
+        padding: 0 16px;
+        overflow-x: auto;
+      }
+
+      .tab-nav button {
+        padding: 12px 16px;
+        font-size: 12px;
+        white-space: nowrap;
+      }
+
+      .login-container {
+        padding: 32px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .foot-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .foot-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .login-container {
+        padding: 24px;
+      }
+
+      .login-header h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ═══════════════════ NAVIGATION ═══════════════════ -->
+  <nav id="nav">
+    <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar" /></a>
+
+    <div class="nav-center">
+      <a href="index.html">Home</a>
+    </div>
+
+    <div class="nav-right">
+      <a href="index.html" class="nav-vendor">← Back to Home</a>
+      <a href="index.html#contact-us" class="nav-cta">Contact Us</a>
+    </div>
+
+    <button class="hamburger" onclick="mobToggle()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div id="mob-nav">
+    <a href="index.html">Home</a>
+    <a href="index.html" style="color: var(--g); font-weight: 600;">← Back to Home</a>
+  </div>
+
+  <!-- ═══════════════════ OTP LOGIN SCREEN ═══════════════════ -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-container">
+      <div class="step-indicator">
+        <div class="step active" id="step1"></div>
+        <div class="step" id="step2"></div>
+      </div>
+
+      <!-- Step 1: Mobile OTP -->
+      <div id="otpStep" class="login-step">
+        <div class="login-header">
+          <h1>Vendor Login</h1>
+          <p>Enter your mobile number to receive an OTP verification code</p>
+        </div>
+
+        <form onsubmit="handleOtpRequest(event)">
+          <div class="form-group">
+            <label for="mobile">Mobile Number</label>
+            <input
+              type="tel"
+              id="mobile"
+              name="mobile"
+              placeholder="+91 98765 43210"
+              pattern="[0-9\s+\-\(\)]+"
+              required
+            />
+            <div class="error-message" id="mobileError"></div>
+          </div>
+
+          <button type="submit" class="login-btn">Send OTP</button>
+        </form>
+
+        <p style="text-align: center; font-size: 12px; color: rgba(255, 255, 255, 0.5); margin-top: 20px;">
+          🔒 Bank-level encryption | Your data is secure
+        </p>
+      </div>
+
+      <!-- Step 2: OTP Verification -->
+      <div id="verifyStep" class="login-step" style="display: none;">
+        <div class="login-header">
+          <h1>Verify OTP</h1>
+          <p>We've sent a 6-digit code to <span id="mobileDisplay"></span></p>
+        </div>
+
+        <form onsubmit="handleOtpVerify(event)">
+          <div class="form-group">
+            <label for="otp">Enter OTP</label>
+            <input
+              type="text"
+              id="otp"
+              name="otp"
+              placeholder="000000"
+              maxlength="6"
+              pattern="[0-9]{6}"
+              required
+            />
+            <div class="error-message" id="otpError"></div>
+          </div>
+
+          <button type="submit" class="login-btn">Verify & Continue</button>
+        </form>
+
+        <div class="resend-otp">
+          Didn't receive the code?
+          <button type="button" onclick="resendOtp()">Resend OTP</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ PAGE HEADER ═══════════════════ -->
+  <div class="page-header" id="pageHeader">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 48px;">
+      <h1>Vendor Portal</h1>
+      <p>Complete your onboarding and manage your business</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ TAB NAVIGATION ═══════════════════ -->
+  <div class="tab-nav" id="tabNav">
+    <button class="tab-btn active" onclick="switchTab('onboarding', this)">✏️ Complete Onboarding</button>
+    <button class="tab-btn" onclick="switchTab('dashboard', this)">📊 Vendor Dashboard</button>
+  </div>
+
+  <!-- ═══════════════════ ONBOARDING FORM ═══════════════════ -->
+  <div id="onboarding" class="tab-content">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <div style="background: rgba(22, 22, 22, 0.8); border: 1px solid rgba(201, 168, 76, 0.12); border-radius: 16px; padding: 32px;">
+        <div style="text-align: center; margin-bottom: 32px;">
+          <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 8px; color: white;">Complete Your Vendor Onboarding</h2>
+          <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">Fill out the form below to register your business on GoldBazaar</p>
+        </div>
+
+        <!-- Step Progress -->
+        <div style="margin-bottom: 32px;">
+          <div id="progressBar" style="width: 100%; display: flex; align-items: center; gap: 4px; margin-bottom: 16px;">
+            <!-- Dynamically updated by JavaScript -->
+          </div>
+          <p id="stepLabel" style="text-align: center; color: var(--g); font-weight: 600; font-size: 12px;">Step 1 of 7: Mobile Verification</p>
+        </div>
+
+        <!-- Form Container -->
+        <div style="max-width: 600px; margin: 0 auto;">
+          <form id="onboardingForm" onsubmit="handleNextStep(event)">
+            <!-- STEP 1: Business Information -->
+            <div id="step-1" class="form-step active" style="display: block;">
+              <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Business Name</label>
+                <input type="text" id="businessName" name="businessName" placeholder="Your Business Name" class="form-input"/>
+                <span class="error-msg" id="businessNameError"></span>
+              </div>
+              <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Owner Name</label>
+                <input type="text" id="ownerName" name="ownerName" placeholder="Full Name" class="form-input"/>
+                <span class="error-msg" id="ownerNameError"></span>
+              </div>
+              <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">GST Number</label>
+                <input type="text" id="gstNumber" name="gstNumber" placeholder="15-Character GST Number" class="form-input"/>
+                <span class="error-msg" id="gstNumberError"></span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+                <div>
+                  <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Category</label>
+                  <select id="category" name="category" class="form-input">
+                    <option value="">Select Category</option>
+                    <option value="dealer">Gold Dealer</option>
+                    <option value="jeweler">Jeweler</option>
+                    <option value="pawn">Pawn Shop</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Years in Business</label>
+                  <input type="number" id="years" name="years" placeholder="5" min="0" max="70" class="form-input"/>
+                  <span class="error-msg" id="yearsError"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 2: Business Address -->
+            <div id="step-2" class="form-step" style="display: none;">
+              <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Address</label>
+                <input type="text" id="address" name="address" placeholder="Street Address" class="form-input"/>
+                <span class="error-msg" id="addressError"></span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+                <div>
+                  <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">City</label>
+                  <input type="text" id="city" name="city" placeholder="Bangalore" class="form-input"/>
+                  <span class="error-msg" id="cityError"></span>
+                </div>
+                <div>
+                  <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">State</label>
+                  <input type="text" id="state" name="state" placeholder="Karnataka" class="form-input"/>
+                  <span class="error-msg" id="stateError"></span>
+                </div>
+              </div>
+              <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Pincode</label>
+                <input type="text" id="pincode" name="pincode" placeholder="560001" class="form-input" maxlength="6"/>
+                <span class="error-msg" id="pincodeError"></span>
+              </div>
+            </div>
+
+            <!-- STEP 3: Services -->
+            <div id="step-3" class="form-step" style="display: none;">
+              <p style="font-size: 13px; color: rgba(255, 255, 255, 0.6); margin-bottom: 20px;">Select at least one service you offer:</p>
+              <div style="space-y: 12px;">
+                <label style="display: flex; align-items: center; padding: 12px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 10px; margin-bottom: 12px; cursor: pointer;">
+                  <input type="checkbox" name="services" value="gold-loan" style="margin-right: 12px;"/> <span style="color: rgba(255, 255, 255, 0.8);">Gold Loan</span>
+                </label>
+                <label style="display: flex; align-items: center; padding: 12px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 10px; margin-bottom: 12px; cursor: pointer;">
+                  <input type="checkbox" name="services" value="gold-sell" style="margin-right: 12px;"/> <span style="color: rgba(255, 255, 255, 0.8);">Gold Sell</span>
+                </label>
+                <label style="display: flex; align-items: center; padding: 12px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 10px; margin-bottom: 12px; cursor: pointer;">
+                  <input type="checkbox" name="services" value="gold-exchange" style="margin-right: 12px;"/> <span style="color: rgba(255, 255, 255, 0.8);">Gold Exchange</span>
+                </label>
+                <label style="display: flex; align-items: center; padding: 12px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 10px; margin-bottom: 12px; cursor: pointer;">
+                  <input type="checkbox" name="services" value="jewellery" style="margin-right: 12px;"/> <span style="color: rgba(255, 255, 255, 0.8);">Jewellery Purchase</span>
+                </label>
+                <label style="display: flex; align-items: center; padding: 12px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 10px; margin-bottom: 12px; cursor: pointer;">
+                  <input type="checkbox" name="services" value="savings" style="margin-right: 12px;"/> <span style="color: rgba(255, 255, 255, 0.8);">Gold Savings Scheme</span>
+                </label>
+              </div>
+              <span class="error-msg" id="servicesError"></span>
+            </div>
+
+            <!-- STEP 4: Branding -->
+            <div id="step-4" class="form-step" style="display: none;">
+              <p style="font-size: 13px; color: rgba(255, 255, 255, 0.6); margin-bottom: 20px;">Upload your business branding materials:</p>
+              <div style="border: 2px dashed rgba(201, 168, 76, 0.3); border-radius: 10px; padding: 20px; text-align: center; margin-bottom: 20px;">
+                <p style="font-size: 12px; color: rgba(255, 255, 255, 0.7);">📁 Logo / Images</p>
+                <p style="font-size: 11px; color: rgba(255, 255, 255, 0.5);">Drag and drop or click to browse</p>
+              </div>
+              <p style="font-size: 11px; color: rgba(255, 255, 255, 0.5); text-align: center;">Optional - You can skip and add later</p>
+            </div>
+
+            <!-- STEP 5: Scheme Setup -->
+            <div id="step-5" class="form-step" style="display: none;">
+              <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Scheme Name</label>
+                <input type="text" id="schemeName" name="schemeName" placeholder="e.g., Gold Savings Plus" class="form-input"/>
+                <span class="error-msg" id="schemeNameError"></span>
+              </div>
+              <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Description</label>
+                <textarea id="schemeDesc" name="schemeDesc" placeholder="Describe your scheme..." class="form-input" style="resize: vertical; min-height: 80px;"></textarea>
+                <span class="error-msg" id="schemeDescError"></span>
+              </div>
+              <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Key Benefits</label>
+                <input type="text" id="benefits" name="benefits" placeholder="e.g., Low interest, Fast approval" class="form-input"/>
+                <span class="error-msg" id="benefitsError"></span>
+              </div>
+              <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Validity (months)</label>
+                <input type="number" id="validity" name="validity" placeholder="12" min="1" max="60" class="form-input"/>
+                <span class="error-msg" id="validityError"></span>
+              </div>
+            </div>
+
+            <!-- STEP 6: Review -->
+            <div id="step-6" class="form-step" style="display: none;">
+              <div style="background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 10px; padding: 16px; margin-bottom: 20px;">
+                <p style="font-size: 13px; color: #22c55e; font-weight: 600;">✓ All information validated and ready!</p>
+              </div>
+              <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 10px; padding: 20px;">
+                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(201, 168, 76, 0.1);">
+                  <span style="color: rgba(255, 255, 255, 0.6);">Mobile</span>
+                  <span style="color: rgba(255, 255, 255, 0.9); font-weight: 600;" id="reviewMobile">-</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(201, 168, 76, 0.1);">
+                  <span style="color: rgba(255, 255, 255, 0.6);">Business</span>
+                  <span style="color: rgba(255, 255, 255, 0.9); font-weight: 600;" id="reviewBusiness">-</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(201, 168, 76, 0.1);">
+                  <span style="color: rgba(255, 255, 255, 0.6);">Owner</span>
+                  <span style="color: rgba(255, 255, 255, 0.9); font-weight: 600;" id="reviewOwner">-</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+                  <span style="color: rgba(255, 255, 255, 0.6);">Location</span>
+                  <span style="color: rgba(255, 255, 255, 0.9); font-weight: 600;" id="reviewLocation">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div style="display: flex; gap: 12px; margin-top: 24px;">
+              <button
+                id="prevBtn"
+                type="button"
+                style="flex: 1; padding: 13px; background: rgba(201, 168, 76, 0.15); color: var(--g); border: 1px solid rgba(201, 168, 76, 0.3); border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: none;"
+                onclick="previousStep()"
+              >
+                ← Back
+              </button>
+              <button
+                id="nextBtn"
+                type="button"
+                style="flex: 1; padding: 13px; background: linear-gradient(135deg, #C9A84C, #E8C96A); color: #000; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s;"
+                onclick="handleNextStep(event)"
+              >
+                Next →
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .form-input {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 10px;
+      font-size: 14px;
+      color: #fff;
+      font-family: var(--fb);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .form-input:focus {
+      border-color: #C9A84C;
+      background: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
+    }
+
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .form-input select {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .error-msg {
+      display: none;
+      color: #ef4444;
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .error-msg.show {
+      display: block;
+    }
+  </style>
+
+  <!-- ═══════════════════ VENDOR DASHBOARD ═══════════════════ -->
+  <div id="dashboard" class="tab-content">
+    <div style="max-width: 1400px; margin: 0 auto;">
+      <!-- KPI Cards -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 32px;">
+        <div style="background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.05)); border: 1px solid rgba(201, 168, 76, 0.25); border-radius: 12px; padding: 24px;">
+          <div style="font-size: 12px; color: rgba(255, 255, 255, 0.6); margin-bottom: 8px;">📍 Profile Reach</div>
+          <div style="font-size: 32px; font-weight: 700; color: var(--g); margin-bottom: 4px;">1,248</div>
+          <div style="font-size: 12px; color: rgba(255, 255, 255, 0.45);">Users discovered your business</div>
+        </div>
+
+        <div style="background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.05)); border: 1px solid rgba(201, 168, 76, 0.25); border-radius: 12px; padding: 24px;">
+          <div style="font-size: 12px; color: rgba(255, 255, 255, 0.6); margin-bottom: 8px;">👁️ Vendor Visits</div>
+          <div style="font-size: 32px; font-weight: 700; color: var(--g); margin-bottom: 4px;">356</div>
+          <div style="font-size: 12px; color: rgba(255, 255, 255, 0.45);">Customers viewed your profile</div>
+        </div>
+
+        <div style="background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.05)); border: 1px solid rgba(201, 168, 76, 0.25); border-radius: 12px; padding: 24px;">
+          <div style="font-size: 12px; color: rgba(255, 255, 255, 0.6); margin-bottom: 8px;">🎯 Leads Generated</div>
+          <div style="font-size: 32px; font-weight: 700; color: var(--g); margin-bottom: 4px;">48</div>
+          <div style="font-size: 12px; color: rgba(255, 255, 255, 0.45);">Potential customer opportunities</div>
+        </div>
+
+        <div style="background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.05)); border: 1px solid rgba(201, 168, 76, 0.25); border-radius: 12px; padding: 24px;">
+          <div style="font-size: 12px; color: rgba(255, 255, 255, 0.6); margin-bottom: 8px;">💰 Business Value</div>
+          <div style="font-size: 32px; font-weight: 700; color: var(--g); margin-bottom: 4px;">₹4.8L</div>
+          <div style="font-size: 12px; color: rgba(255, 255, 255, 0.45);">Potential business opportunity</div>
+        </div>
+      </div>
+
+      <!-- Analytics Section -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+        <!-- Lead Funnel -->
+        <div style="background: rgba(22, 22, 22, 0.8); border: 1px solid rgba(201, 168, 76, 0.12); border-radius: 16px; padding: 24px;">
+          <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 20px; color: var(--g);">📈 Lead Funnel</h3>
+          <div>
+            <div style="margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-size: 13px; color: rgba(255, 255, 255, 0.7);">Profile Views</span>
+                <span style="font-size: 12px; font-weight: 700; color: var(--g);">1,248</span>
+              </div>
+              <div style="width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden;">
+                <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #C9A84C, #E8C96A); border-radius: 3px;"></div>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-size: 13px; color: rgba(255, 255, 255, 0.7);">Vendor Visits</span>
+                <span style="font-size: 12px; font-weight: 700; color: var(--g);">356</span>
+              </div>
+              <div style="width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden;">
+                <div style="width: 28.5%; height: 100%; background: linear-gradient(90deg, #C9A84C, #E8C96A); border-radius: 3px;"></div>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-size: 13px; color: rgba(255, 255, 255, 0.7);">Enquiries</span>
+                <span style="font-size: 12px; font-weight: 700; color: var(--g);">89</span>
+              </div>
+              <div style="width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden;">
+                <div style="width: 7.1%; height: 100%; background: linear-gradient(90deg, #C9A84C, #E8C96A); border-radius: 3px;"></div>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-size: 13px; color: rgba(255, 255, 255, 0.7);">Appointments</span>
+                <span style="font-size: 12px; font-weight: 700; color: var(--g);">48</span>
+              </div>
+              <div style="width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden;">
+                <div style="width: 3.8%; height: 100%; background: linear-gradient(90deg, #C9A84C, #E8C96A); border-radius: 3px;"></div>
+              </div>
+            </div>
+
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-size: 13px; color: rgba(255, 255, 255, 0.7);">Conversions</span>
+                <span style="font-size: 12px; font-weight: 700; color: var(--g);">12</span>
+              </div>
+              <div style="width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden;">
+                <div style="width: 1%; height: 100%; background: linear-gradient(90deg, #C9A84C, #E8C96A); border-radius: 3px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Locations -->
+        <div style="background: rgba(22, 22, 22, 0.8); border: 1px solid rgba(201, 168, 76, 0.12); border-radius: 16px; padding: 24px;">
+          <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 20px; color: var(--g);">📍 Top Locations</h3>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(201, 168, 76, 0.1);">
+              <span style="font-size: 13px; color: rgba(255, 255, 255, 0.8);">Whitefield</span>
+              <span style="font-size: 13px; font-weight: 600; color: var(--g);">324</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(201, 168, 76, 0.1);">
+              <span style="font-size: 13px; color: rgba(255, 255, 255, 0.8);">Marathahalli</span>
+              <span style="font-size: 13px; font-weight: 600; color: var(--g);">287</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(201, 168, 76, 0.1);">
+              <span style="font-size: 13px; color: rgba(255, 255, 255, 0.8);">HSR Layout</span>
+              <span style="font-size: 13px; font-weight: 600; color: var(--g);">256</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(201, 168, 76, 0.1);">
+              <span style="font-size: 13px; color: rgba(255, 255, 255, 0.8);">Indiranagar</span>
+              <span style="font-size: 13px; font-weight: 600; color: var(--g);">198</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0;">
+              <span style="font-size: 13px; color: rgba(255, 255, 255, 0.8);">Electronic City</span>
+              <span style="font-size: 13px; font-weight: 600; color: var(--g);">183</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer>
+    <div class="foot-inner">
+      <div class="foot-grid">
+        <div>
+          <div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div>
+          <p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions on one trusted platform.</p>
+          <div class="foot-socials">
+            <a href="https://www.linkedin.com/company/goldbazaar" target="_blank" rel="noopener" class="fsoc" title="LinkedIn">in</a>
+            <a href="https://www.facebook.com/goldbazaar" target="_blank" rel="noopener" class="fsoc" title="Facebook">f</a>
+            <a href="https://www.instagram.com/goldbazaar" target="_blank" rel="noopener" class="fsoc" title="Instagram">📷</a>
+            <a href="https://twitter.com/goldbazaar" target="_blank" rel="noopener" class="fsoc" title="X / Twitter">𝕏</a>
+            <a href="https://www.youtube.com/@goldbazaar" target="_blank" rel="noopener" class="fsoc" title="YouTube">▶</a>
+          </div>
+        </div>
+        <div class="foot-col"><h4>Services</h4><ul>
+          <li><a href="index.html#gold-loan">Gold Loan</a></li>
+          <li><a href="index.html#gold-sell">Gold Sell</a></li>
+          <li><a href="index.html#vendors">Gold Exchange</a></li>
+          <li><a href="index.html#vendors">Jewellery</a></li>
+          <li><a href="index.html#vendors">Savings Scheme</a></li>
+        </ul></div>
+        <div class="foot-col"><h4>Platform</h4><ul>
+          <li><a href="index.html#vendors">Find Vendors</a></li>
+          <li><a href="index.html#gold-calculator">Gold Calculator</a></li>
+          <li><a href="index.html#gold-news">Gold News</a></li>
+          <li><a href="vendor-onboarding-complete.html">Vendor Onboarding</a></li>
+          <li><a href="index.html">Vendor Login</a></li>
+        </ul></div>
+        <div class="foot-col"><h4>Company</h4><ul>
+          <li><a href="index.html#why">About Us</a></li>
+          <li><a href="index.html#contact-us">Contact Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press Kit</a></li>
+          <li><a href="index.html#gold-news">Blog</a></li>
+        </ul></div>
+        <div class="foot-col"><h4>Legal</h4><ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Grievance Policy</a></li>
+          <li><a href="#">Refund Policy</a></li>
+          <li><a href="#">Sitemap</a></li>
+        </ul></div>
+      </div>
+      <div class="foot-bottom">
+        <p>© 2025 GoldBazaar.app — All rights reserved. GoldBazaar Technologies Pvt. Ltd.</p>
+        <div class="foot-badges">
+          <span class="f-badge">DPDP 2023</span><span class="f-badge">ISO 27001</span>
+          <span class="f-badge">PCI DSS</span><span class="f-badge">BIS Partner</span><span class="f-badge">RBI Compliant</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    function mobToggle() {
+      document.getElementById('mob-nav').classList.toggle('open');
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#nav') && !e.target.closest('#mob-nav')) {
+        document.getElementById('mob-nav').classList.remove('open');
+      }
+    });
+
+    // OTP Login Flow
+    let currentMobileNumber = '';
+    let verifiedMobile = '';
+
+    function handleOtpRequest(event) {
+      event.preventDefault();
+      const mobile = document.getElementById('mobile').value.trim();
+      const errorEl = document.getElementById('mobileError');
+
+      // Validate mobile number
+      const mobileRegex = /^[6-9]\d{9}$/;
+      const cleanMobile = mobile.replace(/\D/g, '');
+
+      if (!cleanMobile || !mobileRegex.test(cleanMobile)) {
+        errorEl.textContent = 'Please enter a valid 10-digit mobile number';
+        errorEl.classList.add('show');
+        return;
+      }
+
+      errorEl.classList.remove('show');
+      currentMobileNumber = cleanMobile;
+
+      // Show OTP verification step
+      document.getElementById('otpStep').style.display = 'none';
+      document.getElementById('verifyStep').style.display = 'block';
+      document.getElementById('mobileDisplay').textContent = `+91 ${cleanMobile.slice(0, 5)} ${cleanMobile.slice(5)}`;
+      document.getElementById('step1').classList.remove('active');
+      document.getElementById('step2').classList.add('active');
+    }
+
+    function handleOtpVerify(event) {
+      event.preventDefault();
+      const otp = document.getElementById('otp').value.trim();
+      const errorEl = document.getElementById('otpError');
+
+      if (!otp || otp.length !== 6 || !/^\d{6}$/.test(otp)) {
+        errorEl.textContent = 'Please enter a valid 6-digit OTP';
+        errorEl.classList.add('show');
+        return;
+      }
+
+      errorEl.classList.remove('show');
+      verifiedMobile = currentMobileNumber;
+
+      // Hide login screen and show main content
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('pageHeader').classList.add('visible');
+      document.getElementById('tabNav').classList.add('visible');
+
+      // Make onboarding tab active by default
+      document.getElementById('onboarding').classList.add('active');
+
+      // Initialize form
+      initializeForm();
+    }
+
+    function resendOtp() {
+      // Just for demo - normally would resend OTP
+      const mobile = `+91 ${currentMobileNumber.slice(0, 5)} ${currentMobileNumber.slice(5)}`;
+      // Auto-fill with demo OTP hint
+      console.log(`OTP would be sent to ${mobile}`);
+    }
+
+    // Form Management
+    let currentStep = 1;
+    const totalSteps = 6;
+
+    function initializeForm() {
+      updateProgressBar();
+      showStep(1);
+    }
+
+    function updateProgressBar() {
+      const bar = document.getElementById('progressBar');
+      let html = '';
+      for (let i = 1; i <= totalSteps; i++) {
+        const isActive = i <= currentStep;
+        html += `<div style="width: 32px; height: 32px; border-radius: 50%; background: ${isActive ? 'linear-gradient(135deg, #C9A84C, #E8C96A)' : 'rgba(201, 168, 76, 0.2)'}; display: flex; align-items: center; justify-content: center; font-weight: 700; color: ${isActive ? '#000' : 'rgba(255, 255, 255, 0.4)'}; flex-shrink: 0;">${i}</div>`;
+        if (i < totalSteps) {
+          html += `<div style="flex: 1; height: 2px; background: ${i < currentStep ? 'linear-gradient(90deg, #C9A84C, #E8C96A)' : 'rgba(201, 168, 76, 0.2)'};"></div>`;
+        }
+      }
+      bar.innerHTML = html;
+    }
+
+    function getStepLabel() {
+      const labels = [
+        'Business Information',
+        'Business Address',
+        'Services Offered',
+        'Branding Setup',
+        'Scheme Setup',
+        'Review & Submit'
+      ];
+      return `Step ${currentStep} of ${totalSteps}: ${labels[currentStep - 1]}`;
+    }
+
+    function showStep(step) {
+      // Hide all steps
+      for (let i = 1; i <= totalSteps; i++) {
+        const el = document.getElementById(`step-${i}`);
+        if (el) el.style.display = 'none';
+      }
+
+      // Show current step
+      const stepEl = document.getElementById(`step-${step}`);
+      if (stepEl) stepEl.style.display = 'block';
+
+      // Update label
+      document.getElementById('stepLabel').textContent = getStepLabel();
+
+      // Update buttons
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+
+      if (step === 1) {
+        prevBtn.style.display = 'none';
+        nextBtn.textContent = 'Next →';
+      } else if (step === totalSteps) {
+        prevBtn.style.display = 'flex';
+        nextBtn.textContent = 'Submit →';
+      } else {
+        prevBtn.style.display = 'flex';
+        nextBtn.textContent = 'Next →';
+      }
+
+      // Scroll to top
+      window.scrollTo(0, document.getElementById('onboarding').offsetTop);
+    }
+
+    function validateStep(step) {
+      const errors = {};
+
+      if (step === 1) {
+        const businessName = document.getElementById('businessName').value.trim();
+        const ownerName = document.getElementById('ownerName').value.trim();
+        const gstNumber = document.getElementById('gstNumber').value.trim();
+        const category = document.getElementById('category').value;
+        const years = document.getElementById('years').value;
+
+        if (!businessName || businessName.length < 3) errors.businessName = 'Enter a valid business name';
+        if (!ownerName || ownerName.length < 3) errors.ownerName = 'Enter a valid owner name';
+        if (!gstNumber || gstNumber.length !== 15) errors.gstNumber = 'Enter a valid 15-character GST number';
+        if (!category) errors.category = 'Select a business category';
+        if (!years || years < 0 || years > 70) errors.years = 'Enter years between 0-70';
+      } else if (step === 2) {
+        const address = document.getElementById('address').value.trim();
+        const city = document.getElementById('city').value.trim();
+        const state = document.getElementById('state').value.trim();
+        const pincode = document.getElementById('pincode').value.trim();
+
+        if (!address || address.length < 5) errors.address = 'Enter a valid address';
+        if (!city || city.length < 2) errors.city = 'Enter a valid city';
+        if (!state) errors.state = 'Enter state name';
+        if (!pincode || !/^\d{6}$/.test(pincode)) errors.pincode = 'Enter a valid 6-digit pincode';
+      } else if (step === 3) {
+        const services = document.querySelectorAll('input[name="services"]:checked');
+        if (services.length === 0) errors.services = 'Select at least one service';
+      } else if (step === 5) {
+        const schemeName = document.getElementById('schemeName').value.trim();
+        const schemeDesc = document.getElementById('schemeDesc').value.trim();
+        const benefits = document.getElementById('benefits').value.trim();
+        const validity = document.getElementById('validity').value;
+
+        if (!schemeName || schemeName.length < 3) errors.schemeName = 'Enter a valid scheme name';
+        if (!schemeDesc || schemeDesc.length < 10) errors.schemeDesc = 'Enter at least 10 characters';
+        if (!benefits || benefits.length < 5) errors.benefits = 'Enter valid benefits';
+        if (!validity || validity < 1 || validity > 60) errors.validity = 'Enter months between 1-60';
+      }
+
+      // Display errors
+      clearAllErrors();
+      for (const [field, message] of Object.entries(errors)) {
+        const errorEl = document.getElementById(`${field}Error`);
+        if (errorEl) {
+          errorEl.textContent = message;
+          errorEl.classList.add('show');
+        }
+      }
+
+      return Object.keys(errors).length === 0;
+    }
+
+    function clearAllErrors() {
+      document.querySelectorAll('.error-msg').forEach(el => {
+        el.classList.remove('show');
+        el.textContent = '';
+      });
+    }
+
+    function handleNextStep(event) {
+      event.preventDefault();
+
+      if (!validateStep(currentStep)) {
+        return;
+      }
+
+      if (currentStep === totalSteps) {
+        // Submit form
+        submitForm();
+      } else {
+        // Handle Step 6 (Review)
+        if (currentStep === 5) {
+          populateReview();
+        }
+        currentStep++;
+        updateProgressBar();
+        showStep(currentStep);
+      }
+    }
+
+    function previousStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        updateProgressBar();
+        showStep(currentStep);
+      }
+    }
+
+    function populateReview() {
+      document.getElementById('reviewMobile').textContent = `+91 ${verifiedMobile.slice(0, 5)} ${verifiedMobile.slice(5)}`;
+      document.getElementById('reviewBusiness').textContent = document.getElementById('businessName').value || '-';
+      document.getElementById('reviewOwner').textContent = document.getElementById('ownerName').value || '-';
+
+      const city = document.getElementById('city').value || '-';
+      const state = document.getElementById('state').value || '-';
+      document.getElementById('reviewLocation').textContent = `${city}, ${state}`;
+    }
+
+    function submitForm() {
+      clearAllErrors();
+
+      // Show success message
+      const onboardingDiv = document.getElementById('onboarding');
+      const formDiv = onboardingDiv.querySelector('[style*="max-width: 1200px"]');
+
+      formDiv.innerHTML = `
+        <div style="background: rgba(22, 22, 22, 0.8); border: 1px solid rgba(201, 168, 76, 0.12); border-radius: 16px; padding: 48px; text-align: center;">
+          <div style="font-size: 48px; margin-bottom: 20px;">✓</div>
+          <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 12px; color: white;">Registration Submitted!</h2>
+          <p style="font-size: 15px; color: rgba(255, 255, 255, 0.6); margin-bottom: 24px;">Your vendor application has been successfully submitted for verification.</p>
+
+          <div style="background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 10px; padding: 16px; margin-bottom: 24px;">
+            <p style="font-size: 13px; color: #22c55e; font-weight: 600;">✓ All information received successfully</p>
+            <p style="font-size: 12px; color: rgba(34, 197, 94, 0.8); margin-top: 8px;">Our team will verify your details and contact you within 24 hours</p>
+          </div>
+
+          <div style="background: rgba(201, 168, 76, 0.08); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 10px; padding: 20px; text-align: left; margin-bottom: 24px;">
+            <p style="font-size: 12px; color: rgba(255, 255, 255, 0.9); font-weight: 600; margin-bottom: 12px;">📋 What's Next?</p>
+            <ul style="list-style: none; font-size: 13px; color: rgba(255, 255, 255, 0.7);">
+              <li style="margin-bottom: 8px;">✓ We'll verify your GST and business documents</li>
+              <li style="margin-bottom: 8px;">✓ You'll receive a confirmation email with your vendor ID</li>
+              <li style="margin-bottom: 8px;">✓ Your vendor profile will go live immediately after verification</li>
+              <li>✓ Access the Vendor Dashboard to start managing leads</li>
+            </ul>
+          </div>
+
+          <button onclick="resetForm()" style="padding: 13px 32px; background: linear-gradient(135deg, #C9A84C, #E8C96A); color: #000; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s;">
+            ← Back to Dashboard
+          </button>
+        </div>
+      `;
+    }
+
+    function resetForm() {
+      // Reset to dashboard
+      const tabNav = document.querySelectorAll('.tab-btn');
+      if (tabNav[1]) {
+        switchTab('dashboard', tabNav[1]);
+      }
+    }
+
+    // Tab switching
+    function switchTab(tabName, button) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+
+      // Remove active class from all buttons
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+      // Show selected tab
+      document.getElementById(tabName).classList.add('active');
+
+      // Add active class to clicked button
+      button.classList.add('active');
+    }
+  </script>
+</body>
+</html>

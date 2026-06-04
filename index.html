@@ -160,27 +160,131 @@ img{display:block;max-width:100%}
 /*──────────────────────────────────────
   MARKETPLACE CARDS — shared
 ──────────────────────────────────────*/
-.mkt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.mkt-card{background:var(--b3);border:1px solid var(--b4);border-radius:16px;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s;cursor:pointer}
-.mkt-card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.28);box-shadow:0 18px 40px rgba(0,0,0,.5)}
-.mkt-card-img{height:140px;background:linear-gradient(135deg,#1A1200,#0D0800);display:flex;align-items:center;justify-content:center;font-size:48px;position:relative;overflow:hidden}
-.mkt-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.6) 0%,transparent 60%)}
-.mkt-card-body{padding:20px}
-.mkt-card-tag{display:inline-block;padding:3px 9px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px}
+.mkt-view-toggle{display:flex;gap:8px;align-items:center;justify-content:center;margin-bottom:28px}
+.mkt-view-btn{padding:8px 18px;border:1.5px solid rgba(201,168,76,.3);border-radius:7px;background:none;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s}
+.mkt-view-btn.active{background:linear-gradient(135deg,var(--g),var(--gl));color:#000;border-color:var(--g)}
+.mkt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mkt-grid.list-view{grid-template-columns:1fr;gap:10px}
+.mkt-card{background:var(--b3);border:1px solid var(--b4);border-radius:12px;overflow:hidden;transition:all .3s,border-color .3s;cursor:pointer;display:flex;flex-direction:column}
+.mkt-card:hover{transform:translateY(-2px);border-color:rgba(201,168,76,.3);box-shadow:0 12px 28px rgba(201,168,76,.1)}
+/*──────────────────────────────────────
+  LIST VIEW — Clean tabular layout (Gold Loan / Gold Sell)
+──────────────────────────────────────*/
+.mkt-grid.list-view{
+  display:flex;flex-direction:column;gap:0;
+  border:1px solid rgba(201,168,76,.18);
+  border-radius:10px;overflow:hidden;
+  background:rgba(0,0,0,.25);
+}
+
+/* Table header — HTML element, only visible in list view */
+.mkt-table-header{display:none}
+.mkt-grid.list-view .mkt-table-header{
+  display:grid;
+  grid-template-columns:2.2fr 1.6fr 1fr 2.4fr 1.4fr 1fr;
+  background:linear-gradient(90deg,rgba(201,168,76,.22),rgba(201,168,76,.10));
+  border-bottom:2px solid rgba(201,168,76,.35);
+  font-size:10px;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--g);
+}
+.mkt-table-header > div{
+  padding:12px 14px;display:flex;align-items:center;
+  border-right:1px solid rgba(201,168,76,.18);
+}
+.mkt-table-header > div:last-child{border-right:none;justify-content:center}
+.mkt-table-header .th-rate,
+.mkt-table-header .th-rating{justify-content:center}
+
+/* Card rows */
+.mkt-grid.list-view .mkt-card{
+  background:transparent;border:none;
+  border-bottom:1px solid rgba(201,168,76,.08);
+  border-radius:0;padding:0;
+  display:grid;
+  grid-template-columns:2.2fr 1.6fr 1fr 2.4fr 1.4fr 1fr;
+  align-items:stretch;min-height:64px;
+}
+.mkt-grid.list-view .mkt-card:last-child{border-bottom:none}
+.mkt-grid.list-view .mkt-card:hover{
+  background:rgba(201,168,76,.04);transform:none;box-shadow:none;
+  border-color:rgba(201,168,76,.08);
+}
+.mkt-grid.list-view .mkt-card-img{display:none}
+.mkt-grid.list-view .mkt-card-body{display:contents}
+.mkt-grid.list-view .mkt-card-tag{display:none}
+.mkt-grid.list-view .mkt-card-rate-lbl{display:none}
+
+/* Column 1 — Provider */
+.mkt-grid.list-view .mkt-card-name{
+  grid-column:1;padding:12px 14px;margin:0;
+  font-size:13px;font-weight:700;color:#fff;
+  border-right:1px solid rgba(201,168,76,.08);
+  display:flex;align-items:center;
+}
+/* Column 2 — Location */
+.mkt-grid.list-view .mkt-card-loc{
+  grid-column:2;padding:12px 14px;margin:0;
+  font-size:11px;color:rgba(255,255,255,.6);
+  border-right:1px solid rgba(201,168,76,.08);
+  display:flex;align-items:center;
+}
+/* Column 3 — Rate */
+.mkt-grid.list-view .mkt-card-rate{
+  grid-column:3;padding:12px 14px;margin:0;
+  font-size:14px;font-weight:800;color:var(--g);
+  border-right:1px solid rgba(201,168,76,.08);
+  display:flex;align-items:center;justify-content:center;
+}
+/* Column 4 — Features */
+.mkt-grid.list-view .mkt-card-meta{
+  grid-column:4;padding:10px 14px;margin:0;
+  display:flex;flex-wrap:wrap;gap:5px;align-items:center;
+  border-right:1px solid rgba(201,168,76,.08);
+}
+.mkt-grid.list-view .meta-chip{
+  font-size:9px;padding:3px 7px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:4px;color:rgba(255,255,255,.65);
+  white-space:nowrap;
+}
+/* Footer breaks into Columns 5 (Rating) + 6 (Action) */
+.mkt-grid.list-view .mkt-card-footer{display:contents}
+.mkt-grid.list-view .mkt-card-footer > div{
+  grid-column:5;padding:8px 14px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  border-right:1px solid rgba(201,168,76,.08);
+}
+.mkt-grid.list-view .mkt-card-footer .stars{font-size:11px;letter-spacing:1px}
+.mkt-grid.list-view .mkt-card-footer .trust-badge{
+  font-size:9px;color:rgba(255,255,255,.55);font-weight:500;
+}
+.mkt-grid.list-view .view-btn{
+  grid-column:6;align-self:center;justify-self:center;
+  padding:7px 14px;font-size:11px;font-weight:700;
+  background:linear-gradient(135deg,var(--g),var(--gl));
+  color:#000;border:none;border-radius:6px;
+  white-space:nowrap;transition:box-shadow .2s;
+}
+.mkt-grid.list-view .view-btn:hover{box-shadow:0 4px 12px rgba(201,168,76,.35)}
+.mkt-card-img{height:80px;width:80px;background:linear-gradient(135deg,#1A1200,#0D0800);display:flex;align-items:center;justify-content:center;font-size:36px;position:relative;overflow:hidden;border-radius:10px;flex-shrink:0}
+.mkt-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.4) 0%,transparent 60%)}
+.mkt-card-body{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.mkt-card-tag{display:inline-block;padding:3px 8px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;width:fit-content}
 .tag-loan{background:rgba(201,168,76,.13);color:var(--g)}
 .tag-sell{background:rgba(34,197,94,.13);color:#22c55e}
 .tag-exchange{background:rgba(59,130,246,.13);color:#60a5fa}
 .tag-featured{background:rgba(168,85,247,.13);color:#c084fc}
-.mkt-card-name{font-size:16px;font-weight:700;margin-bottom:6px}
-.mkt-card-loc{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:12px;display:flex;align-items:center;gap:5px}
-.mkt-card-rate{font-size:22px;font-weight:800;color:var(--g);letter-spacing:-.02em;margin-bottom:4px}
-.mkt-card-rate-lbl{font-size:11px;color:rgba(255,255,255,.45)}
-.mkt-card-meta{display:flex;align-items:center;gap:12px;margin:12px 0;flex-wrap:wrap}
-.meta-chip{display:flex;align-items:center;gap:5px;font-size:11.5px;color:rgba(255,255,255,.55);background:rgba(255,255,255,.05);padding:4px 10px;border-radius:6px}
-.mkt-card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid rgba(255,255,255,.06)}
-.trust-badge{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--g);font-weight:600}
-.stars{color:var(--g);font-size:12px;letter-spacing:1px}
-.view-btn{font-size:12px;font-weight:700;color:var(--g);background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);padding:6px 14px;border-radius:7px;transition:all .2s}
+.mkt-card-name{font-size:14px;font-weight:700;margin:0;line-height:1.2}
+.mkt-card-loc{font-size:11px;color:rgba(255,255,255,.45);margin:4px 0;display:flex;align-items:center;gap:4px}
+.mkt-card-rate{font-size:18px;font-weight:800;color:var(--g);letter-spacing:-.02em;line-height:1;margin:6px 0 2px}
+.mkt-card-rate-lbl{font-size:10px;color:rgba(255,255,255,.4);margin-bottom:6px}
+.mkt-card-meta{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+.meta-chip{display:flex;align-items:center;gap:4px;font-size:10px;color:rgba(255,255,255,.55);background:rgba(255,255,255,.04);padding:3px 8px;border-radius:5px;white-space:nowrap}
+.mkt-card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.05);margin-top:8px}
+.trust-badge{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--g);font-weight:600}
+.stars{color:var(--g);font-size:11px;letter-spacing:.5px}
+.view-btn{font-size:11px;font-weight:700;color:var(--g);background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);padding:5px 12px;border-radius:6px;transition:all .2s;white-space:nowrap}
 .view-btn:hover{background:rgba(201,168,76,.18)}
 .mkt-section-cta{text-align:center;margin-top:36px}
 
@@ -190,8 +294,86 @@ img{display:block;max-width:100%}
 .vendor-tabs{display:flex;gap:4px;background:var(--b3);border:1px solid var(--b4);border-radius:50px;padding:4px;width:fit-content;margin:0 auto 44px;flex-wrap:wrap;justify-content:center}
 .v-tab{padding:9px 22px;border-radius:50px;font-size:13px;font-weight:600;color:rgba(255,255,255,.42);transition:all .25s;cursor:pointer}
 .v-tab.on{background:linear-gradient(135deg,var(--g),var(--gl));color:#000}
+.vendor-view-toggle{display:flex;gap:8px;align-items:center;justify-content:center;margin-bottom:28px}
+.vendor-view-btn{padding:8px 16px;border:1.5px solid rgba(201,168,76,.3);border-radius:8px;background:none;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s}
+.vendor-view-btn.active{background:linear-gradient(135deg,var(--g),var(--gl));color:#000;border-color:var(--g)}
 .vendor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .vendor-card{background:var(--b3);border:1px solid var(--b4);border-radius:14px;padding:22px 18px;text-align:center;transition:all .3s;cursor:pointer}
+
+/* Vendor list view — clean tabular layout */
+.vendor-grid.list-view{
+  display:flex;flex-direction:column;gap:0;
+  grid-template-columns:none;
+  border:1px solid rgba(201,168,76,.18);
+  border-radius:10px;overflow:hidden;
+  background:rgba(0,0,0,.25);
+}
+.vendor-table-header{display:none}
+.vendor-grid.list-view .vendor-table-header{
+  display:grid;
+  grid-template-columns:70px 2.2fr 1.8fr 1.4fr 1.5fr 1fr;
+  background:linear-gradient(90deg,rgba(201,168,76,.22),rgba(201,168,76,.10));
+  border-bottom:2px solid rgba(201,168,76,.35);
+  font-size:10px;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--g);
+}
+.vendor-grid.list-view .vendor-table-header > div{
+  padding:12px 14px;display:flex;align-items:center;
+  border-right:1px solid rgba(201,168,76,.18);
+}
+.vendor-grid.list-view .vendor-table-header > div:first-child,
+.vendor-grid.list-view .vendor-table-header > div:last-child{justify-content:center}
+.vendor-grid.list-view .vendor-table-header > div:last-child{border-right:none}
+.vendor-grid.list-view .vendor-table-header .th-vrating,
+.vendor-grid.list-view .vendor-table-header .th-vbadge{justify-content:center}
+
+.vendor-grid.list-view .vendor-card{
+  background:transparent;border:none;
+  border-bottom:1px solid rgba(201,168,76,.08);
+  border-radius:0;padding:0;text-align:left;
+  display:grid;
+  grid-template-columns:70px 2.2fr 1.8fr 1.4fr 1.5fr 1fr;
+  align-items:stretch;min-height:68px;gap:0;
+}
+.vendor-grid.list-view .vendor-card:last-child{border-bottom:none}
+.vendor-grid.list-view .vendor-card:hover{
+  background:rgba(201,168,76,.04);transform:none;box-shadow:none;
+  border-color:rgba(201,168,76,.08);
+}
+.vendor-grid.list-view .vendor-logo{
+  grid-column:1;width:42px;height:42px;
+  margin:13px auto;font-size:18px;
+}
+.vendor-grid.list-view .vendor-name{
+  grid-column:2;padding:14px;margin:0;
+  font-size:13px;font-weight:700;
+  border-right:1px solid rgba(201,168,76,.08);
+  display:flex;align-items:center;
+}
+.vendor-grid.list-view .vendor-loc{
+  grid-column:3;padding:14px;margin:0;
+  font-size:11px;color:rgba(255,255,255,.6);
+  border-right:1px solid rgba(201,168,76,.08);
+  display:flex;align-items:center;justify-content:flex-start;
+}
+.vendor-grid.list-view .vendor-rating{
+  grid-column:4;padding:14px;margin:0;
+  border-right:1px solid rgba(201,168,76,.08);
+  display:flex;align-items:center;justify-content:center;gap:5px;
+}
+.vendor-grid.list-view .v-badge{
+  grid-column:5;margin:auto 14px;
+  align-self:center;justify-self:center;
+}
+.vendor-grid.list-view .v-profile-btn{
+  grid-column:6;width:auto;
+  margin:auto 14px;padding:7px 14px;
+  font-size:11px;font-weight:700;
+  background:linear-gradient(135deg,var(--g),var(--gl));
+  color:#000;border:none;border-radius:6px;
+  align-self:center;justify-self:center;white-space:nowrap;
+}
+.vendor-grid.list-view .v-profile-btn:hover{box-shadow:0 4px 12px rgba(201,168,76,.35)}
 .vendor-card:hover{border-color:rgba(201,168,76,.3);transform:translateY(-3px);box-shadow:0 14px 36px rgba(0,0,0,.45)}
 .vendor-logo{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.06));display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 12px;border:2px solid rgba(201,168,76,.2)}
 .vendor-name{font-size:14px;font-weight:700;margin-bottom:4px}
@@ -314,6 +496,18 @@ img{display:block;max-width:100%}
 .testi-role{font-size:11px;color:rgba(255,255,255,.38)}
 
 /*──────────────────────────────────────
+  COMING SOON FEATURES
+──────────────────────────────────────*/
+.coming-soon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.coming-soon-card{background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(201,168,76,.02));border:1px solid rgba(201,168,76,.15);border-radius:16px;padding:28px 24px;text-align:center;transition:all .3s;position:relative}
+.coming-soon-card:hover{border-color:rgba(201,168,76,.35);transform:translateY(-3px);box-shadow:0 12px 32px rgba(201,168,76,.12)}
+.coming-soon-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.3),transparent)}
+.cs-icon{font-size:42px;margin-bottom:14px}
+.cs-title{font-size:16px;font-weight:700;margin-bottom:8px;color:#fff}
+.cs-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:14px}
+.cs-badge{display:inline-block;padding:4px 12px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);border-radius:6px;font-size:10px;font-weight:700;color:var(--g);letter-spacing:.05em;text-transform:uppercase}
+
+/*──────────────────────────────────────
   S13 — METRICS
 ──────────────────────────────────────*/
 .metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--b4);border-radius:16px;overflow:hidden}
@@ -404,9 +598,25 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
   .vendor-grid{grid-template-columns:1fr 1fr}.foot-grid{grid-template-columns:1fr 1fr}
   .f-2col{grid-template-columns:1fr}
 }
+@media(max-width:1100px){
+  .mkt-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+}
+@media(max-width:1024px){
+  .mkt-grid{grid-template-columns:repeat(2,1fr)}
+  .coming-soon-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .mkt-grid{grid-template-columns:1fr;gap:10px}
+  .coming-soon-grid{grid-template-columns:1fr}
+  .mkt-grid.list-view{gap:8px}
+  .vendor-grid.list-view{gap:8px}
+}
 @media(max-width:480px){
+  .mkt-grid{grid-template-columns:1fr;gap:10px}
   .vendor-grid{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr}
   .hero-quick{gap:7px}.q-chip{font-size:12px;padding:8px 14px}
+  .coming-soon-grid{grid-template-columns:1fr}
+  .mkt-card-img{height:70px;width:70px;font-size:32px}
 }
 </style>
 </head>
@@ -414,23 +624,23 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
 <!-- ═══════════════════ NAV ═══════════════════ -->
 <nav id="nav">
-  <a href="/" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
+  <a href="#hero" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
 
   <div class="nav-center">
-    <a href="/" class="active">Home</a>
-    <a href="/gold-loan">Gold Loan</a>
-    <a href="/gold-sell">Gold Sell</a>
-    <a href="/vendors">Vendors</a>
-    <a href="/gold-calculator">Gold Calculator</a>
-    <a href="/gold-news">Gold News</a>
-    <a href="/about-us">About Us</a>
-    <a href="/contact-us">Contact Us</a>
+    <a href="#hero" class="active">Home</a>
+    <a href="#gold-loan">Gold Loan</a>
+    <a href="#gold-sell">Gold Sell</a>
+    <a href="#vendors">Vendors</a>
+    <a href="#gold-calculator">Gold Calculator</a>
+    <a href="#gold-news">Gold News</a>
+    <a href="#why">About Us</a>
+    <a href="#contact-us">Contact Us</a>
   </div>
 
   <div class="nav-right">
-    <a href="/vendor-login" class="nav-login">Login</a>
-    <a href="/vendor-onboarding" class="nav-vendor">Vendor Onboarding</a>
-    <a href="/gold-loan" class="nav-cta">Get Started</a>
+    <a href="#" onclick="openLogin(event)" class="nav-login">Login</a>
+    <a href="vendor-onboarding-complete.html" class="nav-vendor">Vendor Onboarding</a>
+    <a href="#gold-loan" class="nav-cta">Get Started</a>
   </div>
 
   <button class="hamburger" onclick="mobToggle()" aria-label="Menu">
@@ -438,13 +648,13 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
   </button>
 </nav>
 <div id="mob-nav">
-  <a href="/">Home</a><a href="/gold-loan">Gold Loan</a><a href="/gold-sell">Gold Sell</a>
-  <a href="/vendors">Vendors</a><a href="/gold-calculator">Gold Calculator</a>
-  <a href="/gold-news">Gold News</a><a href="/about-us">About Us</a>
-  <a href="/contact-us">Contact Us</a>
-  <a href="/vendor-login" style="color:var(--g)">Login</a>
-  <a href="/vendor-onboarding" style="color:var(--g)">Vendor Onboarding</a>
-  <a href="/gold-loan" style="background:linear-gradient(135deg,var(--g),var(--gl));color:#000;border-radius:9px;padding:12px 20px;font-weight:700;text-align:center;margin-top:4px">Get Started</a>
+  <a href="#hero">Home</a><a href="#gold-loan">Gold Loan</a><a href="#gold-sell">Gold Sell</a>
+  <a href="#vendors">Vendors</a><a href="#gold-calculator">Gold Calculator</a>
+  <a href="#gold-news">Gold News</a><a href="#why">About Us</a>
+  <a href="#contact-us">Contact Us</a>
+  <a href="#" onclick="openLogin(event)" style="color:var(--g)">Login</a>
+  <a href="vendor-onboarding-complete.html" style="color:var(--g)">Vendor Onboarding</a>
+  <a href="#gold-loan" style="background:linear-gradient(135deg,var(--g),var(--gl));color:#000;border-radius:9px;padding:12px 20px;font-weight:700;text-align:center;margin-top:4px">Get Started</a>
 </div>
 
 
@@ -456,6 +666,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
     <div class="hero-scene" data-label="Marketplace Intelligence"><img src="images/hero-3.png" alt="Marketplace Intelligence"/></div>
     <div class="hero-scene" data-label="GoldBazaar Reveal"><img src="images/hero-4.png" alt="GoldBazaar Reveal"/></div>
     <div class="hero-scene" data-label="Gold Intelligence"><img src="images/hero-5.png" alt="Gold Intelligence"/></div>
+    <div class="hero-scene" data-label="Premium Services"><img src="images/hero-6.png" alt="Premium Services"/></div>
     <div class="hero-overlay"></div>
   </div>
   <div class="hero-dots" id="heroDots">
@@ -464,6 +675,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
     <button class="h-dot" onclick="goScene(2)"></button>
     <button class="h-dot" onclick="goScene(3)"></button>
     <button class="h-dot" onclick="goScene(4)"></button>
+    <button class="h-dot" onclick="goScene(5)"></button>
   </div>
   <div class="hero-label" id="heroLabel">Bharat Gold Network</div>
 </section>
@@ -477,22 +689,22 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
   <!-- Search -->
   <div class="hero-search">
     <span class="hero-search-icon">📍</span>
-    <input type="text" placeholder="Search by city, area or pincode…"/>
-    <button class="hero-search-btn">Search</button>
+    <input type="text" id="hero-search-input" placeholder="Search by city, area or pincode…" onkeydown="if(event.key==='Enter')doSearch()"/>
+    <button class="hero-search-btn" onclick="doSearch()">Search</button>
   </div>
 
   <!-- Quick service chips -->
   <div class="hero-quick">
-    <a href="/gold-loan" class="q-chip">🏦 Get Gold Loan</a>
-    <a href="/gold-sell" class="q-chip">💰 Sell Gold</a>
-    <a href="/vendors?service=exchange" class="q-chip">🔄 Exchange Gold</a>
-    <a href="/vendors?service=jewellery" class="q-chip">💎 Buy Jewellery</a>
-    <a href="/gold-calculator" class="q-chip">🧮 Gold Calculator</a>
+    <a href="#gold-loan" class="q-chip">🏦 Get Gold Loan</a>
+    <a href="#gold-sell" class="q-chip">💰 Sell Gold</a>
+    <a href="#vendors" class="q-chip">🔄 Exchange Gold</a>
+    <a href="#vendors" class="q-chip">💎 Buy Jewellery</a>
+    <a href="#gold-calculator" class="q-chip">🧮 Gold Calculator</a>
   </div>
 
   <div class="hero-btns">
-    <a href="/gold-loan" class="btn-gold">Explore Gold Loan →</a>
-    <a href="/gold-sell" class="btn-ghost">Explore Gold Sell</a>
+    <a href="#gold-loan" class="btn-gold">Explore Gold Loan →</a>
+    <a href="#gold-sell" class="btn-ghost">Explore Gold Sell</a>
   </div>
 
   <div class="hero-trust">
@@ -562,8 +774,20 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
       <h2 class="sec-title">Compare Gold Loans.<br/><span class="gold">Save More, Borrow Smart.</span></h2>
       <p class="sec-body">Compare interest rates, LTV ratios and loan amounts from verified NBFCs and banks before visiting any branch.</p>
     </div>
-    <div class="mkt-grid reveal">
-      <div class="mkt-card">
+    <div class="mkt-view-toggle">
+      <button class="mkt-view-btn active" onclick="toggleMktView(this, 'tiles')">Tiles</button>
+      <button class="mkt-view-btn" onclick="toggleMktView(this, 'list')">List</button>
+    </div>
+    <div class="mkt-grid reveal" id="gold-loan-grid">
+      <div class="mkt-table-header">
+        <div class="th-provider">Provider</div>
+        <div class="th-location">Location</div>
+        <div class="th-rate">Rate</div>
+        <div class="th-features">Features</div>
+        <div class="th-rating">Rating</div>
+        <div class="th-action">Action</div>
+      </div>
+      <div class="mkt-card" onclick="openDetail('loan','Muthoot Finance','📍 Multiple Branches · 2.1 km','8.5% p.a.','Interest Rate Starting From','RBI Licensed NBFC','★★★★★ (2,400+ reviews)','LTV 75%|30 min disbursal|₹1,000 – ₹50L|Doorstep available|Online application')">
         <div class="mkt-card-img">🏦</div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
@@ -578,11 +802,11 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
           </div>
           <div class="mkt-card-footer">
             <div><div class="stars">★★★★★</div><div class="trust-badge">✓ RBI Licensed</div></div>
-            <button class="view-btn">View Details</button>
+            <button class="view-btn" onclick="event.stopPropagation();openDetail('loan','Muthoot Finance','📍 Multiple Branches · 2.1 km','8.5% p.a.','Interest Rate Starting From','RBI Licensed NBFC','★★★★★ (2,400+ reviews)','LTV 75%|30 min disbursal|₹1,000 – ₹50L|Doorstep available|Online application')">View Details</button>
           </div>
         </div>
       </div>
-      <div class="mkt-card">
+      <div class="mkt-card" onclick="openDetail('loan','Manappuram Finance','📍 3 Branches Nearby · 3.4 km','9.0% p.a.','Interest Rate Starting From','RBI Licensed NBFC','★★★★☆ (1,800+ reviews)','LTV 80%|Same day disbursal|₹500 – ₹1 Cr|Branch visit|Free valuation')">
         <div class="mkt-card-img">🏛️</div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
@@ -597,11 +821,11 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
           </div>
           <div class="mkt-card-footer">
             <div><div class="stars">★★★★☆</div><div class="trust-badge">✓ RBI Licensed</div></div>
-            <button class="view-btn">View Details</button>
+            <button class="view-btn" onclick="event.stopPropagation();openDetail('loan','Manappuram Finance','📍 3 Branches Nearby · 3.4 km','9.0% p.a.','Interest Rate Starting From','RBI Licensed NBFC','★★★★☆ (1,800+ reviews)','LTV 80%|Same day disbursal|₹500 – ₹1 Cr|Branch visit|Free valuation')">View Details</button>
           </div>
         </div>
       </div>
-      <div class="mkt-card">
+      <div class="mkt-card" onclick="openDetail('loan','IIFL Finance','📍 1.8 km Away','7.8% p.a.','Interest Rate Starting From','RBI Licensed NBFC · Featured Partner','★★★★★ (3,100+ reviews)','LTV 75%|Doorstep service|Up to ₹50L|Online & offline|24x7 support')">
         <div class="mkt-card-img">🏦</div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-featured">Featured</div>
@@ -616,13 +840,13 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
           </div>
           <div class="mkt-card-footer">
             <div><div class="stars">★★★★★</div><div class="trust-badge">✓ RBI Licensed</div></div>
-            <button class="view-btn">View Details</button>
+            <button class="view-btn" onclick="event.stopPropagation();openDetail('loan','IIFL Finance','📍 1.8 km Away','7.8% p.a.','Interest Rate Starting From','RBI Licensed NBFC · Featured Partner','★★★★★ (3,100+ reviews)','LTV 75%|Doorstep service|Up to ₹50L|Online & offline|24x7 support')">View Details</button>
           </div>
         </div>
       </div>
     </div>
     <div class="mkt-section-cta reveal">
-      <a href="/gold-loan" class="btn-gold">View All Gold Loan Providers →</a>
+      <a href="#contact-us" class="btn-gold" onclick="toast('Loading more providers — connecting to our database...')">View All Gold Loan Providers →</a>
     </div>
   </div>
 </section>
@@ -636,8 +860,20 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
       <h2 class="sec-title">Get the Best Price<br/><span class="gold">for Your Gold.</span></h2>
       <p class="sec-body">Compare live buy rates from verified gold buyers and jewellers. MCX-linked transparent pricing with instant bank transfer.</p>
     </div>
-    <div class="mkt-grid reveal">
-      <div class="mkt-card">
+    <div class="mkt-view-toggle">
+      <button class="mkt-view-btn active" onclick="toggleMktView(this, 'tiles')">Tiles</button>
+      <button class="mkt-view-btn" onclick="toggleMktView(this, 'list')">List</button>
+    </div>
+    <div class="mkt-grid reveal" id="gold-sell-grid">
+      <div class="mkt-table-header">
+        <div class="th-provider">Buyer</div>
+        <div class="th-location">Location</div>
+        <div class="th-rate">Buy Rate</div>
+        <div class="th-features">Features</div>
+        <div class="th-rating">Rating</div>
+        <div class="th-action">Action</div>
+      </div>
+      <div class="mkt-card" onclick="openDetail('sell','Tanishq Gold Exchange','📍 Forum Mall · 1.2 km','₹6,840/g','22K Buy Rate Today','BIS Verified Hallmark Centre','★★★★★ (3,100+ reviews)','Instant payment|BIS Certified|Bank transfer or UPI|Live MCX rates|Free valuation')">
         <div class="mkt-card-img">💰</div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-sell">Best Rate</div>
@@ -651,11 +887,11 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
           </div>
           <div class="mkt-card-footer">
             <div><div class="stars">★★★★★</div><div class="trust-badge">✓ BIS Verified</div></div>
-            <button class="view-btn">Get Offer</button>
+            <button class="view-btn" onclick="event.stopPropagation();openDetail('sell','Tanishq Gold Exchange','📍 Forum Mall · 1.2 km','₹6,840/g','22K Buy Rate Today','BIS Verified Hallmark Centre','★★★★★ (3,100+ reviews)','Instant payment|BIS Certified|Bank transfer or UPI|Live MCX rates|Free valuation')">Get Offer</button>
           </div>
         </div>
       </div>
-      <div class="mkt-card">
+      <div class="mkt-card" onclick="openDetail('sell','Malabar Gold &amp; Diamonds','📍 City Centre · 2.8 km','₹6,820/g','22K Exchange Rate','BIS Verified Hallmark Centre','★★★★★ (2,600+ reviews)','Zero deduction|Exchange any old gold|New designs available|Free purity test|Bank transfer')">
         <div class="mkt-card-img">🔄</div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-exchange">Exchange</div>
@@ -669,11 +905,11 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
           </div>
           <div class="mkt-card-footer">
             <div><div class="stars">★★★★★</div><div class="trust-badge">✓ BIS Verified</div></div>
-            <button class="view-btn">Get Offer</button>
+            <button class="view-btn" onclick="event.stopPropagation();openDetail('sell','Malabar Gold &amp; Diamonds','📍 City Centre · 2.8 km','₹6,820/g','22K Exchange Rate','BIS Verified Hallmark Centre','★★★★★ (2,600+ reviews)','Zero deduction|Exchange any old gold|New designs available|Free purity test|Bank transfer')">Get Offer</button>
           </div>
         </div>
       </div>
-      <div class="mkt-card">
+      <div class="mkt-card" onclick="openDetail('sell','Joyalukkas Jewellers','📍 MG Road · 3.1 km','₹6,835/g','22K Buy Rate Today','BIS Verified Hallmark Centre','★★★★☆ (1,950+ reviews)','Bank transfer|Doorstep pickup|Transparent pricing|Free home valuation|Same-day payment')">
         <div class="mkt-card-img">⚖️</div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-sell">Top Buyer</div>
@@ -687,13 +923,13 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
           </div>
           <div class="mkt-card-footer">
             <div><div class="stars">★★★★☆</div><div class="trust-badge">✓ BIS Verified</div></div>
-            <button class="view-btn">Get Offer</button>
+            <button class="view-btn" onclick="event.stopPropagation();openDetail('sell','Joyalukkas Jewellers','📍 MG Road · 3.1 km','₹6,835/g','22K Buy Rate Today','BIS Verified Hallmark Centre','★★★★☆ (1,950+ reviews)','Bank transfer|Doorstep pickup|Transparent pricing|Free home valuation|Same-day payment')">Get Offer</button>
           </div>
         </div>
       </div>
     </div>
     <div class="mkt-section-cta reveal">
-      <a href="/gold-sell" class="btn-gold">View All Gold Buyers →</a>
+      <a href="#contact-us" class="btn-gold" onclick="toast('Loading more buyers — connecting to our database...')">View All Gold Buyers →</a>
     </div>
   </div>
 </section>
@@ -712,13 +948,25 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
       <div class="v-tab" onclick="vendorTab('popular',this)">Popular</div>
       <div class="v-tab" onclick="vendorTab('new',this)">New</div>
     </div>
-    <div class="vendor-grid reveal" id="vendor-grid">
-      <div class="vendor-card"><div class="vendor-logo">🏆</div><div class="vendor-name">Muthoot Finance</div><div class="vendor-loc">📍 Chennai · 2.1 km</div><div class="vendor-rating"><span class="stars">★★★★★</span><span style="font-size:12px;color:rgba(255,255,255,.5)">(2.4k)</span></div><div class="v-badge">✓ RBI Licensed</div><button class="v-profile-btn">View Profile</button></div>
-      <div class="vendor-card"><div class="vendor-logo">💎</div><div class="vendor-name">Tanishq</div><div class="vendor-loc">📍 Bengaluru · 1.8 km</div><div class="vendor-rating"><span class="stars">★★★★★</span><span style="font-size:12px;color:rgba(255,255,255,.5)">(3.1k)</span></div><div class="v-badge">✓ BIS Hallmarked</div><button class="v-profile-btn">View Profile</button></div>
-      <div class="vendor-card"><div class="vendor-logo">🏛️</div><div class="vendor-name">Kalyan Jewellers</div><div class="vendor-loc">📍 Mumbai · 3.2 km</div><div class="vendor-rating"><span class="stars">★★★★☆</span><span style="font-size:12px;color:rgba(255,255,255,.5)">(1.8k)</span></div><div class="v-badge">✓ BIS Hallmarked</div><button class="v-profile-btn">View Profile</button></div>
-      <div class="vendor-card"><div class="vendor-logo">🌟</div><div class="vendor-name">Manappuram Gold</div><div class="vendor-loc">📍 Kochi · 0.9 km</div><div class="vendor-rating"><span class="stars">★★★★★</span><span style="font-size:12px;color:rgba(255,255,255,.5)">(2.8k)</span></div><div class="v-badge">✓ RBI Licensed</div><button class="v-profile-btn">View Profile</button></div>
+    <div class="vendor-view-toggle">
+      <button class="vendor-view-btn active" onclick="toggleVendorView(this, 'tiles')">Tiles</button>
+      <button class="vendor-view-btn" onclick="toggleVendorView(this, 'list')">List</button>
     </div>
-    <div class="mkt-section-cta reveal"><a href="/vendors" class="btn-gold">View All Vendors →</a></div>
+    <div class="vendor-grid reveal" id="vendor-grid">
+      <div class="vendor-table-header">
+        <div></div>
+        <div class="th-vname">Vendor</div>
+        <div class="th-vloc">Location</div>
+        <div class="th-vrating">Rating</div>
+        <div class="th-vbadge">Certification</div>
+        <div class="th-vaction">Action</div>
+      </div>
+      <div class="vendor-card" onclick="openDetail('vendor','Muthoot Finance','📍 Chennai · 2.1 km','—','Gold Loan NBFC','RBI Licensed NBFC','★★★★★ (2,400+ reviews)','Gold Loan|Online application|Doorstep service|Pan-India presence|24x7 support')"><div class="vendor-logo">🏆</div><div class="vendor-name">Muthoot Finance</div><div class="vendor-loc">📍 Chennai · 2.1 km</div><div class="vendor-rating"><span class="stars">★★★★★</span><span style="font-size:12px;color:rgba(255,255,255,.5)">(2.4k)</span></div><div class="v-badge">✓ RBI Licensed</div><button class="v-profile-btn" onclick="event.stopPropagation();openDetail('vendor','Muthoot Finance','📍 Chennai · 2.1 km','—','Gold Loan NBFC','RBI Licensed NBFC','★★★★★ (2,400+ reviews)','Gold Loan|Online application|Doorstep service|Pan-India presence|24x7 support')">View Profile</button></div>
+      <div class="vendor-card" onclick="openDetail('vendor','Tanishq','📍 Bengaluru · 1.8 km','—','Jewellery & Exchange','BIS Hallmark Centre','★★★★★ (3,100+ reviews)','Jewellery|Gold exchange|BIS Hallmarked|Gold scheme|Zero making charges')"><div class="vendor-logo">💎</div><div class="vendor-name">Tanishq</div><div class="vendor-loc">📍 Bengaluru · 1.8 km</div><div class="vendor-rating"><span class="stars">★★★★★</span><span style="font-size:12px;color:rgba(255,255,255,.5)">(3.1k)</span></div><div class="v-badge">✓ BIS Hallmarked</div><button class="v-profile-btn" onclick="event.stopPropagation();openDetail('vendor','Tanishq','📍 Bengaluru · 1.8 km','—','Jewellery & Exchange','BIS Hallmark Centre','★★★★★ (3,100+ reviews)','Jewellery|Gold exchange|BIS Hallmarked|Gold scheme|Zero making charges')">View Profile</button></div>
+      <div class="vendor-card" onclick="openDetail('vendor','Kalyan Jewellers','📍 Mumbai · 3.2 km','—','Jewellery Retail Chain','BIS Hallmark Centre','★★★★☆ (1,800+ reviews)','Jewellery|Gold exchange|BIS Hallmarked|Festival offers|Free home delivery')"><div class="vendor-logo">🏛️</div><div class="vendor-name">Kalyan Jewellers</div><div class="vendor-loc">📍 Mumbai · 3.2 km</div><div class="vendor-rating"><span class="stars">★★★★☆</span><span style="font-size:12px;color:rgba(255,255,255,.5)">(1.8k)</span></div><div class="v-badge">✓ BIS Hallmarked</div><button class="v-profile-btn" onclick="event.stopPropagation();openDetail('vendor','Kalyan Jewellers','📍 Mumbai · 3.2 km','—','Jewellery Retail Chain','BIS Hallmark Centre','★★★★☆ (1,800+ reviews)','Jewellery|Gold exchange|BIS Hallmarked|Festival offers|Free home delivery')">View Profile</button></div>
+      <div class="vendor-card" onclick="openDetail('vendor','Manappuram Gold','📍 Kochi · 0.9 km','—','Gold Loan NBFC','RBI Licensed NBFC','★★★★★ (2,800+ reviews)','Gold Loan|Same-day disbursal|Up to 80% LTV|Online repayment|Branch service')"><div class="vendor-logo">🌟</div><div class="vendor-name">Manappuram Gold</div><div class="vendor-loc">📍 Kochi · 0.9 km</div><div class="vendor-rating"><span class="stars">★★★★★</span><span style="font-size:12px;color:rgba(255,255,255,.5)">(2.8k)</span></div><div class="v-badge">✓ RBI Licensed</div><button class="v-profile-btn" onclick="event.stopPropagation();openDetail('vendor','Manappuram Gold','📍 Kochi · 0.9 km','—','Gold Loan NBFC','RBI Licensed NBFC','★★★★★ (2,800+ reviews)','Gold Loan|Same-day disbursal|Up to 80% LTV|Online repayment|Branch service')">View Profile</button></div>
+    </div>
+    <div class="mkt-section-cta reveal"><a href="#contact-us" class="btn-gold" onclick="toast('Loading more verified vendors...')">View All Vendors →</a></div>
   </div>
 </section>
 
@@ -800,8 +1048,8 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
           <div class="vb-item"><div class="vb-item-icon">📢</div><div><div class="vb-item-title">Advertisement Opportunities</div><div class="vb-item-desc">Promote your schemes, offers and banners to targeted customers via GoldBazaar's ad platform</div></div></div>
         </div>
         <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <a href="/vendor-onboarding" class="btn-gold">Become a Partner →</a>
-          <a href="/contact-us" class="btn-outline">Contact Sales</a>
+          <a href="#" onclick="openOnboarding(event)" class="btn-gold">Become a Partner →</a>
+          <a href="#contact-us" class="btn-outline">Contact Sales</a>
         </div>
       </div>
       <div class="vb-visual reveal d2">
@@ -827,6 +1075,56 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 </section>
 
 
+<!-- ═══════════════════ COMING SOON FEATURES ═══════════════════ -->
+<section class="section alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">What's Coming Next</span>
+      <h2 class="sec-title"><span class="gold">More Gold-Related</span><br/>Features Are Coming Soon</h2>
+      <p class="sec-body">We're continuously expanding GoldBazaar to bring you more gold investment, savings, and financial planning tools.</p>
+    </div>
+    <div class="coming-soon-grid reveal">
+      <div class="coming-soon-card">
+        <div class="cs-icon">💰</div>
+        <div class="cs-title">Gold Savings Schemes</div>
+        <div class="cs-desc">Flexible monthly savings plans with guaranteed gold accumulation and secure storage</div>
+        <div class="cs-badge">Coming Q3 2024</div>
+      </div>
+      <div class="coming-soon-card">
+        <div class="cs-icon">📊</div>
+        <div class="cs-title">Digital Gold Trading</div>
+        <div class="cs-desc">Buy and sell digital gold instantly with zero-markup pricing and real-time tracking</div>
+        <div class="cs-badge">Coming Q3 2024</div>
+      </div>
+      <div class="coming-soon-card">
+        <div class="cs-icon">🛡️</div>
+        <div class="cs-title">Gold Insurance</div>
+        <div class="cs-desc">Complete coverage for your gold investments with competitive premiums and quick claims</div>
+        <div class="cs-badge">Coming Q4 2024</div>
+      </div>
+      <div class="coming-soon-card">
+        <div class="cs-icon">💳</div>
+        <div class="cs-title">Gold Debit Cards</div>
+        <div class="cs-desc">Spend your gold instantly with AI-powered cards that work globally at any merchant</div>
+        <div class="cs-badge">Coming Q4 2024</div>
+      </div>
+      <div class="coming-soon-card">
+        <div class="cs-icon">📱</div>
+        <div class="cs-title">Portfolio Tracker</div>
+        <div class="cs-desc">Real-time tracking of all your gold holdings, investments, and performance analytics</div>
+        <div class="cs-badge">Coming Q2 2024</div>
+      </div>
+      <div class="coming-soon-card">
+        <div class="cs-icon">🎓</div>
+        <div class="cs-title">Gold Education Hub</div>
+        <div class="cs-desc">Learn gold investing, market trends, and financial planning from expert educators</div>
+        <div class="cs-badge">Coming Q2 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- ═══════════════════ S9 VENDOR AD ZONE ═══════════════════ -->
 <section class="section">
   <div class="wrap-wide">
@@ -839,7 +1137,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
         <div class="ad-zone-label">Featured Campaign</div>
         <h3 class="ad-zone-title">Muthoot Finance<br/>Gold Loan Festival Offer</h3>
         <p class="ad-zone-desc">Special interest rate of 7.5% p.a. for new customers. Instant approval, doorstep service available across 500+ cities.</p>
-        <a href="/vendors/muthoot" class="btn-gold" style="width:fit-content">Know More →</a>
+        <a href="#" onclick="event.preventDefault();openDetail('loan','Muthoot Finance Festival Offer','📍 Available across 500+ cities','7.5% p.a.','Special festival rate · New customers','Instant approval · Doorstep service','★★★★★ (2,400+ reviews)','Special 7.5% rate|Doorstep service|Instant approval|Festival offer|500+ cities')" class="btn-gold" style="width:fit-content">Know More →</a>
       </div>
       <div class="ad-zone-side">
         <div>
@@ -847,7 +1145,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
           <div class="ad-zone-side-title">Tanishq Gold Scheme</div>
           <div class="ad-zone-side-desc">11-month plan, get 12th instalment FREE. Start from ₹2,000/month.</div>
         </div>
-        <a href="/vendors/tanishq" class="btn-outline" style="text-align:center;border-radius:8px;padding:9px">Join Scheme</a>
+        <a href="#" onclick="event.preventDefault();openDetail('vendor','Tanishq Gold Savings Scheme','11-month plan','₹2,000/mo','Minimum monthly instalment','BIS Hallmark Centre','★★★★★ Scheme rated','Pay 11 months|Get 12th free|Convert to jewellery|Lock-in gold rate|Auto-debit available')" class="btn-outline" style="text-align:center;border-radius:8px;padding:9px">Join Scheme</a>
       </div>
       <div class="ad-zone-side">
         <div>
@@ -855,7 +1153,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
           <div class="ad-zone-side-title">Malabar Exchange Offer</div>
           <div class="ad-zone-side-desc">Exchange your old gold for new jewellery at 100% value. Zero melting charges.</div>
         </div>
-        <a href="/vendors/malabar" class="btn-outline" style="text-align:center;border-radius:8px;padding:9px">Exchange Now</a>
+        <a href="#" onclick="event.preventDefault();openDetail('sell','Malabar Exchange Offer','100% old gold value','Zero melting','Exchange charges','BIS Verified Hallmark Centre','★★★★★ (2,600+ reviews)','100% gold value|Zero melting charges|New designs|Free purity test|Pan-India offer')" class="btn-outline" style="text-align:center;border-radius:8px;padding:9px">Exchange Now</a>
       </div>
     </div>
   </div>
@@ -892,7 +1190,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
         <div><div class="calc-result-lbl">Estimated Market Value</div><div style="font-size:12px;color:rgba(255,255,255,.35);margin-top:3px">Based on live MCX rates</div></div>
         <div class="calc-result-val" id="result-val">—</div>
       </div>
-      <div style="text-align:center;margin-top:20px"><a href="/gold-sell" class="btn-gold">Find Best Gold Buyers →</a></div>
+      <div style="text-align:center;margin-top:20px"><a href="#gold-sell" class="btn-gold">Find Best Gold Buyers →</a></div>
     </div>
 
     <div id="calc-loan" class="calc-panel">
@@ -910,7 +1208,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
         <div><div class="calc-result-lbl">Max Loan Amount (75% LTV)</div><div style="font-size:12px;color:rgba(255,255,255,.35);margin-top:3px">Standard RBI guideline</div></div>
         <div class="calc-result-val" id="result-loan">—</div>
       </div>
-      <div style="text-align:center;margin-top:20px"><a href="/gold-loan" class="btn-gold">Compare Gold Loan Rates →</a></div>
+      <div style="text-align:center;margin-top:20px"><a href="#gold-loan" class="btn-gold">Compare Gold Loan Rates →</a></div>
     </div>
 
     <div id="calc-exchange" class="calc-panel">
@@ -926,7 +1224,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
         <div><div class="calc-result-lbl">Exchange Credit Value</div><div style="font-size:12px;color:rgba(255,255,255,.35);margin-top:3px">Redeemable toward new jewellery</div></div>
         <div class="calc-result-val" id="result-exch">—</div>
       </div>
-      <div style="text-align:center;margin-top:20px"><a href="/vendors?service=exchange" class="btn-gold">Find Exchange Partners →</a></div>
+      <div style="text-align:center;margin-top:20px"><a href="#vendors" class="btn-gold">Find Exchange Partners →</a></div>
     </div>
   </div>
 </section>
@@ -956,7 +1254,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
         <div class="news-item"><div class="news-item-icon">🌍</div><div><div class="news-item-title">India Remains World's 2nd Largest Gold Consumer in 2025</div><div class="news-item-meta">Industry · May 31, 2025</div></div></div>
       </div>
     </div>
-    <div class="mkt-section-cta reveal"><a href="/gold-news" class="btn-gold">View All News →</a></div>
+    <div class="mkt-section-cta reveal"><a href="#" onclick="event.preventDefault();toast('Loading more news articles...')" class="btn-gold">View All News →</a></div>
   </div>
 </section>
 
@@ -1021,8 +1319,8 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
     <div class="ob-chip"><span>🛡️</span>Trust Badge</div>
   </div>
   <div class="onboard-btns">
-    <a href="/vendor-onboarding" class="btn-gold">Start Onboarding →</a>
-    <a href="/contact-us" class="btn-outline">Contact Sales</a>
+    <a href="#" onclick="openOnboarding(event)" class="btn-gold">Start Onboarding →</a>
+    <a href="#contact-us" class="btn-outline">Contact Sales</a>
   </div>
 </div>
 
@@ -1036,33 +1334,33 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
         <h2 class="contact-info-title">We're Here<br/><span class="gold">to Help You</span></h2>
         <p class="contact-info-desc">Whether you're a customer seeking gold services or a business ready to grow — reach out and our team will respond within 4 business hours.</p>
         <div class="contact-rows">
-          <div class="ci-row"><span class="ci-row-icon">✉️</span><span class="ci-row-text">hello@goldbazaar.in</span></div>
-          <div class="ci-row"><span class="ci-row-icon">📞</span><span class="ci-row-text">+91 98765 43210</span></div>
-          <div class="ci-row"><span class="ci-row-icon">🌐</span><span class="ci-row-text">www.goldbazaar.in</span></div>
+          <a class="ci-row" href="mailto:hello@goldbazaar.in"><span class="ci-row-icon">✉️</span><span class="ci-row-text">hello@goldbazaar.in</span></a>
+          <a class="ci-row" href="tel:+919876543210"><span class="ci-row-icon">📞</span><span class="ci-row-text">+91 98765 43210</span></a>
+          <a class="ci-row" href="https://www.goldbazaar.in" target="_blank" rel="noopener"><span class="ci-row-icon">🌐</span><span class="ci-row-text">www.goldbazaar.in</span></a>
           <div class="ci-row"><span class="ci-row-icon">📍</span><span class="ci-row-text">GoldBazaar HQ, Chennai, Tamil Nadu, India</span></div>
           <div class="ci-row"><span class="ci-row-icon">🕐</span><span class="ci-row-text">Mon–Sat, 9:00 AM – 7:00 PM IST</span></div>
         </div>
         <div class="socials-row">
-          <a href="#" class="soc-btn" title="LinkedIn">in</a>
-          <a href="#" class="soc-btn" title="Facebook">f</a>
-          <a href="#" class="soc-btn" title="Instagram">📷</a>
-          <a href="#" class="soc-btn" title="X / Twitter">𝕏</a>
-          <a href="#" class="soc-btn" title="YouTube">▶</a>
+          <a href="https://www.linkedin.com/company/goldbazaar" target="_blank" rel="noopener" class="soc-btn" title="LinkedIn">in</a>
+          <a href="https://www.facebook.com/goldbazaar" target="_blank" rel="noopener" class="soc-btn" title="Facebook">f</a>
+          <a href="https://www.instagram.com/goldbazaar" target="_blank" rel="noopener" class="soc-btn" title="Instagram">📷</a>
+          <a href="https://twitter.com/goldbazaar" target="_blank" rel="noopener" class="soc-btn" title="X / Twitter">𝕏</a>
+          <a href="https://www.youtube.com/@goldbazaar" target="_blank" rel="noopener" class="soc-btn" title="YouTube">▶</a>
         </div>
       </div>
-      <div class="c-form reveal d2">
+      <form class="c-form reveal d2" onsubmit="submitContact(event)">
         <h3>Send Us a Message</h3>
         <div class="f-2col">
-          <div class="f-row"><label>Full Name</label><input type="text" placeholder="Rajesh Kumar"/></div>
-          <div class="f-row"><label>Mobile</label><input type="tel" placeholder="+91 98765 43210"/></div>
+          <div class="f-row"><label>Full Name</label><input type="text" id="cf-name" placeholder="Rajesh Kumar" required/></div>
+          <div class="f-row"><label>Mobile</label><input type="tel" id="cf-mobile" placeholder="+91 98765 43210" required/></div>
         </div>
         <div class="f-row"><label>I am a</label>
-          <select><option>Customer seeking gold services</option><option>Jeweller / Vendor</option><option>NBFC / Financial Institution</option><option>Hallmark Centre</option><option>Investor / Partner</option></select>
+          <select id="cf-type"><option>Customer seeking gold services</option><option>Jeweller / Vendor</option><option>NBFC / Financial Institution</option><option>Hallmark Centre</option><option>Investor / Partner</option></select>
         </div>
-        <div class="f-row"><label>City</label><input type="text" placeholder="Chennai, Tamil Nadu"/></div>
-        <div class="f-row"><label>Message</label><textarea placeholder="Tell us about your requirements…"></textarea></div>
-        <button class="f-submit">Send Message →</button>
-      </div>
+        <div class="f-row"><label>City</label><input type="text" id="cf-city" placeholder="Chennai, Tamil Nadu" required/></div>
+        <div class="f-row"><label>Message</label><textarea id="cf-msg" placeholder="Tell us about your requirements…" required></textarea></div>
+        <button type="submit" class="f-submit">Send Message →</button>
+      </form>
     </div>
   </div>
 </section>
@@ -1076,37 +1374,40 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
         <div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div>
         <p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions on one trusted platform.</p>
         <div class="foot-socials">
-          <a href="#" class="fsoc">in</a><a href="#" class="fsoc">f</a>
-          <a href="#" class="fsoc">📷</a><a href="#" class="fsoc">𝕏</a><a href="#" class="fsoc">▶</a>
+          <a href="https://www.linkedin.com/company/goldbazaar" target="_blank" rel="noopener" class="fsoc" title="LinkedIn">in</a>
+          <a href="https://www.facebook.com/goldbazaar" target="_blank" rel="noopener" class="fsoc" title="Facebook">f</a>
+          <a href="https://www.instagram.com/goldbazaar" target="_blank" rel="noopener" class="fsoc" title="Instagram">📷</a>
+          <a href="https://twitter.com/goldbazaar" target="_blank" rel="noopener" class="fsoc" title="X / Twitter">𝕏</a>
+          <a href="https://www.youtube.com/@goldbazaar" target="_blank" rel="noopener" class="fsoc" title="YouTube">▶</a>
         </div>
       </div>
       <div class="foot-col"><h4>Services</h4><ul>
-        <li><a href="/gold-loan">Gold Loan</a></li>
-        <li><a href="/gold-sell">Gold Sell</a></li>
-        <li><a href="/vendors?service=exchange">Gold Exchange</a></li>
-        <li><a href="/vendors?service=jewellery">Jewellery</a></li>
-        <li><a href="/vendors?service=scheme">Savings Scheme</a></li>
+        <li><a href="#gold-loan">Gold Loan</a></li>
+        <li><a href="#gold-sell">Gold Sell</a></li>
+        <li><a href="#vendors">Gold Exchange</a></li>
+        <li><a href="#vendors">Jewellery</a></li>
+        <li><a href="#vendors">Savings Scheme</a></li>
       </ul></div>
       <div class="foot-col"><h4>Platform</h4><ul>
-        <li><a href="/vendors">Find Vendors</a></li>
-        <li><a href="/gold-calculator">Gold Calculator</a></li>
-        <li><a href="/gold-news">Gold News</a></li>
-        <li><a href="/vendor-onboarding">Vendor Onboarding</a></li>
-        <li><a href="/vendor-login">Vendor Login</a></li>
+        <li><a href="#vendors">Find Vendors</a></li>
+        <li><a href="#gold-calculator">Gold Calculator</a></li>
+        <li><a href="#gold-news">Gold News</a></li>
+        <li><a href="#" onclick="openOnboarding(event)">Vendor Onboarding</a></li>
+        <li><a href="#" onclick="openLogin(event)">Vendor Login</a></li>
       </ul></div>
       <div class="foot-col"><h4>Company</h4><ul>
-        <li><a href="/about-us">About Us</a></li>
-        <li><a href="/contact-us">Contact Us</a></li>
-        <li><a href="#">Careers</a></li>
-        <li><a href="#">Press Kit</a></li>
-        <li><a href="#">Blog</a></li>
+        <li><a href="#why">About Us</a></li>
+        <li><a href="#contact-us">Contact Us</a></li>
+        <li><a href="#" onclick="event.preventDefault();toast('Careers page coming soon. Email hello@goldbazaar.in')">Careers</a></li>
+        <li><a href="#" onclick="event.preventDefault();toast('Press kit available on request — email press@goldbazaar.in')">Press Kit</a></li>
+        <li><a href="#gold-news">Blog</a></li>
       </ul></div>
       <div class="foot-col"><h4>Legal</h4><ul>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Terms & Conditions</a></li>
-        <li><a href="#">Grievance Policy</a></li>
-        <li><a href="#">Refund Policy</a></li>
-        <li><a href="#">Sitemap</a></li>
+        <li><a href="#" onclick="event.preventDefault();openLegal('Privacy Policy')">Privacy Policy</a></li>
+        <li><a href="#" onclick="event.preventDefault();openLegal('Terms &amp; Conditions')">Terms & Conditions</a></li>
+        <li><a href="#" onclick="event.preventDefault();openLegal('Grievance Policy')">Grievance Policy</a></li>
+        <li><a href="#" onclick="event.preventDefault();openLegal('Refund Policy')">Refund Policy</a></li>
+        <li><a href="#" onclick="event.preventDefault();openLegal('Sitemap')">Sitemap</a></li>
       </ul></div>
     </div>
     <div class="foot-bottom">
@@ -1187,6 +1488,26 @@ const cobs = new IntersectionObserver(es => es.forEach(e => {
   if(e.isIntersecting && !e.target.dataset.done){ e.target.dataset.done='1'; countUp(e.target,+e.target.dataset.target) }
 }),{threshold:.4});
 document.querySelectorAll('.metric-num[data-target]').forEach(el => cobs.observe(el));
+
+/* ── Marketplace view toggle ── */
+function toggleMktView(btn, view){
+  const parent = btn.parentElement;
+  parent.querySelectorAll('.mkt-view-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const grid = parent.nextElementSibling;
+  if(view === 'list') grid.classList.add('list-view');
+  else grid.classList.remove('list-view');
+}
+
+/* ── Vendor view toggle ── */
+function toggleVendorView(btn, view){
+  const parent = btn.parentElement;
+  parent.querySelectorAll('.vendor-view-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const grid = parent.nextElementSibling;
+  if(view === 'list') grid.classList.add('list-view');
+  else grid.classList.remove('list-view');
+}
 </script>
 </body>
 </html>
