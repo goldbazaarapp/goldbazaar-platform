@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Explore Gold Loan Providers — GoldBazaar</title>
+<meta name="description" content="Explore 500+ verified gold loan providers across India. Compare interest rates, LTV, loan amounts and apply instantly."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+/*──────────────────────────────────────
+  RESET & TOKENS
+──────────────────────────────────────*/
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg-primary);color:var(--text-primary);font-family:'Inter',-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:var(--transition)}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+img{display:block;max-width:100%}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#9B7B2E;border-radius:2px}
+:root{
+  --g:#C9A84C;--gl:#E8C96A;--gd:#9B7B2E;--gp:#F5E6C0;
+  --fd:'Playfair Display',Georgia,serif;--fb:'Inter',-apple-system,sans-serif;
+  --ease:cubic-bezier(.4,0,.2,1);--nav-h:68px;
+  --transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+/* Dark theme (default) */
+html[data-theme="dark"]{
+  --b0:#000;--b1:#0A0A0A;--b2:#111;--b3:#161616;--b4:#1E1E1E;
+  --text-primary:#FFFFFF;--text-secondary:rgba(255,255,255,.7);--text-tertiary:rgba(255,255,255,.5);
+  --bg-primary:#000;--bg-secondary:#0A0A0A;--bg-tertiary:#111;
+}
+/* Light theme */
+html[data-theme="light"]{
+  --b0:#FFFFFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#E8E8E8;
+  --text-primary:#1A1A1A;--text-secondary:#333333;--text-tertiary:#555555;
+  --bg-primary:#FFFFFF;--bg-secondary:#F8F8F8;--bg-tertiary:#F5F5F5;
+  --border-color:rgba(0,0,0,.08);
+}
+/* Utilities */
+.wrap{max-width:1200px;margin:0 auto;padding:0 48px}
+.wrap-wide{max-width:1400px;margin:0 auto;padding:0 48px}
+.section{padding:96px 0}
+.alt{background:var(--b2)}
+.gold{background:linear-gradient(135deg,#C9A84C 0%,#F5E6C0 50%,#C9A84C 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--g);display:inline-block}
+.sec-title{font-family:var(--fd);font-size:clamp(26px,3.4vw,44px);font-weight:700;letter-spacing:-.03em;line-height:1.18;margin-bottom:16px;color:var(--text-primary)}
+.sec-body{font-size:15.5px;font-weight:300;color:var(--text-secondary);max-width:560px;line-height:1.78}
+.sec-head{text-align:center;margin-bottom:48px}
+.sec-head .sec-body{margin:0 auto}
+
+/* Buttons */
+.btn-gold{display:inline-flex;align-items:center;gap:7px;padding:13px 28px;border-radius:50px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:14px;font-weight:700;transition:transform .2s,box-shadow .2s}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,168,76,.38)}
+.btn-outline{display:inline-flex;align-items:center;gap:7px;padding:12px 26px;border-radius:50px;border:1.5px solid rgba(201,168,76,.4);color:var(--g);font-size:14px;font-weight:600;transition:all .2s}
+.btn-outline:hover{background:rgba(201,168,76,.08);border-color:var(--g)}
+.btn-ghost{display:inline-flex;align-items:center;gap:7px;padding:12px 26px;border-radius:50px;border:1.5px solid rgba(255,255,255,.2);color:#fff;font-size:14px;font-weight:500;background:rgba(255,255,255,.05);backdrop-filter:blur(8px);transition:all .2s}
+.btn-ghost:hover{border-color:var(--g);color:var(--g)}
+
+/*──────────────────────────────────────
+  NAVIGATION
+──────────────────────────────────────*/
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;
+  transition:background .35s,border-color .35s;
+  border-bottom:1px solid transparent;
+}
+#nav.scrolled{background:rgba(0,0,0,.94);backdrop-filter:blur(20px);border-color:rgba(201,168,76,.12)}
+.nav-logo img{height:44px;width:auto;display:block}
+.nav-center{display:flex;align-items:center;gap:4px}
+.nav-center a{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);padding:7px 12px;border-radius:7px;white-space:nowrap;transition:color .2s,background .2s}
+.nav-center a:hover{color:var(--g);background:rgba(201,168,76,.07)}
+.nav-center a.active{color:var(--g)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-theme{padding:6px 10px;font-size:16px;border:none;background:none;cursor:pointer;transition:transform .2s;display:flex;align-items:center;justify-content:center}
+.nav-theme:hover{transform:scale(1.1)}
+.nav-login{padding:8px 16px;border:1px solid rgba(201,168,76,.35);border-radius:8px;font-size:13px;font-weight:500;color:var(--g);transition:all .2s}
+.nav-login:hover{background:rgba(201,168,76,.08)}
+.nav-vendor{padding:8px 16px;border:1px solid rgba(255,255,255,.18);border-radius:8px;font-size:13px;font-weight:500;color:rgba(255,255,255,.75);transition:all .2s}
+.nav-vendor:hover{border-color:var(--g);color:var(--g)}
+.nav-cta{padding:8px 20px;border-radius:8px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:13px;font-weight:700;transition:all .2s}
+.nav-cta:hover{box-shadow:0 6px 18px rgba(201,168,76,.38);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:4px}
+.hamburger span{width:21px;height:1.5px;background:#fff;display:block}
+#mob-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:999;background:rgba(0,0,0,.97);border-bottom:1px solid rgba(201,168,76,.1);backdrop-filter:blur(18px);padding:20px 28px;flex-direction:column;gap:4px}
+#mob-nav.open{display:flex}
+#mob-nav a{font-size:15px;font-weight:500;color:rgba(255,255,255,.72);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+#mob-nav a:hover{color:var(--g)}
+
+/*──────────────────────────────────────
+  PAGE HEADER
+──────────────────────────────────────*/
+.page-hero{
+  width:100%;margin-top:var(--nav-h);
+  padding:64px 0;
+  background:linear-gradient(135deg,#0A0700 0%,#1A1200 50%,#0A0700 100%);
+  border-bottom:1px solid rgba(201,168,76,.12);
+  position:relative;overflow:hidden;
+}
+.page-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.025) 1px,transparent 1px);background-size:56px 56px;pointer-events:none;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black,transparent)}
+.page-hero-content{position:relative;z-index:1;text-align:center}
+.page-hero h1{font-family:var(--fd);font-size:clamp(32px,4.5vw,48px);font-weight:600;letter-spacing:-.03em;line-height:1.15;margin-bottom:12px}
+.page-hero p{font-size:15.5px;color:rgba(255,255,255,.56);max-width:620px;margin:0 auto;line-height:1.72}
+
+/*──────────────────────────────────────
+  FILTER BAR
+──────────────────────────────────────*/
+.filter-bar{display:flex;align-items:center;gap:16px;margin-bottom:32px;flex-wrap:wrap;background:var(--b3);border:1px solid var(--b4);border-radius:12px;padding:20px;flex-wrap:wrap}
+.filter-group{display:flex;align-items:center;gap:10px;flex:1;min-width:200px}
+.filter-group label{font-size:12px;font-weight:600;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap}
+.filter-group input,.filter-group select{background:var(--b1);border:1px solid var(--b4);border-radius:8px;padding:10px 12px;font-size:13px;color:#fff;font-family:var(--fb);outline:none;transition:border-color .2s}
+.filter-group input:focus,.filter-group select:focus{border-color:var(--g)}
+.filter-group input::placeholder{color:rgba(255,255,255,.3)}
+.filter-group select option{background:#000}
+.filter-reset{padding:8px 16px;border:1px solid rgba(201,168,76,.3);border-radius:8px;font-size:12px;font-weight:600;color:var(--g);background:rgba(201,168,76,.07);cursor:pointer;transition:all .2s;white-space:nowrap}
+.filter-reset:hover{background:rgba(201,168,76,.12);border-color:var(--g)}
+
+/*──────────────────────────────────────
+  MARKETPLACE CARDS
+──────────────────────────────────────*/
+.mkt-view-toggle{display:flex;gap:8px;align-items:center;justify-content:center;margin-bottom:28px}
+.mkt-view-btn{padding:8px 18px;border:1.5px solid rgba(201,168,76,.3);border-radius:7px;background:none;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s}
+.mkt-view-btn.active{background:linear-gradient(135deg,var(--g),var(--gl));color:#000;border-color:var(--g)}
+.mkt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mkt-grid.list-view{grid-template-columns:1fr;gap:10px}
+.mkt-card{background:var(--b3);border:1px solid var(--b4);border-radius:12px;overflow:hidden;transition:all .3s,border-color .3s;cursor:pointer;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.mkt-card:hover{transform:translateY(-2px);border-color:rgba(201,168,76,.3);box-shadow:0 12px 28px rgba(201,168,76,.1)}
+html[data-theme="light"] .mkt-card{background:#FFFFFF;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+html[data-theme="light"] .mkt-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.12)}
+html[data-theme="light"] .mkt-card-name{color:var(--text-primary)}
+html[data-theme="light"] .mkt-card-loc{color:var(--text-secondary)}
+
+/*──────────────────────────────────────
+  LIST VIEW
+──────────────────────────────────────*/
+.mkt-grid.list-view{
+  display:flex;flex-direction:column;gap:0;
+  border:1px solid rgba(201,168,76,.18);
+  border-radius:10px;overflow:hidden;
+  background:rgba(0,0,0,.25);
+}
+.mkt-table-header{display:none}
+.mkt-grid.list-view .mkt-table-header{
+  display:grid;
+  grid-template-columns:2.2fr 1.6fr 1fr 2.4fr 1.4fr 1fr;
+  background:linear-gradient(90deg,rgba(201,168,76,.22),rgba(201,168,76,.10));
+  border-bottom:2px solid rgba(201,168,76,.35);
+  font-size:10px;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--g);
+}
+.mkt-table-header > div{
+  padding:12px 14px;display:flex;align-items:center;
+  border-right:1px solid rgba(201,168,76,.18);
+}
+.mkt-table-header > div:last-child{border-right:none;justify-content:center}
+
+.mkt-grid.list-view .mkt-card{
+  background:transparent;border:none;
+  border-bottom:1px solid rgba(201,168,76,.08);
+  border-radius:0;padding:0;
+  display:grid;
+  grid-template-columns:2.2fr 1.6fr 1fr 2.4fr 1.4fr 1fr;
+  align-items:stretch;min-height:64px;
+}
+.mkt-grid.list-view .mkt-card:last-child{border-bottom:none}
+.mkt-grid.list-view .mkt-card:hover{
+  background:rgba(201,168,76,.04);transform:none;box-shadow:none;
+  border-color:rgba(201,168,76,.08);
+}
+.mkt-grid.list-view .mkt-card-img{display:none}
+.mkt-grid.list-view .mkt-card-body{display:contents}
+.mkt-grid.list-view .mkt-card-tag{display:none}
+.mkt-grid.list-view .mkt-card-rate-lbl{display:none}
+
+.mkt-grid.list-view .mkt-card-name{
+  grid-column:1;padding:12px 14px;margin:0;
+  font-size:13px;font-weight:700;color:#fff;
+  border-right:1px solid rgba(201,168,76,.08);
+  display:flex;align-items:center;
+}
+.mkt-grid.list-view .mkt-card-loc{
+  grid-column:2;padding:12px 14px;margin:0;
+  font-size:11px;color:rgba(255,255,255,.6);
+  border-right:1px solid rgba(201,168,76,.08);
+  display:flex;align-items:center;
+}
+.mkt-grid.list-view .mkt-card-rate{
+  grid-column:3;padding:12px 14px;margin:0;
+  font-size:14px;font-weight:800;color:var(--g);
+  border-right:1px solid rgba(201,168,76,.08);
+  display:flex;align-items:center;justify-content:center;
+}
+.mkt-grid.list-view .mkt-card-meta{
+  grid-column:4;padding:10px 14px;margin:0;
+  display:flex;flex-wrap:wrap;gap:5px;align-items:center;
+  border-right:1px solid rgba(201,168,76,.08);
+}
+.mkt-grid.list-view .meta-chip{
+  font-size:9px;padding:3px 7px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:4px;color:rgba(255,255,255,.65);
+  white-space:nowrap;
+}
+.mkt-grid.list-view .mkt-card-footer{display:contents}
+.mkt-grid.list-view .mkt-card-footer > div{
+  grid-column:5;padding:8px 14px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  border-right:1px solid rgba(201,168,76,.08);
+}
+.mkt-grid.list-view .mkt-card-footer .stars{font-size:11px;letter-spacing:1px}
+.mkt-grid.list-view .mkt-card-footer .trust-badge{
+  font-size:9px;color:rgba(255,255,255,.55);font-weight:500;
+}
+.mkt-grid.list-view .view-btn{
+  grid-column:6;align-self:center;justify-self:center;
+  padding:7px 14px;font-size:11px;font-weight:700;
+  background:linear-gradient(135deg,var(--g),var(--gl));
+  color:#000;border:none;border-radius:6px;
+  white-space:nowrap;transition:box-shadow .2s;
+}
+.mkt-grid.list-view .view-btn:hover{box-shadow:0 4px 12px rgba(201,168,76,.35)}
+
+/* TILE VIEW */
+.mkt-card-img{height:80px;width:80px;background:linear-gradient(135deg,#1A1200,#0D0800);display:flex;align-items:center;justify-content:center;font-size:36px;position:relative;overflow:hidden;border-radius:10px;flex-shrink:0}
+.mkt-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.4) 0%,transparent 60%)}
+.mkt-card-body{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.mkt-card-tag{display:inline-block;padding:3px 8px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;width:fit-content}
+.tag-loan{background:rgba(201,168,76,.13);color:var(--g)}
+.mkt-card-name{font-size:14px;font-weight:700;margin:0;line-height:1.2}
+.mkt-card-loc{font-size:11px;color:rgba(255,255,255,.45);margin:4px 0;display:flex;align-items:center;gap:4px}
+.mkt-card-rate{font-size:18px;font-weight:800;color:var(--g);letter-spacing:-.02em;line-height:1;margin:6px 0 2px}
+.mkt-card-rate-lbl{font-size:10px;color:rgba(255,255,255,.4);margin-bottom:6px}
+.mkt-card-meta{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+.meta-chip{display:flex;align-items:center;gap:4px;font-size:10px;color:rgba(255,255,255,.55);background:rgba(255,255,255,.04);padding:3px 8px;border-radius:5px;white-space:nowrap}
+.mkt-card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.05);margin-top:8px}
+.trust-badge{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--g);font-weight:600}
+.stars{color:var(--g);font-size:11px;letter-spacing:.5px}
+.view-btn{font-size:11px;font-weight:700;color:var(--g);background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);padding:5px 12px;border-radius:6px;transition:all .2s;white-space:nowrap}
+.view-btn:hover{background:rgba(201,168,76,.18)}
+
+/*──────────────────────────────────────
+  PAGINATION
+──────────────────────────────────────*/
+.pagination{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:48px;flex-wrap:wrap}
+.page-num{padding:8px 12px;border:1px solid rgba(201,168,76,.2);border-radius:6px;font-size:13px;font-weight:600;color:rgba(255,255,255,.6);background:var(--b3);cursor:pointer;transition:all .2s}
+.page-num:hover{border-color:var(--g);color:var(--g);background:rgba(201,168,76,.06)}
+.page-num.active{background:linear-gradient(135deg,var(--g),var(--gl));color:#000;border-color:var(--g)}
+.page-info{font-size:13px;color:rgba(255,255,255,.48);margin:0 12px}
+
+/*──────────────────────────────────────
+  FOOTER
+──────────────────────────────────────*/
+footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
+.foot-inner{max-width:1200px;margin:0 auto;padding:0 48px}
+.foot-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.foot-logo img{height:64px;width:auto;margin-bottom:14px}
+.foot-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.75;max-width:220px;margin-bottom:18px}
+.foot-socials{display:flex;gap:7px}
+.fsoc{width:32px;height:32px;background:var(--b3);border:1px solid var(--b4);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;color:rgba(255,255,255,.5);transition:all .2s}
+.fsoc:hover{background:rgba(201,168,76,.1);border-color:var(--g);color:var(--g)}
+.foot-col h4{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:14px}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.foot-col a{font-size:13px;color:rgba(255,255,255,.48);transition:color .2s}
+.foot-col a:hover{color:var(--g)}
+.foot-bottom{border-top:1px solid var(--b4);padding-top:22px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.foot-bottom p{font-size:12px;color:rgba(255,255,255,.24)}
+.foot-badges{display:flex;gap:7px;flex-wrap:wrap}
+.f-badge{padding:4px 9px;background:var(--b3);border:1px solid var(--b4);border-radius:5px;font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:.05em}
+
+/*──────────────────────────────────────
+  RESPONSIVE
+──────────────────────────────────────*/
+@media(max-width:1024px){
+  #nav{padding:0 20px}.nav-center,.nav-right{display:none}.hamburger{display:flex}
+  .wrap,.wrap-wide{padding:0 20px}.section{padding:72px 0}
+  .page-hero{padding:48px 0}
+  .mkt-grid{grid-template-columns:repeat(2,1fr)}
+  .filter-bar{flex-direction:column}.filter-group{min-width:100%}
+  footer{padding:52px 0 28px}.foot-inner{padding:0 20px}
+}
+@media(max-width:768px){
+  .mkt-grid{grid-template-columns:1fr}
+  .mkt-grid.list-view .mkt-card{grid-template-columns:1fr}
+  .mkt-grid.list-view .mkt-card-name,
+  .mkt-grid.list-view .mkt-card-loc,
+  .mkt-grid.list-view .mkt-card-rate,
+  .mkt-grid.list-view .mkt-card-meta,
+  .mkt-grid.list-view .mkt-card-footer,
+  .mkt-grid.list-view .mkt-card-footer > div,
+  .mkt-grid.list-view .view-btn{
+    grid-column:auto !important;border-right:none !important;padding:6px 14px !important;min-height:auto;display:flex !important;
+  }
+  .mkt-grid.list-view .mkt-card{display:flex;flex-direction:column;min-height:auto;padding:14px;}
+  .mkt-grid.list-view .mkt-table-header{display:none}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .mkt-grid{grid-template-columns:1fr;gap:10px}
+  .page-hero{padding:40px 0}
+  .page-hero h1{font-size:28px}
+  .filter-bar{flex-direction:column;padding:14px}
+  .filter-group{width:100%}
+  .footer{padding:40px 0 20px}.foot-inner{padding:0 20px}
+  .foot-grid{grid-template-columns:1fr}
+}
+
+/*──────────────────────────────────────
+  PHASE 3 — STICKY GOLD RATES WIDGET (REDESIGNED)
+──────────────────────────────────────*/
+.gold-widget {
+  position: sticky;
+  top: 90px;
+  width: 150px;
+  background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.05));
+  border: 1px solid rgba(201,168,76,0.35);
+  border-radius: 14px;
+  overflow: hidden;
+  left: 20px;
+  z-index: 40;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  transition: all 0.3s cubic-bezier(.34,.1,.68,.55);
+}
+
+.gold-widget:hover {
+  box-shadow: 0 12px 48px rgba(201,168,76,0.2);
+  border-color: rgba(201,168,76,0.5);
+  transform: translateY(-2px);
+}
+
+.gold-widget-header {
+  cursor: pointer;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  transition: all 0.3s;
+  user-select: none;
+}
+
+.gold-widget-header:hover {
+  background: rgba(201,168,76,0.1);
+}
+
+.gold-widget-title {
+  font-weight: 700;
+  color: var(--g);
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.gold-widget-toggle {
+  font-size: 14px;
+  transition: transform 0.3s cubic-bezier(.34,.1,.68,.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+.gold-widget.collapsed .gold-widget-toggle {
+  transform: rotate(180deg);
+}
+
+.gold-widget-body {
+  display: grid;
+  max-height: 500px;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(.34,.1,.68,.55);
+}
+
+.gold-widget.collapsed .gold-widget-body {
+  max-height: 0;
+}
+
+.gold-widget-rate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 16px;
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+  font-size: 12px;
+}
+
+.gold-widget-rate:last-of-type {
+  border-bottom: none;
+}
+
+.rate-purity {
+  font-weight: 700;
+  color: rgba(255,255,255,0.65);
+  min-width: 30px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.rate-value {
+  font-weight: 800;
+  color: var(--g);
+  text-align: right;
+  font-size: 12px;
+  letter-spacing: -0.5px;
+}
+
+.gold-widget-footer {
+  padding: 9px 16px;
+  font-size: 10px;
+  color: rgba(255,255,255,0.45);
+  text-align: center;
+  border-top: 1px solid rgba(201,168,76,0.1);
+  background: rgba(0,0,0,0.15);
+}
+
+@media(max-width:1200px){
+  .gold-widget{width:145px;left:16px}
+}
+
+@media(max-width:1024px){
+  .gold-widget{width:140px;left:12px}
+  .gold-widget-header{padding:12px 14px}
+  .gold-widget-rate{padding:10px 14px}
+}
+
+@media(max-width:768px){
+  .gold-widget{display:none}
+}
+
+@media(max-width:480px){
+  .gold-widget{display:none}
+}
+</style>
+</head>
+<body>
+
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
+
+  <div class="nav-right">
+    <a href="index.html" style="padding:8px 16px;border:1px solid rgba(201,168,76,.35);border-radius:8px;color:var(--g);font-size:13px;">← Back to Home</a>
+    <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()" title="Toggle theme" aria-label="Toggle dark/light theme">🌙</button>
+    <a href="#" onclick="alert('Login feature coming soon')" class="nav-login">Login</a>
+    <a href="vendor-onboarding-complete.html" class="nav-vendor">Vendor Onboarding</a>
+  </div>
+
+  <button class="hamburger" onclick="mobToggle()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div id="mob-nav">
+  <a href="index.html">← Back to Home</a>
+  <a href="#" onclick="alert('Login feature coming soon')" style="color:var(--g)">Login</a>
+  <a href="vendor-onboarding-complete.html" style="color:var(--g)">Vendor Onboarding</a>
+</div>
+
+<!-- ═══════════════════ STICKY GOLD RATES WIDGET (REDESIGNED) ═══════════════════ -->
+<div class="gold-widget collapsed" id="gold-rates-widget">
+  <div class="gold-widget-header" onclick="toggleGoldRates()">
+    <span class="gold-widget-title">💰 Gold</span>
+    <span class="gold-widget-toggle">▼</span>
+  </div>
+  <div class="gold-widget-body">
+    <div class="gold-widget-rate">
+      <span class="rate-purity">24K</span>
+      <span class="rate-value" id="rate-24k">—</span>
+    </div>
+    <div class="gold-widget-rate">
+      <span class="rate-purity">22K</span>
+      <span class="rate-value" id="rate-22k">—</span>
+    </div>
+    <div class="gold-widget-rate">
+      <span class="rate-purity">18K</span>
+      <span class="rate-value" id="rate-18k">—</span>
+    </div>
+    <div class="gold-widget-footer">
+      Updated <span id="gold-update-time">just now</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ PAGE HERO ═══════════════════ -->
+<div class="page-hero">
+  <div class="wrap">
+    <div class="page-hero-content">
+      <h1>Explore Gold Loan Providers</h1>
+      <p>Find and compare 500+ verified gold loan providers across India. Check interest rates, LTV ratios, loan amounts and apply in minutes.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ MAIN SECTION ═══════════════════ -->
+<section class="section">
+  <div class="wrap-wide">
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <div class="filter-group">
+        <label for="filter-city">City</label>
+        <input type="text" id="filter-city" placeholder="Enter city name..."/>
+      </div>
+      <div class="filter-group">
+        <label for="filter-rate">Max Interest Rate (%)</label>
+        <input type="number" id="filter-rate" placeholder="e.g., 10" min="0" max="20" step="0.5"/>
+      </div>
+      <div class="filter-group">
+        <label for="filter-loan">Min Loan Amount</label>
+        <select id="filter-loan">
+          <option value="">Any</option>
+          <option value="10000">₹10,000+</option>
+          <option value="50000">₹50,000+</option>
+          <option value="100000">₹1,00,000+</option>
+          <option value="500000">₹5,00,000+</option>
+        </select>
+      </div>
+      <button class="filter-reset" onclick="resetFilters()">Reset Filters</button>
+    </div>
+
+    <!-- View Toggle -->
+    <div class="mkt-view-toggle">
+      <button class="mkt-view-btn active" onclick="toggleMktView(this, 'tiles')">Tiles</button>
+      <button class="mkt-view-btn" onclick="toggleMktView(this, 'list')">List</button>
+    </div>
+
+    <!-- Grid -->
+    <div class="mkt-grid" id="providers-grid">
+      <div class="mkt-table-header">
+        <div class="th-provider">Provider</div>
+        <div class="th-location">Location</div>
+        <div class="th-rate">Rate</div>
+        <div class="th-features">Features</div>
+        <div class="th-rating">Rating</div>
+        <div class="th-action">Action</div>
+      </div>
+
+      <!-- Card 1 -->
+      <div class="mkt-card">
+        <div class="mkt-card-img">🏦</div>
+        <div class="mkt-card-body">
+          <div class="mkt-card-tag tag-loan">Gold Loan</div>
+          <div class="mkt-card-name">Muthoot Finance</div>
+          <div class="mkt-card-loc">📍 Multiple Branches · Pan India</div>
+          <div class="mkt-card-rate">8.5% p.a.</div>
+          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
+          <div class="mkt-card-meta">
+            <div class="meta-chip">⚖️ LTV 75%</div>
+            <div class="meta-chip">⚡ 30 min</div>
+            <div class="meta-chip">💰 ₹1K–₹50L</div>
+          </div>
+          <div class="mkt-card-footer">
+            <div><div class="stars">★★★★★</div><div class="trust-badge">✓ RBI Licensed</div></div>
+            <button class="view-btn" onclick="location.href='provider-detail.html'">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="mkt-card">
+        <div class="mkt-card-img">🏛️</div>
+        <div class="mkt-card-body">
+          <div class="mkt-card-tag tag-loan">Gold Loan</div>
+          <div class="mkt-card-name">Manappuram Finance</div>
+          <div class="mkt-card-loc">📍 3+ Branches · South India</div>
+          <div class="mkt-card-rate">9.0% p.a.</div>
+          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
+          <div class="mkt-card-meta">
+            <div class="meta-chip">⚖️ LTV 80%</div>
+            <div class="meta-chip">⚡ Same day</div>
+            <div class="meta-chip">💰 ₹500–₹1Cr</div>
+          </div>
+          <div class="mkt-card-footer">
+            <div><div class="stars">★★★★☆</div><div class="trust-badge">✓ RBI Licensed</div></div>
+            <button class="view-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="mkt-card">
+        <div class="mkt-card-img">🏦</div>
+        <div class="mkt-card-body">
+          <div class="mkt-card-tag tag-loan">Gold Loan</div>
+          <div class="mkt-card-name">IIFL Finance</div>
+          <div class="mkt-card-loc">📍 All Major Cities</div>
+          <div class="mkt-card-rate">7.8% p.a.</div>
+          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
+          <div class="mkt-card-meta">
+            <div class="meta-chip">⚖️ LTV 75%</div>
+            <div class="meta-chip">🚗 Doorstep</div>
+            <div class="meta-chip">💰 Up to ₹50L</div>
+          </div>
+          <div class="mkt-card-footer">
+            <div><div class="stars">★★★★★</div><div class="trust-badge">✓ RBI Licensed</div></div>
+            <button class="view-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="mkt-card">
+        <div class="mkt-card-img">💳</div>
+        <div class="mkt-card-body">
+          <div class="mkt-card-tag tag-loan">Gold Loan</div>
+          <div class="mkt-card-name">IndusInd Bank</div>
+          <div class="mkt-card-loc">📍 Urban Centers</div>
+          <div class="mkt-card-rate">8.2% p.a.</div>
+          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
+          <div class="mkt-card-meta">
+            <div class="meta-chip">⚖️ LTV 72%</div>
+            <div class="meta-chip">⚡ 2 hours</div>
+            <div class="meta-chip">💰 ₹10K–₹25L</div>
+          </div>
+          <div class="mkt-card-footer">
+            <div><div class="stars">★★★★★</div><div class="trust-badge">✓ Bank</div></div>
+            <button class="view-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="mkt-card">
+        <div class="mkt-card-img">🏢</div>
+        <div class="mkt-card-body">
+          <div class="mkt-card-tag tag-loan">Gold Loan</div>
+          <div class="mkt-card-name">Bajaj Finserv</div>
+          <div class="mkt-card-loc">📍 500+ Cities</div>
+          <div class="mkt-card-rate">8.9% p.a.</div>
+          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
+          <div class="mkt-card-meta">
+            <div class="meta-chip">⚖️ LTV 70%</div>
+            <div class="meta-chip">⚡ 1 hour</div>
+            <div class="meta-chip">💰 ₹1K–₹30L</div>
+          </div>
+          <div class="mkt-card-footer">
+            <div><div class="stars">★★★★☆</div><div class="trust-badge">✓ NBFC</div></div>
+            <button class="view-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="mkt-card">
+        <div class="mkt-card-img">🏪</div>
+        <div class="mkt-card-body">
+          <div class="mkt-card-tag tag-loan">Gold Loan</div>
+          <div class="mkt-card-name">Pawn Broking Ltd</div>
+          <div class="mkt-card-loc">📍 20+ Cities</div>
+          <div class="mkt-card-rate">9.5% p.a.</div>
+          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
+          <div class="mkt-card-meta">
+            <div class="meta-chip">⚖️ LTV 85%</div>
+            <div class="meta-chip">⚡ Same day</div>
+            <div class="meta-chip">💰 ₹500–₹5L</div>
+          </div>
+          <div class="mkt-card-footer">
+            <div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Registered</div></div>
+            <button class="view-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 7 -->
+      <div class="mkt-card">
+        <div class="mkt-card-img">💰</div>
+        <div class="mkt-card-body">
+          <div class="mkt-card-tag tag-loan">Gold Loan</div>
+          <div class="mkt-card-name">Capital Finance</div>
+          <div class="mkt-card-loc">📍 North India</div>
+          <div class="mkt-card-rate">8.75% p.a.</div>
+          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
+          <div class="mkt-card-meta">
+            <div class="meta-chip">⚖️ LTV 76%</div>
+            <div class="meta-chip">⚡ 45 min</div>
+            <div class="meta-chip">💰 ₹5K–₹40L</div>
+          </div>
+          <div class="mkt-card-footer">
+            <div><div class="stars">★★★★★</div><div class="trust-badge">✓ RBI Licensed</div></div>
+            <button class="view-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 8 -->
+      <div class="mkt-card">
+        <div class="mkt-card-img">🏛️</div>
+        <div class="mkt-card-body">
+          <div class="mkt-card-tag tag-loan">Gold Loan</div>
+          <div class="mkt-card-name">Axis Bank</div>
+          <div class="mkt-card-loc">📍 Metro Cities</div>
+          <div class="mkt-card-rate">7.99% p.a.</div>
+          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
+          <div class="mkt-card-meta">
+            <div class="meta-chip">⚖️ LTV 74%</div>
+            <div class="meta-chip">⚡ 1-2 days</div>
+            <div class="meta-chip">💰 ₹50K–₹50L</div>
+          </div>
+          <div class="mkt-card-footer">
+            <div><div class="stars">★★★★★</div><div class="trust-badge">✓ Bank</div></div>
+            <button class="view-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 9 -->
+      <div class="mkt-card">
+        <div class="mkt-card-img">💎</div>
+        <div class="mkt-card-body">
+          <div class="mkt-card-tag tag-loan">Gold Loan</div>
+          <div class="mkt-card-name">Gold Finance Solutions</div>
+          <div class="mkt-card-loc">📍 East India</div>
+          <div class="mkt-card-rate">9.25% p.a.</div>
+          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
+          <div class="mkt-card-meta">
+            <div class="meta-chip">⚖️ LTV 78%</div>
+            <div class="meta-chip">⚡ 30 min</div>
+            <div class="meta-chip">💰 ₹2K–₹20L</div>
+          </div>
+          <div class="mkt-card-footer">
+            <div><div class="stars">★★★★☆</div><div class="trust-badge">✓ NBFC</div></div>
+            <button class="view-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 10 -->
+      <div class="mkt-card">
+        <div class="mkt-card-img">🏪</div>
+        <div class="mkt-card-body">
+          <div class="mkt-card-tag tag-loan">Gold Loan</div>
+          <div class="mkt-card-name">CIBIL Safe Finance</div>
+          <div class="mkt-card-loc">📍 Western States</div>
+          <div class="mkt-card-rate">8.5% p.a.</div>
+          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
+          <div class="mkt-card-meta">
+            <div class="meta-chip">⚖️ LTV 77%</div>
+            <div class="meta-chip">⚡ 1 hour</div>
+            <div class="meta-chip">💰 ₹3K–₹35L</div>
+          </div>
+          <div class="mkt-card-footer">
+            <div><div class="stars">★★★★☆</div><div class="trust-badge">✓ RBI Licensed</div></div>
+            <button class="view-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 11 -->
+      <div class="mkt-card">
+        <div class="mkt-card-img">💳</div>
+        <div class="mkt-card-body">
+          <div class="mkt-card-tag tag-loan">Gold Loan</div>
+          <div class="mkt-card-name">HDFC Bank</div>
+          <div class="mkt-card-loc">📍 All Branches</div>
+          <div class="mkt-card-rate">8.15% p.a.</div>
+          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
+          <div class="mkt-card-meta">
+            <div class="meta-chip">⚖️ LTV 73%</div>
+            <div class="meta-chip">⚡ 2 days</div>
+            <div class="meta-chip">💰 ₹1L–₹1 Cr</div>
+          </div>
+          <div class="mkt-card-footer">
+            <div><div class="stars">★★★★★</div><div class="trust-badge">✓ Bank</div></div>
+            <button class="view-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 12 -->
+      <div class="mkt-card">
+        <div class="mkt-card-img">🏢</div>
+        <div class="mkt-card-body">
+          <div class="mkt-card-tag tag-loan">Gold Loan</div>
+          <div class="mkt-card-name">Shriram Finance</div>
+          <div class="mkt-card-loc">📍 100+ Branches</div>
+          <div class="mkt-card-rate">8.99% p.a.</div>
+          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
+          <div class="mkt-card-meta">
+            <div class="meta-chip">⚖️ LTV 74%</div>
+            <div class="meta-chip">⚡ 2 hours</div>
+            <div class="meta-chip">💰 ₹5K–₹25L</div>
+          </div>
+          <div class="mkt-card-footer">
+            <div><div class="stars">★★★★☆</div><div class="trust-badge">✓ RBI Licensed</div></div>
+            <button class="view-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 13 -->
+      <div class="mkt-card">
+        <div class="mkt-card-img">💎</div>
+        <div class="mkt-card-body">
+          <div class="mkt-card-tag tag-loan">Gold Loan</div>
+          <div class="mkt-card-name">Premium Lending Co</div>
+          <div class="mkt-card-loc">📍 Metro + Tier-1</div>
+          <div class="mkt-card-rate">8.35% p.a.</div>
+          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
+          <div class="mkt-card-meta">
+            <div class="meta-chip">⚖️ LTV 75%</div>
+            <div class="meta-chip">⚡ 2 hours</div>
+            <div class="meta-chip">💰 ₹10K–₹45L</div>
+          </div>
+          <div class="mkt-card-footer">
+            <div><div class="stars">★★★★★</div><div class="trust-badge">✓ NBFC</div></div>
+            <button class="view-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 14 -->
+      <div class="mkt-card">
+        <div class="mkt-card-img">🏪</div>
+        <div class="mkt-card-body">
+          <div class="mkt-card-tag tag-loan">Gold Loan</div>
+          <div class="mkt-card-name">Trust Finance Ltd</div>
+          <div class="mkt-card-loc">📍 South & West</div>
+          <div class="mkt-card-rate">9.1% p.a.</div>
+          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
+          <div class="mkt-card-meta">
+            <div class="meta-chip">⚖️ LTV 81%</div>
+            <div class="meta-chip">⚡ 1 hour</div>
+            <div class="meta-chip">💰 ₹1K–₹15L</div>
+          </div>
+          <div class="mkt-card-footer">
+            <div><div class="stars">★★★★☆</div><div class="trust-badge">✓ RBI Licensed</div></div>
+            <button class="view-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 15 -->
+      <div class="mkt-card">
+        <div class="mkt-card-img">🏛️</div>
+        <div class="mkt-card-body">
+          <div class="mkt-card-tag tag-loan">Gold Loan</div>
+          <div class="mkt-card-name">National Credit Bank</div>
+          <div class="mkt-card-loc">📍 Pan India</div>
+          <div class="mkt-card-rate">8.45% p.a.</div>
+          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
+          <div class="mkt-card-meta">
+            <div class="meta-chip">⚖️ LTV 76%</div>
+            <div class="meta-chip">⚡ 1.5 hours</div>
+            <div class="meta-chip">💰 ₹5K–₹60L</div>
+          </div>
+          <div class="mkt-card-footer">
+            <div><div class="stars">★★★★★</div><div class="trust-badge">✓ RBI Licensed</div></div>
+            <button class="view-btn">View Details</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <button class="page-num active">1</button>
+      <button class="page-num">2</button>
+      <button class="page-num">3</button>
+      <button class="page-num">...</button>
+      <button class="page-num">50</button>
+      <span class="page-info">Showing 1–15 of 500+ providers</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div>
+        <p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions on one trusted platform.</p>
+        <div class="foot-socials">
+          <a href="https://www.linkedin.com/company/goldbazaar" target="_blank" rel="noopener" class="fsoc" title="LinkedIn">in</a>
+          <a href="https://www.facebook.com/goldbazaar" target="_blank" rel="noopener" class="fsoc" title="Facebook">f</a>
+          <a href="https://www.instagram.com/goldbazaar" target="_blank" rel="noopener" class="fsoc" title="Instagram">📷</a>
+          <a href="https://twitter.com/goldbazaar" target="_blank" rel="noopener" class="fsoc" title="X / Twitter">𝕏</a>
+          <a href="https://www.youtube.com/@goldbazaar" target="_blank" rel="noopener" class="fsoc" title="YouTube">▶</a>
+        </div>
+      </div>
+      <div class="foot-col"><h4>Services</h4><ul>
+        <li><a href="index.html#gold-loan">Gold Loan</a></li>
+        <li><a href="index.html#gold-sell">Gold Sell</a></li>
+        <li><a href="index.html#vendors">Gold Exchange</a></li>
+        <li><a href="index.html#vendors">Jewellery</a></li>
+        <li><a href="index.html#vendors">Savings Scheme</a></li>
+      </ul></div>
+      <div class="foot-col"><h4>Platform</h4><ul>
+        <li><a href="gold-loan-providers.html">Gold Loan Providers</a></li>
+        <li><a href="gold-buyers.html">Gold Buyers</a></li>
+        <li><a href="index.html#gold-calculator">Gold Calculator</a></li>
+        <li><a href="index.html#gold-news">Gold News</a></li>
+        <li><a href="index.html">Vendor Onboarding</a></li>
+      </ul></div>
+      <div class="foot-col"><h4>Company</h4><ul>
+        <li><a href="index.html#why">About Us</a></li>
+        <li><a href="index.html#contact-us">Contact Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press Kit</a></li>
+        <li><a href="index.html#gold-news">Blog</a></li>
+      </ul></div>
+      <div class="foot-col"><h4>Legal</h4><ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms & Conditions</a></li>
+        <li><a href="#">Grievance Policy</a></li>
+        <li><a href="#">Refund Policy</a></li>
+        <li><a href="#">Sitemap</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2025 GoldBazaar.app — All rights reserved. GoldBazaar Technologies Pvt. Ltd.</p>
+      <div class="foot-badges">
+        <span class="f-badge">DPDP 2023</span><span class="f-badge">ISO 27001</span>
+        <span class="f-badge">PCI DSS</span><span class="f-badge">BIS Partner</span><span class="f-badge">RBI Compliant</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Nav ── */
+const navEl = document.getElementById('nav');
+window.addEventListener('scroll', () => navEl.classList.toggle('scrolled', scrollY > 40));
+function mobToggle(){ document.getElementById('mob-nav').classList.toggle('open') }
+document.addEventListener('click', e => { if(!e.target.closest('#nav') && !e.target.closest('#mob-nav')) document.getElementById('mob-nav').classList.remove('open') });
+
+/* ── Theme Manager ── */
+const ThemeManager = {
+  STORAGE_KEY: 'gb-theme-preference',
+  DARK: 'dark',
+  LIGHT: 'light',
+
+  init() {
+    const saved = localStorage.getItem(this.STORAGE_KEY);
+    const theme = saved || this.DARK;
+    this.set(theme);
+  },
+
+  get() {
+    return document.documentElement.dataset.theme || this.DARK;
+  },
+
+  set(theme) {
+    const validTheme = (theme === this.LIGHT) ? this.LIGHT : this.DARK;
+    document.documentElement.dataset.theme = validTheme;
+    localStorage.setItem(this.STORAGE_KEY, validTheme);
+    this.updateButton();
+  },
+
+  toggle() {
+    const current = this.get();
+    const next = current === this.DARK ? this.LIGHT : this.DARK;
+    this.set(next);
+  },
+
+  updateButton() {
+    const btn = document.getElementById('theme-toggle');
+    if(btn) {
+      btn.textContent = this.get() === this.DARK ? '🌙' : '☀️';
+    }
+  }
+};
+
+// Initialize theme on page load
+window.addEventListener('DOMContentLoaded', () => ThemeManager.init());
+
+/* ── View Toggle ── */
+function toggleMktView(btn, view){
+  const parent = btn.parentElement;
+  parent.querySelectorAll('.mkt-view-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const grid = parent.nextElementSibling;
+  if(view === 'list') grid.classList.add('list-view');
+  else grid.classList.remove('list-view');
+}
+
+/* ── Filter Functions ── */
+function resetFilters(){
+  document.getElementById('filter-city').value = '';
+  document.getElementById('filter-rate').value = '';
+  document.getElementById('filter-loan').value = '';
+}
+
+/*──────────────────────────────────────
+  PHASE 3 — STICKY GOLD RATES WIDGET
+──────────────────────────────────────*/
+function toggleGoldRates() {
+  const widget = document.getElementById('gold-rates-widget');
+  if(widget) {
+    widget.classList.toggle('collapsed');
+    const isExpanded = !widget.classList.contains('collapsed');
+    localStorage.setItem('gb-gold-rates-expanded', isExpanded ? 'true' : 'false');
+  }
+}
+
+function initGoldRatesState() {
+  const widget = document.getElementById('gold-rates-widget');
+  const isExpanded = localStorage.getItem('gb-gold-rates-expanded') === 'true';
+  if(widget && isExpanded) {
+    widget.classList.remove('collapsed');
+  }
+}
+
+const GoldRateManager = {
+  mockRates: {
+    '24K': 7460,
+    '22K': 6842,
+    '18K': 5520,
+  },
+  lastUpdate: new Date(),
+  updateInterval: 5 * 60 * 1000, // 5 minutes
+
+  async fetchRates() {
+    try {
+      const response = await fetch('https://api.metals.live/v1/spot/gold');
+      const data = await response.json();
+
+      if(data && data.gold) {
+        const goldPriceUSD = data.gold;
+        const conversionFactor = 83 / 31.1035;
+        const basePrice = goldPriceUSD * conversionFactor;
+
+        return {
+          '24K': Math.round(basePrice),
+          '22K': Math.round(basePrice * 0.9167),
+          '18K': Math.round(basePrice * 0.75),
+        };
+      }
+      return this.mockRates;
+    } catch (e) {
+      console.log('Using mock rates (API unavailable)');
+      return this.mockRates;
+    }
+  },
+
+  async init() {
+    initGoldRatesState();
+    const rates = await this.fetchRates();
+    this.updateDisplay(rates);
+    this.lastUpdate = new Date();
+
+    setInterval(() => {
+      this.fetchRates().then(rates => this.updateDisplay(rates));
+    }, this.updateInterval);
+  },
+
+  updateDisplay(rates) {
+    const el24K = document.getElementById('rate-24k');
+    const el22K = document.getElementById('rate-22k');
+    const el18K = document.getElementById('rate-18k');
+    const updateTime = document.getElementById('gold-update-time');
+
+    if(el24K) el24K.textContent = '₹' + rates['24K'].toLocaleString('en-IN') + '/g';
+    if(el22K) el22K.textContent = '₹' + rates['22K'].toLocaleString('en-IN') + '/g';
+    if(el18K) el18K.textContent = '₹' + rates['18K'].toLocaleString('en-IN') + '/g';
+
+    if(updateTime) {
+      const now = new Date();
+      const mins = Math.floor((now - this.lastUpdate) / 60000);
+      if(mins < 1) {
+        updateTime.textContent = 'just now';
+      } else if(mins < 60) {
+        updateTime.textContent = `${mins}m ago`;
+      } else {
+        const hours = Math.floor(mins / 60);
+        updateTime.textContent = `${hours}h ago`;
+      }
+    }
+  }
+};
+
+window.addEventListener('DOMContentLoaded', () => GoldRateManager.init());
+</script>
+
+</body>
+</html>
