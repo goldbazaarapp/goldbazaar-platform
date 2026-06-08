@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Sell Gold at Best Rates — GoldBazaar</title>
-<meta name="description" content="Sell your gold at the best market rates. Compare 200+ verified gold buyers across India. Instant payment, zero hidden charges."/>
+<title>Sell Gold — GoldBazaar</title>
+<meta name="description" content="Sell your gold at the best rates. Compare 200+ verified gold buyers across India. BIS certified, instant payment."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
@@ -15,7 +15,7 @@ a{text-decoration:none;color:inherit}
 button{font-family:inherit;cursor:pointer;border:none;background:none}
 img{display:block;max-width:100%}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#9B7B2E;border-radius:2px}
-:root{--g:#C9A84C;--gl:#E8C96A;--acc:#22c55e;--accl:#4ade80;--fd:'Playfair Display',Georgia,serif;--ease:cubic-bezier(.4,0,.2,1);--nav-h:68px;--transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
+:root{--g:#C9A84C;--gl:#E8C96A;--fd:'Playfair Display',Georgia,serif;--ease:cubic-bezier(.4,0,.2,1);--nav-h:68px;--transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
 html[data-theme="dark"]{--b0:#000;--b1:#0A0A0A;--b2:#111;--b3:#161616;--b4:#1E1E1E;--text-primary:#FFF;--text-secondary:rgba(255,255,255,.7);--text-tertiary:rgba(255,255,255,.5);--bg-primary:#000}
 html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#E8E8E8;--text-primary:#1A1A1A;--text-secondary:#333;--text-tertiary:#555;--bg-primary:#FFF}
 .wrap{max-width:1200px;margin:0 auto;padding:0 48px}
@@ -23,121 +23,111 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 .section{padding:80px 0}
 .alt{background:var(--b2)}
 .gold{background:linear-gradient(135deg,#C9A84C 0%,#F5E6C0 50%,#C9A84C 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);margin-bottom:14px}
-.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--acc);display:inline-block}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--g);display:inline-block}
 .sec-title{font-family:var(--fd);font-size:clamp(26px,3.4vw,42px);font-weight:700;letter-spacing:-.03em;line-height:1.18;margin-bottom:16px;color:var(--text-primary)}
 .sec-body{font-size:15px;font-weight:300;color:var(--text-secondary);max-width:560px;line-height:1.78}
 .sec-head{text-align:center;margin-bottom:48px}
 .sec-head .sec-body{margin:0 auto}
-.btn-gold{display:inline-flex;align-items:center;gap:7px;padding:13px 28px;border-radius:50px;background:linear-gradient(135deg,var(--acc),var(--accl));color:#000;font-size:14px;font-weight:700;transition:transform .2s,box-shadow .2s}
-.btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(34,197,94,.35)}
-.btn-outline{display:inline-flex;align-items:center;gap:7px;padding:11px 24px;border-radius:50px;border:1.5px solid rgba(34,197,94,.4);color:var(--acc);font-size:14px;font-weight:600;transition:all .2s}
-.btn-outline:hover{background:rgba(34,197,94,.08)}
+.btn-gold{display:inline-flex;align-items:center;gap:7px;padding:13px 28px;border-radius:50px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:14px;font-weight:700;transition:transform .2s,box-shadow .2s}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,168,76,.38)}
+.btn-outline{display:inline-flex;align-items:center;gap:7px;padding:11px 24px;border-radius:50px;border:1.5px solid rgba(201,168,76,.4);color:var(--g);font-size:14px;font-weight:600;transition:all .2s}
+.btn-outline:hover{background:rgba(201,168,76,.08);border-color:var(--g)}
 /* NAV */
 #nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 32px;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
-#nav.scrolled{background:rgba(0,0,0,.94);backdrop-filter:blur(20px);border-color:rgba(34,197,94,.15)}
+#nav.scrolled{background:rgba(0,0,0,.94);backdrop-filter:blur(20px);border-color:rgba(201,168,76,.12)}
 .nav-logo img{height:44px;width:auto}
 .nav-right{display:flex;align-items:center;gap:10px}
-.nav-back{padding:8px 16px;border:1px solid rgba(34,197,94,.3);border-radius:8px;font-size:13px;font-weight:500;color:var(--acc);transition:all .2s}
-.nav-back:hover{background:rgba(34,197,94,.08)}
-.nav-ghost{padding:8px 16px;border:1px solid rgba(255,255,255,.15);border-radius:8px;font-size:13px;color:rgba(255,255,255,.6);transition:all .2s}
-.nav-ghost:hover{border-color:var(--acc);color:var(--acc)}
+.nav-back{padding:8px 16px;border:1px solid rgba(201,168,76,.3);border-radius:8px;font-size:13px;font-weight:500;color:var(--g);transition:all .2s}
+.nav-back:hover{background:rgba(201,168,76,.08)}
 .nav-theme{padding:6px 10px;font-size:16px;transition:transform .2s}
 .nav-theme:hover{transform:scale(1.1)}
-.nav-cta{padding:8px 20px;border-radius:8px;background:linear-gradient(135deg,var(--acc),var(--accl));color:#000;font-size:13px;font-weight:700;transition:all .2s}
+.nav-cta{padding:8px 20px;border-radius:8px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:13px;font-weight:700;transition:all .2s}
 .hamburger{display:none;flex-direction:column;gap:5px;padding:4px}
 .hamburger span{width:21px;height:1.5px;background:#fff;display:block}
-#mob-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:999;background:rgba(0,0,0,.97);border-bottom:1px solid rgba(34,197,94,.1);backdrop-filter:blur(18px);padding:20px 28px;flex-direction:column;gap:4px}
+#mob-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:999;background:rgba(0,0,0,.97);border-bottom:1px solid rgba(201,168,76,.1);backdrop-filter:blur(18px);padding:20px 28px;flex-direction:column;gap:4px}
 #mob-nav.open{display:flex}
 #mob-nav a{font-size:15px;font-weight:500;color:rgba(255,255,255,.72);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
 /* PAGE HERO */
-.page-hero{width:100%;margin-top:var(--nav-h);padding:72px 0;position:relative;overflow:hidden;background:linear-gradient(135deg,#001a08 0%,#002d10 50%,#001a08 100%);border-bottom:1px solid rgba(34,197,94,.2)}
-.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 75% 50%,rgba(34,197,94,.1) 0%,transparent 70%),linear-gradient(rgba(34,197,94,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(34,197,94,.025) 1px,transparent 1px);background-size:auto,64px 64px,64px 64px;pointer-events:none}
+.page-hero{width:100%;margin-top:var(--nav-h);padding:72px 0;position:relative;overflow:hidden}
 .page-hero-content{position:relative;z-index:2}
 .page-hero h1{font-family:var(--fd);font-size:clamp(34px,5vw,58px);font-weight:700;letter-spacing:-.03em;line-height:1.12;margin-bottom:16px}
 .page-hero p{font-size:16px;color:rgba(255,255,255,.6);max-width:580px;line-height:1.72;margin-bottom:32px}
-.ph-stats{display:flex;gap:32px;flex-wrap:wrap;margin-top:8px}
-.ph-stat-val{font-size:24px;font-weight:800;color:var(--acc)}
+.page-hero-stats{display:flex;gap:32px;flex-wrap:wrap;margin-top:8px}
+.ph-stat{display:flex;flex-direction:column;gap:3px}
+.ph-stat-val{font-size:24px;font-weight:800}
 .ph-stat-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4)}
-/* FILTER BAR */
-.filter-bar{display:flex;align-items:center;gap:16px;margin-bottom:32px;background:var(--b3);border:1px solid rgba(34,197,94,.12);border-radius:14px;padding:20px;flex-wrap:wrap}
-html[data-theme="light"] .filter-bar{background:#fff;border-color:rgba(0,0,0,.08)}
-.filter-group{display:flex;align-items:center;gap:10px;flex:1;min-width:180px}
-.filter-group label{font-size:12px;font-weight:600;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap}
-html[data-theme="light"] .filter-group label{color:var(--text-tertiary)}
-.filter-group select,.filter-group input{flex:1;padding:9px 14px;background:var(--b4);border:1px solid rgba(34,197,94,.15);border-radius:8px;color:var(--text-primary);font-size:13px;font-family:inherit;outline:none;-webkit-appearance:none}
-.filter-group select:focus,.filter-group input:focus{border-color:var(--acc)}
-.filter-reset{padding:9px 18px;border:1px solid rgba(34,197,94,.3);border-radius:8px;font-size:13px;font-weight:600;color:var(--acc);cursor:pointer;transition:all .2s;white-space:nowrap}
-.filter-reset:hover{background:rgba(34,197,94,.08)}
+/* PAGE ACCENT */
+:root{--accent:#22c55e;--accent-l:#4ade80;--accent-rgb:34,197,94}
+.page-hero{background:linear-gradient(135deg,#001a08 0%,#002d10 50%,#001a08 100%);border-bottom:1px solid rgba(34,197,94,.2);width:100%;margin-top:var(--nav-h);padding:72px 0;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 50%,rgba(34,197,94,.12) 0%,transparent 60%),linear-gradient(rgba(34,197,94,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(34,197,94,.03) 1px,transparent 1px);background-size:auto,64px 64px,64px 64px;pointer-events:none}
+.page-hero-content{position:relative;z-index:2}
 /* VIEW TOGGLE */
-.mkt-view-toggle{display:flex;gap:8px;align-items:center;justify-content:center;margin-bottom:28px}
-.mkt-view-btn{padding:8px 18px;border:1.5px solid rgba(34,197,94,.25);border-radius:7px;background:none;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s}
-.mkt-view-btn.active{background:linear-gradient(135deg,var(--acc),var(--accl));color:#000;border-color:var(--acc)}
-/* MKT GRID */
+.view-toggle{display:flex;gap:8px;justify-content:center;margin-bottom:28px}
+.view-btn{padding:8px 20px;border:1.5px solid rgba(34,197,94,.25);border-radius:8px;background:none;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;font-family:inherit}
+.view-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent-l));color:#000;border-color:var(--accent)}
+/* FILTER BAR */
+.filter-bar{display:flex;align-items:center;gap:16px;margin-bottom:28px;background:var(--b3);border:1px solid rgba(34,197,94,.12);border-radius:12px;padding:18px 20px;flex-wrap:wrap}
+.filter-group{display:flex;align-items:center;gap:10px;flex:1;min-width:180px}
+.filter-group label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.4);white-space:nowrap}
+.filter-group input,.filter-group select{flex:1;padding:9px 12px;background:var(--b4);border:1px solid rgba(34,197,94,.15);border-radius:8px;color:var(--text-primary);font-size:13px;font-family:inherit;outline:none;-webkit-appearance:none}
+.filter-group input:focus,.filter-group select:focus{border-color:var(--accent)}
+.filter-reset{padding:9px 18px;background:none;border:1px solid rgba(34,197,94,.25);border-radius:8px;font-size:12px;font-weight:600;color:var(--accent-l);cursor:pointer;font-family:inherit;transition:all .2s}
+.filter-reset:hover{background:rgba(34,197,94,.08)}
+/* LIST/TILE GRID */
 .mkt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .mkt-grid.list-view{grid-template-columns:1fr;gap:0;background:var(--b3);border:1px solid rgba(34,197,94,.12);border-radius:14px;overflow:hidden}
-html[data-theme="light"] .mkt-grid.list-view{background:#fff;border-color:rgba(0,0,0,.08)}
-.mkt-table-header{display:none;grid-column:1/-1}
-.mkt-grid.list-view .mkt-table-header{display:grid;grid-template-columns:80px 2fr 1.5fr 1fr 2fr 1fr 1fr;gap:12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.35);padding:14px 20px;border-bottom:1px solid rgba(34,197,94,.1)}
-html[data-theme="light"] .mkt-grid.list-view .mkt-table-header{color:var(--text-tertiary)}
-.mkt-card{background:var(--b3);border:1px solid rgba(34,197,94,.08);border-radius:14px;padding:20px;display:flex;gap:16px;transition:all .3s;cursor:pointer}
-.mkt-card:hover{border-color:rgba(34,197,94,.3);box-shadow:0 8px 28px rgba(34,197,94,.08);transform:translateY(-3px)}
+.mkt-table-header{display:none;padding:12px 20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.4);border-bottom:1px solid rgba(34,197,94,.1)}
+.mkt-grid.list-view .mkt-table-header{display:grid;grid-template-columns:80px 2fr 1.5fr 1fr 2fr 1fr 1fr;gap:12px}
+.mkt-card{background:var(--b3);border:1px solid rgba(34,197,94,.1);border-radius:14px;padding:20px;display:flex;gap:16px;transition:all .3s;cursor:pointer}
+.mkt-card:hover{border-color:rgba(34,197,94,.3);box-shadow:0 8px 24px rgba(34,197,94,.08)}
 html[data-theme="light"] .mkt-card{background:#fff;border-color:rgba(0,0,0,.07)}
-html[data-theme="light"] .mkt-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.1)}
-.mkt-grid.list-view .mkt-card{border-radius:0;border:none;border-bottom:1px solid rgba(34,197,94,.07);padding:14px 20px;display:grid;grid-template-columns:80px 2fr 1.5fr 1fr 2fr 1fr 1fr;gap:12px;align-items:center;transform:none}
-.mkt-grid.list-view .mkt-card:hover{background:rgba(34,197,94,.03);box-shadow:none}
+.mkt-grid.list-view .mkt-card{border-radius:0;border:none;border-bottom:1px solid rgba(34,197,94,.07);padding:14px 20px;display:grid;grid-template-columns:80px 2fr 1.5fr 1fr 2fr 1fr 1fr;gap:12px;align-items:center}
 .mkt-grid.list-view .mkt-card:last-child{border-bottom:none}
-.mkt-card-img{height:64px;width:64px;background:linear-gradient(135deg,#001a08,#002d10);display:flex;align-items:center;justify-content:center;font-size:28px;border-radius:10px;flex-shrink:0;overflow:hidden;border:1px solid rgba(34,197,94,.15)}
-.mkt-card-img .jeweler-logo{width:100%;height:100%;object-fit:contain;padding:6px;display:block}
-.mkt-card-img .jeweler-logo-fallback{font-size:28px;display:none}
-html[data-theme="light"] .mkt-card-img{background:linear-gradient(135deg,#f0fdf4,#dcfce7)}
-.mkt-grid.list-view .mkt-card-img{display:flex;width:64px;height:52px;border-radius:10px;flex-shrink:0}
-.mkt-card-body{flex:1;display:flex;flex-direction:column;gap:6px}
+.mkt-card-img{height:90px;width:90px;background:linear-gradient(135deg,#001a08,#002d10);display:flex;align-items:center;justify-content:center;border-radius:10px;flex-shrink:0;overflow:hidden;border:1px solid rgba(34,197,94,.15)}
+.mkt-card-img .jeweler-logo{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
+.mkt-card-img .jeweler-logo-fallback{font-size:36px;display:none}
+.mkt-grid.list-view .mkt-card-img{display:flex;width:64px;height:52px;border-radius:10px}
+.mkt-card-body{flex:1;display:flex;flex-direction:column;gap:7px}
 .mkt-grid.list-view .mkt-card-body{display:contents}
-.mkt-card-tag{display:inline-flex;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;width:fit-content;background:rgba(34,197,94,.12);color:var(--acc);border:1px solid rgba(34,197,94,.2)}
+.mkt-card-tag{display:inline-flex;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:rgba(34,197,94,.1);color:var(--accent-l);border:1px solid rgba(34,197,94,.2);width:fit-content}
 .mkt-grid.list-view .mkt-card-tag{display:none}
 .mkt-card-name{font-size:15px;font-weight:700;color:var(--text-primary)}
 .mkt-card-loc{font-size:12px;color:var(--text-tertiary)}
-.mkt-card-rate{font-size:18px;font-weight:800;color:var(--acc)}
-.mkt-card-rate-lbl{font-size:11px;color:rgba(255,255,255,.35)}
+.mkt-card-rate{font-size:17px;font-weight:800;color:var(--accent)}
+.mkt-card-rate-lbl{font-size:11px;color:rgba(255,255,255,.4)}
 .mkt-grid.list-view .mkt-card-rate-lbl{display:none}
 .mkt-card-meta{display:flex;gap:6px;flex-wrap:wrap}
-.meta-chip{font-size:11px;padding:4px 8px;background:var(--b4);border:1px solid rgba(34,197,94,.1);border-radius:20px;color:rgba(255,255,255,.55)}
+.meta-chip{font-size:11px;padding:3px 8px;background:var(--b4);border:1px solid rgba(34,197,94,.1);border-radius:20px;color:rgba(255,255,255,.55)}
 .mkt-card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid rgba(34,197,94,.08)}
 .mkt-grid.list-view .mkt-card-footer{display:contents}
 .mkt-grid.list-view .mkt-card-footer>div{display:flex;align-items:center;gap:6px}
-.stars{color:var(--acc);font-size:12px}
+.stars{color:var(--accent);font-size:12px}
 .trust-badge{font-size:11px;color:rgba(255,255,255,.4)}
-.view-btn{font-size:11px;font-weight:700;color:var(--acc);background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);padding:6px 14px;border-radius:6px;transition:all .2s;white-space:nowrap;cursor:pointer}
-.view-btn:hover{background:rgba(34,197,94,.18)}
-/* TRUST STRIP */
-.trust-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:48px}
-@media(max-width:768px){.trust-strip{grid-template-columns:repeat(2,1fr)}}
-.trust-card{background:var(--b3);border:1px solid rgba(34,197,94,.12);border-radius:14px;padding:24px;text-align:center;transition:all .3s}
-.trust-card:hover{border-color:rgba(34,197,94,.3);transform:translateY(-3px)}
-.trust-card-icon{font-size:30px;margin-bottom:12px}
-.trust-card-title{font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:6px}
-.trust-card-desc{font-size:12px;color:var(--text-tertiary);line-height:1.5}
+.action-btn{font-size:11px;font-weight:700;color:var(--accent-l);background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);padding:6px 14px;border-radius:6px;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:inherit}
+.action-btn:hover{background:rgba(34,197,94,.18)}
 /* PAGINATION */
 .pagination{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:32px;flex-wrap:wrap}
-.page-num{width:36px;height:36px;border-radius:8px;background:var(--b3);border:1px solid rgba(34,197,94,.15);color:rgba(255,255,255,.6);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
-.page-num.active,.page-num:hover{background:linear-gradient(135deg,var(--acc),var(--accl));color:#000;border-color:var(--acc)}
-.page-info{font-size:12px;color:rgba(255,255,255,.4);margin-left:12px}
+.page-num{width:36px;height:36px;border-radius:8px;background:var(--b3);border:1px solid rgba(34,197,94,.15);font-size:13px;font-weight:600;color:rgba(255,255,255,.6);cursor:pointer;transition:all .2s;font-family:inherit}
+.page-num.active,.page-num:hover{background:linear-gradient(135deg,var(--accent),var(--accent-l));color:#000;border-color:var(--accent)}
+.page-info{font-size:12px;color:rgba(255,255,255,.4);margin-left:8px}
 /* FOOTER */
-footer{background:var(--b1);border-top:1px solid rgba(34,197,94,.1);padding:32px 0 24px}
-.foot-row{max-width:1200px;margin:0 auto;padding:0 48px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border-bottom:1px solid rgba(34,197,94,.08)}
+footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40px 0 24px}
+.foot-inner{max-width:1200px;margin:0 auto;padding:0 48px}
+.foot-row{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:28px;flex-wrap:wrap}
 .foot-logo img{height:36px}
-.foot-links{display:flex;gap:20px;flex-wrap:wrap}
+.foot-links{display:flex;gap:24px;flex-wrap:wrap}
 .foot-links a{font-size:13px;color:var(--text-tertiary);transition:color .2s}
-.foot-links a:hover{color:var(--acc)}
-.foot-bottom{max-width:1200px;margin:0 auto;padding:20px 48px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.foot-links a:hover{color:var(--g)}
+.foot-bottom{border-top:1px solid rgba(201,168,76,.08);padding-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .foot-bottom p{font-size:12px;color:rgba(255,255,255,.3)}
-.back-to-home{font-size:12px;color:var(--acc);font-weight:600;display:inline-flex;align-items:center;gap:6px}
-@media(max-width:768px){.hamburger{display:flex}.foot-row,.foot-bottom{padding:16px 20px}.ph-stats{gap:20px}}
-/* REVEAL */
+.back-to-home{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--g);font-weight:600}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
 .reveal.in{opacity:1;transform:none}
 @keyframes slideInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.back-to-home{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--g);font-weight:600}
+@media(max-width:768px){.hamburger{display:flex}.mkt-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.mkt-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -146,7 +136,7 @@ footer{background:var(--b1);border-top:1px solid rgba(34,197,94,.1);padding:32px
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
   <div class="nav-right">
     <a href="index.html" class="nav-back">← Back to Home</a>
-    <a href="index.html#services" class="nav-ghost">All Services</a>
+    <a href="index.html#services" class="nav-back" style="border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.6)">All Services</a>
     <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
     <a href="index.html#contact-us" class="nav-cta">Get Started</a>
   </div>
@@ -156,78 +146,64 @@ footer{background:var(--b1);border-top:1px solid rgba(34,197,94,.1);padding:32px
   <a href="index.html">← Home</a>
   <a href="index.html#services">All Services</a>
   <a href="gold-loan-providers.html">Gold Loan</a>
+  <a href="gold-buyers.html">Sell Gold</a>
   <a href="gold-exchange.html">Gold Exchange</a>
   <a href="jewellery-purchase.html">Jewellery</a>
-  <a href="gold-investment.html">Investment</a>
+  <a href="gold-savings-scheme.html">Savings Scheme</a>
+  <a href="digital-gold.html">Digital Gold</a>
+  <a href="gold-insurance.html">Gold Insurance</a>
+  <a href="gold-investment.html">Gold Investment</a>
 </div>
 
-<!-- HERO -->
 <div class="page-hero">
   <div class="wrap">
     <div class="page-hero-content">
-      <div class="eyebrow">Best Buy Rates in India</div>
-      <h1>Sell Your Gold at<br><span style="color:var(--acc)">Best Rates</span></h1>
-      <p>Compare live buy rates from 200+ verified gold buyers. Get instant payment, zero hidden charges and BIS-certified valuation — all on GoldBazaar.</p>
-      <div style="display:flex;gap:14px;margin-top:28px;flex-wrap:wrap">
-        <a href="#buyers-grid" class="btn-gold">Find Best Buyer →</a>
-        <a href="index.html#gold-calculator" class="btn-outline">Calculate Gold Value</a>
-      </div>
-      <div class="ph-stats" style="margin-top:36px">
-        <div><div class="ph-stat-val">₹6,880/g</div><div class="ph-stat-lbl">Best Rate Today (22K)</div></div>
-        <div><div class="ph-stat-val">200+</div><div class="ph-stat-lbl">Verified Buyers</div></div>
-        <div><div class="ph-stat-val">Instant</div><div class="ph-stat-lbl">Payment</div></div>
-        <div><div class="ph-stat-val">₹0</div><div class="ph-stat-lbl">Hidden Charges</div></div>
+      <div class="eyebrow" style="color:var(--accent-l)">Best Buy Rates</div>
+      <h1>Sell Gold at <span style="color:var(--accent-l)">Best Rates</span></h1>
+      <p>Compare verified gold buyers offering the highest rates across India. BIS-certified buyers, instant payment, zero hidden charges.</p>
+      <div class="page-hero-stats">
+        <div class="ph-stat"><div class="ph-stat-val" style="color:var(--accent-l)">₹6,842/g</div><div class="ph-stat-lbl">22K Buy Rate Today</div></div>
+        <div class="ph-stat"><div class="ph-stat-val" style="color:var(--accent-l)">200+</div><div class="ph-stat-lbl">Verified Buyers</div></div>
+        <div class="ph-stat"><div class="ph-stat-val" style="color:var(--accent-l)">Instant</div><div class="ph-stat-lbl">Payment</div></div>
+        <div class="ph-stat"><div class="ph-stat-val" style="color:var(--accent-l)">₹0</div><div class="ph-stat-lbl">Hidden Charges</div></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- MAIN SECTION -->
 <section class="section">
   <div class="wrap">
-    <!-- Filter Bar -->
+    <!-- Filter -->
     <div class="filter-bar reveal">
-      <div class="filter-group">
-        <label>City</label>
-        <input type="text" id="filter-city" placeholder="Enter city name..."/>
-      </div>
-      <div class="filter-group">
-        <label>Min Rate (₹/g)</label>
-        <input type="number" id="filter-rate" placeholder="e.g. 6800" min="0" step="10"/>
-      </div>
-      <div class="filter-group">
-        <label>Purity</label>
+      <div class="filter-group"><label>City</label><input type="text" id="filter-city" placeholder="e.g. Mumbai"/></div>
+      <div class="filter-group"><label>Min Buy Rate (₹/g)</label><input type="number" id="filter-rate" placeholder="e.g. 6800" min="0"/></div>
+      <div class="filter-group"><label>Purity</label>
         <select id="filter-purity">
           <option value="">All Purities</option>
-          <option value="24K">24K (99.99%)</option>
-          <option value="22K">22K (91.67%)</option>
-          <option value="18K">18K (75%)</option>
+          <option value="24k">24K</option>
+          <option value="22k">22K</option>
+          <option value="18k">18K</option>
         </select>
       </div>
-      <button class="filter-reset" onclick="resetFilters()">Reset Filters</button>
+      <button class="filter-reset" onclick="resetFilters()">Reset</button>
     </div>
-
     <!-- View Toggle -->
-    <div class="mkt-view-toggle">
-      <button class="mkt-view-btn" onclick="toggleMktView(this,'tiles')">⊞ Tiles</button>
-      <button class="mkt-view-btn active" onclick="toggleMktView(this,'list')">☰ List</button>
+    <div class="view-toggle">
+      <button class="view-btn" onclick="toggleView(this,'tiles')">⊞ Tiles</button>
+      <button class="view-btn active" onclick="toggleView(this,'list')">☰ List</button>
     </div>
-
     <!-- Grid -->
     <div class="mkt-grid list-view" id="buyers-grid">
-      <div class="mkt-table-header">
-        <div>Logo</div><div>Buyer</div><div>Location</div><div>Buy Rate</div><div>Features</div><div>Rating</div><div>Action</div>
-      </div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/kalyan-jewellers.png" class="jeweler-logo" alt="Kalyan Jewellers" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💎</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Kalyan Jewellers</div><div class="mkt-card-loc">📍 50+ Branches Pan India</div><div class="mkt-card-rate">₹6,850/g</div><div class="mkt-card-rate-lbl">22K Buy Rate</div><div class="mkt-card-meta"><div class="meta-chip">✓ All Purities</div><div class="meta-chip">⚡ Instant Payment</div><div class="meta-chip">📄 No Hidden Charges</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ BIS Hallmark</div></div><button class="view-btn">View Details</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/malabar-gold.png" class="jeweler-logo" alt="Malabar Gold" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">👑</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Malabar Gold &amp; Diamonds</div><div class="mkt-card-loc">📍 80+ Stores Nationwide</div><div class="mkt-card-rate">₹6,820/g</div><div class="mkt-card-rate-lbl">22K Buy Rate</div><div class="mkt-card-meta"><div class="meta-chip">✓ 22K &amp; 24K</div><div class="meta-chip">🏪 Store Visit</div><div class="meta-chip">⭐ Best Price Guarantee</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ Certified</div></div><button class="view-btn">View Details</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/pc-jeweller.png" class="jeweler-logo" alt="PC Jeweller" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💍</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">PC Jeweller</div><div class="mkt-card-loc">📍 100+ Locations</div><div class="mkt-card-rate">₹6,880/g</div><div class="mkt-card-rate-lbl">22K Buy Rate</div><div class="mkt-card-meta"><div class="meta-chip">✓ All Grades</div><div class="meta-chip">💰 Online Quote</div><div class="meta-chip">📱 Mobile Service</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Certified</div></div><button class="view-btn">View Details</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/tanishq.png" class="jeweler-logo" alt="Tanishq" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">✨</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Tanishq</div><div class="mkt-card-loc">📍 150+ Showrooms</div><div class="mkt-card-rate">₹6,800/g</div><div class="mkt-card-rate-lbl">22K Buy Rate</div><div class="mkt-card-meta"><div class="meta-chip">✓ Premium Gold</div><div class="meta-chip">🏢 Official Store</div><div class="meta-chip">🎯 Fair Valuation</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ Brand Certified</div></div><button class="view-btn">View Details</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/senco-gold.png" class="jeweler-logo" alt="Senco Gold" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🌟</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Senco Gold</div><div class="mkt-card-loc">📍 60+ Locations East India</div><div class="mkt-card-rate">₹6,840/g</div><div class="mkt-card-rate-lbl">22K Buy Rate</div><div class="mkt-card-meta"><div class="meta-chip">✓ Old &amp; New Gold</div><div class="meta-chip">⚡ Same Day Payout</div><div class="meta-chip">📊 Live Rate Display</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Certified</div></div><button class="view-btn">View Details</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/joyalukkas.png" class="jeweler-logo" alt="Joyalukkas" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💍</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Joyalukkas</div><div class="mkt-card-loc">📍 70+ Locations South India</div><div class="mkt-card-rate">₹6,855/g</div><div class="mkt-card-rate-lbl">22K Buy Rate</div><div class="mkt-card-meta"><div class="meta-chip">✓ Exchange Service</div><div class="meta-chip">⏱️ Quick Settlement</div><div class="meta-chip">📋 Transparent Process</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ Hallmarked</div></div><button class="view-btn">View Details</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/reliance-jewels.png" class="jeweler-logo" alt="Reliance Jewels" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💎</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Reliance Jewels</div><div class="mkt-card-loc">📍 200+ Locations</div><div class="mkt-card-rate">₹6,825/g</div><div class="mkt-card-rate-lbl">22K Buy Rate</div><div class="mkt-card-meta"><div class="meta-chip">✓ All Gold Types</div><div class="meta-chip">🏪 Nationwide Network</div><div class="meta-chip">🔐 Secure Transaction</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Retail Giant</div></div><button class="view-btn">View Details</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/augmont.png" class="jeweler-logo" alt="Augmont Digital Gold" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🪙</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Augmont Digital Gold</div><div class="mkt-card-loc">📍 Online + 10 Cities</div><div class="mkt-card-rate">₹6,900/g</div><div class="mkt-card-rate-lbl">22K Buy Rate</div><div class="mkt-card-meta"><div class="meta-chip">✓ Digital Platform</div><div class="meta-chip">🌐 Pan India</div><div class="meta-chip">⚡ Instant Valuation</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ IIBX Certified</div></div><button class="view-btn">View Details</button></div></div></div>
+      <div class="mkt-table-header"><div>Logo</div><div>Buyer</div><div>Location</div><div>Buy Rate</div><div>Features</div><div>Rating</div><div>Action</div></div>
+      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/kalyan-jewellers.png" class="jeweler-logo" alt="Kalyan" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💎</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Kalyan Jewellers</div><div class="mkt-card-loc">📍 50+ Branches Pan India</div><div class="mkt-card-rate">₹6,850/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ All Purities</div><div class="meta-chip">⚡ Instant Payment</div><div class="meta-chip">📄 No Hidden Charges</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ BIS Hallmark</div></div><button class="action-btn">Sell Now</button></div></div></div>
+      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/malabar-gold.png" class="jeweler-logo" alt="Malabar" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">👑</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Malabar Gold &amp; Diamonds</div><div class="mkt-card-loc">📍 80+ Stores Nationwide</div><div class="mkt-card-rate">₹6,820/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ 22K &amp; 24K</div><div class="meta-chip">🏪 Store Visit</div><div class="meta-chip">⭐ Best Price</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
+      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/pc-jeweller.png" class="jeweler-logo" alt="PC Jeweller" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💍</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">PC Jeweller</div><div class="mkt-card-loc">📍 100+ Locations</div><div class="mkt-card-rate">₹6,880/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ All Grades</div><div class="meta-chip">💰 Online Quote</div><div class="meta-chip">📱 Mobile Service</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
+      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/tanishq.png" class="jeweler-logo" alt="Tanishq" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">✨</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Tanishq</div><div class="mkt-card-loc">📍 150+ Showrooms</div><div class="mkt-card-rate">₹6,800/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ Premium Gold</div><div class="meta-chip">🏢 Official Store</div><div class="meta-chip">🎯 Fair Valuation</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ Brand Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
+      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/joyalukkas.png" class="jeweler-logo" alt="Joyalukkas" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💍</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Joyalukkas</div><div class="mkt-card-loc">📍 70+ Locations South India</div><div class="mkt-card-rate">₹6,855/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ Exchange Service</div><div class="meta-chip">⏱️ Quick Settlement</div><div class="meta-chip">📋 Transparent</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ Hallmarked</div></div><button class="action-btn">Sell Now</button></div></div></div>
+      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/senco-gold.png" class="jeweler-logo" alt="Senco Gold" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏅</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Senco Gold</div><div class="mkt-card-loc">📍 60+ Locations East India</div><div class="mkt-card-rate">₹6,840/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ Old &amp; New Gold</div><div class="meta-chip">⚡ Same Day Payout</div><div class="meta-chip">📊 Live Rate</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
+      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/augmont.png" class="jeweler-logo" alt="Augmont" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🪙</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Augmont Digital Gold</div><div class="mkt-card-loc">📍 Online + 10 Cities</div><div class="mkt-card-rate">₹6,900/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (24K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ Digital Platform</div><div class="meta-chip">🌐 Pan India</div><div class="meta-chip">⚡ Instant</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ IIBX Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
+      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/reliance-jewels.png" class="jeweler-logo" alt="Reliance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🌟</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Reliance Jewels</div><div class="mkt-card-loc">📍 200+ Locations</div><div class="mkt-card-rate">₹6,825/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ All Gold Types</div><div class="meta-chip">🏪 Nationwide</div><div class="meta-chip">🔐 Secure</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Retail Giant</div></div><button class="action-btn">Sell Now</button></div></div></div>
     </div>
-
     <div class="pagination reveal">
       <button class="page-num active">1</button>
       <button class="page-num">2</button>
@@ -239,35 +215,53 @@ footer{background:var(--b1);border-top:1px solid rgba(34,197,94,.1);padding:32px
   </div>
 </section>
 
-<!-- WHY SELL VIA GOLDBAZAAR -->
 <section class="section alt">
   <div class="wrap">
-    <div class="sec-head reveal"><div class="eyebrow">Why GoldBazaar</div><h2 class="sec-title">Sell Smarter, Get <span style="color:var(--acc)">More</span></h2></div>
-    <div class="trust-strip reveal">
-      <div class="trust-card"><div class="trust-card-icon">💰</div><div class="trust-card-title">Best Market Rate</div><div class="trust-card-desc">We compare 200+ buyers in real-time so you always get the highest price for your gold.</div></div>
-      <div class="trust-card"><div class="trust-card-icon">🏅</div><div class="trust-card-title">Hallmark Premium</div><div class="trust-card-desc">BIS hallmarked gold fetches 2–3% more. We help you certify before selling.</div></div>
-      <div class="trust-card"><div class="trust-card-icon">⚡</div><div class="trust-card-title">Instant Payment</div><div class="trust-card-desc">Same-day bank transfer at all GoldBazaar-verified buyers. No waiting, no delays.</div></div>
-      <div class="trust-card"><div class="trust-card-icon">🔒</div><div class="trust-card-title">Safe &amp; Transparent</div><div class="trust-card-desc">XRF testing, documented valuation, and GST invoice provided at every transaction.</div></div>
+    <div class="sec-head reveal">
+      <div class="eyebrow" style="color:var(--accent-l)">Smart Tool</div>
+      <h2 class="sec-title">Get Your <span style="color:var(--accent-l)">Instant Quote</span></h2>
+      <p class="sec-body">Enter your gold details to see the estimated value you'll receive today.</p>
+    </div>
+    <div style="background:var(--b3);border:1px solid rgba(34,197,94,.15);border-radius:20px;padding:32px;max-width:600px;margin:0 auto" class="reveal">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+        <div><label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);display:block;margin-bottom:6px">Gold Purity</label>
+          <select id="q-purity" onchange="calcQuote()" style="width:100%;padding:11px 14px;background:rgba(0,0,0,.3);border:1px solid rgba(34,197,94,.15);border-radius:10px;color:#fff;font-size:14px;font-family:inherit;outline:none">
+            <option value="0.9999">24K (99.99%)</option><option value="0.9167" selected>22K (91.67%)</option><option value="0.75">18K (75%)</option><option value="0.585">14K (58.5%)</option>
+          </select>
+        </div>
+        <div><label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);display:block;margin-bottom:6px">Weight (grams)</label>
+          <input type="number" id="q-weight" placeholder="e.g. 10" oninput="calcQuote()" style="width:100%;padding:11px 14px;background:rgba(0,0,0,.3);border:1px solid rgba(34,197,94,.15);border-radius:10px;color:#fff;font-size:14px;font-family:inherit;outline:none"/>
+        </div>
+      </div>
+      <div id="q-result" style="display:none;background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(34,197,94,.04));border:1px solid rgba(34,197,94,.25);border-radius:12px;padding:20px;text-align:center;margin-top:8px">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:8px">Estimated Value</div>
+        <div style="font-size:36px;font-weight:800;color:var(--accent-l)" id="q-val">—</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:8px" id="q-note">at current 22K MCX rate</div>
+      </div>
+      <div style="text-align:center;margin-top:20px"><a href="index.html#gold-calculator" class="btn-gold" style="background:linear-gradient(135deg,var(--accent),var(--accent-l));color:#000">Full Calculator →</a></div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="foot-row">
-    <a href="index.html" class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
-    <div class="foot-links">
-      <a href="index.html#services">All Services</a>
-      <a href="gold-loan-providers.html">Gold Loan</a>
-      <a href="gold-exchange.html">Exchange</a>
-      <a href="jewellery-purchase.html">Jewellery</a>
-      <a href="digital-gold.html">Digital Gold</a>
-      <a href="gold-insurance.html">Insurance</a>
-      <a href="gold-investment.html">Investment</a>
+  <div class="foot-inner">
+    <div class="foot-row">
+      <a href="index.html" class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
+      <div class="foot-links">
+        <a href="gold-loan-providers.html">Gold Loan</a>
+        <a href="gold-buyers.html" style="color:var(--accent-l)">Sell Gold</a>
+        <a href="gold-exchange.html">Exchange</a>
+        <a href="jewellery-purchase.html">Jewellery</a>
+        <a href="gold-savings-scheme.html">Savings</a>
+        <a href="digital-gold.html">Digital Gold</a>
+        <a href="gold-insurance.html">Insurance</a>
+        <a href="gold-investment.html">Investment</a>
+      </div>
     </div>
-  </div>
-  <div class="foot-bottom">
-    <p>© 2025 GoldBazaar.app — All rights reserved.</p>
-    <a href="index.html" class="back-to-home">← Back to GoldBazaar Home</a>
+    <div class="foot-bottom">
+      <p>© 2025 GoldBazaar.app — All rights reserved.</p>
+      <a href="index.html" class="back-to-home">← Back to GoldBazaar Home</a>
+    </div>
   </div>
 </footer>
 
@@ -282,10 +276,13 @@ const ThemeManager={STORAGE_KEY:'gb-theme',DARK:'dark',LIGHT:'light',
   toggle(){this.set(this.get()===this.DARK?this.LIGHT:this.DARK)},
   updateBtn(){const b=document.getElementById('theme-toggle');if(b)b.textContent=this.get()===this.DARK?'🌙':'☀️'}
 };
-function toggleMktView(btn,view){const p=btn.parentElement;p.querySelectorAll('.mkt-view-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const g=p.nextElementSibling;g.classList.toggle('list-view',view==='list')}
-function resetFilters(){['filter-city','filter-rate','filter-purity'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''})}
+window.addEventListener('DOMContentLoaded',()=>ThemeManager.init());
 const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')})},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+function toggleView(btn,view){document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('buyers-grid').classList.toggle('list-view',view==='list')}
+function resetFilters(){['filter-city','filter-rate','filter-purity'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''})}
+function calcQuote(){const p=parseFloat(document.getElementById('q-purity').value);const w=parseFloat(document.getElementById('q-weight').value);if(!w||w<=0){document.getElementById('q-result').style.display='none';return}const rate=7460*p*0.97;const val=Math.round(w*rate);document.getElementById('q-result').style.display='block';document.getElementById('q-val').textContent='₹'+val.toLocaleString('en-IN');document.getElementById('q-note').textContent='at current MCX rate (after ~3% buyer deduction)'}
+function toast(msg){const t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;bottom:20px;right:20px;background:rgba(0,0,0,.85);color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;z-index:9999;border:1px solid rgba(34,197,94,.2);animation:slideInUp .3s ease';document.body.appendChild(t);setTimeout(()=>t.remove(),2500)}
 window.addEventListener('DOMContentLoaded',()=>ThemeManager.init());
 </script>
 </body>
