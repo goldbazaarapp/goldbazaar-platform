@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Jewellery Purchase — GoldBazaar</title>
+<meta name="description" content="Buy BIS hallmarked gold jewellery from 8500+ verified jewellers."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg-primary);color:var(--text-primary);font-family:'Inter',-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:var(--transition)}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+img{display:block;max-width:100%}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#9B7B2E;border-radius:2px}
+:root{--g:#C9A84C;--gl:#E8C96A;--gd:#9B7B2E;--gp:#F5E6C0;--fd:'Playfair Display',Georgia,serif;--ease:cubic-bezier(.4,0,.2,1);--nav-h:68px;--transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
+html[data-theme="dark"]{--b0:#000;--b1:#0A0A0A;--b2:#111;--b3:#161616;--b4:#1E1E1E;--text-primary:#FFF;--text-secondary:rgba(255,255,255,.7);--text-tertiary:rgba(255,255,255,.5);--bg-primary:#000}
+html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#E8E8E8;--text-primary:#1A1A1A;--text-secondary:#333;--text-tertiary:#555;--bg-primary:#FFF}
+.wrap{max-width:1200px;margin:0 auto;padding:0 48px}
+@media(max-width:600px){.wrap{padding:0 20px}}
+.section{padding:80px 0}
+.alt{background:var(--b2)}
+.gold{background:linear-gradient(135deg,#C9A84C 0%,#F5E6C0 50%,#C9A84C 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--g);display:inline-block}
+.sec-title{font-family:var(--fd);font-size:clamp(26px,3.4vw,42px);font-weight:700;letter-spacing:-.03em;line-height:1.18;margin-bottom:16px;color:var(--text-primary)}
+.sec-body{font-size:15px;font-weight:300;color:var(--text-secondary);max-width:560px;line-height:1.78}
+.sec-head{text-align:center;margin-bottom:48px}
+.sec-head .sec-body{margin:0 auto}
+.btn-gold{display:inline-flex;align-items:center;gap:7px;padding:13px 28px;border-radius:50px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:14px;font-weight:700;transition:transform .2s,box-shadow .2s}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,168,76,.38)}
+.btn-outline{display:inline-flex;align-items:center;gap:7px;padding:11px 24px;border-radius:50px;border:1.5px solid rgba(201,168,76,.4);color:var(--g);font-size:14px;font-weight:600;transition:all .2s}
+.btn-outline:hover{background:rgba(201,168,76,.08);border-color:var(--g)}
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 32px;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+#nav.scrolled{background:rgba(0,0,0,.94);backdrop-filter:blur(20px);border-color:rgba(201,168,76,.12)}
+.nav-logo img{height:44px;width:auto}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-back{padding:8px 16px;border:1px solid rgba(201,168,76,.3);border-radius:8px;font-size:13px;font-weight:500;color:var(--g);transition:all .2s}
+.nav-back:hover{background:rgba(201,168,76,.08)}
+.nav-theme{padding:6px 10px;font-size:16px;transition:transform .2s}
+.nav-theme:hover{transform:scale(1.1)}
+.nav-cta{padding:8px 20px;border-radius:8px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:13px;font-weight:700;transition:all .2s}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:4px}
+.hamburger span{width:21px;height:1.5px;background:#fff;display:block}
+#mob-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:999;background:rgba(0,0,0,.97);border-bottom:1px solid rgba(201,168,76,.1);backdrop-filter:blur(18px);padding:20px 28px;flex-direction:column;gap:4px}
+#mob-nav.open{display:flex}
+#mob-nav a{font-size:15px;font-weight:500;color:rgba(255,255,255,.72);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.page-hero{width:100%;margin-top:var(--nav-h);padding:72px 0;position:relative;overflow:hidden}
+.page-hero-content{position:relative;z-index:2}
+.page-hero h1{font-family:var(--fd);font-size:clamp(34px,5vw,58px);font-weight:700;letter-spacing:-.03em;line-height:1.12;margin-bottom:16px}
+.page-hero p{font-size:16px;color:rgba(255,255,255,.6);max-width:580px;line-height:1.72;margin-bottom:32px}
+.page-hero-stats{display:flex;gap:32px;flex-wrap:wrap;margin-top:8px}
+.ph-stat{display:flex;flex-direction:column;gap:3px}
+.ph-stat-val{font-size:24px;font-weight:800;color:var(--g)}
+.ph-stat-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4)}
+footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40px 0 24px}
+.foot-inner{max-width:1200px;margin:0 auto;padding:0 48px}
+.foot-row{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:28px;flex-wrap:wrap}
+.foot-logo img{height:36px}
+.foot-links{display:flex;gap:24px;flex-wrap:wrap}
+.foot-links a{font-size:13px;color:var(--text-tertiary);transition:color .2s}
+.foot-links a:hover{color:var(--g)}
+.foot-bottom{border-top:1px solid rgba(201,168,76,.08);padding-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.foot-bottom p{font-size:12px;color:rgba(255,255,255,.3)}
+.back-to-home{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--g);font-weight:600}
+@keyframes slideInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media(max-width:768px){.hamburger{display:flex}.page-hero-stats{gap:20px}.foot-row{flex-direction:column;align-items:flex-start}}
+
+:root{--accent:#ec4899;--accent-l:#f472b6}
+.page-hero{background:linear-gradient(135deg,#1a0510 0%,#2d0a1e 50%,#1a0510 100%);border-bottom:1px solid rgba(236,72,153,.2)}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 75% 50%,rgba(236,72,153,.1) 0%,transparent 70%);pointer-events:none}
+.jewel-categories{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+.jewel-cat{padding:10px 22px;border-radius:50px;background:var(--b3);border:1px solid rgba(236,72,153,.2);font-size:13px;font-weight:600;color:rgba(255,255,255,.6);cursor:pointer;transition:all .2s}
+.jewel-cat.active,.jewel-cat:hover{background:linear-gradient(135deg,var(--accent),var(--accent-l));color:#fff;border-color:var(--accent);box-shadow:0 4px 14px rgba(236,72,153,.3)}
+.jewel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:900px){.jewel-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.jewel-grid{grid-template-columns:repeat(2,1fr);gap:14px}}
+.jewel-card{background:var(--b3);border:1px solid rgba(236,72,153,.1);border-radius:16px;overflow:hidden;transition:all .3s;cursor:pointer}
+.jewel-card:hover{border-color:rgba(236,72,153,.35);transform:translateY(-6px);box-shadow:0 16px 40px rgba(236,72,153,.12)}
+.jewel-card-img{height:140px;background:linear-gradient(135deg,#2d0a1e,#4a1030);display:flex;align-items:center;justify-content:center;font-size:52px;position:relative}
+.jewel-card-badge{position:absolute;top:10px;right:10px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:rgba(236,72,153,.2);border:1px solid rgba(236,72,153,.4);color:var(--accent-l)}
+.jewel-card-body{padding:16px}
+.jewel-card-name{font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:4px}
+.jewel-card-maker{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:8px}
+.jewel-card-price{font-size:16px;font-weight:800;color:var(--accent-l)}
+.jewel-card-price span{font-size:11px;font-weight:400;color:rgba(255,255,255,.4)}
+.jewel-features{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin:40px 0}
+.jewel-feat{display:flex;flex-direction:column;align-items:center;gap:10px;padding:24px 20px;background:var(--b3);border:1px solid rgba(236,72,153,.12);border-radius:16px;flex:1;min-width:160px;max-width:200px}
+.jewel-feat-icon{font-size:28px}
+.jewel-feat-title{font-size:13px;font-weight:700;color:var(--text-primary);text-align:center}
+.jewel-feat-desc{font-size:11px;color:var(--text-tertiary);text-align:center;line-height:1.5}
+
+</style>
+</head>
+<body>
+<nav id="nav">
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
+  <div class="nav-right">
+    <a href="index.html" class="nav-back">← Back to Home</a>
+    <a href="index.html#services" class="nav-back" style="border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.6)">All Services</a>
+    <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
+    <a href="index.html#contact-us" class="nav-cta">Get Started</a>
+  </div>
+  <button class="hamburger" onclick="mobToggle()"><span></span><span></span><span></span></button>
+</nav>
+<div id="mob-nav">
+  <a href="index.html">← Home</a>
+  <a href="index.html#services">All Services</a>
+  <a href="gold-loan-providers.html">Gold Loan</a>
+  <a href="gold-buyers.html">Sell Gold</a>
+  <a href="gold-exchange.html">Gold Exchange</a>
+  <a href="jewellery-purchase.html">Jewellery</a>
+  <a href="gold-savings-scheme.html">Savings Scheme</a>
+  <a href="digital-gold.html">Digital Gold</a>
+  <a href="gold-insurance.html">Gold Insurance</a>
+  <a href="gold-investment.html">Gold Investment</a>
+</div>
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="page-hero-content">
+      <div class="eyebrow" style="color:var(--accent-l)">Certified Jewellers</div>
+      <h1>Jewellery <span style="color:var(--accent-l)">Purchase</span></h1>
+      <p>Discover exquisite BIS-hallmarked jewellery from 8,500+ verified jewellers. Shop with confidence — every piece certified, every price transparent.</p>
+      <div class="page-hero-stats">
+        <div class="ph-stat"><div class="ph-stat-val" style="color:var(--accent-l)">8,500+</div><div class="ph-stat-lbl">Verified Jewellers</div></div>
+        <div class="ph-stat"><div class="ph-stat-val" style="color:var(--accent-l)">500+</div><div class="ph-stat-lbl">Cities</div></div>
+        <div class="ph-stat"><div class="ph-stat-val" style="color:var(--accent-l)">100%</div><div class="ph-stat-lbl">BIS Hallmarked</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="eyebrow" style="color:var(--accent-l)">Browse by Category</div><h2 class="sec-title">Find Your Perfect <span style="color:var(--accent-l)">Piece</span></h2></div>
+    <div class="jewel-categories">
+      <button class="jewel-cat active">All</button>
+      <button class="jewel-cat">Necklaces</button>
+      <button class="jewel-cat">Rings</button>
+      <button class="jewel-cat">Bangles</button>
+      <button class="jewel-cat">Earrings</button>
+      <button class="jewel-cat">Chains</button>
+      <button class="jewel-cat">Pendants</button>
+      <button class="jewel-cat">Bracelets</button>
+    </div>
+    <div class="jewel-grid reveal">
+      <div class="jewel-card"><div class="jewel-card-img">💎<div class="jewel-card-badge">BIS 916</div></div><div class="jewel-card-body"><div class="jewel-card-name">Temple Necklace Set</div><div class="jewel-card-maker">Kalyan Jewellers</div><div class="jewel-card-price">₹48,500 <span>22K Gold</span></div></div></div>
+      <div class="jewel-card"><div class="jewel-card-img">💍<div class="jewel-card-badge">BIS 916</div></div><div class="jewel-card-body"><div class="jewel-card-name">Solitaire Ring</div><div class="jewel-card-maker">Tanishq</div><div class="jewel-card-price">₹32,000 <span>22K Gold</span></div></div></div>
+      <div class="jewel-card"><div class="jewel-card-img">🪬<div class="jewel-card-badge">BIS 999</div></div><div class="jewel-card-body"><div class="jewel-card-name">Gold Bangle Set</div><div class="jewel-card-maker">Malabar Gold</div><div class="jewel-card-price">₹72,000 <span>24K Gold</span></div></div></div>
+      <div class="jewel-card"><div class="jewel-card-img">✨<div class="jewel-card-badge">BIS 916</div></div><div class="jewel-card-body"><div class="jewel-card-name">Jhumka Earrings</div><div class="jewel-card-maker">Joyalukkas</div><div class="jewel-card-price">₹18,500 <span>22K Gold</span></div></div></div>
+      <div class="jewel-card"><div class="jewel-card-img">📿<div class="jewel-card-badge">BIS 916</div></div><div class="jewel-card-body"><div class="jewel-card-name">Figaro Gold Chain</div><div class="jewel-card-maker">PC Jeweller</div><div class="jewel-card-price">₹24,000 <span>22K Gold</span></div></div></div>
+      <div class="jewel-card"><div class="jewel-card-img">🌸<div class="jewel-card-badge">BIS 916</div></div><div class="jewel-card-body"><div class="jewel-card-name">Floral Pendant Set</div><div class="jewel-card-maker">Senco Gold</div><div class="jewel-card-price">₹15,200 <span>22K Gold</span></div></div></div>
+      <div class="jewel-card"><div class="jewel-card-img">👑<div class="jewel-card-badge">BIS 916</div></div><div class="jewel-card-body"><div class="jewel-card-name">Polki Choker</div><div class="jewel-card-maker">Malabar Gold</div><div class="jewel-card-price">₹1,25,000 <span>22K Gold</span></div></div></div>
+      <div class="jewel-card"><div class="jewel-card-img">🔮<div class="jewel-card-badge">BIS 750</div></div><div class="jewel-card-body"><div class="jewel-card-name">Diamond Ring</div><div class="jewel-card-maker">Tanishq</div><div class="jewel-card-price">₹55,000 <span>18K Gold</span></div></div></div>
+    </div>
+    <div style="text-align:center;margin-top:36px"><a href="index.html#contact-us" class="btn-gold">Find Jewellers Near You →</a></div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="eyebrow" style="color:var(--accent-l)">Why Buy Here</div><h2 class="sec-title">Shop with <span style="color:var(--accent-l)">Confidence</span></h2></div>
+    <div class="jewel-features reveal">
+      <div class="jewel-feat"><div class="jewel-feat-icon">🏅</div><div class="jewel-feat-title">BIS Hallmarked</div><div class="jewel-feat-desc">Every piece carries HUID-based BIS certification — purity guaranteed</div></div>
+      <div class="jewel-feat"><div class="jewel-feat-icon">💰</div><div class="jewel-feat-title">Transparent Pricing</div><div class="jewel-feat-desc">Gold rate + making charges shown upfront. No surprise fees</div></div>
+      <div class="jewel-feat"><div class="jewel-feat-icon">🔄</div><div class="jewel-feat-title">Exchange Anytime</div><div class="jewel-feat-desc">Bring back your jewellery for exchange or upgrade at any partner store</div></div>
+      <div class="jewel-feat"><div class="jewel-feat-icon">🛡️</div><div class="jewel-feat-title">Insure It</div><div class="jewel-feat-desc">Add gold insurance at checkout. Protect against theft and loss</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-row">
+      <a href="index.html" class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
+      <div class="foot-links">
+        <a href="gold-loan-providers.html">Gold Loan</a>
+        <a href="gold-buyers.html">Sell Gold</a>
+        <a href="gold-exchange.html">Exchange</a>
+        <a href="jewellery-purchase.html">Jewellery</a>
+        <a href="gold-savings-scheme.html">Savings</a>
+        <a href="digital-gold.html">Digital Gold</a>
+        <a href="gold-insurance.html">Insurance</a>
+        <a href="gold-investment.html">Investment</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2025 GoldBazaar.app — All rights reserved.</p>
+      <a href="index.html" class="back-to-home">← Back to GoldBazaar Home</a>
+    </div>
+  </div>
+</footer>
+<script>
+const navEl=document.getElementById('nav');
+window.addEventListener('scroll',()=>navEl.classList.toggle('scrolled',scrollY>40));
+function mobToggle(){document.getElementById('mob-nav').classList.toggle('open')}
+const ThemeManager={STORAGE_KEY:'gb-theme',DARK:'dark',LIGHT:'light',
+  init(){this.set(localStorage.getItem(this.STORAGE_KEY)||this.DARK)},
+  get(){return document.documentElement.dataset.theme||this.DARK},
+  set(t){const v=t===this.LIGHT?this.LIGHT:this.DARK;document.documentElement.dataset.theme=v;localStorage.setItem(this.STORAGE_KEY,v);this.updateBtn()},
+  toggle(){this.set(this.get()===this.DARK?this.LIGHT:this.DARK)},
+  updateBtn(){const b=document.getElementById('theme-toggle');if(b)b.textContent=this.get()===this.DARK?'🌙':'☀️'}
+};
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+function toast(msg){const t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;bottom:20px;right:20px;background:rgba(0,0,0,.85);color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;z-index:9999;border:1px solid rgba(201,168,76,.2);animation:slideInUp .3s ease';document.body.appendChild(t);setTimeout(()=>t.remove(),2500)}
+window.addEventListener('DOMContentLoaded',()=>ThemeManager.init());
+</script>
+</body>
+</html>

@@ -126,7 +126,7 @@ html[data-theme="light"]{
 .mkt-view-btn{padding:8px 18px;border:1.5px solid rgba(201,168,76,.3);border-radius:7px;background:none;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s}
 .mkt-view-btn.active{background:linear-gradient(135deg,var(--g),var(--gl));color:#000;border-color:var(--g)}
 .mkt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.mkt-grid.list-view{grid-template-columns:1fr;gap:10px}
+.mkt-grid.list-view{grid-template-columns:1fr;gap:0;background:var(--b3);border:1px solid rgba(201,168,76,.12);border-radius:14px;overflow:hidden}
 .mkt-card{background:var(--b3);border:1px solid var(--b4);border-radius:12px;overflow:hidden;transition:all .3s,border-color .3s;cursor:pointer;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(0,0,0,.1)}
 .mkt-card:hover{transform:translateY(-2px);border-color:rgba(201,168,76,.3);box-shadow:0 12px 28px rgba(201,168,76,.1)}
 html[data-theme="light"] .mkt-card{background:#FFFFFF;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 8px rgba(0,0,0,.06)}
@@ -171,7 +171,7 @@ html[data-theme="light"] .mkt-card-loc{color:var(--text-secondary)}
   background:rgba(201,168,76,.04);transform:none;box-shadow:none;
   border-color:rgba(201,168,76,.08);
 }
-.mkt-grid.list-view .mkt-card-img{display:none}
+.mkt-grid.list-view .mkt-card-img{display:flex;width:64px;height:52px;border-radius:10px;flex-shrink:0}
 .mkt-grid.list-view .mkt-card-body{display:contents}
 .mkt-grid.list-view .mkt-card-tag{display:none}
 .mkt-grid.list-view .mkt-card-rate-lbl{display:none}
@@ -435,6 +435,13 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 @media(max-width:480px){
   .gold-widget{display:none}
 }
+
+/*──────────────────────────────────────
+  JEWELER LOGO / BANNER SUPPORT
+──────────────────────────────────────*/
+.mkt-card-img{display:flex;align-items:center;justify-content:center}
+.mkt-card-img .jeweler-logo{width:100%;height:100%;object-fit:contain;padding:8px;display:block}
+.mkt-card-img .jeweler-logo-fallback{font-size:36px;display:none}
 </style>
 </head>
 <body>
@@ -525,14 +532,14 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
     <!-- View Toggle -->
     <div class="mkt-view-toggle">
-      <button class="mkt-view-btn active" onclick="toggleMktView(this, 'tiles')">Tiles</button>
-      <button class="mkt-view-btn" onclick="toggleMktView(this, 'list')">List</button>
+      <button class="mkt-view-btn" onclick="toggleMktView(this, 'tiles')">Tiles</button>
+      <button class="mkt-view-btn active" onclick="toggleMktView(this, 'list')">List</button>
     </div>
 
     <!-- Grid -->
-    <div class="mkt-grid" id="providers-grid">
+    <div class="mkt-grid list-view" id="providers-grid">
       <div class="mkt-table-header">
-        <div class="th-provider">Provider</div>
+        <div>Logo</div><div class="th-provider">Provider</div>
         <div class="th-location">Location</div>
         <div class="th-rate">Rate</div>
         <div class="th-features">Features</div>
@@ -542,7 +549,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
       <!-- Card 1 -->
       <div class="mkt-card">
-        <div class="mkt-card-img">🏦</div>
+        <div class="mkt-card-img"><img src="images/jeweler-logos/muthoot-finance.png" class="jeweler-logo" alt="Muthoot Finance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏦</span></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
           <div class="mkt-card-name">Muthoot Finance</div>
@@ -563,7 +570,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
       <!-- Card 2 -->
       <div class="mkt-card">
-        <div class="mkt-card-img">🏛️</div>
+        <div class="mkt-card-img"><img src="images/jeweler-logos/manappuram-finance.png" class="jeweler-logo" alt="Manappuram Finance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏛️</span></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
           <div class="mkt-card-name">Manappuram Finance</div>
@@ -584,7 +591,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
       <!-- Card 3 -->
       <div class="mkt-card">
-        <div class="mkt-card-img">🏦</div>
+        <div class="mkt-card-img"><img src="images/jeweler-logos/iifl-finance.png" class="jeweler-logo" alt="IIFL Finance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏦</span></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
           <div class="mkt-card-name">IIFL Finance</div>
@@ -605,7 +612,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
       <!-- Card 4 -->
       <div class="mkt-card">
-        <div class="mkt-card-img">💳</div>
+        <div class="mkt-card-img"><img src="images/jeweler-logos/indusind-bank.png" class="jeweler-logo" alt="IndusInd Bank" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💳</span></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
           <div class="mkt-card-name">IndusInd Bank</div>
@@ -626,7 +633,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
       <!-- Card 5 -->
       <div class="mkt-card">
-        <div class="mkt-card-img">🏢</div>
+        <div class="mkt-card-img"><img src="images/jeweler-logos/bajaj-finserv.png" class="jeweler-logo" alt="Bajaj Finserv" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏢</span></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
           <div class="mkt-card-name">Bajaj Finserv</div>
@@ -647,7 +654,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
       <!-- Card 6 -->
       <div class="mkt-card">
-        <div class="mkt-card-img">🏪</div>
+        <div class="mkt-card-img"><img src="images/jeweler-logos/pawn-broking.png" class="jeweler-logo" alt="Pawn Broking Ltd" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏪</span></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
           <div class="mkt-card-name">Pawn Broking Ltd</div>
@@ -668,7 +675,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
       <!-- Card 7 -->
       <div class="mkt-card">
-        <div class="mkt-card-img">💰</div>
+        <div class="mkt-card-img"><img src="images/jeweler-logos/capital-finance.png" class="jeweler-logo" alt="Capital Finance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💰</span></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
           <div class="mkt-card-name">Capital Finance</div>
@@ -689,7 +696,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
       <!-- Card 8 -->
       <div class="mkt-card">
-        <div class="mkt-card-img">🏛️</div>
+        <div class="mkt-card-img"><img src="images/jeweler-logos/axis-bank.png" class="jeweler-logo" alt="Axis Bank" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏛️</span></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
           <div class="mkt-card-name">Axis Bank</div>
@@ -710,7 +717,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
       <!-- Card 9 -->
       <div class="mkt-card">
-        <div class="mkt-card-img">💎</div>
+        <div class="mkt-card-img"><img src="images/jeweler-logos/gold-finance-solutions.png" class="jeweler-logo" alt="Gold Finance Solutions" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💎</span></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
           <div class="mkt-card-name">Gold Finance Solutions</div>
@@ -731,7 +738,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
       <!-- Card 10 -->
       <div class="mkt-card">
-        <div class="mkt-card-img">🏪</div>
+        <div class="mkt-card-img"><img src="images/jeweler-logos/cibil-safe-finance.png" class="jeweler-logo" alt="CIBIL Safe Finance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏪</span></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
           <div class="mkt-card-name">CIBIL Safe Finance</div>
@@ -752,7 +759,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
       <!-- Card 11 -->
       <div class="mkt-card">
-        <div class="mkt-card-img">💳</div>
+        <div class="mkt-card-img"><img src="images/jeweler-logos/hdfc-bank.png" class="jeweler-logo" alt="HDFC Bank" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💳</span></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
           <div class="mkt-card-name">HDFC Bank</div>
@@ -773,7 +780,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
       <!-- Card 12 -->
       <div class="mkt-card">
-        <div class="mkt-card-img">🏢</div>
+        <div class="mkt-card-img"><img src="images/jeweler-logos/shriram-finance.png" class="jeweler-logo" alt="Shriram Finance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏢</span></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
           <div class="mkt-card-name">Shriram Finance</div>
@@ -794,7 +801,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
       <!-- Card 13 -->
       <div class="mkt-card">
-        <div class="mkt-card-img">💎</div>
+        <div class="mkt-card-img"><img src="images/jeweler-logos/premium-lending-co.png" class="jeweler-logo" alt="Premium Lending Co" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💎</span></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
           <div class="mkt-card-name">Premium Lending Co</div>
@@ -815,7 +822,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
       <!-- Card 14 -->
       <div class="mkt-card">
-        <div class="mkt-card-img">🏪</div>
+        <div class="mkt-card-img"><img src="images/jeweler-logos/trust-finance-ltd.png" class="jeweler-logo" alt="Trust Finance Ltd" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏪</span></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
           <div class="mkt-card-name">Trust Finance Ltd</div>
@@ -836,7 +843,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 
       <!-- Card 15 -->
       <div class="mkt-card">
-        <div class="mkt-card-img">🏛️</div>
+        <div class="mkt-card-img"><img src="images/jeweler-logos/national-credit-bank.png" class="jeweler-logo" alt="National Credit Bank" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏛️</span></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
           <div class="mkt-card-name">National Credit Bank</div>
@@ -1057,27 +1064,4 @@ const GoldRateManager = {
     const el18K = document.getElementById('rate-18k');
     const updateTime = document.getElementById('gold-update-time');
 
-    if(el24K) el24K.textContent = '₹' + rates['24K'].toLocaleString('en-IN') + '/g';
-    if(el22K) el22K.textContent = '₹' + rates['22K'].toLocaleString('en-IN') + '/g';
-    if(el18K) el18K.textContent = '₹' + rates['18K'].toLocaleString('en-IN') + '/g';
-
-    if(updateTime) {
-      const now = new Date();
-      const mins = Math.floor((now - this.lastUpdate) / 60000);
-      if(mins < 1) {
-        updateTime.textContent = 'just now';
-      } else if(mins < 60) {
-        updateTime.textContent = `${mins}m ago`;
-      } else {
-        const hours = Math.floor(mins / 60);
-        updateTime.textContent = `${hours}h ago`;
-      }
-    }
-  }
-};
-
-window.addEventListener('DOMContentLoaded', () => GoldRateManager.init());
-</script>
-
-</body>
-</html>
+    
