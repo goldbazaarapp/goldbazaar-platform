@@ -188,20 +188,21 @@
 
     /* OTP Login Screen */
     .login-screen {
-      margin-top: 68px;
-      min-height: calc(100vh - 68px);
+      position: fixed;
+      top: 68px; left: 0; right: 0; bottom: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, rgba(20, 15, 10, 0.4), rgba(0, 0, 0, 0.2));
-      padding: 32px;
+      background: var(--b0);
+      padding: 20px;
+      z-index: 200;
     }
 
     .login-container {
       background: linear-gradient(135deg, rgba(22, 22, 22, 0.95), rgba(17, 17, 17, 0.95));
       border: 1px solid rgba(201, 168, 76, 0.2);
-      border-radius: 20px;
-      padding: 48px;
+      border-radius: 16px;
+      padding: 28px 32px;
       max-width: 420px;
       width: 100%;
       backdrop-filter: blur(10px);
@@ -209,14 +210,14 @@
 
     .login-header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
 
     .login-header h1 {
       font-family: var(--fd);
-      font-size: 32px;
+      font-size: 24px;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       color: white;
     }
 
@@ -305,7 +306,7 @@
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
-      margin-top: 24px;
+      margin-top: 16px;
     }
 
     .login-btn:hover {
@@ -322,7 +323,7 @@
       display: flex;
       gap: 8px;
       justify-content: center;
-      margin-bottom: 28px;
+      margin-bottom: 16px;
     }
 
     .step {
@@ -406,6 +407,23 @@
     .tab-content {
       display: none;
       padding: 48px 32px;
+    }
+    /* Onboarding tab: full-viewport fixed panel (no scroll) */
+    #onboarding.active {
+      position: fixed;
+      top: 68px; left: 0; right: 0; bottom: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--b0);
+      z-index: 10;
+    }
+    #onboarding.active > div {
+      width: 100%;
+      max-width: 780px;
+      padding: 0 24px;
     }
 
     .tab-content.active {
@@ -619,9 +637,7 @@
   <nav id="nav">
     <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar" /></a>
 
-    <div class="nav-center">
-      <a href="index.html">Home</a>
-    </div>
+    
 
     <div class="nav-right">
       <a href="index.html" class="nav-vendor">← Back to Home</a>
@@ -641,6 +657,14 @@
   <!-- ═══════════════════ OTP LOGIN SCREEN ═══════════════════ -->
   <div id="loginScreen" class="login-screen">
     <div class="login-container">
+
+      <!-- Welcome context banner (shown after form submission) -->
+      <div id="loginContextBanner" style="display:none; background:linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.04)); border:1px solid rgba(201,168,76,0.25); border-radius:12px; padding:14px 18px; margin-bottom:24px; text-align:center;">
+        <div style="font-size:22px; margin-bottom:6px;">🎯</div>
+        <div style="font-size:13px; font-weight:700; color:var(--gl); margin-bottom:4px;" id="loginContextMsg">Welcome!</div>
+        <div style="font-size:12px; color:rgba(255,255,255,0.55);">One last step — verify your mobile to activate your vendor account and start receiving leads.</div>
+      </div>
+
       <div class="step-indicator">
         <div class="step active" id="step1"></div>
         <div class="step" id="step2"></div>
@@ -649,8 +673,8 @@
       <!-- Step 1: Mobile OTP -->
       <div id="otpStep" class="login-step">
         <div class="login-header">
-          <h1>Vendor Login</h1>
-          <p>Enter your mobile number to receive an OTP verification code</p>
+          <h1 id="loginTitle">Vendor Login</h1>
+          <p id="loginSubtitle">Enter your mobile number to receive an OTP verification code</p>
         </div>
 
         <form onsubmit="handleOtpRequest(event)">
@@ -711,8 +735,8 @@
   <!-- ═══════════════════ PAGE HEADER ═══════════════════ -->
   <div class="page-header" id="pageHeader">
     <div style="max-width: 1200px; margin: 0 auto; padding: 0 48px;">
-      <h1>Vendor Portal</h1>
-      <p>Complete your onboarding and manage your business</p>
+      <h1 id="pageHeaderTitle">Vendor Registration</h1>
+      <p id="pageHeaderSub">Complete your profile to join India's largest gold marketplace network</p>
     </div>
   </div>
 
@@ -720,19 +744,20 @@
   <div class="tab-nav" id="tabNav">
     <button class="tab-btn active" onclick="switchTab('onboarding', this)">✏️ Complete Onboarding</button>
     <button class="tab-btn" onclick="switchTab('dashboard', this)">📊 Vendor Dashboard</button>
+    <button class="tab-btn" onclick="switchTab('leads', this)">🎯 Lead Management</button>
   </div>
 
   <!-- ═══════════════════ ONBOARDING FORM ═══════════════════ -->
   <div id="onboarding" class="tab-content">
     <div style="max-width: 1200px; margin: 0 auto;">
-      <div style="background: rgba(22, 22, 22, 0.8); border: 1px solid rgba(201, 168, 76, 0.12); border-radius: 16px; padding: 32px;">
-        <div style="text-align: center; margin-bottom: 32px;">
-          <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 8px; color: white;">Complete Your Vendor Onboarding</h2>
-          <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">Fill out the form below to register your business on GoldBazaar</p>
+      <div style="background: rgba(22, 22, 22, 0.8); border: 1px solid rgba(201, 168, 76, 0.12); border-radius: 16px; padding: 16px 20px;">
+        <div style="text-align: center; margin-bottom: 12px;">
+          <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 4px; color: white;">Complete Your Vendor Onboarding</h2>
+          <p style="font-size: 13px; color: rgba(255, 255, 255, 0.6);">Fill out the form below to register your business on GoldBazaar</p>
         </div>
 
         <!-- Step Progress -->
-        <div style="margin-bottom: 32px;">
+        <div style="margin-bottom: 10px;">
           <div id="progressBar" style="width: 100%; display: flex; align-items: center; gap: 4px; margin-bottom: 16px;">
             <!-- Dynamically updated by JavaScript -->
           </div>
@@ -741,37 +766,47 @@
 
         <!-- Form Container -->
         <div style="max-width: 600px; margin: 0 auto;">
-          <form id="onboardingForm" onsubmit="handleNextStep(event)">
+          <form id="onboardingForm" onsubmit="return false;">
             <!-- STEP 1: Business Information -->
             <div id="step-1" class="form-step active" style="display: block;">
-              <div style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Business Name</label>
-                <input type="text" id="businessName" name="businessName" placeholder="Your Business Name" class="form-input"/>
-                <span class="error-msg" id="businessNameError"></span>
-              </div>
-              <div style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Owner Name</label>
-                <input type="text" id="ownerName" name="ownerName" placeholder="Full Name" class="form-input"/>
-                <span class="error-msg" id="ownerNameError"></span>
-              </div>
-              <div style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">GST Number</label>
-                <input type="text" id="gstNumber" name="gstNumber" placeholder="15-Character GST Number" class="form-input"/>
-                <span class="error-msg" id="gstNumberError"></span>
-              </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
                 <div>
-                  <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Category</label>
-                  <select id="category" name="category" class="form-input">
+                  <label class="fi-label">Mobile Number</label>
+                  <input type="tel" id="vendorMobile" name="vendorMobile" placeholder="+91 98765 43210" class="form-input fi-compact"/>
+                  <span class="error-msg" id="vendorMobileError"></span>
+                </div>
+                <div>
+                  <label class="fi-label">Business Name</label>
+                  <input type="text" id="businessName" name="businessName" placeholder="Your Business Name" class="form-input fi-compact"/>
+                  <span class="error-msg" id="businessNameError"></span>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+                <div>
+                  <label class="fi-label">Owner Name</label>
+                  <input type="text" id="ownerName" name="ownerName" placeholder="Full Name" class="form-input fi-compact"/>
+                  <span class="error-msg" id="ownerNameError"></span>
+                </div>
+                <div>
+                  <label class="fi-label">GST Number</label>
+                  <input type="text" id="gstNumber" name="gstNumber" placeholder="GST Number" class="form-input fi-compact"/>
+                  <span class="error-msg" id="gstNumberError"></span>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+                <div>
+                  <label class="fi-label">Category</label>
+                  <select id="category" name="category" class="form-input fi-compact">
                     <option value="">Select Category</option>
                     <option value="dealer">Gold Dealer</option>
                     <option value="jeweler">Jeweler</option>
                     <option value="pawn">Pawn Shop</option>
                   </select>
+                  <span class="error-msg" id="categoryError"></span>
                 </div>
                 <div>
-                  <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Years in Business</label>
-                  <input type="number" id="years" name="years" placeholder="5" min="0" max="70" class="form-input"/>
+                  <label class="fi-label">Years in Business</label>
+                  <input type="number" id="years" name="years" placeholder="5" min="0" max="70" class="form-input fi-compact"/>
                   <span class="error-msg" id="yearsError"></span>
                 </div>
               </div>
@@ -779,26 +814,26 @@
 
             <!-- STEP 2: Business Address -->
             <div id="step-2" class="form-step" style="display: none;">
-              <div style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Address</label>
-                <input type="text" id="address" name="address" placeholder="Street Address" class="form-input"/>
+              <div style="margin-bottom: 14px;">
+                <label class="fi-label">Street Address</label>
+                <input type="text" id="address" name="address" placeholder="Street Address" class="form-input fi-compact"/>
                 <span class="error-msg" id="addressError"></span>
               </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
                 <div>
-                  <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">City</label>
-                  <input type="text" id="city" name="city" placeholder="Bangalore" class="form-input"/>
+                  <label class="fi-label">City</label>
+                  <input type="text" id="city" name="city" placeholder="Bangalore" class="form-input fi-compact"/>
                   <span class="error-msg" id="cityError"></span>
                 </div>
                 <div>
-                  <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">State</label>
-                  <input type="text" id="state" name="state" placeholder="Karnataka" class="form-input"/>
+                  <label class="fi-label">State</label>
+                  <input type="text" id="state" name="state" placeholder="Karnataka" class="form-input fi-compact"/>
                   <span class="error-msg" id="stateError"></span>
                 </div>
               </div>
-              <div style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Pincode</label>
-                <input type="text" id="pincode" name="pincode" placeholder="560001" class="form-input" maxlength="6"/>
+              <div style="margin-bottom: 14px;">
+                <label class="fi-label">Pincode</label>
+                <input type="text" id="pincode" name="pincode" placeholder="560001" class="form-input fi-compact" maxlength="6"/>
                 <span class="error-msg" id="pincodeError"></span>
               </div>
             </div>
@@ -833,30 +868,32 @@
                 <p style="font-size: 12px; color: rgba(255, 255, 255, 0.7);">📁 Logo / Images</p>
                 <p style="font-size: 11px; color: rgba(255, 255, 255, 0.5);">Drag and drop or click to browse</p>
               </div>
-              <p style="font-size: 11px; color: rgba(255, 255, 255, 0.5); text-align: center;">Optional - You can skip and add later</p>
+              <p style="font-size: 11px; color: rgba(255, 255, 255, 0.5); text-align: center;">✓ Optional — click Next to skip and add later</p>
             </div>
 
             <!-- STEP 5: Scheme Setup -->
             <div id="step-5" class="form-step" style="display: none;">
-              <div style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Scheme Name</label>
-                <input type="text" id="schemeName" name="schemeName" placeholder="e.g., Gold Savings Plus" class="form-input"/>
-                <span class="error-msg" id="schemeNameError"></span>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+                <div>
+                  <label class="fi-label">Scheme Name</label>
+                  <input type="text" id="schemeName" name="schemeName" placeholder="e.g., Gold Savings Plus" class="form-input fi-compact"/>
+                  <span class="error-msg" id="schemeNameError"></span>
+                </div>
+                <div>
+                  <label class="fi-label">Validity (months)</label>
+                  <input type="number" id="validity" name="validity" placeholder="12" min="1" max="60" class="form-input fi-compact"/>
+                  <span class="error-msg" id="validityError"></span>
+                </div>
               </div>
-              <div style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Description</label>
-                <textarea id="schemeDesc" name="schemeDesc" placeholder="Describe your scheme..." class="form-input" style="resize: vertical; min-height: 80px;"></textarea>
-                <span class="error-msg" id="schemeDescError"></span>
-              </div>
-              <div style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Key Benefits</label>
-                <input type="text" id="benefits" name="benefits" placeholder="e.g., Low interest, Fast approval" class="form-input"/>
+              <div style="margin-bottom: 14px;">
+                <label class="fi-label">Key Benefits</label>
+                <input type="text" id="benefits" name="benefits" placeholder="e.g., Low interest, Fast approval" class="form-input fi-compact"/>
                 <span class="error-msg" id="benefitsError"></span>
               </div>
-              <div style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">Validity (months)</label>
-                <input type="number" id="validity" name="validity" placeholder="12" min="1" max="60" class="form-input"/>
-                <span class="error-msg" id="validityError"></span>
+              <div style="margin-bottom: 14px;">
+                <label class="fi-label">Description</label>
+                <textarea id="schemeDesc" name="schemeDesc" placeholder="Describe your scheme..." class="form-input fi-compact" style="resize: vertical; min-height: 70px;"></textarea>
+                <span class="error-msg" id="schemeDescError"></span>
               </div>
             </div>
 
@@ -886,7 +923,7 @@
             </div>
 
             <!-- Navigation Buttons -->
-            <div style="display: flex; gap: 12px; margin-top: 24px;">
+            <div style="display: flex; gap: 12px; margin-top: 16px;">
               <button
                 id="prevBtn"
                 type="button"
@@ -911,6 +948,12 @@
   </div>
 
   <style>
+    .fi-label {
+      display: block; font-size: 11px; font-weight: 700;
+      color: rgba(255,255,255,0.65); letter-spacing: 0.05em;
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .fi-compact { padding: 9px 12px !important; font-size: 13px !important; }
     .form-input {
       width: 100%;
       padding: 12px 14px;
@@ -1068,6 +1111,771 @@
     </div>
   </div>
 
+  <!-- ═══════════════════ LEAD MANAGEMENT CSS ═══════════════════ -->
+  <style>
+    /* ── Lead Summary Bar ── */
+    .lead-summary-bar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .lead-stat {
+      background: rgba(22,22,22,0.8);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 12px;
+      padding: 16px 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .lead-stat:hover { border-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.06); }
+    .lead-stat.active { border-color: var(--g); background: rgba(201,168,76,0.09); }
+    .lead-stat .stat-num { font-size: 26px; font-weight: 700; color: var(--g); line-height: 1; margin-bottom: 5px; }
+    .lead-stat .stat-label { font-size: 11px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+    .stat-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+    /* ── Filter Bar ── */
+    .lead-filter-bar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: rgba(14,14,14,0.95);
+      border: 1px solid rgba(201,168,76,0.1);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      position: sticky;
+      top: 68px;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      flex-wrap: wrap;
+    }
+    .lead-search {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(201,168,76,0.18);
+      border-radius: 8px;
+      padding: 8px 12px;
+      transition: border-color 0.2s;
+    }
+    .lead-search:focus-within { border-color: var(--g); }
+    .lead-search input {
+      background: none; border: none; outline: none;
+      color: #fff; font-size: 13px; font-family: inherit; width: 100%;
+    }
+    .lead-search input::placeholder { color: rgba(255,255,255,0.32); }
+    .lead-filter-select {
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(201,168,76,0.18);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: rgba(255,255,255,0.75);
+      font-size: 12px;
+      font-family: inherit;
+      outline: none;
+      cursor: pointer;
+      min-width: 130px;
+      transition: border-color 0.2s;
+    }
+    .lead-filter-select:focus { border-color: var(--g); }
+    .lead-filter-select option { background: #111; }
+
+    /* ── Lead Table ── */
+    .lead-table-wrap {
+      background: rgba(14,14,14,0.7);
+      border: 1px solid rgba(201,168,76,0.1);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .lead-table-header {
+      display: grid;
+      grid-template-columns: 108px 1.3fr 122px 0.95fr 1.5fr 118px 84px 142px minmax(130px,0.85fr);
+      padding: 0 12px;
+      background: rgba(0,0,0,0.5);
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+    }
+    .lead-th {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: rgba(255,255,255,0.28);
+      padding: 10px 6px; overflow: hidden; white-space: nowrap;
+    }
+    .lead-row {
+      display: grid;
+      grid-template-columns: 108px 1.3fr 122px 0.95fr 1.5fr 118px 84px 142px minmax(130px,0.85fr);
+      padding: 0 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      align-items: center;
+      min-height: 68px;
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+    .lead-row:hover { background: rgba(201,168,76,0.04); }
+    .lead-row:last-child { border-bottom: none; }
+    .lead-cell {
+      padding: 10px 6px; font-size: 13px; color: rgba(255,255,255,0.8);
+      overflow: hidden; min-width: 0;
+    }
+    .lead-id { font-family: 'Courier New', monospace; font-size: 11px; color: var(--g); font-weight: 700; }
+    .lead-cust-name { font-weight: 600; color: #fff; font-size: 13px; }
+    .lead-cust-sub { font-size: 11px; color: rgba(255,255,255,0.38); margin-top: 2px; }
+
+    /* Service badges */
+    .svc-badge {
+      display: inline-flex; align-items: center; gap: 3px;
+      padding: 3px 8px; border-radius: 5px; font-size: 11px; font-weight: 600; white-space: nowrap;
+    }
+    .svc-loan    { background: rgba(234,179,8,0.12);   color: #f59e0b; }
+    .svc-sell    { background: rgba(34,197,94,0.12);   color: #22c55e; }
+    .svc-exch    { background: rgba(59,130,246,0.12);  color: #60a5fa; }
+    .svc-jewel   { background: rgba(236,72,153,0.12);  color: #f472b6; }
+    .svc-saving  { background: rgba(249,115,22,0.12);  color: #fb923c; }
+    .svc-digital { background: rgba(6,182,212,0.12);   color: #22d3ee; }
+
+    /* Intent badges */
+    .intent-badge {
+      display: inline-flex; align-items: center; gap: 3px;
+      padding: 3px 7px; border-radius: 5px; font-size: 11px; font-weight: 700;
+      white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis;
+    }
+    .intent-high    { background: rgba(239,68,68,0.12);  color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+    .intent-medium  { background: rgba(234,179,8,0.12);  color: #fbbf24; border: 1px solid rgba(234,179,8,0.2); }
+    .intent-general { background: rgba(34,197,94,0.1);   color: #4ade80; border: 1px solid rgba(34,197,94,0.18); }
+
+    /* Status pills */
+    .status-pill {
+      display: inline-block; padding: 3px 9px; border-radius: 20px;
+      font-size: 11px; font-weight: 600; white-space: nowrap;
+      max-width: 100%; overflow: hidden; text-overflow: ellipsis;
+    }
+    .st-new       { background: rgba(59,130,246,0.15);  color: #60a5fa; }
+    .st-accepted  { background: rgba(201,168,76,0.15);  color: #e8c96a; }
+    .st-contacted { background: rgba(168,85,247,0.15);  color: #c084fc; }
+    .st-appointed { background: rgba(249,115,22,0.15);  color: #fb923c; }
+    .st-visited   { background: rgba(6,182,212,0.15);   color: #22d3ee; }
+    .st-converted { background: rgba(34,197,94,0.15);   color: #4ade80; }
+    .st-closed    { background: rgba(107,114,128,0.15); color: #9ca3af; }
+    .st-rejected  { background: rgba(239,68,68,0.15);   color: #f87171; }
+
+    /* Action buttons in row */
+    .lead-actions { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
+    .la-btn {
+      padding: 5px 9px; border-radius: 6px; font-size: 11px; font-weight: 600;
+      cursor: pointer; border: none; transition: all 0.15s; white-space: nowrap;
+      font-family: inherit; flex-shrink: 0;
+    }
+    .la-view   { background: rgba(201,168,76,0.14); color: var(--g); }
+    .la-view:hover   { background: rgba(201,168,76,0.26); }
+    .la-accept { background: rgba(34,197,94,0.14); color: #4ade80; }
+    .la-accept:hover { background: rgba(34,197,94,0.26); }
+    .la-reject { background: rgba(239,68,68,0.1);  color: #f87171; }
+    .la-reject:hover { background: rgba(239,68,68,0.2); }
+
+    /* Empty state */
+    .lead-empty { text-align: center; padding: 64px 20px; color: rgba(255,255,255,0.3); }
+    .lead-empty .empty-icon { font-size: 52px; margin-bottom: 16px; }
+    .lead-empty h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.45); }
+    .lead-empty p { font-size: 13px; line-height: 1.7; }
+
+    /* ── Lead Detail Drawer ── */
+    .lead-drawer-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      z-index: 1100; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s; backdrop-filter: blur(4px);
+    }
+    .lead-drawer-overlay.open { opacity: 1; pointer-events: all; }
+    .lead-drawer {
+      position: fixed; top: 0; right: -580px; bottom: 0; width: 560px;
+      background: #0c0c0c; border-left: 1px solid rgba(201,168,76,0.15);
+      z-index: 1101; overflow-y: auto;
+      transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+      display: flex; flex-direction: column;
+    }
+    .lead-drawer.open { right: 0; }
+    .drawer-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+      display: flex; justify-content: space-between; align-items: flex-start;
+      position: sticky; top: 0; background: #0c0c0c; z-index: 10;
+    }
+    .drawer-close {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.6);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 20px; border: none; transition: all 0.2s; flex-shrink: 0;
+      font-family: inherit;
+    }
+    .drawer-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .drawer-body { padding: 24px; flex: 1; }
+    .drawer-section { margin-bottom: 24px; }
+    .drawer-section-title {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.09em; color: rgba(255,255,255,0.28);
+      margin-bottom: 12px; padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .info-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); gap: 12px;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-label { font-size: 12px; color: rgba(255,255,255,0.38); flex-shrink: 0; min-width: 140px; }
+    .info-value { font-size: 13px; color: rgba(255,255,255,0.85); font-weight: 500; text-align: right; }
+    .req-card { background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.14); border-radius: 10px; padding: 16px; }
+    .req-card h4 { color: var(--g); font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+    .req-item { display: flex; justify-content: space-between; padding: 5px 0; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .req-item:last-child { border-bottom: none; }
+    .req-item span:first-child { color: rgba(255,255,255,0.45); }
+    .req-item span:last-child { color: rgba(255,255,255,0.85); font-weight: 600; }
+
+    /* Quick Actions */
+    .quick-actions { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 24px; }
+    .qa-btn {
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+      padding: 12px 8px; border-radius: 10px; cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.03); transition: all 0.2s; font-family: inherit;
+    }
+    .qa-btn:hover { border-color: rgba(201,168,76,0.35); background: rgba(201,168,76,0.07); }
+    .qa-icon { font-size: 18px; }
+    .qa-label { font-size: 10px; color: rgba(255,255,255,0.55); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+
+    /* Status update */
+    .status-update-row { display: flex; gap: 8px; align-items: center; }
+    .status-select {
+      flex: 1; padding: 9px 12px; background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(201,168,76,0.2); border-radius: 8px;
+      color: #fff; font-size: 13px; font-family: inherit; outline: none; cursor: pointer;
+    }
+    .status-select:focus { border-color: var(--g); }
+    .status-select option { background: #111; }
+    .status-update-btn {
+      padding: 9px 18px; background: linear-gradient(135deg,var(--g),var(--gl));
+      color: #000; border: none; border-radius: 8px; font-size: 12px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; white-space: nowrap; font-family: inherit;
+    }
+    .status-update-btn:hover { box-shadow: 0 4px 14px rgba(201,168,76,0.3); }
+
+    /* Appointment form */
+    .appt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .appt-input {
+      width: 100%; padding: 9px 11px; background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(201,168,76,0.18); border-radius: 8px;
+      color: #fff; font-size: 12px; font-family: inherit; outline: none;
+      transition: border-color 0.2s;
+    }
+    .appt-input:focus { border-color: var(--g); }
+    .appt-input::placeholder { color: rgba(255,255,255,0.3); }
+    .appt-input option { background: #111; }
+    .appt-submit {
+      width: 100%; margin-top: 10px; padding: 11px;
+      background: linear-gradient(135deg,var(--g),var(--gl));
+      color: #000; border: none; border-radius: 8px; font-size: 13px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; font-family: inherit;
+    }
+    .appt-submit:hover { box-shadow: 0 4px 14px rgba(201,168,76,0.3); }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 22px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 7px; top: 5px; bottom: 5px;
+      width: 2px; background: rgba(201,168,76,0.12); border-radius: 1px;
+    }
+    .tl-item { position: relative; margin-bottom: 18px; }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-dot {
+      position: absolute; left: -18px; top: 3px; width: 10px; height: 10px;
+      border-radius: 50%; background: #0c0c0c; border: 2px solid rgba(201,168,76,0.3);
+    }
+    .tl-dot.done { background: var(--g); border-color: var(--g); }
+    .tl-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.82); }
+    .tl-time { font-size: 11px; color: rgba(255,255,255,0.32); margin-top: 2px; }
+
+    /* Toast notification */
+    #leadToast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 2000;
+      background: #1a1a1a; border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 10px; padding: 12px 20px;
+      font-size: 13px; font-weight: 600; color: #fff;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      transform: translateY(80px); opacity: 0;
+      transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none; display: flex; align-items: center; gap: 8px;
+    }
+    #leadToast.show { transform: translateY(0); opacity: 1; }
+
+    /* Responsive */
+    @media (max-width: 1300px) {
+      .lead-table-header, .lead-row {
+        grid-template-columns: 100px 1.2fr 115px 0.85fr 1.3fr 112px 78px 136px minmax(118px,0.8fr);
+      }
+    }
+    @media (max-width: 960px) {
+      .lead-summary-bar { grid-template-columns: repeat(3,1fr); }
+      .lead-table-header { display: none; }
+      .lead-row { display: block; padding: 14px 16px; }
+      .lead-cell { padding: 4px 0; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+      .lead-cell::before { content: attr(data-label); font-size: 10px; color: rgba(255,255,255,0.3); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 8px; flex-shrink: 0; }
+      .lead-drawer { width: 100%; right: -100%; }
+    }
+    @media (max-width: 640px) {
+      .lead-summary-bar { grid-template-columns: repeat(2,1fr); }
+      .lead-filter-bar { gap: 8px; }
+      .lead-filter-select { min-width: 110px; font-size: 11px; }
+      .appt-grid { grid-template-columns: 1fr; }
+      .quick-actions { grid-template-columns: repeat(3,1fr); }
+    }
+  </style>
+
+  <!-- ═══════════════════ LEAD MANAGEMENT TAB ═══════════════════ -->
+  <div id="leads" class="tab-content">
+    <div style="max-width:1440px; margin:0 auto;">
+
+      <!-- Section Heading -->
+      <div style="margin-bottom:20px;">
+        <h2 style="font-size:22px; font-weight:700; color:#fff; margin-bottom:4px;">Assigned Leads</h2>
+        <p style="font-size:14px; color:rgba(255,255,255,0.5);">Review, accept and manage customer opportunities from GoldBazaar.</p>
+      </div>
+
+      <!-- Summary Bar -->
+      <div class="lead-summary-bar">
+        <div class="lead-stat active" id="statAll" onclick="filterByStatus('','statAll')">
+          <div class="stat-num">125</div>
+          <div class="stat-label">Total Leads</div>
+        </div>
+        <div class="lead-stat" id="statNew" onclick="filterByStatus('New','statNew')">
+          <div class="stat-num" style="color:#60a5fa;">18</div>
+          <div class="stat-label"><span class="stat-dot" style="background:#60a5fa;"></span>New</div>
+        </div>
+        <div class="lead-stat" id="statPending" onclick="filterByStatus('Pending Acceptance','statPending')">
+          <div class="stat-num" style="color:#fbbf24;">12</div>
+          <div class="stat-label"><span class="stat-dot" style="background:#fbbf24;"></span>Pending Acceptance</div>
+        </div>
+        <div class="lead-stat" id="statAccepted" onclick="filterByStatus('Accepted','statAccepted')">
+          <div class="stat-num" style="color:#e8c96a;">85</div>
+          <div class="stat-label"><span class="stat-dot" style="background:#e8c96a;"></span>Accepted</div>
+        </div>
+        <div class="lead-stat" id="statConverted" onclick="filterByStatus('Converted','statConverted')">
+          <div class="stat-num" style="color:#4ade80;">10</div>
+          <div class="stat-label"><span class="stat-dot" style="background:#4ade80;"></span>Converted</div>
+        </div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="lead-filter-bar">
+        <div class="lead-search">
+          <span style="color:rgba(255,255,255,0.3);font-size:14px;">🔍</span>
+          <input type="text" id="leadSearchInput" placeholder="Search by name, mobile or Lead ID…" oninput="renderLeads()"/>
+        </div>
+        <select class="lead-filter-select" id="fltService" onchange="renderLeads()">
+          <option value="">All Services</option>
+          <option>Gold Loan</option>
+          <option>Gold Sell</option>
+          <option>Gold Exchange</option>
+          <option>Jewellery Purchase</option>
+          <option>Gold Savings Scheme</option>
+          <option>Digital Gold</option>
+        </select>
+        <select class="lead-filter-select" id="fltStatus" onchange="renderLeads()">
+          <option value="">All Statuses</option>
+          <option>New</option>
+          <option>Accepted</option>
+          <option>Contacted</option>
+          <option>Appointment Scheduled</option>
+          <option>Visited Store</option>
+          <option>Converted</option>
+          <option>Closed</option>
+          <option>Rejected</option>
+        </select>
+        <select class="lead-filter-select" id="fltIntent" onchange="renderLeads()">
+          <option value="">All Intent Levels</option>
+          <option>High Intent</option>
+          <option>Medium Intent</option>
+          <option>General Enquiry</option>
+        </select>
+        <select class="lead-filter-select" id="fltLocation" onchange="renderLeads()">
+          <option value="">All Locations</option>
+          <option>Whitefield</option>
+          <option>Koramangala</option>
+          <option>HSR Layout</option>
+          <option>Indiranagar</option>
+          <option>Marathahalli</option>
+          <option>Electronic City</option>
+          <option>Jayanagar</option>
+          <option>Yelahanka</option>
+          <option>BTM Layout</option>
+          <option>Rajajinagar</option>
+          <option>Banashankari</option>
+        </select>
+      </div>
+
+      <!-- Lead Table -->
+      <div class="lead-table-wrap">
+        <div class="lead-table-header">
+          <div class="lead-th">Lead ID</div>
+          <div class="lead-th">Customer</div>
+          <div class="lead-th">Service</div>
+          <div class="lead-th">Location</div>
+          <div class="lead-th">Requirement</div>
+          <div class="lead-th">Intent</div>
+          <div class="lead-th">Date</div>
+          <div class="lead-th">Status</div>
+          <div class="lead-th">Actions</div>
+        </div>
+        <div id="leadTableBody"></div>
+        <div id="leadEmpty" class="lead-empty" style="display:none;">
+          <div class="empty-icon">📭</div>
+          <h3>No leads match your filters</h3>
+          <p>GoldBazaar will automatically assign new customer opportunities<br>based on service type, location and vendor eligibility.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════ LEAD DETAIL DRAWER ═══════════════════ -->
+  <div class="lead-drawer-overlay" id="drawerOverlay" onclick="closeLeadDrawer()"></div>
+  <div class="lead-drawer" id="leadDrawer">
+    <div class="drawer-header">
+      <div>
+        <div id="drawerLeadId" style="font-size:11px;color:var(--g);font-family:'Courier New',monospace;font-weight:700;margin-bottom:4px;letter-spacing:0.04em;"></div>
+        <div id="drawerCustName" style="font-size:19px;font-weight:700;color:#fff;line-height:1.2;"></div>
+        <div id="drawerBadges" style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;"></div>
+      </div>
+      <button class="drawer-close" onclick="closeLeadDrawer()">×</button>
+    </div>
+    <div class="drawer-body">
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <button class="qa-btn" onclick="showToast('📞 Initiating call…')"><span class="qa-icon">📞</span><span class="qa-label">Call</span></button>
+        <button class="qa-btn" onclick="showToast('💬 Opening WhatsApp…')"><span class="qa-icon">💬</span><span class="qa-label">WhatsApp</span></button>
+        <button class="qa-btn" onclick="showToast('✉️ Opening email…')"><span class="qa-icon">✉️</span><span class="qa-label">Email</span></button>
+        <button class="qa-btn" id="drawerAcceptBtn" onclick="drawerAccept()"><span class="qa-icon">✅</span><span class="qa-label">Accept</span></button>
+        <button class="qa-btn" onclick="drawerReject()" style="border-color:rgba(239,68,68,0.15);"><span class="qa-icon">❌</span><span class="qa-label">Reject</span></button>
+        <button class="qa-btn" onclick="scrollToAppt()"><span class="qa-icon">📅</span><span class="qa-label">Schedule</span></button>
+      </div>
+
+      <!-- Customer Details -->
+      <div class="drawer-section">
+        <div class="drawer-section-title">Customer Information</div>
+        <div id="drawerCustInfo"></div>
+      </div>
+
+      <!-- Requirement Card -->
+      <div class="drawer-section">
+        <div class="drawer-section-title">Customer Requirement</div>
+        <div id="drawerReqCard" class="req-card"></div>
+      </div>
+
+      <!-- Update Status -->
+      <div class="drawer-section">
+        <div class="drawer-section-title">Update Lead Status</div>
+        <div class="status-update-row">
+          <select class="status-select" id="drawerStatusSelect">
+            <option>New</option>
+            <option>Accepted</option>
+            <option>Contacted</option>
+            <option>Appointment Scheduled</option>
+            <option>Visited Store</option>
+            <option>Converted</option>
+            <option>Closed</option>
+            <option>Rejected</option>
+          </select>
+          <button class="status-update-btn" onclick="applyStatusUpdate()">Update →</button>
+        </div>
+      </div>
+
+      <!-- Schedule Appointment -->
+      <div class="drawer-section" id="apptSection">
+        <div class="drawer-section-title">Schedule Appointment</div>
+        <div class="appt-grid">
+          <input type="date" class="appt-input" id="apptDate"/>
+          <input type="time" class="appt-input" id="apptTime"/>
+          <input type="text" class="appt-input" id="apptBranch" placeholder="Branch Name"/>
+          <select class="appt-input" id="apptStatus">
+            <option value="Pending">Pending Confirmation</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+        <input type="text" class="appt-input" id="apptRemarks" placeholder="Remarks (optional)" style="margin-top:10px;"/>
+        <button class="appt-submit" onclick="saveAppointment()">📅 Confirm Appointment</button>
+      </div>
+
+      <!-- Lead History Timeline -->
+      <div class="drawer-section">
+        <div class="drawer-section-title">Lead History</div>
+        <div class="timeline" id="drawerTimeline"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════ SUBMISSION SUCCESS SCREEN ═══════════════════ -->
+  <div id="successScreen" style="display:none; position:fixed; top:68px; left:0; right:0; bottom:0; z-index:800; background:#000; flex-direction:column; align-items:center; justify-content:center; padding:20px 24px 16px; overflow:hidden;">
+
+    <style>
+      @keyframes scaleIn   { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+      @keyframes fadeUp    { from{transform:translateY(24px);opacity:0} to{transform:translateY(0);opacity:1} }
+      @keyframes pulse     { 0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0.4)} 50%{box-shadow:0 0 0 20px rgba(201,168,76,0)} }
+      @keyframes shimmer   { 0%{background-position:200% center} 100%{background-position:-200% center} }
+      .success-ring {
+        width:72px; height:72px; border-radius:50%;
+        background:linear-gradient(135deg,var(--g),var(--gl));
+        display:flex; align-items:center; justify-content:center;
+        font-size:30px; animation:scaleIn .6s cubic-bezier(0.175,0.885,0.32,1.275) both, pulse 2.5s 1s infinite;
+        margin-bottom:14px; flex-shrink:0;
+      }
+      .success-headline {
+        font-family:var(--fd); font-size:clamp(22px,3.5vw,36px); font-weight:700;
+        color:#fff; line-height:1.1; margin-bottom:6px; text-align:center;
+        animation:fadeUp .5s .3s both;
+      }
+      .success-sub {
+        font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:16px;
+        text-align:center; line-height:1.5; max-width:480px;
+        animation:fadeUp .5s .45s both;
+      }
+      .success-stats {
+        display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
+        max-width:500px; width:100%; margin-bottom:16px;
+        animation:fadeUp .5s .55s both;
+      }
+      .success-stat-card {
+        background:rgba(22,22,22,0.9); border:1px solid rgba(201,168,76,0.18);
+        border-radius:10px; padding:10px 10px; text-align:center;
+      }
+      .success-stat-card .ssc-num {
+        font-size:18px; font-weight:800; color:var(--g); margin-bottom:2px;
+        background:linear-gradient(90deg,var(--g),var(--gl),var(--g));
+        background-size:200% auto;
+        -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+        animation:shimmer 2.5s linear infinite;
+      }
+      .success-stat-card .ssc-label { font-size:11px; color:rgba(255,255,255,0.45); font-weight:600; text-transform:uppercase; letter-spacing:0.05em; }
+      .success-steps {
+        max-width:520px; width:100%; margin-bottom:14px;
+        background:rgba(14,14,14,0.8); border:1px solid rgba(201,168,76,0.1);
+        border-radius:12px; padding:12px 18px;
+        animation:fadeUp .5s .65s both;
+      }
+      .success-steps h3 { font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:rgba(255,255,255,0.3); font-weight:700; margin-bottom:10px; }
+      .success-step-item { display:flex; align-items:flex-start; gap:10px; margin-bottom:8px; }
+      .success-step-item:last-child { margin-bottom:0; }
+      .success-step-num {
+        width:22px; height:22px; border-radius:50%; flex-shrink:0;
+        background:linear-gradient(135deg,var(--g),var(--gl));
+        display:flex; align-items:center; justify-content:center;
+        font-size:11px; font-weight:800; color:#000;
+      }
+      .success-step-text strong { display:block; font-size:12px; color:#fff; margin-bottom:1px; }
+      .success-step-text span { font-size:11px; color:rgba(255,255,255,0.45); }
+      .success-cta {
+        padding:11px 40px; background:linear-gradient(135deg,var(--g),var(--gl));
+        color:#000; border:none; border-radius:10px; font-size:14px; font-weight:800;
+        cursor:pointer; transition:all .2s; letter-spacing:0.01em;
+        font-family:inherit; animation:fadeUp .5s .75s both; margin-bottom:8px;
+      }
+      .success-cta:hover { box-shadow:0 12px 36px rgba(201,168,76,0.45); transform:translateY(-2px); }
+      .success-countdown { font-size:11px; color:rgba(255,255,255,0.3); animation:fadeUp .5s .85s both; }
+    </style>
+
+    <div class="success-ring">✓</div>
+
+    <h1 class="success-headline">You're In the Network!</h1>
+    <p class="success-sub">
+      Congratulations, <strong id="successBizName" style="color:var(--gl);"></strong>!
+      Your vendor profile has been submitted successfully.<br>
+      Thousands of gold customers are waiting to find you.
+    </p>
+
+    <!-- Stats -->
+    <div class="success-stats">
+      <div class="success-stat-card">
+        <div class="ssc-num">2,400+</div>
+        <div class="ssc-label">Active Vendors</div>
+      </div>
+      <div class="success-stat-card">
+        <div class="ssc-num">₹480Cr+</div>
+        <div class="ssc-label">Business Done</div>
+      </div>
+      <div class="success-stat-card">
+        <div class="ssc-num">48K+</div>
+        <div class="ssc-label">Monthly Customers</div>
+      </div>
+    </div>
+
+    <!-- What's next -->
+    <div class="success-steps">
+      <h3>What happens next?</h3>
+      <div class="success-step-item">
+        <div class="success-step-num">1</div>
+        <div class="success-step-text">
+          <strong>Your profile goes live immediately</strong>
+          <span>Verified by our team within 24 hours — customers can discover you from Day 1</span>
+        </div>
+      </div>
+      <div class="success-step-item">
+        <div class="success-step-num">2</div>
+        <div class="success-step-text">
+          <strong>GoldBazaar assigns you matched leads</strong>
+          <span>Customers near your area requesting your exact services are routed to you</span>
+        </div>
+      </div>
+      <div class="success-step-item">
+        <div class="success-step-num">3</div>
+        <div class="success-step-text">
+          <strong>Manage everything from your dashboard</strong>
+          <span>Accept leads, schedule appointments and track conversions — all in one place</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="success-cta" onclick="activateAccount()">Activate My Account →</button>
+    <p class="success-countdown">Auto-activating in <span id="successCountdown">8</span> seconds</p>
+
+  </div>
+
+  <!-- ═══════════════════ PENDING REVIEW SCREEN ═══════════════════ -->
+  <div id="pendingScreen" style="display:none; position:fixed; top:68px; left:0; right:0; bottom:0; z-index:900; background:#050505; flex-direction:column; align-items:center; justify-content:center; padding:20px 24px 16px; overflow:hidden;">
+
+    <style>
+      @keyframes pendingPulse { 0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0.35)} 50%{box-shadow:0 0 0 22px rgba(201,168,76,0)} }
+      @keyframes pendingSpin  { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+      @keyframes pendingFadeUp{ from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
+      .pending-icon-wrap {
+        width:64px; height:64px; border-radius:50%;
+        background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(232,201,106,0.08));
+        border:2px solid rgba(201,168,76,0.35);
+        display:flex; align-items:center; justify-content:center;
+        font-size:26px; margin-bottom:12px; flex-shrink:0;
+        animation:pendingPulse 2.8s 0.5s infinite;
+      }
+      .pending-headline {
+        font-family:var(--fd); font-size:clamp(20px,3vw,32px); font-weight:700;
+        color:#fff; line-height:1.15; margin-bottom:6px; text-align:center;
+        animation:pendingFadeUp .5s .2s both;
+      }
+      .pending-sub {
+        font-size:13px; color:rgba(255,255,255,0.55); margin-bottom:14px;
+        text-align:center; line-height:1.55; max-width:460px;
+        animation:pendingFadeUp .5s .35s both;
+      }
+      .pending-card {
+        max-width:500px; width:100%;
+        background:rgba(18,18,18,0.9); border:1px solid rgba(201,168,76,0.15);
+        border-radius:12px; padding:14px 20px; margin-bottom:14px;
+        animation:pendingFadeUp .5s .45s both;
+      }
+      .pending-card-title {
+        font-size:10px; font-weight:700; text-transform:uppercase;
+        letter-spacing:0.08em; color:rgba(255,255,255,0.3); margin-bottom:10px;
+      }
+      .pending-timeline { list-style:none; padding:0; margin:0; }
+      .pending-timeline li {
+        display:flex; align-items:flex-start; gap:10px; padding:7px 0;
+        border-bottom:1px solid rgba(255,255,255,0.05);
+        font-size:12px; color:rgba(255,255,255,0.7); line-height:1.4;
+      }
+      .pending-timeline li:last-child { border-bottom:none; padding-bottom:0; }
+      .pending-tl-dot {
+        width:20px; height:20px; border-radius:50%; flex-shrink:0;
+        display:flex; align-items:center; justify-content:center;
+        font-size:10px; font-weight:800; margin-top:1px;
+      }
+      .pending-tl-dot.done  { background:linear-gradient(135deg,var(--g),var(--gl)); color:#000; }
+      .pending-tl-dot.active{ background:rgba(201,168,76,0.2); border:1.5px solid var(--g); color:var(--gl); }
+      .pending-tl-dot.wait  { background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.12); color:rgba(255,255,255,0.3); }
+      .pending-tl-text strong{ display:block; font-size:12px; color:#fff; margin-bottom:1px; }
+      .pending-tl-text span  { font-size:11px; color:rgba(255,255,255,0.4); }
+      .pending-badge {
+        display:inline-flex; align-items:center; gap:8px;
+        background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.25);
+        border-radius:30px; padding:6px 16px; margin-bottom:14px;
+        font-size:12px; color:var(--gl); font-weight:600;
+        animation:pendingFadeUp .5s .55s both;
+      }
+      .pending-badge-dot {
+        width:7px; height:7px; border-radius:50%; background:var(--g);
+        animation:pendingPulse 1.8s infinite;
+      }
+      .pending-ref {
+        font-size:11px; color:rgba(255,255,255,0.25); margin-bottom:10px;
+        animation:pendingFadeUp .5s .6s both;
+        letter-spacing:0.04em;
+      }
+      .pending-home-btn {
+        padding:11px 36px; background:linear-gradient(135deg,var(--g),var(--gl));
+        color:#000; border:none; border-radius:10px; font-size:13px; font-weight:800;
+        cursor:pointer; font-family:inherit; transition:all .2s;
+        animation:pendingFadeUp .5s .65s both;
+      }
+      .pending-home-btn:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(201,168,76,0.4); }
+    </style>
+
+    <div class="pending-icon-wrap">🕐</div>
+
+    <h1 class="pending-headline">Application Under Review</h1>
+    <p class="pending-sub">
+      Thank you for registering with GoldBazaar. Your onboarding application has been
+      successfully received and is now with our verification team.<br>
+      We'll have you live on the platform within <strong style="color:var(--gl);">24 hours</strong>.
+    </p>
+
+    <div class="pending-badge">
+      <div class="pending-badge-dot"></div>
+      Verification in progress
+    </div>
+
+    <div class="pending-card">
+      <div class="pending-card-title">What happens next</div>
+      <ul class="pending-timeline">
+        <li>
+          <div class="pending-tl-dot done">✓</div>
+          <div class="pending-tl-text">
+            <strong>Registration submitted</strong>
+            <span>Your business details and mobile have been verified</span>
+          </div>
+        </li>
+        <li>
+          <div class="pending-tl-dot active">2</div>
+          <div class="pending-tl-text">
+            <strong>Document &amp; profile review</strong>
+            <span>Our team is reviewing your GST, category and business credentials — typically within 4–6 hours</span>
+          </div>
+        </li>
+        <li>
+          <div class="pending-tl-dot wait">3</div>
+          <div class="pending-tl-text">
+            <strong>Account activation &amp; go-live</strong>
+            <span>You'll receive an SMS confirmation once your profile is live and leads start flowing in</span>
+          </div>
+        </li>
+        <li>
+          <div class="pending-tl-dot wait">4</div>
+          <div class="pending-tl-text">
+            <strong>First lead delivered</strong>
+            <span>Matched gold customers in your area will be routed to you automatically</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <p class="pending-ref">Reference: <span id="pendingRef">GB-XXXX-XXXX</span> &nbsp;·&nbsp; Check your SMS for updates</p>
+    <button class="pending-home-btn" onclick="window.location.href='index.html'">← Back to GoldBazaar</button>
+
+  </div>
+
+  <!-- Toast -->
+  <div id="leadToast">
+    <span id="leadToastMsg">✅ Done</span>
+  </div>
+
   <!-- ═══════════════════ FOOTER ═══════════════════ -->
   <footer>
     <div class="foot-inner">
@@ -1123,15 +1931,22 @@
   </footer>
 
   <script>
-    // Mobile nav toggle
+    // ── Mobile nav toggle ──
     function mobToggle() {
       document.getElementById('mob-nav').classList.toggle('open');
     }
-
     document.addEventListener('click', (e) => {
       if (!e.target.closest('#nav') && !e.target.closest('#mob-nav')) {
         document.getElementById('mob-nav').classList.remove('open');
       }
+    });
+
+    // ── On page load: show onboarding form directly (skip OTP gate) ──
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('pageHeader').classList.add('visible');
+      document.getElementById('onboarding').classList.add('active');
+      initializeForm();
     });
 
     // OTP Login Flow
@@ -1178,16 +1993,14 @@
       errorEl.classList.remove('show');
       verifiedMobile = currentMobileNumber;
 
-      // Hide login screen and show main content
+      // Generate a reference number
+      const ref = 'GB-' + Math.random().toString(36).slice(2,6).toUpperCase() + '-' + Math.random().toString(36).slice(2,6).toUpperCase();
+      document.getElementById('pendingRef').textContent = ref;
+
+      // Hide login, show pending review screen
       document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('pageHeader').classList.add('visible');
-      document.getElementById('tabNav').classList.add('visible');
-
-      // Make onboarding tab active by default
-      document.getElementById('onboarding').classList.add('active');
-
-      // Initialize form
-      initializeForm();
+      document.getElementById('pendingScreen').style.display = 'flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function resendOtp() {
@@ -1268,17 +2081,19 @@
       const errors = {};
 
       if (step === 1) {
+        const vendorMobile = document.getElementById('vendorMobile').value.trim().replace(/\D/g,'');
         const businessName = document.getElementById('businessName').value.trim();
         const ownerName = document.getElementById('ownerName').value.trim();
         const gstNumber = document.getElementById('gstNumber').value.trim();
         const category = document.getElementById('category').value;
         const years = document.getElementById('years').value;
 
-        if (!businessName || businessName.length < 3) errors.businessName = 'Enter a valid business name';
-        if (!ownerName || ownerName.length < 3) errors.ownerName = 'Enter a valid owner name';
-        if (!gstNumber || gstNumber.length !== 15) errors.gstNumber = 'Enter a valid 15-character GST number';
-        if (!category) errors.category = 'Select a business category';
-        if (!years || years < 0 || years > 70) errors.years = 'Enter years between 0-70';
+        if (!vendorMobile || !/^[6-9]\d{9}$/.test(vendorMobile)) errors.vendorMobile = 'Enter a valid 10-digit mobile number';
+        if (!businessName || businessName.length < 3) errors.businessName = 'Enter a valid business name (min 3 characters)';
+        if (!ownerName || ownerName.length < 3) errors.ownerName = 'Enter a valid owner name (min 3 characters)';
+        if (!gstNumber || gstNumber.length < 10) errors.gstNumber = 'Enter a valid GST number (min 10 characters)';
+        if (!category) errors.category = 'Please select a business category';
+        if (!years && years !== '0') errors.years = 'Enter years in business (0 if new)';
       } else if (step === 2) {
         const address = document.getElementById('address').value.trim();
         const city = document.getElementById('city').value.trim();
@@ -1292,16 +2107,7 @@
       } else if (step === 3) {
         const services = document.querySelectorAll('input[name="services"]:checked');
         if (services.length === 0) errors.services = 'Select at least one service';
-      } else if (step === 5) {
-        const schemeName = document.getElementById('schemeName').value.trim();
-        const schemeDesc = document.getElementById('schemeDesc').value.trim();
-        const benefits = document.getElementById('benefits').value.trim();
-        const validity = document.getElementById('validity').value;
-
-        if (!schemeName || schemeName.length < 3) errors.schemeName = 'Enter a valid scheme name';
-        if (!schemeDesc || schemeDesc.length < 10) errors.schemeDesc = 'Enter at least 10 characters';
-        if (!benefits || benefits.length < 5) errors.benefits = 'Enter valid benefits';
-        if (!validity || validity < 1 || validity > 60) errors.validity = 'Enter months between 1-60';
+      // Step 5 (Scheme Setup) is optional — skip validation
       }
 
       // Display errors
@@ -1354,72 +2160,421 @@
     }
 
     function populateReview() {
-      document.getElementById('reviewMobile').textContent = `+91 ${verifiedMobile.slice(0, 5)} ${verifiedMobile.slice(5)}`;
+      const mob = document.getElementById('vendorMobile').value.trim().replace(/\D/g,'');
+      document.getElementById('reviewMobile').textContent = mob ? `+91 ${mob.slice(0,5)} ${mob.slice(5)}` : '—';
       document.getElementById('reviewBusiness').textContent = document.getElementById('businessName').value || '-';
       document.getElementById('reviewOwner').textContent = document.getElementById('ownerName').value || '-';
-
       const city = document.getElementById('city').value || '-';
       const state = document.getElementById('state').value || '-';
       document.getElementById('reviewLocation').textContent = `${city}, ${state}`;
     }
 
+    // Countdown timer handle
+    let successTimer = null;
+
     function submitForm() {
       clearAllErrors();
 
-      // Show success message
-      const onboardingDiv = document.getElementById('onboarding');
-      const formDiv = onboardingDiv.querySelector('[style*="max-width: 1200px"]');
+      // Capture business name for personalised welcome
+      const bizName = (document.getElementById('businessName')?.value || '').trim() || 'Your Business';
+      document.getElementById('successBizName').textContent = bizName;
 
-      formDiv.innerHTML = `
-        <div style="background: rgba(22, 22, 22, 0.8); border: 1px solid rgba(201, 168, 76, 0.12); border-radius: 16px; padding: 48px; text-align: center;">
-          <div style="font-size: 48px; margin-bottom: 20px;">✓</div>
-          <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 12px; color: white;">Registration Submitted!</h2>
-          <p style="font-size: 15px; color: rgba(255, 255, 255, 0.6); margin-bottom: 24px;">Your vendor application has been successfully submitted for verification.</p>
+      // Hide onboarding & page header — show the full-screen celebration
+      document.getElementById('onboarding').classList.remove('active');
+      document.getElementById('pageHeader').classList.remove('visible');
+      document.getElementById('successScreen').style.display = 'flex';
 
-          <div style="background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 10px; padding: 16px; margin-bottom: 24px;">
-            <p style="font-size: 13px; color: #22c55e; font-weight: 600;">✓ All information received successfully</p>
-            <p style="font-size: 12px; color: rgba(34, 197, 94, 0.8); margin-top: 8px;">Our team will verify your details and contact you within 24 hours</p>
-          </div>
+      // Countdown 8 → 0 then auto-activate
+      let count = 8;
+      const countEl = document.getElementById('successCountdown');
+      if (countEl) countEl.textContent = count;
+      clearInterval(successTimer);
+      successTimer = setInterval(() => {
+        count--;
+        if (countEl) countEl.textContent = Math.max(count, 0);
+        if (count <= 0) { clearInterval(successTimer); activateAccount(); }
+      }, 1000);
+    }
 
-          <div style="background: rgba(201, 168, 76, 0.08); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 10px; padding: 20px; text-align: left; margin-bottom: 24px;">
-            <p style="font-size: 12px; color: rgba(255, 255, 255, 0.9); font-weight: 600; margin-bottom: 12px;">📋 What's Next?</p>
-            <ul style="list-style: none; font-size: 13px; color: rgba(255, 255, 255, 0.7);">
-              <li style="margin-bottom: 8px;">✓ We'll verify your GST and business documents</li>
-              <li style="margin-bottom: 8px;">✓ You'll receive a confirmation email with your vendor ID</li>
-              <li style="margin-bottom: 8px;">✓ Your vendor profile will go live immediately after verification</li>
-              <li>✓ Access the Vendor Dashboard to start managing leads</li>
-            </ul>
-          </div>
+    function activateAccount() {
+      clearInterval(successTimer);
+      document.getElementById('successScreen').style.display = 'none';
 
-          <button onclick="resetForm()" style="padding: 13px 32px; background: linear-gradient(135deg, #C9A84C, #E8C96A); color: #000; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s;">
-            ← Back to Dashboard
-          </button>
-        </div>
-      `;
+      // Personalise OTP screen with collected data
+      const bizName = (document.getElementById('businessName')?.value || '').trim();
+      const mob = (document.getElementById('vendorMobile')?.value || '').trim();
+      document.getElementById('loginContextMsg').textContent =
+        bizName ? `Almost there, ${bizName}!` : 'One last step!';
+      document.getElementById('loginContextBanner').style.display = 'block';
+      document.getElementById('loginTitle').textContent = 'Activate Your Account';
+      document.getElementById('loginSubtitle').textContent =
+        'Verify your mobile number to go live on GoldBazaar';
+
+      // Pre-fill mobile in OTP screen
+      const mobileInput = document.getElementById('mobile');
+      if (mobileInput && mob) mobileInput.value = mob;
+
+      document.getElementById('loginScreen').style.display = 'flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function resetForm() {
-      // Reset to dashboard
-      const tabNav = document.querySelectorAll('.tab-btn');
-      if (tabNav[1]) {
-        switchTab('dashboard', tabNav[1]);
-      }
+      // Only used if vendor navigates back from within portal — go to onboarding tab
+      const btn = document.querySelector('.tab-btn[onclick*="onboarding"]');
+      if (btn) switchTab('onboarding', btn);
     }
 
     // Tab switching
     function switchTab(tabName, button) {
-      // Hide all tabs
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-
-      // Remove active class from all buttons
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-
-      // Show selected tab
       document.getElementById(tabName).classList.add('active');
-
-      // Add active class to clicked button
       button.classList.add('active');
+      if (tabName === 'leads') renderLeads();
     }
+  </script>
+
+  <!-- ═══════════════════ LEAD MANAGEMENT JS ═══════════════════ -->
+  <script>
+  // ── Lead Data ──
+  const LEADS = [
+    {
+      id:'GB-2026-001245', name:'Ramesh Kumar', mobile:'+91 98765 43210', email:'ramesh.kumar@email.com',
+      service:'Gold Loan', location:'Whitefield, Bangalore', area:'Whitefield',
+      requirement:'Loan Amount: ₹3,00,000 | Gold Weight: 85g',
+      reqDetails:{'Loan Amount':'₹3,00,000','Gold Weight':'85g','Gold Purity':'22K','Preferred Contact':'Morning (9–12 AM)'},
+      budget:'₹3,00,000', weight:'85g', contactTime:'Morning (9–12 AM)',
+      notes:'Urgently needed for business purpose', otpVerified:true,
+      source:'GoldBazaar App', intent:'High Intent', status:'New', date:'12 Jun 2026',
+      timeline:['Lead Received']
+    },
+    {
+      id:'GB-2026-001244', name:'Priya Sharma', mobile:'+91 97654 32109', email:'priya.sharma@email.com',
+      service:'Gold Sell', location:'Koramangala, Bangalore', area:'Koramangala',
+      requirement:'Sell 120g 22K gold jewellery (3 bangles + 1 chain)',
+      reqDetails:{'Gold Weight':'120g','Purity':'22K','Type':'Jewellery','Expected Rate':'Best market rate'},
+      budget:'—', weight:'120g', contactTime:'Afternoon (2–5 PM)',
+      notes:'Has 3 bangles and 1 chain to sell', otpVerified:true,
+      source:'GoldBazaar Website', intent:'High Intent', status:'Accepted', date:'12 Jun 2026',
+      timeline:['Lead Received','Lead Accepted']
+    },
+    {
+      id:'GB-2026-001240', name:'Ankit Mehta', mobile:'+91 96543 21098', email:'ankit.mehta@email.com',
+      service:'Gold Exchange', location:'HSR Layout, Bangalore', area:'HSR Layout',
+      requirement:'Exchange 150g old gold for new 22K jewellery',
+      reqDetails:{'Exchange Weight':'150g','Current Gold':'18K chain','Desired':'New 22K jewellery','Budget Top-up':'₹50,000'},
+      budget:'₹50,000 top-up', weight:'150g', contactTime:'Evening (5–8 PM)',
+      notes:'Has old ancestral jewellery to exchange', otpVerified:true,
+      source:'Google Search', intent:'Medium Intent', status:'Contacted', date:'11 Jun 2026',
+      timeline:['Lead Received','Lead Accepted','Customer Contacted']
+    },
+    {
+      id:'GB-2026-001238', name:'Sunita Rao', mobile:'+91 95432 10987', email:'sunita.rao@email.com',
+      service:'Jewellery Purchase', location:'Indiranagar, Bangalore', area:'Indiranagar',
+      requirement:'Bridal jewellery set — budget ₹1,50,000',
+      reqDetails:{'Budget':'₹1,50,000','Occasion':'Bridal','Preferred Metal':'22K Gold','Style':'Traditional'},
+      budget:'₹1,50,000', weight:'—', contactTime:'Weekends',
+      notes:'Wedding in August 2026. Wants full bridal set.', otpVerified:true,
+      source:'Social Media', intent:'Medium Intent', status:'Appointment Scheduled', date:'11 Jun 2026',
+      timeline:['Lead Received','Lead Accepted','Customer Contacted','Appointment Scheduled']
+    },
+    {
+      id:'GB-2026-001235', name:'Vijay Nair', mobile:'+91 94321 09876', email:'vijay.nair@email.com',
+      service:'Gold Loan', location:'Marathahalli, Bangalore', area:'Marathahalli',
+      requirement:'Loan Amount: ₹5,00,000 | Gold Weight: 145g',
+      reqDetails:{'Loan Amount':'₹5,00,000','Gold Weight':'145g','Tenure':'12 months','Preferred Contact':'Anytime'},
+      budget:'₹5,00,000', weight:'145g', contactTime:'Anytime',
+      notes:'For home renovation project', otpVerified:true,
+      source:'GoldBazaar App', intent:'High Intent', status:'Contacted', date:'10 Jun 2026',
+      timeline:['Lead Received','Lead Accepted','Customer Contacted']
+    },
+    {
+      id:'GB-2026-001232', name:'Meera Pillai', mobile:'+91 93210 98765', email:'meera.pillai@email.com',
+      service:'Digital Gold', location:'Electronic City, Bangalore', area:'Electronic City',
+      requirement:'Monthly SIP ₹10,000 in digital gold — 24 months',
+      reqDetails:{'Monthly SIP':'₹10,000','Duration':'24 months','Platform':'Any trusted','Purpose':'Wealth creation'},
+      budget:'₹10,000/month', weight:'—', contactTime:'Morning (9–12 AM)',
+      notes:'First-time digital gold investor — needs guidance', otpVerified:false,
+      source:'GoldBazaar Website', intent:'General Enquiry', status:'New', date:'10 Jun 2026',
+      timeline:['Lead Received']
+    },
+    {
+      id:'GB-2026-001228', name:'Sanjay Gupta', mobile:'+91 92109 87654', email:'sanjay.gupta@email.com',
+      service:'Gold Savings Scheme', location:'Jayanagar, Bangalore', area:'Jayanagar',
+      requirement:'Monthly SIP ₹5,000 for 5 years — physical gold payout',
+      reqDetails:{'Monthly Amount':'₹5,000','Duration':'5 years','Purpose':'Daughter\'s education','Payout':'Lump sum physical gold'},
+      budget:'₹5,000/month', weight:'—', contactTime:'Evening (5–8 PM)',
+      notes:'Wants physical gold delivery at maturity', otpVerified:true,
+      source:'Referral', intent:'Medium Intent', status:'Accepted', date:'09 Jun 2026',
+      timeline:['Lead Received','Lead Accepted']
+    },
+    {
+      id:'GB-2026-001225', name:'Kavitha Reddy', mobile:'+91 91098 76543', email:'kavitha.reddy@email.com',
+      service:'Gold Sell', location:'Yelahanka, Bangalore', area:'Yelahanka',
+      requirement:'Sell 200g BIS hallmarked 24K gold coins',
+      reqDetails:{'Gold Weight':'200g','Purity':'24K','Type':'Gold Coins','Certificate':'BIS Hallmarked'},
+      budget:'—', weight:'200g', contactTime:'Morning (9–12 AM)',
+      notes:'Has BIS hallmarked coins — wants premium rate', otpVerified:true,
+      source:'GoldBazaar App', intent:'High Intent', status:'Visited Store', date:'09 Jun 2026',
+      timeline:['Lead Received','Lead Accepted','Customer Contacted','Appointment Scheduled','Store Visit']
+    },
+    {
+      id:'GB-2026-001218', name:'Rohit Joshi', mobile:'+91 90987 65432', email:'rohit.joshi@email.com',
+      service:'Gold Loan', location:'Whitefield, Bangalore', area:'Whitefield',
+      requirement:'Loan Amount: ₹2,00,000 | Gold Weight: 55g',
+      reqDetails:{'Loan Amount':'₹2,00,000','Gold Weight':'55g','Tenure':'6 months','Preferred Contact':'Afternoon'},
+      budget:'₹2,00,000', weight:'55g', contactTime:'Afternoon (2–5 PM)',
+      notes:'Needs quick disbursement within 2 days', otpVerified:true,
+      source:'GoldBazaar Website', intent:'Medium Intent', status:'Appointment Scheduled', date:'08 Jun 2026',
+      timeline:['Lead Received','Lead Accepted','Customer Contacted','Appointment Scheduled']
+    },
+    {
+      id:'GB-2026-001210', name:'Lakshmi Venkat', mobile:'+91 89876 54321', email:'lakshmi.venkat@email.com',
+      service:'Gold Exchange', location:'BTM Layout, Bangalore', area:'BTM Layout',
+      requirement:'Exchange 80g old bangles for new necklace set',
+      reqDetails:{'Exchange Weight':'80g','Current Gold':'18K bangles','Desired':'22K necklace set','Timeline':'Within 2 weeks'},
+      budget:'—', weight:'80g', contactTime:'Anytime',
+      notes:'Basic enquiry — no specific urgency', otpVerified:false,
+      source:'Google Search', intent:'General Enquiry', status:'New', date:'07 Jun 2026',
+      timeline:['Lead Received']
+    },
+    {
+      id:'GB-2026-001198', name:'Suresh Kumar', mobile:'+91 88765 43210', email:'suresh.kumar@email.com',
+      service:'Gold Sell', location:'Rajajinagar, Bangalore', area:'Rajajinagar',
+      requirement:'Sell 350g mixed gold — coins (200g 24K) + jewellery (150g 22K)',
+      reqDetails:{'Total Weight':'350g','Coins':'200g 24K','Jewellery':'150g 22K','Expected Value':'₹22–25L'},
+      budget:'—', weight:'350g', contactTime:'Morning (9–12 AM)',
+      notes:'Large lot — premium buyer. Deal closed successfully.', otpVerified:true,
+      source:'Referral', intent:'High Intent', status:'Converted', date:'05 Jun 2026',
+      timeline:['Lead Received','Lead Accepted','Customer Contacted','Appointment Scheduled','Store Visit','Conversion Updated']
+    },
+    {
+      id:'GB-2026-001185', name:'Deepa Nair', mobile:'+91 87654 32109', email:'deepa.nair@email.com',
+      service:'Gold Loan', location:'Banashankari, Bangalore', area:'Banashankari',
+      requirement:'Loan Amount: ₹1,50,000 | Gold Weight: 42g',
+      reqDetails:{'Loan Amount':'₹1,50,000','Gold Weight':'42g','Tenure':'3 months','Preferred Contact':'Evening'},
+      budget:'₹1,50,000', weight:'42g', contactTime:'Evening (5–8 PM)',
+      notes:'Did not show up for appointment. Follow-up calls unanswered.', otpVerified:true,
+      source:'GoldBazaar App', intent:'Medium Intent', status:'Closed', date:'03 Jun 2026',
+      timeline:['Lead Received','Lead Accepted','Customer Contacted']
+    }
+  ];
+
+  let currentLeadId = null;
+
+  // ── Helper: CSS classes ──
+  function svcClass(s) {
+    return {'Gold Loan':'svc-loan','Gold Sell':'svc-sell','Gold Exchange':'svc-exch',
+            'Jewellery Purchase':'svc-jewel','Gold Savings Scheme':'svc-saving','Digital Gold':'svc-digital'}[s]||'svc-loan';
+  }
+  function intentClass(i) {
+    return {'High Intent':'intent-high','Medium Intent':'intent-medium','General Enquiry':'intent-general'}[i]||'intent-general';
+  }
+  function intentIcon(i) { return {'High Intent':'🔥','Medium Intent':'⭐','General Enquiry':'🟢'}[i]||'🟢'; }
+  function statusClass(s) {
+    return {'New':'st-new','Accepted':'st-accepted','Contacted':'st-contacted',
+            'Appointment Scheduled':'st-appointed','Visited Store':'st-visited',
+            'Converted':'st-converted','Closed':'st-closed','Rejected':'st-rejected'}[s]||'st-new';
+  }
+  // Short labels for display in constrained table cells
+  const STATUS_DISPLAY = {
+    'Appointment Scheduled': 'Appt. Scheduled',
+    'Visited Store': 'Visited Store',
+  };
+
+  // ── Toast ──
+  let toastTimer;
+  function showToast(msg, icon) {
+    const el = document.getElementById('leadToast');
+    document.getElementById('leadToastMsg').textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+  }
+
+  // ── Summary bar active state ──
+  function filterByStatus(status, statId) {
+    document.querySelectorAll('.lead-stat').forEach(s => s.classList.remove('active'));
+    if (statId) document.getElementById(statId)?.classList.add('active');
+    document.getElementById('fltStatus').value = status;
+    renderLeads();
+  }
+
+  // ── Render leads table ──
+  function renderLeads() {
+    const search = (document.getElementById('leadSearchInput')?.value||'').toLowerCase().trim();
+    const fltSvc = document.getElementById('fltService')?.value||'';
+    const fltSt  = document.getElementById('fltStatus')?.value||'';
+    const fltInt = document.getElementById('fltIntent')?.value||'';
+    const fltLoc = document.getElementById('fltLocation')?.value||'';
+
+    let filtered = LEADS.filter(l => {
+      if (search && !l.name.toLowerCase().includes(search) &&
+          !l.id.toLowerCase().includes(search) &&
+          !l.mobile.replace(/\s/g,'').includes(search.replace(/\s/g,''))) return false;
+      if (fltSvc && l.service !== fltSvc) return false;
+      if (fltSt  && l.status !== fltSt)  return false;
+      if (fltInt && l.intent !== fltInt)  return false;
+      if (fltLoc && !l.location.includes(fltLoc)) return false;
+      return true;
+    });
+
+    const tbody = document.getElementById('leadTableBody');
+    const empty = document.getElementById('leadEmpty');
+    if (!filtered.length) { tbody.innerHTML=''; empty.style.display='block'; return; }
+    empty.style.display = 'none';
+
+    tbody.innerHTML = filtered.map(l => {
+      const sc = svcClass(l.service), ic = intentClass(l.intent), stc = statusClass(l.status);
+      const dateShort = l.date.replace(' 2026','');
+      const dispStatus = STATUS_DISPLAY[l.status]||l.status;
+      const actionBtns = l.status==='New'
+        ? `<button class="la-btn la-accept" onclick="acceptLead('${l.id}')">Accept</button><button class="la-btn la-reject" onclick="rejectLead('${l.id}')">Reject</button>`
+        : '';
+      return `<div class="lead-row" onclick="openLeadDrawer('${l.id}')">
+        <div class="lead-cell" data-label="Lead ID"><span class="lead-id">${l.id}</span></div>
+        <div class="lead-cell" data-label="Customer"><div><div class="lead-cust-name">${l.name}</div><div class="lead-cust-sub">${l.mobile}</div></div></div>
+        <div class="lead-cell" data-label="Service"><span class="svc-badge ${sc}">${l.service}</span></div>
+        <div class="lead-cell" data-label="Location" style="font-size:12px;">${l.location}</div>
+        <div class="lead-cell" data-label="Requirement" style="font-size:12px;color:rgba(255,255,255,0.6);">${l.requirement}</div>
+        <div class="lead-cell" data-label="Intent"><span class="intent-badge ${ic}">${intentIcon(l.intent)} ${l.intent}</span></div>
+        <div class="lead-cell" data-label="Date" style="font-size:11px;color:rgba(255,255,255,0.45);line-height:1.4;">${dateShort}<br><span style="color:rgba(255,255,255,0.22);font-size:10px;">2026</span></div>
+        <div class="lead-cell" data-label="Status"><span class="status-pill ${stc}" title="${l.status}">${dispStatus}</span></div>
+        <div class="lead-cell lead-actions" data-label="Actions" onclick="event.stopPropagation()">
+          <button class="la-btn la-view" onclick="openLeadDrawer('${l.id}')">View</button>
+          ${actionBtns}
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // ── Open drawer ──
+  function openLeadDrawer(id) {
+    const l = LEADS.find(x=>x.id===id);
+    if (!l) return;
+    currentLeadId = id;
+
+    document.getElementById('drawerLeadId').textContent = l.id;
+    document.getElementById('drawerCustName').textContent = l.name;
+    document.getElementById('drawerBadges').innerHTML =
+      '<span class="svc-badge '+svcClass(l.service)+'">'+l.service+'</span> '+
+      '<span class="intent-badge '+intentClass(l.intent)+'">'+intentIcon(l.intent)+' '+l.intent+'</span> '+
+      '<span class="status-pill '+statusClass(l.status)+'" style="font-size:11px;">'+l.status+'</span>';
+
+    const rows = [
+      ['Mobile Number', l.mobile], ['Email Address', l.email],
+      ['Location', l.location], ['Preferred Area', l.area],
+      ['Service Required', l.service], ['Budget / Loan Amount', l.budget],
+      ['Gold Weight', l.weight], ['Preferred Contact Time', l.contactTime],
+      ['Additional Notes', l.notes],
+      ['OTP Verification', l.otpVerified ? '✅ Verified' : '⚠️ Not Verified'],
+      ['Lead Source', l.source], ['Date Submitted', l.date]
+    ];
+    document.getElementById('drawerCustInfo').innerHTML = rows.map(function(r){
+      return '<div class="info-row"><span class="info-label">'+r[0]+'</span><span class="info-value">'+r[1]+'</span></div>';
+    }).join('');
+
+    const reqItems = Object.entries(l.reqDetails).map(function(e){
+      return '<div class="req-item"><span>'+e[0]+'</span><span>'+e[1]+'</span></div>';
+    }).join('');
+    document.getElementById('drawerReqCard').innerHTML = '<h4>'+l.service+' Requirement</h4>'+reqItems;
+
+    document.getElementById('drawerStatusSelect').value = l.status;
+    document.getElementById('drawerAcceptBtn').style.opacity = l.status==='New' ? '1' : '0.45';
+
+    const tlLabels = {
+      'Lead Received':'Auto-assigned by GoldBazaar',
+      'Lead Accepted':'You accepted this lead',
+      'Customer Contacted':'Marked as contacted',
+      'Appointment Scheduled':'Appointment created',
+      'Store Visit':'Customer visited store',
+      'Conversion Updated':'Deal closed — Converted'
+    };
+    document.getElementById('drawerTimeline').innerHTML = l.timeline.map(function(t){
+      return '<div class="tl-item"><div class="tl-dot done"></div><div class="tl-title">'+t+'</div><div class="tl-time">'+l.date+' · '+(tlLabels[t]||'')+'</div></div>';
+    }).join('');
+
+    document.getElementById('drawerOverlay').classList.add('open');
+    document.getElementById('leadDrawer').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLeadDrawer() {
+    document.getElementById('drawerOverlay').classList.remove('open');
+    document.getElementById('leadDrawer').classList.remove('open');
+    document.body.style.overflow = '';
+    currentLeadId = null;
+  }
+
+  document.addEventListener('keydown', function(e){ if (e.key==='Escape') closeLeadDrawer(); });
+
+  function acceptLead(id) {
+    const l = LEADS.find(x=>x.id===id);
+    if (!l || l.status!=='New') return;
+    l.status = 'Accepted';
+    if (!l.timeline.includes('Lead Accepted')) l.timeline.push('Lead Accepted');
+    renderLeads();
+    if (currentLeadId===id) openLeadDrawer(id);
+    showToast('✅ Lead accepted successfully!');
+  }
+
+  function rejectLead(id) {
+    const l = LEADS.find(x=>x.id===id);
+    if (!l) return;
+    if (!confirm('Reject this lead? This cannot be undone.')) return;
+    l.status = 'Rejected';
+    renderLeads();
+    if (currentLeadId===id) closeLeadDrawer();
+    showToast('❌ Lead rejected');
+  }
+
+  function drawerAccept() { if (currentLeadId) acceptLead(currentLeadId); }
+  function drawerReject() { if (currentLeadId) rejectLead(currentLeadId); }
+
+  function applyStatusUpdate() {
+    if (!currentLeadId) return;
+    const l = LEADS.find(x=>x.id===currentLeadId);
+    if (!l) return;
+    const newStatus = document.getElementById('drawerStatusSelect').value;
+    l.status = newStatus;
+    const tlMap = {
+      'Accepted':'Lead Accepted', 'Contacted':'Customer Contacted',
+      'Appointment Scheduled':'Appointment Scheduled',
+      'Visited Store':'Store Visit', 'Converted':'Conversion Updated'
+    };
+    if (tlMap[newStatus] && !l.timeline.includes(tlMap[newStatus]))
+      l.timeline.push(tlMap[newStatus]);
+    renderLeads();
+    openLeadDrawer(currentLeadId);
+    showToast('✅ Status updated to "' + newStatus + '"');
+  }
+
+  function scrollToAppt() {
+    document.getElementById('apptSection').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  function saveAppointment() {
+    if (!currentLeadId) return;
+    const date   = document.getElementById('apptDate').value;
+    const time   = document.getElementById('apptTime').value;
+    const branch = document.getElementById('apptBranch').value.trim();
+    if (!date || !time || !branch) { showToast('⚠️ Please fill date, time and branch'); return; }
+    const l = LEADS.find(x=>x.id===currentLeadId);
+    if (l && ['New','Accepted','Contacted'].includes(l.status)) {
+      l.status = 'Appointment Scheduled';
+      if (!l.timeline.includes('Appointment Scheduled')) l.timeline.push('Appointment Scheduled');
+    }
+    renderLeads();
+    openLeadDrawer(currentLeadId);
+    document.getElementById('apptDate').value = '';
+    document.getElementById('apptTime').value = '';
+    document.getElementById('apptBranch').value = '';
+    document.getElementById('apptRemarks').value = '';
+    showToast('📅 Appointment confirmed at ' + branch);
+  }
+
+  // ── Init ──
+  renderLeads();
   </script>
 </body>
 </html>

@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin Control Center — GoldBazaar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;background:var(--b0)}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+img{display:block;max-width:100%}
+input,select,textarea{font-family:inherit}
+
+/* ── TOKENS ── */
+:root{
+  --g:#C9A84C;--gl:#E8C96A;--gd:#9B7B2E;
+  --b0:#070604;--b1:#0F0D08;--b2:#17140C;--b3:#1E1A10;
+  --t0:#FFFFFF;--t1:rgba(255,255,255,.88);--t2:rgba(255,255,255,.55);--t3:rgba(255,255,255,.30);
+  --gg:linear-gradient(135deg,#C9A84C 0%,#E8C96A 50%,#C9A84C 100%);
+  --red:rgba(239,68,68,1);--green:rgba(34,197,94,1);--blue:rgba(14,165,233,1);--purple:rgba(168,85,247,1);--amber:rgba(245,158,11,1);
+  --ease:cubic-bezier(.4,0,.2,1);
+  --nav:68px;--sb:252px;--r:14px;
+  --fd:'Playfair Display',Georgia,serif;
+  --fm:'Montserrat','Inter',sans-serif;
+}
+[data-theme="light"]{
+  --b0:#F5F0E8;--b1:#EDE7D9;--b2:#E0D8C8;--b3:#D4CBBA;
+  --t0:#0F0D08;--t1:rgba(0,0,0,.86);--t2:rgba(0,0,0,.54);--t3:rgba(0,0,0,.30);
+}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(201,168,76,.28);border-radius:2px}
+
+/* ══════════════════════════════
+   TOP NAV
+══════════════════════════════ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--nav);display:flex;align-items:center;
+  justify-content:space-between;padding:0 24px 0 14px;
+  background:rgba(5,4,2,.95);backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(201,168,76,.14);
+}
+.nav-l{display:flex;align-items:center;gap:8px}
+.sb-btn{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--t2);font-size:20px;transition:all .2s}
+.sb-btn:hover{background:rgba(255,255,255,.07);color:var(--t0)}
+.nav-logo img{height:40px;width:auto}
+.nav-status{
+  display:flex;align-items:center;gap:7px;margin-left:16px;
+  padding:5px 14px;border-radius:20px;
+  background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);
+  font-size:11px;font-weight:700;color:#86efac;letter-spacing:.05em;
+}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{opacity:.8;box-shadow:0 0 0 5px rgba(34,197,94,0)}}
+.nav-r{display:flex;align-items:center;gap:8px}
+.nav-back{display:flex;align-items:center;gap:6px;padding:7px 15px;border-radius:9px;border:1px solid rgba(201,168,76,.22);background:rgba(201,168,76,.06);font-size:13px;font-weight:600;color:var(--g);transition:all .2s}
+.nav-back:hover{background:rgba(201,168,76,.14);border-color:rgba(201,168,76,.4)}
+.ni-btn{position:relative;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);color:var(--t1);font-size:15px;transition:all .2s;cursor:pointer}
+.ni-btn:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.28);color:var(--g)}
+.n-dot{position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:#ef4444;border:1.5px solid var(--b0)}
+.nav-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C9A84C,#E8C96A);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#000;border:2px solid rgba(201,168,76,.4);cursor:pointer;transition:all .2s}
+.nav-av:hover{border-color:var(--g)}
+.nav-admin-chip{padding:5px 14px;border-radius:20px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);font-size:10px;font-weight:700;letter-spacing:.08em;color:#fca5a5}
+.nav-theme{padding:5px 8px;font-size:16px;color:var(--t0);transition:transform .2s}
+.nav-theme:hover{transform:scale(1.15)}
+/* Dropdown */
+.pd-wrap{position:relative}
+.pd{position:absolute;top:calc(100% + 10px);right:0;background:rgba(8,6,2,.98);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:8px;min-width:175px;backdrop-filter:blur(24px);z-index:2000;opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .2s,transform .2s}
+.pd.open{opacity:1;transform:translateY(0);pointer-events:auto}
+.pd-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:13px;font-weight:500;color:var(--t1);cursor:pointer;transition:background .15s}
+.pd-item:hover{background:rgba(201,168,76,.08);color:var(--g)}
+.pd-sep{height:1px;background:rgba(201,168,76,.1);margin:4px 0}
+
+/* ══════════════════════════════
+   SIDEBAR
+══════════════════════════════ */
+#sidebar{
+  position:fixed;top:var(--nav);left:0;bottom:0;
+  width:var(--sb);z-index:500;
+  background:rgba(6,4,1,.98);
+  border-right:1px solid rgba(201,168,76,.1);
+  display:flex;flex-direction:column;
+  overflow-y:auto;overflow-x:hidden;
+  transition:transform .3s var(--ease);
+}
+.sb-sec{padding:18px 12px 8px}
+.sb-lbl{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);padding:0 8px;margin-bottom:8px}
+.sb-it{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:500;color:var(--t2);cursor:pointer;transition:all .2s;margin-bottom:2px;letter-spacing:.01em}
+.sb-it:hover{background:rgba(201,168,76,.06);color:var(--t1)}
+.sb-it.active{background:rgba(201,168,76,.1);color:var(--g);border:1px solid rgba(201,168,76,.18)}
+.sb-ic{font-size:15px;width:20px;text-align:center;flex-shrink:0}
+.sb-bx{margin-left:auto;min-width:20px;height:18px;padding:0 6px;border-radius:9px;background:rgba(239,68,68,.2);font-size:10px;font-weight:800;color:#fca5a5;display:flex;align-items:center;justify-content:center}
+.sb-bx.g{background:rgba(201,168,76,.18);color:var(--g)}
+.sb-sep{height:1px;background:rgba(201,168,76,.08);margin:8px 12px}
+
+/* ══════════════════════════════
+   MAIN WRAP (sidebar-aware)
+══════════════════════════════ */
+#wrap{margin-top:var(--nav);margin-left:var(--sb);min-height:calc(100vh - var(--nav));display:flex;flex-direction:column;transition:margin-left .3s var(--ease)}
+#content{flex:1}
+.panel{display:none}
+.panel.active{display:block;animation:fadeUp .3s var(--ease)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Sections */
+.sec{padding:28px 32px 0}
+.sec:last-child{padding-bottom:48px}
+
+/* ══════════════════════════════
+   SECTION HEADERS
+══════════════════════════════ */
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:12px}
+.sh-t{font-family:var(--fm);font-size:16px;font-weight:700;color:var(--t0);display:flex;align-items:center;gap:10px}
+.sh-t::before{content:'';display:inline-block;width:3px;height:18px;background:var(--gg);border-radius:2px}
+.sh-a{font-size:12px;font-weight:600;color:var(--g);cursor:pointer;white-space:nowrap}
+.sh-a:hover{text-decoration:underline}
+
+/* ══════════════════════════════
+   WELCOME BANNER
+══════════════════════════════ */
+.wb{
+  margin:28px 32px 0;border-radius:20px;
+  background:var(--b1);border:1px solid rgba(201,168,76,.18);
+  padding:30px 36px;position:relative;overflow:hidden;
+}
+.wb::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g) 30%,var(--gl) 70%,transparent)}
+.wb::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 90% 50%,rgba(201,168,76,.06),transparent 70%);pointer-events:none}
+.wb-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.wb-eye{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--g);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.wb-eye::after{content:'';width:32px;height:1px;background:rgba(201,168,76,.4)}
+.wb-h1{font-family:var(--fd);font-size:26px;font-weight:700;color:var(--t0);margin-bottom:6px;line-height:1.25}
+.wb-h1 span{background:var(--gg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.wb-sub{font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:18px}
+.wb-meta{display:flex;flex-wrap:wrap;gap:10px}
+.wchip{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.14);font-size:12px;color:var(--t2)}
+.wchip.op{background:rgba(34,197,94,.07);border-color:rgba(34,197,94,.2);color:#86efac}
+.wchip.red{background:rgba(239,68,68,.07);border-color:rgba(239,68,68,.2);color:#fca5a5}
+/* System health bar */
+.wb-health{display:flex;flex-direction:column;gap:8px;min-width:200px}
+.wh-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:2px}
+.wh-row{display:flex;align-items:center;gap:10px}
+.wh-name{font-size:12px;color:var(--t2);width:60px;flex-shrink:0}
+.wh-bg{flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden}
+.wh-fill{height:100%;border-radius:3px;transition:width 1.2s var(--ease)}
+.wh-val{font-size:11px;font-weight:700;width:36px;text-align:right;flex-shrink:0}
+
+/* ══════════════════════════════
+   KPI GRID
+══════════════════════════════ */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi{background:var(--b1);border:1px solid rgba(201,168,76,.1);border-radius:var(--r);padding:18px 16px;display:flex;flex-direction:column;gap:4px;position:relative;overflow:hidden;transition:all .25s var(--ease)}
+.kpi:hover{transform:translateY(-3px);border-color:rgba(201,168,76,.3);box-shadow:0 12px 32px rgba(0,0,0,.4)}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.kpi.gold::before{background:var(--gg)}
+.kpi.blue::before{background:linear-gradient(90deg,#0ea5e9,#38bdf8)}
+.kpi.green::before{background:linear-gradient(90deg,#16a34a,#22c55e)}
+.kpi.red::before{background:linear-gradient(90deg,#dc2626,#ef4444)}
+.kpi.purple::before{background:linear-gradient(90deg,#9333ea,#a855f7)}
+.kpi.amber::before{background:linear-gradient(90deg,#d97706,#f59e0b)}
+.kpi-ic{font-size:18px;margin-bottom:2px}
+.kpi-n{font-family:var(--fm);font-size:22px;font-weight:800;color:var(--t0);line-height:1.1}
+.kpi-l{font-size:12px;font-weight:700;color:var(--t1)}
+.kpi-s{font-size:11px;color:var(--t3);line-height:1.4}
+.kpi-tr{font-size:11px;font-weight:700;margin-top:3px;display:flex;align-items:center;gap:3px}
+.up{color:#22c55e}.dn{color:#ef4444}.neu{color:var(--t3)}
+
+/* ══════════════════════════════
+   ACTION CARDS
+══════════════════════════════ */
+.ac-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ac{background:var(--b1);border:1px solid rgba(201,168,76,.1);border-radius:var(--r);padding:22px 20px;cursor:pointer;transition:all .25s var(--ease);display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
+.ac::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.05),transparent);opacity:0;transition:opacity .25s}
+.ac:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.34);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.ac:hover::after{opacity:1}
+.ac-ic{width:46px;height:46px;border-radius:12px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:20px}
+.ac-t{font-family:var(--fm);font-size:14px;font-weight:700;color:var(--t0)}
+.ac-d{font-size:12px;color:var(--t2);line-height:1.6}
+.ac-go{font-size:12px;color:var(--g);font-weight:700;margin-top:auto;align-self:flex-end}
+
+/* ══════════════════════════════
+   CARD BASE
+══════════════════════════════ */
+.card{background:var(--b1);border:1px solid rgba(201,168,76,.1);border-radius:var(--r);padding:22px}
+
+/* ══════════════════════════════
+   TABLES
+══════════════════════════════ */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left;white-space:nowrap}
+.tbl td{padding:12px 14px;color:var(--t1);border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(201,168,76,.025)}
+.tid{font-family:monospace;color:var(--g);font-weight:700;font-size:11px}
+/* Badges */
+.bdg{display:inline-flex;align-items:center;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.b-new{background:rgba(99,102,241,.13);color:#a5b4fc;border:1px solid rgba(99,102,241,.25)}
+.b-pnd{background:rgba(245,158,11,.1);color:#fcd34d;border:1px solid rgba(245,158,11,.25)}
+.b-acc{background:rgba(34,197,94,.1);color:#86efac;border:1px solid rgba(34,197,94,.25)}
+.b-rej{background:rgba(239,68,68,.1);color:#fca5a5;border:1px solid rgba(239,68,68,.25)}
+.b-act{background:rgba(201,168,76,.1);color:var(--gl);border:1px solid rgba(201,168,76,.25)}
+.b-sus{background:rgba(245,158,11,.1);color:#fcd34d;border:1px solid rgba(245,158,11,.25)}
+.b-inf{background:rgba(14,165,233,.1);color:#7dd3fc;border:1px solid rgba(14,165,233,.25)}
+/* Button sizes */
+.bsm{padding:5px 10px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;transition:all .18s;font-family:inherit;white-space:nowrap}
+.bg{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.22);color:var(--g)}
+.bg:hover{background:rgba(201,168,76,.18)}
+.bgr{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.22);color:#86efac}
+.bgr:hover{background:rgba(34,197,94,.18)}
+.brd{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.22);color:#fca5a5}
+.brd:hover{background:rgba(239,68,68,.18)}
+.bbl{background:rgba(14,165,233,.08);border:1px solid rgba(14,165,233,.22);color:#7dd3fc}
+.bbl:hover{background:rgba(14,165,233,.18)}
+.bam{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.22);color:#fcd34d}
+.bam:hover{background:rgba(245,158,11,.18)}
+.acts{display:flex;gap:5px;flex-wrap:nowrap}
+
+/* ══════════════════════════════
+   GRID HELPERS
+══════════════════════════════ */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+
+/* ══════════════════════════════
+   CHARTS (CSS bars)
+══════════════════════════════ */
+.ch-title{font-size:13px;font-weight:700;color:var(--t0);margin-bottom:12px}
+.ch-rows{display:flex;flex-direction:column;gap:9px}
+.cr{display:flex;align-items:center;gap:10px}
+.cr-lbl{font-size:12px;color:var(--t2);width:30px;flex-shrink:0;text-align:right}
+.cr-bg{flex:1;height:8px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden}
+.cr-fill{height:100%;border-radius:4px;width:0;transition:width 1.2s var(--ease)}
+.gold-bar{background:var(--gg)}
+.blue-bar{background:linear-gradient(90deg,#0ea5e9,#38bdf8)}
+.green-bar{background:linear-gradient(90deg,#16a34a,#22c55e)}
+.purple-bar{background:linear-gradient(90deg,#9333ea,#a855f7)}
+.cr-v{font-size:11px;font-weight:700;color:var(--g);width:42px;text-align:right;flex-shrink:0}
+
+/* ══════════════════════════════
+   ACTIVITY / AUDIT FEED
+══════════════════════════════ */
+.feed-it{display:flex;align-items:flex-start;gap:13px;padding:13px 14px;border-radius:10px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);transition:background .2s;margin-bottom:8px}
+.feed-it:last-child{margin-bottom:0}
+.feed-it:hover{background:rgba(201,168,76,.04);border-color:rgba(201,168,76,.13)}
+.feed-dot{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.d-go{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2)}
+.d-bl{background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.2)}
+.d-gr{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.2)}
+.d-rd{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.2)}
+.d-pu{background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.2)}
+.d-am{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.2)}
+.feed-tx{font-size:13px;color:var(--t1);line-height:1.55}
+.feed-tm{font-size:11px;color:var(--t3);margin-top:3px}
+
+/* ══════════════════════════════
+   FORM FIELDS
+══════════════════════════════ */
+.fg{margin-bottom:14px}
+.flbl{display:block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
+.fi{width:100%;padding:11px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.16);border-radius:10px;color:var(--t0);font-size:13px;outline:none;transition:border-color .2s,box-shadow .2s}
+.fi::placeholder{color:var(--t3)}
+.fi:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(201,168,76,.1)}
+.fi option{background:var(--b1)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.btn-pri{width:100%;padding:12px;background:var(--gg);color:#000;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;transition:all .2s;font-family:var(--fm);letter-spacing:.04em}
+.btn-pri:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.35)}
+
+/* ══════════════════════════════
+   METRIC CARDS
+══════════════════════════════ */
+.mc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mc{background:var(--b1);border:1px solid rgba(201,168,76,.1);border-radius:12px;padding:18px;text-align:center;transition:all .2s}
+.mc:hover{border-color:rgba(201,168,76,.28)}
+.mc-val{font-family:var(--fm);font-size:24px;font-weight:800;margin-bottom:4px}
+.mc-lbl{font-size:12px;color:var(--t2);font-weight:600}
+.mc-sub{font-size:11px;color:var(--t3);margin-top:3px}
+
+/* ══════════════════════════════
+   TOGGLE SWITCH
+══════════════════════════════ */
+.tsw{position:relative;width:40px;height:22px;cursor:pointer;display:inline-block}
+.tsw input{opacity:0;width:0;height:0;position:absolute}
+.tsw .trk{position:absolute;inset:0;border-radius:11px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);transition:background .2s}
+.tsw input:checked+.trk{background:rgba(201,168,76,.35);border-color:rgba(201,168,76,.5)}
+.tsw .thm{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s}
+.tsw input:checked~.thm{transform:translateX(18px);background:var(--g)}
+
+/* Config rows */
+.cfg-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05);gap:16px}
+.cfg-row:last-child{border-bottom:none;padding-bottom:0}
+.cfg-l{flex:1}
+.cfg-name{font-size:13px;font-weight:600;color:var(--t0)}
+.cfg-sub{font-size:11px;color:var(--t3);margin-top:2px}
+.cfg-input{width:90px;padding:7px 10px;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.16);border-radius:8px;color:var(--t0);font-size:12px;outline:none;text-align:center}
+.cfg-input:focus{border-color:var(--g)}
+
+/* Future module cards */
+.fm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.fm-card{background:var(--b1);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:20px;opacity:.55;position:relative;overflow:hidden}
+.fm-card::after{content:'Coming Soon';position:absolute;top:10px;right:10px;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);background:rgba(255,255,255,.06);border-radius:6px;padding:3px 8px}
+.fm-ic{font-size:22px;margin-bottom:8px}
+.fm-t{font-size:13px;font-weight:700;color:var(--t1);margin-bottom:4px}
+.fm-d{font-size:11px;color:var(--t3);line-height:1.5}
+
+/* Notification items */
+.nf-it{display:flex;align-items:flex-start;gap:12px;padding:13px;border-radius:10px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);transition:background .2s;margin-bottom:8px}
+.nf-it:last-child{margin-bottom:0}
+.nf-it:hover{background:rgba(201,168,76,.04);border-color:rgba(201,168,76,.13)}
+.nf-ic{width:34px;height:34px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.nf-tx{font-size:13px;color:var(--t1);line-height:1.5}
+.nf-tm{font-size:11px;color:var(--t3);margin-top:2px}
+.nf-unread .nf-tx::after{content:'●';font-size:7px;margin-left:7px;color:var(--g);vertical-align:middle}
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.1);padding:38px 0 24px}
+.ft-in{padding:0 32px}
+.ft-g{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px;margin-bottom:26px}
+.ft-brand img{height:36px;margin-bottom:11px}
+.ft-brand p{font-size:13px;color:var(--t2);line-height:1.7;max-width:280px}
+.ft-col h4{font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--g);margin-bottom:13px}
+.ft-col a{display:block;font-size:13px;color:var(--t2);margin-bottom:8px;transition:color .2s}
+.ft-col a:hover{color:var(--g)}
+.ft-bot{border-top:1px solid rgba(201,168,76,.07);padding-top:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ft-copy{font-size:12px;color:var(--t3)}
+.ft-tl{font-family:var(--fd);font-size:13px;color:rgba(201,168,76,.45);font-style:italic}
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media(max-width:1200px){
+  .kpi-grid{grid-template-columns:repeat(4,1fr)}
+  .ac-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:1024px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .g2{grid-template-columns:1fr}
+  .mc-grid{grid-template-columns:repeat(2,1fr)}
+  .fm-grid{grid-template-columns:repeat(2,1fr)}
+  .ft-g{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+  #sidebar{transform:translateX(-100%)}
+  #sidebar.open{transform:translateX(0)}
+  #wrap{margin-left:0}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .sec{padding:20px 16px 0}
+  .wb{margin:18px 16px 0;padding:20px}
+  .wb-h1{font-size:22px}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .ac-grid{grid-template-columns:1fr}
+  .g3{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .ft-g{grid-template-columns:1fr;padding:0 16px}
+  .ft-in{padding:0 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav id="nav">
+  <div class="nav-l">
+    <button class="sb-btn" onclick="toggleSB()">☰</button>
+    <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
+    <div class="nav-status"><span class="status-dot"></span>Platform Operational</div>
+  </div>
+  <div class="nav-r">
+    <a href="index.html" class="nav-back">← Back to Home</a>
+    <div class="nav-admin-chip">🔐 Admin</div>
+    <button class="ni-btn" onclick="navPanel('notifications')">🔔<span class="n-dot"></span></button>
+    <div class="pd-wrap">
+      <div class="nav-av" onclick="toggleDrop()">A</div>
+      <div class="pd" id="pdrop">
+        <div class="pd-item" onclick="navPanel('settings')">⚙️ Platform Settings</div>
+        <div class="pd-item" onclick="navPanel('audit')">📋 Audit Logs</div>
+        <div class="pd-item">🔑 Change Password</div>
+        <div class="pd-sep"></div>
+        <div class="pd-item" style="color:#fca5a5" onclick="window.location='login.html'">🚪 Logout</div>
+      </div>
+    </div>
+    <button id="theme-toggle" class="nav-theme" onclick="TM.toggle()">🌙</button>
+  </div>
+</nav>
+
+<!-- ══ SIDEBAR ══ -->
+<aside id="sidebar">
+  <div class="sb-sec">
+    <div class="sb-lbl">Operations</div>
+    <div class="sb-it active" data-panel="dashboard"><span class="sb-ic">🏠</span>Dashboard</div>
+    <div class="sb-it" data-panel="approvals"><span class="sb-ic">✅</span>Vendor Approvals<span class="sb-bx">18</span></div>
+    <div class="sb-it" data-panel="vendors"><span class="sb-ic">🏢</span>Vendor Management</div>
+    <div class="sb-it" data-panel="leads"><span class="sb-ic">🎯</span>Lead Management<span class="sb-bx g">1,245</span></div>
+    <div class="sb-it" data-panel="distribution"><span class="sb-ic">⚙️</span>Lead Distribution</div>
+    <div class="sb-it" data-panel="ads"><span class="sb-ic">📢</span>Advertisement Mgmt</div>
+    <div class="sb-sep"></div>
+    <div class="sb-lbl">Management</div>
+    <div class="sb-it" data-panel="users"><span class="sb-ic">👥</span>User Management</div>
+    <div class="sb-it" data-panel="content"><span class="sb-ic">📰</span>Content Management</div>
+    <div class="sb-it" data-panel="analytics"><span class="sb-ic">📊</span>Analytics</div>
+    <div class="sb-it" data-panel="audit"><span class="sb-ic">📋</span>Audit Logs</div>
+    <div class="sb-sep"></div>
+    <div class="sb-lbl">System</div>
+    <div class="sb-it" data-panel="notifications"><span class="sb-ic">🔔</span>Notifications<span class="sb-bx">4</span></div>
+    <div class="sb-it" data-panel="settings"><span class="sb-ic">🔧</span>Platform Settings</div>
+    <div class="sb-it" data-panel="future"><span class="sb-ic">🚀</span>Future Modules</div>
+  </div>
+</aside>
+
+<!-- ══ MAIN ══ -->
+<div id="wrap">
+<div id="content">
+
+<!-- ══════════════ DASHBOARD ══════════════ -->
+<div id="p-dashboard" class="panel active">
+
+  <!-- Welcome -->
+  <div class="wb">
+    <div class="wb-inner">
+      <div>
+        <div class="wb-eye">Admin Control Center</div>
+        <h1 class="wb-h1">Welcome Back, <span>Administrator</span></h1>
+        <p class="wb-sub">Monitor, manage and govern the entire GoldBazaar ecosystem.</p>
+        <div class="wb-meta">
+          <div class="wchip op"><span class="status-dot" style="width:6px;height:6px"></span>Platform Operational</div>
+          <div class="wchip">🕐 Last Login: Today 09:14 AM</div>
+          <div class="wchip">📅 <span id="wdate"></span></div>
+          <div class="wchip red">⚠️ 18 Approvals Pending</div>
+        </div>
+      </div>
+      <div class="wb-health">
+        <div class="wh-label">System Health</div>
+        <div class="wh-row"><span class="wh-name">API</span><div class="wh-bg"><div class="cr-fill gold-bar" data-w="99" style="width:0"></div></div><span class="wh-val" style="color:var(--g)">99%</span></div>
+        <div class="wh-row"><span class="wh-name">DB</span><div class="wh-bg"><div class="cr-fill green-bar" data-w="96" style="width:0"></div></div><span class="wh-val" style="color:#22c55e">96%</span></div>
+        <div class="wh-row"><span class="wh-name">CDN</span><div class="wh-bg"><div class="cr-fill blue-bar" data-w="100" style="width:0"></div></div><span class="wh-val" style="color:#38bdf8">100%</span></div>
+        <div class="wh-row"><span class="wh-name">Search</span><div class="wh-bg"><div class="cr-fill purple-bar" data-w="94" style="width:0"></div></div><span class="wh-val" style="color:#a855f7">94%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="sec">
+    <div class="kpi-grid">
+      <div class="kpi blue"><div class="kpi-ic">👥</div><div class="kpi-n">12,450</div><div class="kpi-l">Total Users</div><div class="kpi-s">Registered platform users</div><div class="kpi-tr up">▲ 8.3% this month</div></div>
+      <div class="kpi gold"><div class="kpi-ic">🏢</div><div class="kpi-n">425</div><div class="kpi-l">Total Vendors</div><div class="kpi-s">Active vendor accounts</div><div class="kpi-tr up">▲ 12 new this week</div></div>
+      <div class="kpi red"><div class="kpi-ic">⏳</div><div class="kpi-n" style="color:#fca5a5">18</div><div class="kpi-l">Pending Approvals</div><div class="kpi-s">Vendor onboarding queue</div><div class="kpi-tr"><button class="bsm brd" onclick="navPanel('approvals')" style="font-size:10px;padding:3px 8px">Review Now</button></div></div>
+      <div class="kpi green"><div class="kpi-ic">🎯</div><div class="kpi-n">1,245</div><div class="kpi-l">Active Leads</div><div class="kpi-s">Open platform leads</div><div class="kpi-tr up">▲ 5 new today</div></div>
+      <div class="kpi gold"><div class="kpi-ic">📋</div><div class="kpi-n">24,500</div><div class="kpi-l">Total Enquiries</div><div class="kpi-s">All-time platform enquiries</div><div class="kpi-tr up">▲ 18% growth</div></div>
+      <div class="kpi green"><div class="kpi-ic">📈</div><div class="kpi-n" style="color:#86efac">+18%</div><div class="kpi-l">Platform Growth</div><div class="kpi-s">Month-over-month growth</div><div class="kpi-tr up">▲ Trending up</div></div>
+      <div class="kpi purple"><div class="kpi-ic">💰</div><div class="kpi-n" style="background:linear-gradient(135deg,#a855f7,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">₹12.5L</div><div class="kpi-l">Ad Revenue</div><div class="kpi-s">Advertisement revenue (Jun)</div><div class="kpi-tr up">▲ ₹1.8L vs last month</div></div>
+      <div class="kpi amber"><div class="kpi-ic">⚡</div><div class="kpi-n" style="color:#fcd34d">89%</div><div class="kpi-l">Engagement Rate</div><div class="kpi-s">Platform-wide engagement</div><div class="kpi-tr up">▲ 3.2% improvement</div></div>
+    </div>
+  </div>
+
+  <!-- Action Center -->
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Admin Action Center</div></div>
+    <div class="ac-grid">
+      <div class="ac" onclick="navPanel('approvals')"><div class="ac-ic">✅</div><div class="ac-t">Vendor Approvals</div><div class="ac-d">Review and approve 18 pending vendor onboarding requests awaiting action.</div><div class="ac-go">Review 18 →</div></div>
+      <div class="ac" onclick="navPanel('vendors')"><div class="ac-ic">🏢</div><div class="ac-t">Vendor Management</div><div class="ac-d">Manage all 425 vendor profiles, access controls and account status.</div><div class="ac-go">Manage →</div></div>
+      <div class="ac" onclick="navPanel('leads')"><div class="ac-ic">🎯</div><div class="ac-t">Lead Management</div><div class="ac-d">Monitor and control assignment of 1,245 active platform leads.</div><div class="ac-go">Control →</div></div>
+      <div class="ac" onclick="navPanel('ads')"><div class="ac-ic">📢</div><div class="ac-t">Advertisement Mgmt</div><div class="ac-d">Approve, publish and manage vendor advertisements and sponsored listings.</div><div class="ac-go">Manage →</div></div>
+      <div class="ac" onclick="navPanel('users')"><div class="ac-ic">👥</div><div class="ac-t">User Management</div><div class="ac-d">Manage 12,450 registered customer accounts and access permissions.</div><div class="ac-go">Manage →</div></div>
+      <div class="ac" onclick="navPanel('content')"><div class="ac-ic">📰</div><div class="ac-t">Content Management</div><div class="ac-d">Manage gold news, banners, vendor spotlight and platform announcements.</div><div class="ac-go">Edit Content →</div></div>
+    </div>
+  </div>
+
+  <!-- Charts + Audit preview -->
+  <div class="sec">
+    <div class="g2">
+      <div>
+        <div class="sh"><div class="sh-t">Platform Growth</div><span class="sh-a" onclick="navPanel('analytics')">Full Analytics →</span></div>
+        <div class="card" style="display:flex;flex-direction:column;gap:20px">
+          <div><div class="ch-title">User Growth — Last 6 Months</div>
+            <div class="ch-rows">
+              <div class="cr"><span class="cr-lbl">Jan</span><div class="cr-bg"><div class="cr-fill blue-bar" data-w="54"></div></div><span class="cr-v">6,700</span></div>
+              <div class="cr"><span class="cr-lbl">Feb</span><div class="cr-bg"><div class="cr-fill blue-bar" data-w="62"></div></div><span class="cr-v">7,700</span></div>
+              <div class="cr"><span class="cr-lbl">Mar</span><div class="cr-bg"><div class="cr-fill blue-bar" data-w="72"></div></div><span class="cr-v">9,000</span></div>
+              <div class="cr"><span class="cr-lbl">Apr</span><div class="cr-bg"><div class="cr-fill blue-bar" data-w="82"></div></div><span class="cr-v">10,200</span></div>
+              <div class="cr"><span class="cr-lbl">May</span><div class="cr-bg"><div class="cr-fill blue-bar" data-w="91"></div></div><span class="cr-v">11,400</span></div>
+              <div class="cr"><span class="cr-lbl">Jun</span><div class="cr-bg"><div class="cr-fill blue-bar" data-w="100"></div></div><span class="cr-v">12,450</span></div>
+            </div>
+          </div>
+          <div><div class="ch-title">Lead Generation Trend</div>
+            <div class="ch-rows">
+              <div class="cr"><span class="cr-lbl">Jan</span><div class="cr-bg"><div class="cr-fill gold-bar" data-w="42"></div></div><span class="cr-v">10.3K</span></div>
+              <div class="cr"><span class="cr-lbl">Feb</span><div class="cr-bg"><div class="cr-fill gold-bar" data-w="55"></div></div><span class="cr-v">13.5K</span></div>
+              <div class="cr"><span class="cr-lbl">Mar</span><div class="cr-bg"><div class="cr-fill gold-bar" data-w="65"></div></div><span class="cr-v">16.0K</span></div>
+              <div class="cr"><span class="cr-lbl">Apr</span><div class="cr-bg"><div class="cr-fill gold-bar" data-w="76"></div></div><span class="cr-v">18.7K</span></div>
+              <div class="cr"><span class="cr-lbl">May</span><div class="cr-bg"><div class="cr-fill gold-bar" data-w="88"></div></div><span class="cr-v">21.6K</span></div>
+              <div class="cr"><span class="cr-lbl">Jun</span><div class="cr-bg"><div class="cr-fill gold-bar" data-w="100"></div></div><span class="cr-v">24.5K</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sh"><div class="sh-t">Recent Audit Activity</div><span class="sh-a" onclick="navPanel('audit')">Full Logs →</span></div>
+        <div class="card">
+          <div class="feed-it"><div class="feed-dot d-gr">✅</div><div><div class="feed-tx"><strong>Admin</strong> approved vendor <em>Tanishq Koramangala</em></div><div class="feed-tm">12 minutes ago</div></div></div>
+          <div class="feed-it"><div class="feed-dot d-rd">🚫</div><div><div class="feed-tx"><strong>Admin</strong> rejected vendor application — insufficient GST docs</div><div class="feed-tm">45 minutes ago</div></div></div>
+          <div class="feed-it"><div class="feed-dot d-am">🔄</div><div><div class="feed-tx">Lead <em>#LD-2406-0155</em> reassigned to Muthoot Finance Jayanagar</div><div class="feed-tm">1 hour ago</div></div></div>
+          <div class="feed-it"><div class="feed-dot d-bl">📢</div><div><div class="feed-tx">Advertisement <em>"Gold Loan at 9.5%"</em> published for Muthoot Finance</div><div class="feed-tm">2 hours ago</div></div></div>
+          <div class="feed-it"><div class="feed-dot d-pu">👤</div><div><div class="feed-tx">User <em>Rahul S.</em> account flagged for review by system</div><div class="feed-tm">3 hours ago</div></div></div>
+          <div class="feed-it"><div class="feed-dot d-go">⚙️</div><div><div class="feed-tx">Lead radius updated from 10 km to 15 km (Gold Loan category)</div><div class="feed-tm">Yesterday, 4:30 PM</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ VENDOR APPROVALS ══════════════ -->
+<div id="p-approvals" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Pending Vendor Approvals</div><span style="font-size:12px;color:var(--t3)">18 awaiting review</span></div>
+    <div class="card" style="overflow-x:auto;padding:0">
+      <table class="tbl">
+        <thead><tr><th>Vendor Name</th><th>Location</th><th>Business Type</th><th>GST Status</th><th>Services</th><th>Submitted</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Bajaj Finserv</strong></td><td>Whitefield, BLR</td><td>NBFC</td><td><span class="bdg b-acc">✓ Verified</span></td><td>Gold Loan</td><td>Jun 9, 2026</td><td><span class="bdg b-pnd">Pending</span></td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bgr">Approve</button><button class="bsm brd">Reject</button><button class="bsm bbl">Info</button></div></td></tr>
+          <tr><td><strong>Sri Lakshmi Gold</strong></td><td>Malleshwaram, BLR</td><td>Jeweller</td><td><span class="bdg b-pnd">Pending</span></td><td>Gold Sell, Exchange</td><td>Jun 8, 2026</td><td><span class="bdg b-pnd">Pending</span></td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bgr">Approve</button><button class="bsm brd">Reject</button><button class="bsm bbl">Info</button></div></td></tr>
+          <tr><td><strong>Manappuram Finance</strong></td><td>HSR Layout, BLR</td><td>NBFC</td><td><span class="bdg b-acc">✓ Verified</span></td><td>Gold Loan</td><td>Jun 8, 2026</td><td><span class="bdg b-inf">Info Reqd</span></td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bgr">Approve</button><button class="bsm brd">Reject</button><button class="bsm bbl">Info</button></div></td></tr>
+          <tr><td><strong>Kalyan Jewellers</strong></td><td>Indiranagar, BLR</td><td>Jeweller</td><td><span class="bdg b-acc">✓ Verified</span></td><td>Gold Sell, Savings</td><td>Jun 7, 2026</td><td><span class="bdg b-pnd">Pending</span></td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bgr">Approve</button><button class="bsm brd">Reject</button><button class="bsm bbl">Info</button></div></td></tr>
+          <tr><td><strong>Nandini Gold Exchange</strong></td><td>Rajajinagar, BLR</td><td>Gold Exchange</td><td><span class="bdg b-rej">Invalid</span></td><td>Exchange</td><td>Jun 7, 2026</td><td><span class="bdg b-pnd">Pending</span></td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bgr">Approve</button><button class="bsm brd">Reject</button><button class="bsm bbl">Info</button></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Admin create vendor form -->
+    <div style="margin-top:28px">
+      <div class="sh"><div class="sh-t">Direct Vendor Onboarding</div></div>
+      <div class="card">
+        <div class="form-grid">
+          <div class="fg"><label class="flbl">Business Name</label><input class="fi" type="text" placeholder="e.g. Muthoot Finance"/></div>
+          <div class="fg"><label class="flbl">Owner Name</label><input class="fi" type="text" placeholder="e.g. George Muthoot"/></div>
+          <div class="fg"><label class="flbl">GST Number</label><input class="fi" type="text" placeholder="22AAAAA0000A1Z5"/></div>
+          <div class="fg"><label class="flbl">Contact Number</label><input class="fi" type="tel" placeholder="+91 98765 43210"/></div>
+          <div class="fg"><label class="flbl">Email Address</label><input class="fi" type="email" placeholder="vendor@business.com"/></div>
+          <div class="fg"><label class="flbl">Website</label><input class="fi" type="text" placeholder="https://business.com"/></div>
+          <div class="fg"><label class="flbl">City / Location</label><input class="fi" type="text" placeholder="Bangalore, Karnataka"/></div>
+          <div class="fg"><label class="flbl">Business Category</label>
+            <select class="fi"><option>Gold Loan Provider</option><option>Jeweller</option><option>Gold Exchange</option><option>Gold Savings</option><option>Gold Insurance</option></select>
+          </div>
+          <div class="fg" style="grid-column:1/-1"><label class="flbl">Full Address</label><input class="fi" type="text" placeholder="Street, Area, City, Pincode"/></div>
+          <div class="fg"><label class="flbl">Services Offered</label>
+            <select class="fi" multiple style="height:88px"><option>Gold Loan</option><option>Gold Sell</option><option>Gold Exchange</option><option>Gold Savings</option><option>Gold Insurance</option></select>
+          </div>
+          <div class="fg"><label class="flbl">Initial Status</label>
+            <select class="fi"><option>Active</option><option>Pending Review</option><option>Suspended</option></select>
+          </div>
+        </div>
+        <button class="btn-pri" style="margin-top:4px">+ Create Vendor Profile</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ VENDOR MANAGEMENT ══════════════ -->
+<div id="p-vendors" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Vendor Management</div><span style="font-size:12px;color:var(--t3)">425 total vendors</span></div>
+    <div class="card" style="overflow-x:auto;padding:0">
+      <table class="tbl">
+        <thead><tr><th>Vendor ID</th><th>Vendor Name</th><th>Location</th><th>Status</th><th>Leads</th><th>Profile Views</th><th>Joined</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tid">#VND-0001</span></td><td>Muthoot Finance</td><td>Jayanagar, BLR</td><td><span class="bdg b-act">Active</span></td><td>48</td><td>356</td><td>Jan 2025</td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bbl">Edit</button><button class="bsm bam">Suspend</button><button class="bsm brd">Deactivate</button></div></td></tr>
+          <tr><td><span class="tid">#VND-0002</span></td><td>Tanishq</td><td>Koramangala, BLR</td><td><span class="bdg b-act">Active</span></td><td>32</td><td>280</td><td>Feb 2025</td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bbl">Edit</button><button class="bsm bam">Suspend</button><button class="bsm brd">Deactivate</button></div></td></tr>
+          <tr><td><span class="tid">#VND-0003</span></td><td>KGN Jewellers</td><td>BTM Layout, BLR</td><td><span class="bdg b-act">Active</span></td><td>21</td><td>194</td><td>Mar 2025</td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bbl">Edit</button><button class="bsm bam">Suspend</button><button class="bsm brd">Deactivate</button></div></td></tr>
+          <tr><td><span class="tid">#VND-0004</span></td><td>Malabar Gold</td><td>Indiranagar, BLR</td><td><span class="bdg b-sus">Suspended</span></td><td>0</td><td>88</td><td>Apr 2025</td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bbl">Edit</button><button class="bsm bgr">Reactivate</button><button class="bsm brd">Delete</button></div></td></tr>
+          <tr><td><span class="tid">#VND-0005</span></td><td>IIFL Finance</td><td>Whitefield, BLR</td><td><span class="bdg b-act">Active</span></td><td>15</td><td>122</td><td>May 2025</td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bbl">Edit</button><button class="bsm bam">Suspend</button><button class="bsm brd">Deactivate</button></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ LEAD MANAGEMENT ══════════════ -->
+<div id="p-leads" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Platform Lead Management</div><span style="font-size:12px;color:var(--t3)">1,245 active · 24,500 total</span></div>
+    <div class="card" style="overflow-x:auto;padding:0">
+      <table class="tbl">
+        <thead><tr><th>Lead ID</th><th>Customer</th><th>Vendor Assigned</th><th>Service</th><th>Location</th><th>Status</th><th>Assigned</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tid">#LD-2406-0211</span></td><td>Rahul Sharma</td><td>Muthoot Finance</td><td>Gold Loan</td><td>Jayanagar</td><td><span class="bdg b-inf">Escalated</span></td><td>Jun 9</td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bam">Reassign</button><button class="bsm brd">Escalate</button><button class="bsm bbl">Close</button></div></td></tr>
+          <tr><td><span class="tid">#LD-2406-0208</span></td><td>Priya Menon</td><td>Unassigned</td><td>Gold Loan</td><td>Koramangala</td><td><span class="bdg b-new">New</span></td><td>Jun 9</td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bam">Assign</button><button class="bsm bbl">Close</button></div></td></tr>
+          <tr><td><span class="tid">#LD-2406-0195</span></td><td>Arun Kumar</td><td>Tanishq</td><td>Gold Exchange</td><td>BTM Layout</td><td><span class="bdg b-acc">Active</span></td><td>Jun 8</td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bam">Reassign</button><button class="bsm bbl">Close</button></div></td></tr>
+          <tr><td><span class="tid">#LD-2406-0172</span></td><td>Vikram Nair</td><td>Muthoot Finance</td><td>Gold Loan</td><td>Electronic City</td><td><span class="bdg b-act">Converted</span></td><td>Jun 7</td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm brd">Investigate</button></div></td></tr>
+          <tr><td><span class="tid">#LD-2406-0160</span></td><td>Sindhu Rao</td><td>IIFL Finance</td><td>Gold Loan</td><td>Whitefield</td><td><span class="bdg b-pnd">Pending</span></td><td>Jun 6</td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bam">Reassign</button><button class="bsm brd">Escalate</button><button class="bsm bbl">Close</button></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ LEAD DISTRIBUTION ══════════════ -->
+<div id="p-distribution" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Lead Distribution Rules</div></div>
+    <div class="g2">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div class="card">
+          <div class="ch-title" style="margin-bottom:16px">Assignment Configuration</div>
+          <div class="cfg-row"><div class="cfg-l"><div class="cfg-name">Lead Radius (km)</div><div class="cfg-sub">Maximum distance for vendor-lead matching</div></div><input class="cfg-input" type="number" value="15"/></div>
+          <div class="cfg-row"><div class="cfg-l"><div class="cfg-name">Max Leads Per Vendor / Day</div><div class="cfg-sub">Daily lead assignment cap per vendor</div></div><input class="cfg-input" type="number" value="10"/></div>
+          <div class="cfg-row"><div class="cfg-l"><div class="cfg-name">Auto-assign Timeout (hrs)</div><div class="cfg-sub">Hours before lead is reassigned if not accepted</div></div><input class="cfg-input" type="number" value="4"/></div>
+          <div class="cfg-row"><div class="cfg-l"><div class="cfg-name">Priority Boost — Verified</div><div class="cfg-sub">Extra priority weight for GoldBazaar Verified vendors</div></div><input class="cfg-input" type="number" value="1.5"/></div>
+          <div style="margin-top:18px"><button class="btn-pri">Save Configuration</button></div>
+        </div>
+
+        <div class="card">
+          <div class="ch-title" style="margin-bottom:16px">Distribution Logic</div>
+          <div class="cfg-row"><div class="cfg-l"><div class="cfg-name">Round-Robin Rotation</div><div class="cfg-sub">Distribute leads equally among nearby vendors</div></div><label class="tsw"><input type="checkbox" checked/><div class="trk"></div><div class="thm"></div></label></div>
+          <div class="cfg-row"><div class="cfg-l"><div class="cfg-name">Proximity Matching</div><div class="cfg-sub">Prioritise vendors closest to customer location</div></div><label class="tsw"><input type="checkbox" checked/><div class="trk"></div><div class="thm"></div></label></div>
+          <div class="cfg-row"><div class="cfg-l"><div class="cfg-name">Rating-Based Priority</div><div class="cfg-sub">Higher-rated vendors receive leads first</div></div><label class="tsw"><input type="checkbox"/><div class="trk"></div><div class="thm"></div></label></div>
+          <div class="cfg-row"><div class="cfg-l"><div class="cfg-name">Capacity Awareness</div><div class="cfg-sub">Exclude vendors at daily lead capacity</div></div><label class="tsw"><input type="checkbox" checked/><div class="trk"></div><div class="thm"></div></label></div>
+          <div class="cfg-row"><div class="cfg-l"><div class="cfg-name">Response Time Weighting</div><div class="cfg-sub">Favour vendors with faster historical response</div></div><label class="tsw"><input type="checkbox" checked/><div class="trk"></div><div class="thm"></div></label></div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div class="card">
+          <div class="ch-title" style="margin-bottom:16px">Lead Fairness Metrics</div>
+          <div class="mc-grid" style="grid-template-columns:1fr 1fr;margin-bottom:16px">
+            <div class="mc"><div class="mc-val" style="color:var(--g)">94%</div><div class="mc-lbl">Assignment Rate</div></div>
+            <div class="mc"><div class="mc-val" style="color:#86efac">4.2h</div><div class="mc-lbl">Avg Response Time</div></div>
+            <div class="mc"><div class="mc-val" style="color:#7dd3fc">78%</div><div class="mc-lbl">Acceptance Rate</div></div>
+            <div class="mc"><div class="mc-val" style="color:#c4b5fd">91%</div><div class="mc-lbl">Vendor Coverage</div></div>
+          </div>
+          <div class="ch-title">Lead Volume by Category</div>
+          <div class="ch-rows">
+            <div class="cr"><span class="cr-lbl" style="width:72px;text-align:left;font-size:11px">Gold Loan</span><div class="cr-bg"><div class="cr-fill gold-bar" data-w="78"></div></div><span class="cr-v">78%</span></div>
+            <div class="cr"><span class="cr-lbl" style="width:72px;text-align:left;font-size:11px">Gold Sell</span><div class="cr-bg"><div class="cr-fill green-bar" data-w="12"></div></div><span class="cr-v">12%</span></div>
+            <div class="cr"><span class="cr-lbl" style="width:72px;text-align:left;font-size:11px">Exchange</span><div class="cr-bg"><div class="cr-fill blue-bar" data-w="7"></div></div><span class="cr-v">7%</span></div>
+            <div class="cr"><span class="cr-lbl" style="width:72px;text-align:left;font-size:11px">Others</span><div class="cr-bg"><div class="cr-fill purple-bar" data-w="3"></div></div><span class="cr-v">3%</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ch-title" style="margin-bottom:12px">Vendor Capacity Status</div>
+          <div class="tbl" style="font-size:12px">
+            <table style="width:100%;border-collapse:collapse">
+              <thead><tr><th style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);text-align:left">Vendor</th><th style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);text-align:center">Capacity</th><th style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);text-align:right">Today</th></tr></thead>
+              <tbody>
+                <tr><td style="padding:9px 0;color:var(--t1);border-bottom:1px solid rgba(255,255,255,.04)">Muthoot Finance</td><td style="text-align:center;border-bottom:1px solid rgba(255,255,255,.04)"><span class="bdg b-acc">Available</span></td><td style="text-align:right;color:var(--g);font-weight:700;border-bottom:1px solid rgba(255,255,255,.04)">8/10</td></tr>
+                <tr><td style="padding:9px 0;color:var(--t1);border-bottom:1px solid rgba(255,255,255,.04)">Tanishq</td><td style="text-align:center;border-bottom:1px solid rgba(255,255,255,.04)"><span class="bdg b-act">At Limit</span></td><td style="text-align:right;color:var(--g);font-weight:700;border-bottom:1px solid rgba(255,255,255,.04)">10/10</td></tr>
+                <tr><td style="padding:9px 0;color:var(--t1)">IIFL Finance</td><td style="text-align:center"><span class="bdg b-acc">Available</span></td><td style="text-align:right;color:var(--g);font-weight:700">5/10</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ ADVERTISEMENT MANAGEMENT ══════════════ -->
+<div id="p-ads" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Advertisement Management</div><span style="font-size:12px;color:var(--t3)">6 pending approval</span></div>
+    <div class="card" style="overflow-x:auto;padding:0">
+      <table class="tbl">
+        <thead><tr><th>Ad ID</th><th>Vendor</th><th>Ad Title</th><th>Type</th><th>Submitted</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tid">#AD-0091</span></td><td>Muthoot Finance</td><td>Gold Loan @ 9.5% p.a.</td><td>Banner</td><td>Jun 9</td><td><span class="bdg b-pnd">Pending</span></td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bgr">Approve</button><button class="bsm brd">Reject</button><button class="bsm bbl">Publish</button></div></td></tr>
+          <tr><td><span class="tid">#AD-0090</span></td><td>Tanishq</td><td>New Collection — Summer 2026</td><td>Sponsored</td><td>Jun 8</td><td><span class="bdg b-act">Live</span></td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm brd">Expire</button></div></td></tr>
+          <tr><td><span class="tid">#AD-0089</span></td><td>KGN Jewellers</td><td>Best Gold Sell Rates Today</td><td>Featured</td><td>Jun 7</td><td><span class="bdg b-act">Live</span></td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm brd">Expire</button></div></td></tr>
+          <tr><td><span class="tid">#AD-0088</span></td><td>IIFL Finance</td><td>Instant Gold Loan 30 Min</td><td>Banner</td><td>Jun 6</td><td><span class="bdg b-pnd">Pending</span></td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bgr">Approve</button><button class="bsm brd">Reject</button><button class="bsm bbl">Publish</button></div></td></tr>
+          <tr><td><span class="tid">#AD-0087</span></td><td>Malabar Gold</td><td>Exchange Old Gold — Save More</td><td>Sponsored</td><td>Jun 5</td><td><span class="bdg b-rej">Rejected</span></td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bam">Reconsider</button></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ USER MANAGEMENT ══════════════ -->
+<div id="p-users" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">User Management</div><span style="font-size:12px;color:var(--t3)">12,450 registered users</span></div>
+    <div class="card" style="overflow-x:auto;padding:0">
+      <table class="tbl">
+        <thead><tr><th>User ID</th><th>Name</th><th>Mobile</th><th>Location</th><th>Enquiries</th><th>Status</th><th>Joined</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tid">#USR-9912</span></td><td>Rahul Sharma</td><td>+91 98765 43210</td><td>Jayanagar, BLR</td><td>15</td><td><span class="bdg b-acc">Active</span></td><td>Jan 2025</td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bam">Disable</button><button class="bsm brd">Delete</button></div></td></tr>
+          <tr><td><span class="tid">#USR-9901</span></td><td>Priya Menon</td><td>+91 91234 56789</td><td>Koramangala, BLR</td><td>8</td><td><span class="bdg b-acc">Active</span></td><td>Feb 2025</td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bam">Disable</button><button class="bsm brd">Delete</button></div></td></tr>
+          <tr><td><span class="tid">#USR-9876</span></td><td>Arun Kumar</td><td>+91 97400 11223</td><td>BTM Layout, BLR</td><td>22</td><td><span class="bdg b-pnd">Flagged</span></td><td>Mar 2025</td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bam">Disable</button><button class="bsm brd">Delete</button></div></td></tr>
+          <tr><td><span class="tid">#USR-9844</span></td><td>Sindhu Rao</td><td>+91 88990 44556</td><td>Whitefield, BLR</td><td>4</td><td><span class="bdg b-acc">Active</span></td><td>Apr 2025</td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bam">Disable</button><button class="bsm brd">Delete</button></div></td></tr>
+          <tr><td><span class="tid">#USR-9801</span></td><td>Vikram Nair</td><td>+91 99001 77889</td><td>Electronic City, BLR</td><td>11</td><td><span class="bdg b-sus">Disabled</span></td><td>Apr 2025</td><td><div class="acts"><button class="bsm bg">View</button><button class="bsm bgr">Enable</button><button class="bsm brd">Delete</button></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ CONTENT MANAGEMENT ══════════════ -->
+<div id="p-content" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Content Management</div></div>
+    <div class="ac-grid">
+      <div class="ac"><div class="ac-ic">📰</div><div class="ac-t">Gold News</div><div class="ac-d">Publish, edit and manage gold market news and price updates for platform users.</div><div class="ac-go">Manage News →</div></div>
+      <div class="ac"><div class="ac-ic">🖼️</div><div class="ac-t">Homepage Banners</div><div class="ac-d">Upload and manage hero section and promotional banners on the landing page.</div><div class="ac-go">Edit Banners →</div></div>
+      <div class="ac"><div class="ac-ic">⭐</div><div class="ac-t">Vendor Spotlight</div><div class="ac-d">Feature and highlight top-performing vendors on the platform homepage.</div><div class="ac-go">Edit Spotlight →</div></div>
+      <div class="ac"><div class="ac-ic">🎁</div><div class="ac-t">Promotions</div><div class="ac-d">Create and manage platform-wide promotional campaigns and seasonal offers.</div><div class="ac-go">Manage Promos →</div></div>
+      <div class="ac"><div class="ac-ic">📢</div><div class="ac-t">Announcements</div><div class="ac-d">Post system announcements and platform updates to all users and vendors.</div><div class="ac-go">Post →</div></div>
+      <div class="ac"><div class="ac-ic">❓</div><div class="ac-t">FAQs</div><div class="ac-d">Manage frequently asked questions for users, vendors and the onboarding flow.</div><div class="ac-go">Edit FAQs →</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ ANALYTICS ══════════════ -->
+<div id="p-analytics" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Platform Analytics</div></div>
+    <div class="mc-grid" style="margin-bottom:24px">
+      <div class="mc"><div class="mc-val" style="color:var(--g)">12,450</div><div class="mc-lbl">Total Users</div><div class="mc-sub up">▲ 8.3% MoM</div></div>
+      <div class="mc"><div class="mc-val" style="color:#7dd3fc">425</div><div class="mc-lbl">Active Vendors</div><div class="mc-sub up">▲ 12 this week</div></div>
+      <div class="mc"><div class="mc-val" style="color:#86efac">25.2%</div><div class="mc-lbl">Lead Conversion</div><div class="mc-sub up">▲ 2.1% improvement</div></div>
+      <div class="mc"><div class="mc-val" style="color:#c4b5fd">₹12.5L</div><div class="mc-lbl">Ad Revenue (Jun)</div><div class="mc-sub up">▲ ₹1.8L vs May</div></div>
+      <div class="mc"><div class="mc-val" style="color:#fcd34d">89%</div><div class="mc-lbl">Engagement</div><div class="mc-sub up">▲ 3.2% improvement</div></div>
+      <div class="mc"><div class="mc-val" style="color:#fca5a5">4.2h</div><div class="mc-lbl">Avg Response</div><div class="mc-sub dn">▼ 0.4h improvement</div></div>
+    </div>
+    <div class="g2">
+      <div class="card"><div class="ch-title">User Growth</div>
+        <div class="ch-rows">
+          <div class="cr"><span class="cr-lbl">Jan</span><div class="cr-bg"><div class="cr-fill blue-bar" data-w="54"></div></div><span class="cr-v">6,700</span></div>
+          <div class="cr"><span class="cr-lbl">Feb</span><div class="cr-bg"><div class="cr-fill blue-bar" data-w="62"></div></div><span class="cr-v">7,700</span></div>
+          <div class="cr"><span class="cr-lbl">Mar</span><div class="cr-bg"><div class="cr-fill blue-bar" data-w="72"></div></div><span class="cr-v">9,000</span></div>
+          <div class="cr"><span class="cr-lbl">Apr</span><div class="cr-bg"><div class="cr-fill blue-bar" data-w="82"></div></div><span class="cr-v">10,200</span></div>
+          <div class="cr"><span class="cr-lbl">May</span><div class="cr-bg"><div class="cr-fill blue-bar" data-w="91"></div></div><span class="cr-v">11,400</span></div>
+          <div class="cr"><span class="cr-lbl">Jun</span><div class="cr-bg"><div class="cr-fill blue-bar" data-w="100"></div></div><span class="cr-v">12,450</span></div>
+        </div>
+      </div>
+      <div class="card"><div class="ch-title">Vendor Growth</div>
+        <div class="ch-rows">
+          <div class="cr"><span class="cr-lbl">Jan</span><div class="cr-bg"><div class="cr-fill gold-bar" data-w="46"></div></div><span class="cr-v">196</span></div>
+          <div class="cr"><span class="cr-lbl">Feb</span><div class="cr-bg"><div class="cr-fill gold-bar" data-w="57"></div></div><span class="cr-v">242</span></div>
+          <div class="cr"><span class="cr-lbl">Mar</span><div class="cr-bg"><div class="cr-fill gold-bar" data-w="67"></div></div><span class="cr-v">284</span></div>
+          <div class="cr"><span class="cr-lbl">Apr</span><div class="cr-bg"><div class="cr-fill gold-bar" data-w="78"></div></div><span class="cr-v">332</span></div>
+          <div class="cr"><span class="cr-lbl">May</span><div class="cr-bg"><div class="cr-fill gold-bar" data-w="90"></div></div><span class="cr-v">382</span></div>
+          <div class="cr"><span class="cr-lbl">Jun</span><div class="cr-bg"><div class="cr-fill gold-bar" data-w="100"></div></div><span class="cr-v">425</span></div>
+        </div>
+      </div>
+      <div class="card"><div class="ch-title">Service Demand</div>
+        <div class="ch-rows">
+          <div class="cr"><span class="cr-lbl" style="width:72px;text-align:left;font-size:11px">Gold Loan</span><div class="cr-bg"><div class="cr-fill gold-bar" data-w="78"></div></div><span class="cr-v">78%</span></div>
+          <div class="cr"><span class="cr-lbl" style="width:72px;text-align:left;font-size:11px">Gold Sell</span><div class="cr-bg"><div class="cr-fill green-bar" data-w="12"></div></div><span class="cr-v">12%</span></div>
+          <div class="cr"><span class="cr-lbl" style="width:72px;text-align:left;font-size:11px">Exchange</span><div class="cr-bg"><div class="cr-fill blue-bar" data-w="6"></div></div><span class="cr-v">6%</span></div>
+          <div class="cr"><span class="cr-lbl" style="width:72px;text-align:left;font-size:11px">Savings</span><div class="cr-bg"><div class="cr-fill purple-bar" data-w="3"></div></div><span class="cr-v">3%</span></div>
+          <div class="cr"><span class="cr-lbl" style="width:72px;text-align:left;font-size:11px">Insurance</span><div class="cr-bg"><div class="cr-fill purple-bar" data-w="1"></div></div><span class="cr-v">1%</span></div>
+        </div>
+      </div>
+      <div class="card"><div class="ch-title">Marketplace Health</div>
+        <div class="ch-rows">
+          <div class="cr"><span class="cr-lbl" style="width:100px;text-align:left;font-size:11px">Lead Acceptance</span><div class="cr-bg"><div class="cr-fill green-bar" data-w="78"></div></div><span class="cr-v" style="color:#86efac">78%</span></div>
+          <div class="cr"><span class="cr-lbl" style="width:100px;text-align:left;font-size:11px">Cust Satisfaction</span><div class="cr-bg"><div class="cr-fill gold-bar" data-w="92"></div></div><span class="cr-v">92%</span></div>
+          <div class="cr"><span class="cr-lbl" style="width:100px;text-align:left;font-size:11px">Vendor Satisf.</span><div class="cr-bg"><div class="cr-fill blue-bar" data-w="87"></div></div><span class="cr-v" style="color:#7dd3fc">87%</span></div>
+          <div class="cr"><span class="cr-lbl" style="width:100px;text-align:left;font-size:11px">Lead Quality</span><div class="cr-bg"><div class="cr-fill purple-bar" data-w="84"></div></div><span class="cr-v" style="color:#c4b5fd">84%</span></div>
+          <div class="cr"><span class="cr-lbl" style="width:100px;text-align:left;font-size:11px">Platform Utiliz.</span><div class="cr-bg"><div class="cr-fill gold-bar" data-w="89"></div></div><span class="cr-v">89%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ AUDIT LOGS ══════════════ -->
+<div id="p-audit" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Audit &amp; Activity Logs</div><span style="font-size:12px;color:var(--t3)">Full platform audit history</span></div>
+    <div class="card">
+      <div class="feed-it"><div class="feed-dot d-gr">✅</div><div><div class="feed-tx"><strong>Admin</strong> approved vendor <em>Tanishq Koramangala</em> — application complete</div><div class="feed-tm">Jun 9, 2026 · 09:42 AM</div></div><span class="bdg b-acc" style="margin-left:auto;flex-shrink:0">Vendor Approved</span></div>
+      <div class="feed-it"><div class="feed-dot d-rd">🚫</div><div><div class="feed-tx"><strong>Admin</strong> rejected vendor <em>FastGold Exchange</em> — insufficient documentation</div><div class="feed-tm">Jun 9, 2026 · 09:05 AM</div></div><span class="bdg b-rej" style="margin-left:auto;flex-shrink:0">Vendor Rejected</span></div>
+      <div class="feed-it"><div class="feed-dot d-am">🔄</div><div><div class="feed-tx">Lead <em>#LD-2406-0155</em> reassigned from IIFL Finance → Muthoot Finance Jayanagar</div><div class="feed-tm">Jun 9, 2026 · 08:55 AM</div></div><span class="bdg b-pnd" style="margin-left:auto;flex-shrink:0">Lead Reassigned</span></div>
+      <div class="feed-it"><div class="feed-dot d-bl">📢</div><div><div class="feed-tx">Advertisement <em>#AD-0088 "Instant Loan"</em> published — Muthoot Finance</div><div class="feed-tm">Jun 9, 2026 · 08:30 AM</div></div><span class="bdg b-act" style="margin-left:auto;flex-shrink:0">Ad Published</span></div>
+      <div class="feed-it"><div class="feed-dot d-pu">👤</div><div><div class="feed-tx">User account <em>#USR-9876 Arun Kumar</em> flagged — unusual activity pattern detected</div><div class="feed-tm">Jun 8, 2026 · 11:20 PM</div></div><span class="bdg b-inf" style="margin-left:auto;flex-shrink:0">User Flagged</span></div>
+      <div class="feed-it"><div class="feed-dot d-go">⚙️</div><div><div class="feed-tx">Lead distribution radius updated: 10 km → 15 km (Gold Loan) by <em>Admin</em></div><div class="feed-tm">Jun 8, 2026 · 04:30 PM</div></div><span class="bdg b-new" style="margin-left:auto;flex-shrink:0">Config Changed</span></div>
+      <div class="feed-it"><div class="feed-dot d-gr">✅</div><div><div class="feed-tx"><strong>Admin</strong> approved advertisement <em>#AD-0087 "New Collection"</em> for Tanishq</div><div class="feed-tm">Jun 8, 2026 · 02:15 PM</div></div><span class="bdg b-acc" style="margin-left:auto;flex-shrink:0">Ad Approved</span></div>
+      <div class="feed-it"><div class="feed-dot d-rd">🔺</div><div><div class="feed-tx">Lead <em>#LD-2406-0211</em> escalated by vendor Muthoot Finance — customer unresponsive</div><div class="feed-tm">Jun 8, 2026 · 10:00 AM</div></div><span class="bdg b-inf" style="margin-left:auto;flex-shrink:0">Lead Escalated</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ NOTIFICATIONS ══════════════ -->
+<div id="p-notifications" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Notification Center</div><span class="sh-a">Mark all read</span></div>
+    <div class="card" style="padding:16px">
+      <div class="nf-it nf-unread"><div class="nf-ic ni-g" style="background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.2)">⏳</div><div><div class="nf-tx">18 vendors awaiting approval — oldest submission from Jun 7, 2026.</div><div class="nf-tm">Ongoing · Action Required</div></div><button class="bsm brd" onclick="navPanel('approvals')" style="margin-left:auto;flex-shrink:0">Review</button></div>
+      <div class="nf-it nf-unread"><div class="nf-ic ni-g" style="background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.2)">🔺</div><div><div class="nf-tx">Lead escalation raised for #LD-2406-0211 — requires admin reassignment.</div><div class="nf-tm">1 hour ago</div></div><button class="bsm bam" onclick="navPanel('leads')" style="margin-left:auto;flex-shrink:0">View</button></div>
+      <div class="nf-it nf-unread"><div class="nf-ic" style="background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.2)">📢</div><div><div class="nf-tx">Advertisement #AD-0091 from Muthoot Finance requires approval before publishing.</div><div class="nf-tm">2 hours ago</div></div><button class="bsm bbl" onclick="navPanel('ads')" style="margin-left:auto;flex-shrink:0">Review</button></div>
+      <div class="nf-it nf-unread"><div class="nf-ic" style="background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.2)">⚠️</div><div><div class="nf-tx">Platform alert: API response time spiked to 420ms at 07:30 AM. Now normalised.</div><div class="nf-tm">4 hours ago</div></div></div>
+      <div class="nf-it"><div class="nf-ic ni-g">📊</div><div><div class="nf-tx">June monthly analytics report is ready for review.</div><div class="nf-tm">Jun 8, 2026</div></div><button class="bsm bg" onclick="navPanel('analytics')" style="margin-left:auto;flex-shrink:0">View</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PLATFORM SETTINGS ══════════════ -->
+<div id="p-settings" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">System Configuration</div></div>
+    <div class="g2">
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div class="card"><div class="ch-title" style="margin-bottom:14px">Platform Settings</div>
+          <div class="cfg-row"><div class="cfg-l"><div class="cfg-name">Maintenance Mode</div><div class="cfg-sub">Take platform offline for maintenance</div></div><label class="tsw"><input type="checkbox"/><div class="trk"></div><div class="thm"></div></label></div>
+          <div class="cfg-row"><div class="cfg-l"><div class="cfg-name">New User Registration</div><div class="cfg-sub">Allow new users to register</div></div><label class="tsw"><input type="checkbox" checked/><div class="trk"></div><div class="thm"></div></label></div>
+          <div class="cfg-row"><div class="cfg-l"><div class="cfg-name">Vendor Onboarding</div><div class="cfg-sub">Accept new vendor applications</div></div><label class="tsw"><input type="checkbox" checked/><div class="trk"></div><div class="thm"></div></label></div>
+          <div class="cfg-row"><div class="cfg-l"><div class="cfg-name">Auto Lead Assignment</div><div class="cfg-sub">Automatically route leads to vendors</div></div><label class="tsw"><input type="checkbox" checked/><div class="trk"></div><div class="thm"></div></label></div>
+          <div class="cfg-row"><div class="cfg-l"><div class="cfg-name">Email Notifications</div><div class="cfg-sub">Send platform email alerts</div></div><label class="tsw"><input type="checkbox" checked/><div class="trk"></div><div class="thm"></div></label></div>
+          <div class="cfg-row"><div class="cfg-l"><div class="cfg-name">SMS Notifications</div><div class="cfg-sub">Send platform SMS alerts</div></div><label class="tsw"><input type="checkbox" checked/><div class="trk"></div><div class="thm"></div></label></div>
+        </div>
+        <div class="card"><div class="ch-title" style="margin-bottom:14px">Service Categories</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span class="bdg b-act" style="padding:6px 14px;font-size:11px;cursor:pointer">Gold Loan ✓</span>
+            <span class="bdg b-act" style="padding:6px 14px;font-size:11px;cursor:pointer">Gold Sell ✓</span>
+            <span class="bdg b-act" style="padding:6px 14px;font-size:11px;cursor:pointer">Gold Exchange ✓</span>
+            <span class="bdg b-act" style="padding:6px 14px;font-size:11px;cursor:pointer">Gold Savings ✓</span>
+            <span class="bdg b-act" style="padding:6px 14px;font-size:11px;cursor:pointer">Gold Insurance ✓</span>
+            <button class="bsm bg" style="font-size:11px">+ Add Category</button>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div class="card"><div class="ch-title" style="margin-bottom:14px">Homepage Configuration</div>
+          <div class="fg"><label class="flbl">Platform Tagline</label><input class="fi" type="text" value="India's Unified Gold Marketplace"/></div>
+          <div class="fg"><label class="flbl">Hero Banner Image</label><select class="fi"><option>hero-1.png (Current)</option><option>hero-2.png</option><option>hero-3.png</option></select></div>
+          <div class="fg"><label class="flbl">Contact Email</label><input class="fi" type="email" value="support@goldbazaar.in"/></div>
+          <div class="fg"><label class="flbl">Support Phone</label><input class="fi" type="tel" value="+91 1800 123 4567"/></div>
+          <button class="btn-pri">Save Homepage Settings</button>
+        </div>
+        <div class="card"><div class="ch-title" style="margin-bottom:14px">Vendor Categories</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span class="bdg b-act" style="padding:6px 14px;font-size:11px;cursor:pointer">Gold Loan Provider ✓</span>
+            <span class="bdg b-act" style="padding:6px 14px;font-size:11px;cursor:pointer">Jeweller ✓</span>
+            <span class="bdg b-act" style="padding:6px 14px;font-size:11px;cursor:pointer">Gold Exchange ✓</span>
+            <span class="bdg b-act" style="padding:6px 14px;font-size:11px;cursor:pointer">NBFC ✓</span>
+            <span class="bdg b-act" style="padding:6px 14px;font-size:11px;cursor:pointer">Insurance ✓</span>
+            <button class="bsm bg" style="font-size:11px">+ Add Category</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ FUTURE MODULES ══════════════ -->
+<div id="p-future" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Future Platform Controls</div><span style="font-size:12px;color:var(--t3)">Reserved modules — in development</span></div>
+    <div class="fm-grid">
+      <div class="fm-card"><div class="fm-ic">💳</div><div class="fm-t">Subscription Management</div><div class="fm-d">Manage vendor subscription plans, billing cycles and feature access tiers.</div></div>
+      <div class="fm-card"><div class="fm-ic">💰</div><div class="fm-t">Commission Management</div><div class="fm-d">Configure and track commission structures across service categories and vendor tiers.</div></div>
+      <div class="fm-card"><div class="fm-ic">👑</div><div class="fm-t">Premium Vendor Plans</div><div class="fm-d">Manage premium vendor tiers with enhanced visibility, unlimited leads and featured placement.</div></div>
+      <div class="fm-card"><div class="fm-ic">🤖</div><div class="fm-t">AI Lead Scoring</div><div class="fm-d">Machine learning model to score and prioritise leads based on conversion probability.</div></div>
+      <div class="fm-card"><div class="fm-ic">📊</div><div class="fm-t">AI Vendor Ranking</div><div class="fm-d">AI-powered dynamic vendor ranking based on performance, response time and satisfaction.</div></div>
+      <div class="fm-card"><div class="fm-ic">💡</div><div class="fm-t">AI Recommendation Engine</div><div class="fm-d">Personalised service and vendor recommendations for users based on behaviour patterns.</div></div>
+      <div class="fm-card"><div class="fm-ic">🔐</div><div class="fm-t">RBAC Role Management</div><div class="fm-d">Role-based access control for platform staff — operations, support, finance and executive roles.</div></div>
+      <div class="fm-card"><div class="fm-ic">🔌</div><div class="fm-t">API Management</div><div class="fm-d">Developer portal for third-party API access, rate limits, keys and webhook management.</div></div>
+      <div class="fm-card"><div class="fm-ic">📱</div><div class="fm-t">Mobile App Control</div><div class="fm-d">Push notification management, app version control and in-app content for GoldBazaar apps.</div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="ft-in">
+    <div class="ft-g">
+      <div class="ft-brand">
+        <img src="images/logo.png" alt="GoldBazaar"/>
+        <p>India's most trusted unified gold marketplace — managed and governed from this control center.</p>
+      </div>
+      <div class="ft-col">
+        <h4>Admin</h4>
+        <a href="#" onclick="navPanel('approvals');return false">Vendor Approvals</a>
+        <a href="#" onclick="navPanel('vendors');return false">Vendor Mgmt</a>
+        <a href="#" onclick="navPanel('leads');return false">Lead Mgmt</a>
+        <a href="#" onclick="navPanel('analytics');return false">Analytics</a>
+      </div>
+      <div class="ft-col">
+        <h4>Platform</h4>
+        <a href="index.html">Landing Page</a>
+        <a href="#" onclick="navPanel('settings');return false">Platform Docs</a>
+        <a href="#" onclick="navPanel('audit');return false">Audit Logs</a>
+        <a href="#">System Status</a>
+      </div>
+      <div class="ft-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms &amp; Conditions</a>
+        <a href="#">Support</a>
+        <a href="#">Documentation</a>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <div class="ft-copy">© 2026 GoldBazaar Technologies Pvt. Ltd. · Admin Control Center</div>
+      <div class="ft-tl">Explore Better Opportunities. Grow With Confidence.</div>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /wrap -->
+
+<script>
+/* ── Theme ── */
+const TM={K:'gb-theme',D:'dark',L:'light',
+  init(){this.set(localStorage.getItem(this.K)||this.D)},
+  get(){return document.documentElement.dataset.theme||this.D},
+  set(t){const v=t===this.L?this.L:this.D;document.documentElement.dataset.theme=v;localStorage.setItem(this.K,v);this.upd()},
+  toggle(){this.set(this.get()===this.D?this.L:this.D)},
+  upd(){const b=document.getElementById('theme-toggle');if(b)b.textContent=this.get()===this.D?'🌙':'☀️'}
+};
+
+/* ── Sidebar ── */
+function toggleSB(){
+  const sb=document.getElementById('sidebar');
+  const wr=document.getElementById('wrap');
+  if(window.innerWidth>900){
+    const collapsed=sb.style.transform==='translateX(-100%)';
+    if(collapsed){sb.style.transform='';wr.style.marginLeft='var(--sb)'}
+    else{sb.style.transform='translateX(-100%)';wr.style.marginLeft='0'}
+  } else {
+    sb.classList.toggle('open');
+  }
+}
+
+/* ── Panel navigation ── */
+function navPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  const p=document.getElementById('p-'+id);
+  if(p)p.classList.add('active');
+  document.querySelectorAll('.sb-it').forEach(it=>{
+    it.classList.toggle('active',it.dataset.panel===id);
+  });
+  if(window.innerWidth<=900)document.getElementById('sidebar').classList.remove('open');
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(animateBars,200);
+}
+
+/* ── Wire sidebar items ── */
+document.querySelectorAll('.sb-it[data-panel]').forEach(it=>{
+  it.addEventListener('click',()=>navPanel(it.dataset.panel));
+});
+
+/* ── Profile dropdown ── */
+function toggleDrop(){document.getElementById('pdrop').classList.toggle('open')}
+document.addEventListener('click',e=>{if(!e.target.closest('.pd-wrap'))document.getElementById('pdrop').classList.remove('open')});
+
+/* ── Date ── */
+const wd=document.getElementById('wdate');
+if(wd){wd.textContent=new Date().toLocaleDateString('en-IN',{weekday:'short',month:'short',day:'numeric',year:'numeric'})}
+
+/* ── Animate bars ── */
+function animateBars(){
+  const active=document.querySelector('.panel.active');
+  if(!active)return;
+  active.querySelectorAll('.cr-fill').forEach(b=>{
+    const w=b.dataset.w;
+    if(!w)return;
+    b.style.width='0';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{b.style.width=w+'%'}));
+  });
+  // Also health bars in welcome
+  document.querySelectorAll('#p-dashboard .wh-bg .cr-fill').forEach(b=>{
+    const w=b.dataset.w;
+    if(!w)return;
+    b.style.width='0';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{b.style.width=w+'%'}));
+  });
+}
+
+/* ── Init ── */
+document.addEventListener('DOMContentLoaded',()=>{
+  TM.init();
+  setTimeout(animateBars,400);
+});
+</script>
+</body>
+</html>

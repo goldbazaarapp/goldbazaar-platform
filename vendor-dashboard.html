@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Vendor Dashboard — GoldBazaar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;background:var(--b0)}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+img{display:block;max-width:100%}
+
+/* ── TOKENS ── */
+:root{
+  --g:#C9A84C;--gl:#E8C96A;--gd:#9B7B2E;
+  --b0:#070604;--b1:#0F0D08;--b2:#17140C;--b3:#1E1A10;
+  --t0:#FFFFFF;--t1:rgba(255,255,255,.88);--t2:rgba(255,255,255,.55);--t3:rgba(255,255,255,.30);
+  --gg:linear-gradient(135deg,#C9A84C 0%,#E8C96A 50%,#C9A84C 100%);
+  --ease:cubic-bezier(.4,0,.2,1);
+  --nav:68px;--sb:250px;--r:14px;
+  --fd:'Playfair Display',Georgia,serif;
+  --fm:'Montserrat','Inter',sans-serif;
+}
+[data-theme="light"]{
+  --b0:#F5F0E8;--b1:#EDE7D9;--b2:#E0D8C8;--b3:#D4CBBA;
+  --t0:#0F0D08;--t1:rgba(0,0,0,.86);--t2:rgba(0,0,0,.54);--t3:rgba(0,0,0,.30);
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(201,168,76,.28);border-radius:2px}
+
+/* ════════════════════════════
+   TOP NAV
+════════════════════════════ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--nav);display:flex;align-items:center;
+  justify-content:space-between;padding:0 24px 0 16px;
+  background:rgba(7,6,4,.92);backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(201,168,76,.14);
+}
+.nav-left{display:flex;align-items:center;gap:10px}
+.sb-btn{
+  width:38px;height:38px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--t2);font-size:20px;line-height:1;transition:all .2s;
+}
+.sb-btn:hover{background:rgba(255,255,255,.07);color:var(--t0)}
+.nav-logo img{height:42px;width:auto}
+
+.nav-back{
+  display:flex;align-items:center;gap:7px;
+  padding:8px 16px;border-radius:9px;
+  border:1px solid rgba(201,168,76,.22);
+  background:rgba(201,168,76,.06);
+  font-size:13px;font-weight:600;color:var(--g);
+  transition:all .2s;
+}
+.nav-back:hover{background:rgba(201,168,76,.14);border-color:rgba(201,168,76,.4)}
+
+.nav-right{display:flex;align-items:center;gap:8px}
+.ni-btn{
+  position:relative;width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);
+  color:var(--t1);font-size:15px;transition:all .2s;cursor:pointer;
+}
+.ni-btn:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.28);color:var(--g)}
+.n-dot{position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:#ef4444;border:1.5px solid var(--b0)}
+.nav-av{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--gg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:#000;
+  border:2px solid rgba(201,168,76,.4);cursor:pointer;transition:border-color .2s;
+  overflow:hidden;
+}
+.nav-av:hover{border-color:var(--g)}
+.nav-av img{width:100%;height:100%;object-fit:cover}
+.nav-theme{padding:5px 8px;font-size:16px;color:var(--t0);transition:transform .2s}
+.nav-theme:hover{transform:scale(1.15)}
+.nav-vendor-chip{
+  padding:5px 14px;border-radius:20px;
+  background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);
+  font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--g);
+}
+
+/* Profile dropdown */
+.pd-wrap{position:relative}
+.pd{
+  position:absolute;top:calc(100% + 10px);right:0;
+  background:rgba(10,8,4,.98);border:1px solid rgba(201,168,76,.2);
+  border-radius:12px;padding:8px;min-width:175px;
+  backdrop-filter:blur(24px);z-index:2000;
+  opacity:0;transform:translateY(-6px);pointer-events:none;
+  transition:opacity .2s,transform .2s;
+}
+.pd.open{opacity:1;transform:translateY(0);pointer-events:auto}
+.pd-item{
+  display:flex;align-items:center;gap:10px;padding:9px 12px;
+  border-radius:8px;font-size:13px;font-weight:500;color:var(--t1);
+  cursor:pointer;transition:background .15s;
+}
+.pd-item:hover{background:rgba(201,168,76,.08);color:var(--g)}
+.pd-sep{height:1px;background:rgba(201,168,76,.1);margin:4px 0}
+
+/* ════════════════════════════
+   LEFT SIDEBAR
+════════════════════════════ */
+#sidebar{
+  position:fixed;top:var(--nav);left:0;bottom:0;
+  width:var(--sb);z-index:500;
+  background:rgba(9,7,3,.97);
+  border-right:1px solid rgba(201,168,76,.1);
+  display:flex;flex-direction:column;
+  overflow-y:auto;overflow-x:hidden;
+  transition:transform .3s var(--ease);
+}
+.sb-sec{padding:20px 14px 10px}
+.sb-lbl{
+  font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--t3);padding:0 8px;margin-bottom:8px;
+}
+.sb-it{
+  display:flex;align-items:center;gap:12px;
+  padding:11px 12px;border-radius:10px;
+  font-size:14px;font-weight:500;color:var(--t2);
+  cursor:pointer;transition:all .2s;margin-bottom:2px;
+  letter-spacing:.01em;
+}
+.sb-it:hover{background:rgba(201,168,76,.06);color:var(--t1)}
+.sb-it.active{
+  background:rgba(201,168,76,.1);color:var(--g);
+  border:1px solid rgba(201,168,76,.18);
+}
+.sb-ic{font-size:17px;width:22px;text-align:center;flex-shrink:0}
+.sb-bx{
+  margin-left:auto;min-width:22px;height:18px;padding:0 6px;
+  border-radius:9px;background:rgba(201,168,76,.18);
+  font-size:10px;font-weight:800;color:var(--g);
+  display:flex;align-items:center;justify-content:center;
+}
+.sb-bx.red{background:rgba(239,68,68,.18);color:#fca5a5}
+.sb-plan{
+  margin:auto 14px 16px;
+  padding:16px;border-radius:12px;
+  background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.04));
+  border:1px solid rgba(201,168,76,.2);
+}
+.sp-title{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:3px}
+.sp-sub{font-size:12px;color:var(--t2);margin-bottom:10px}
+.sp-bar{height:4px;background:rgba(255,255,255,.08);border-radius:2px;margin-bottom:5px}
+.sp-fill{height:100%;width:60%;border-radius:2px;background:var(--gg)}
+.sp-days{font-size:10px;color:var(--t3);margin-bottom:10px}
+.sp-btn{
+  width:100%;padding:9px;
+  background:var(--gg);color:#000;
+  border-radius:8px;font-size:11px;font-weight:800;letter-spacing:.06em;
+  cursor:pointer;transition:all .2s;font-family:var(--fm);
+}
+.sp-btn:hover{box-shadow:0 6px 20px rgba(201,168,76,.35);transform:translateY(-1px)}
+
+/* ════════════════════════════
+   MAIN WRAPPER
+════════════════════════════ */
+#wrap{
+  margin-top:var(--nav);
+  margin-left:var(--sb);
+  transition:margin-left .3s var(--ease);
+  min-height:calc(100vh - var(--nav));
+  display:flex;flex-direction:column;
+}
+#content{flex:1}
+
+/* Panels */
+.panel{display:none}
+.panel.active{display:block;animation:fadeIn .3s var(--ease)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Sections inside panels */
+.sec{padding:28px 32px 0}
+.sec:last-child{padding-bottom:48px}
+
+/* ════════════════════════════
+   SECTION HEADERS
+════════════════════════════ */
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:12px}
+.sh-t{
+  font-family:var(--fm);font-size:16px;font-weight:700;
+  color:var(--t0);display:flex;align-items:center;gap:10px;letter-spacing:.01em;
+}
+.sh-t::before{content:'';display:inline-block;width:3px;height:18px;background:var(--gg);border-radius:2px}
+.sh-a{font-size:12px;font-weight:600;color:var(--g);white-space:nowrap}
+.sh-a:hover{text-decoration:underline}
+
+/* ════════════════════════════
+   WELCOME BANNER
+════════════════════════════ */
+.wb{
+  margin:28px 32px 0;
+  border-radius:20px;
+  background:var(--b1);
+  border:1px solid rgba(201,168,76,.18);
+  display:flex;align-items:stretch;
+  overflow:hidden;position:relative;
+}
+.wb::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g) 30%,var(--gl) 70%,transparent)}
+.wb::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 80% at 12% 50%,rgba(201,168,76,.07),transparent 70%);pointer-events:none}
+
+.wb-l{
+  flex:1;padding:32px 36px;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;z-index:1;min-width:0;
+}
+.wb-eye{
+  font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--g);margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.wb-eye::after{content:'';flex:none;width:36px;height:1px;background:rgba(201,168,76,.4)}
+.wb-h1{font-family:var(--fd);font-size:28px;font-weight:700;color:var(--t0);margin-bottom:8px;line-height:1.25}
+.wb-h1 span{background:var(--gg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.wb-sub{font-size:14px;color:var(--t2);line-height:1.65;max-width:440px;margin-bottom:20px}
+.wb-chips{display:flex;flex-wrap:wrap;gap:10px}
+.wchip{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:6px 14px;border-radius:20px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.14);
+  font-size:12px;color:var(--t2);
+}
+.wchip.verified{background:rgba(34,197,94,.07);border-color:rgba(34,197,94,.2);color:#86efac}
+
+/* Right: vendor image panel */
+.wb-r{
+  width:240px;flex-shrink:0;
+  border-left:1px solid rgba(201,168,76,.1);
+  background:linear-gradient(145deg,rgba(201,168,76,.06),rgba(201,168,76,.02));
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:28px 20px;gap:14px;position:relative;overflow:hidden;
+}
+.wb-r::before{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.09),transparent 70%);pointer-events:none}
+.vring{
+  width:90px;height:90px;
+  border-radius:50%;padding:3px;
+  background:var(--gg);
+  box-shadow:0 0 0 1px rgba(201,168,76,.2),0 0 24px rgba(201,168,76,.2);
+}
+.vinner{
+  width:100%;height:100%;border-radius:50%;
+  border:2px solid var(--b0);
+  overflow:hidden;
+  background:var(--b2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fm);font-size:28px;font-weight:900;color:var(--g);
+}
+.vinner img{width:100%;height:100%;object-fit:contain;background:#fff}
+.vtag{text-align:center}
+.vbname{font-family:var(--fm);font-size:14px;font-weight:800;color:var(--t0);margin-bottom:3px;line-height:1.3}
+.vbcat{font-size:11px;color:var(--g);margin-bottom:6px}
+.vstars{display:flex;align-items:center;justify-content:center;gap:2px;font-size:11px;color:var(--g)}
+.vstars span{font-size:10px;color:var(--t3);margin-left:4px}
+
+/* ════════════════════════════
+   KPI CARDS
+════════════════════════════ */
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.kpi{
+  background:var(--b1);border:1px solid rgba(201,168,76,.1);
+  border-radius:var(--r);padding:18px 16px;
+  display:flex;flex-direction:column;gap:5px;
+  position:relative;overflow:hidden;
+  transition:all .25s var(--ease);
+}
+.kpi:hover{transform:translateY(-3px);border-color:rgba(201,168,76,.3);box-shadow:0 12px 32px rgba(0,0,0,.4)}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gg)}
+.kpi-ic{font-size:18px;margin-bottom:2px}
+.kpi-n{font-family:var(--fm);font-size:22px;font-weight:800;color:var(--t0);line-height:1.1}
+.kpi-n.gold{background:var(--gg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.kpi-l{font-size:12px;font-weight:700;color:var(--t1);margin-top:1px}
+.kpi-s{font-size:11px;color:var(--t3);line-height:1.4}
+.kpi-tr{font-size:11px;font-weight:700;margin-top:4px;display:flex;align-items:center;gap:3px}
+.up{color:#22c55e}.dn{color:#ef4444}.neu{color:var(--t3)}
+
+/* ════════════════════════════
+   QUICK ACTIONS
+════════════════════════════ */
+.qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.qa{
+  background:var(--b1);border:1px solid rgba(201,168,76,.1);
+  border-radius:var(--r);padding:24px 20px;
+  cursor:pointer;transition:all .25s var(--ease);
+  display:flex;flex-direction:column;gap:12px;
+  position:relative;overflow:hidden;
+}
+.qa::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.05),transparent);opacity:0;transition:opacity .25s}
+.qa:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.34);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.qa:hover::after{opacity:1}
+.qa-ic{
+  width:48px;height:48px;border-radius:13px;
+  background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+}
+.qa-t{font-family:var(--fm);font-size:15px;font-weight:700;color:var(--t0)}
+.qa-d{font-size:13px;color:var(--t2);line-height:1.6}
+.qa-go{font-size:12px;color:var(--g);font-weight:700;margin-top:auto;align-self:flex-end;letter-spacing:.04em}
+
+/* ════════════════════════════
+   CARD BASE
+════════════════════════════ */
+.card{background:var(--b1);border:1px solid rgba(201,168,76,.1);border-radius:var(--r);padding:22px}
+
+/* ════════════════════════════
+   LEADS TABLE
+════════════════════════════ */
+.lt{width:100%;border-collapse:collapse}
+.lt th{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left;white-space:nowrap}
+.lt td{padding:13px 14px;font-size:13px;color:var(--t1);border-bottom:1px solid rgba(255,255,255,.04);white-space:nowrap}
+.lt tr:last-child td{border-bottom:none}
+.lt tr:hover td{background:rgba(201,168,76,.025)}
+.lid{font-family:monospace;color:var(--g);font-weight:700;font-size:11px}
+.bdg{display:inline-flex;align-items:center;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px}
+.b-hot{background:rgba(239,68,68,.12);color:#fca5a5;border:1px solid rgba(239,68,68,.25)}
+.b-new{background:rgba(99,102,241,.13);color:#a5b4fc;border:1px solid rgba(99,102,241,.25)}
+.b-acc{background:rgba(34,197,94,.1);color:#86efac;border:1px solid rgba(34,197,94,.25)}
+.b-pnd{background:rgba(245,158,11,.1);color:#fcd34d;border:1px solid rgba(245,158,11,.25)}
+.b-cmp{background:rgba(201,168,76,.1);color:var(--gl);border:1px solid rgba(201,168,76,.25)}
+.bsm{padding:5px 12px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;transition:all .18s;font-family:inherit}
+.bg{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.22);color:var(--g)}
+.bg:hover{background:rgba(201,168,76,.18)}
+.bgr{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.22);color:#86efac}
+.bgr:hover{background:rgba(34,197,94,.18)}
+.bbl{background:rgba(14,165,233,.08);border:1px solid rgba(14,165,233,.22);color:#7dd3fc}
+.bbl:hover{background:rgba(14,165,233,.18)}
+
+/* ════════════════════════════
+   GRID HELPERS
+════════════════════════════ */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+
+/* ════════════════════════════
+   CSS CHARTS
+════════════════════════════ */
+.ch-title{font-size:13px;font-weight:700;color:var(--t0);margin-bottom:12px}
+.ch-rows{display:flex;flex-direction:column;gap:8px}
+.cr{display:flex;align-items:center;gap:10px}
+.cr-lbl{font-size:12px;color:var(--t2);width:28px;flex-shrink:0;text-align:right}
+.cr-bg{flex:1;height:8px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden}
+.cr-fill{height:100%;border-radius:4px;background:var(--gg);width:0;transition:width 1.2s var(--ease)}
+.cr-v{font-size:11px;font-weight:700;color:var(--g);width:38px;text-align:right;flex-shrink:0}
+
+/* ════════════════════════════
+   SCHEME ITEMS
+════════════════════════════ */
+.sc-it{
+  display:flex;align-items:center;gap:14px;
+  padding:15px;border-radius:12px;
+  background:rgba(255,255,255,.025);border:1px solid rgba(201,168,76,.07);
+  transition:all .2s;margin-bottom:10px;
+}
+.sc-it:last-of-type{margin-bottom:0}
+.sc-it:hover{background:rgba(201,168,76,.04);border-color:rgba(201,168,76,.18)}
+.sc-ic{width:40px;height:40px;border-radius:10px;flex-shrink:0;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.18);display:flex;align-items:center;justify-content:center;font-size:18px}
+.sc-nm{font-size:13px;font-weight:700;color:var(--t0);margin-bottom:2px}
+.sc-ct{font-size:11px;color:var(--t3)}
+.sc-ld{font-size:12px;color:var(--g);font-weight:700;margin-left:auto;text-align:right;white-space:nowrap}
+.sc-ld span{display:block;font-size:10px;color:var(--t3);font-weight:400}
+.sc-ac{display:flex;gap:6px;margin-left:10px}
+
+/* ════════════════════════════
+   OPPORTUNITY CARDS
+════════════════════════════ */
+.opp{
+  background:var(--b1);border:1px solid rgba(201,168,76,.1);
+  border-radius:12px;padding:20px;
+  cursor:pointer;transition:all .25s var(--ease);
+}
+.opp:hover{transform:translateY(-3px);border-color:rgba(201,168,76,.3);box-shadow:0 12px 28px rgba(0,0,0,.35)}
+.opp-ic{font-size:26px;margin-bottom:10px}
+.opp-tag{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:5px}
+.opp-t{font-size:13px;font-weight:700;color:var(--t0);margin-bottom:6px;line-height:1.4}
+.opp-d{font-size:12px;color:var(--t2);line-height:1.55}
+.opp-go{margin-top:10px;font-size:12px;color:var(--g);font-weight:700}
+
+/* ════════════════════════════
+   ACTIVITY FEED
+════════════════════════════ */
+.af-it{
+  display:flex;align-items:flex-start;gap:13px;
+  padding:13px 14px;border-radius:10px;
+  background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);
+  transition:background .2s;margin-bottom:8px;
+}
+.af-it:last-child{margin-bottom:0}
+.af-it:hover{background:rgba(201,168,76,.04);border-color:rgba(201,168,76,.13)}
+.af-dot{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.d-go{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2)}
+.d-bl{background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.2)}
+.d-gr{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.2)}
+.d-pu{background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.2)}
+.af-txt{font-size:13px;color:var(--t1);line-height:1.55}
+.af-time{font-size:11px;color:var(--t3);margin-top:3px}
+
+/* ════════════════════════════
+   AD STATS
+════════════════════════════ */
+.ad-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.ad-s{
+  background:rgba(255,255,255,.025);border:1px solid rgba(201,168,76,.08);
+  border-radius:12px;padding:16px;text-align:center;transition:all .2s;
+}
+.ad-s:hover{border-color:rgba(201,168,76,.22)}
+.ad-n{font-family:var(--fm);font-size:20px;font-weight:800;margin-bottom:4px}
+.ad-l{font-size:11px;color:var(--t3);font-weight:600;letter-spacing:.04em}
+
+/* ════════════════════════════
+   NOTIFICATIONS
+════════════════════════════ */
+.nf-it{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:13px;border-radius:10px;
+  background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);
+  transition:background .2s;margin-bottom:8px;
+}
+.nf-it:last-child{margin-bottom:0}
+.nf-it:hover{background:rgba(201,168,76,.04);border-color:rgba(201,168,76,.13)}
+.nf-ic{width:34px;height:34px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.ni-g{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2)}
+.ni-b{background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.2)}
+.ni-r{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.2)}
+.ni-p{background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.2)}
+.nf-tx{font-size:13px;color:var(--t1);line-height:1.55}
+.nf-tm{font-size:11px;color:var(--t3);margin-top:3px}
+.nf-unread .nf-tx::after{content:'●';font-size:7px;margin-left:8px;color:var(--g);vertical-align:middle}
+
+/* ════════════════════════════
+   PROFILE SNAPSHOT
+════════════════════════════ */
+.ps-r{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:11px 0;border-bottom:1px solid rgba(255,255,255,.05);
+  font-size:13px;gap:12px;
+}
+.ps-r:last-of-type{border-bottom:none;padding-bottom:0}
+.ps-r .lbl{color:var(--t3);flex-shrink:0}
+.ps-r .val{color:var(--t1);font-weight:500;text-align:right}
+
+/* ════════════════════════════
+   FOOTER
+════════════════════════════ */
+footer{
+  background:var(--b1);border-top:1px solid rgba(201,168,76,.1);
+  padding:40px 0 26px;
+}
+.ft-inner{padding:0 32px}
+.ft-g{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:28px}
+.ft-brand img{height:38px;margin-bottom:12px}
+.ft-brand p{font-size:13px;color:var(--t2);line-height:1.7;max-width:280px}
+.ft-col h4{font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.ft-col a{display:block;font-size:13px;color:var(--t2);margin-bottom:8px;transition:color .2s}
+.ft-col a:hover{color:var(--g)}
+.ft-bot{border-top:1px solid rgba(201,168,76,.07);padding-top:20px;margin-top:0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ft-copy{font-size:12px;color:var(--t3)}
+.ft-tl{font-family:var(--fd);font-size:13px;color:rgba(201,168,76,.45);font-style:italic}
+
+/* ════════════════════════════
+   PLACEHOLDER PANELS
+════════════════════════════ */
+.placeholder{
+  padding:80px 32px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:16px;
+}
+.ph-icon{font-size:52px;margin-bottom:4px}
+.ph-title{font-family:var(--fm);font-size:20px;font-weight:700;color:var(--t0)}
+.ph-sub{font-size:14px;color:var(--t2);max-width:380px;line-height:1.65}
+.ph-btn{
+  padding:11px 28px;background:var(--gg);color:#000;
+  border-radius:10px;font-size:13px;font-weight:700;
+  cursor:pointer;margin-top:8px;font-family:var(--fm);
+  transition:all .2s;
+}
+.ph-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.35)}
+
+/* ════════════════════════════
+   RESPONSIVE
+════════════════════════════ */
+@media(max-width:1200px){
+  .kpi-grid{grid-template-columns:repeat(3,1fr)}
+  .qa-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:960px){
+  #sidebar{transform:translateX(-100%)}
+  #sidebar.open{transform:translateX(0)}
+  #wrap{margin-left:0}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .g2{grid-template-columns:1fr}
+  .ad-grid{grid-template-columns:repeat(2,1fr)}
+  .ft-g{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .wb{flex-direction:column}
+  .wb-r{width:100%;border-left:none;border-top:1px solid rgba(201,168,76,.1);flex-direction:row;padding:16px 20px;gap:14px}
+  .vring{width:64px;height:64px}
+  .wb-l{padding:22px 20px}
+  .wb-h1{font-size:22px}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .qa-grid{grid-template-columns:1fr}
+  .g3{grid-template-columns:1fr}
+  .sec{padding:20px 16px 0}
+  .wb{margin:20px 16px 0}
+  .ft-g{grid-template-columns:1fr;padding:0 16px}
+  .ft-inner{padding:0 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════
+     TOP NAV
+════════════════════════════ -->
+<nav id="nav">
+  <div class="nav-left">
+    <button class="sb-btn" onclick="toggleSB()" title="Menu">☰</button>
+    <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
+  </div>
+  <div class="nav-right">
+    <a href="index.html" class="nav-back">← Back to Home</a>
+    <div class="nav-vendor-chip">⭐ Premium Vendor</div>
+    <button class="ni-btn" onclick="navPanel('notifications')">
+      🔔<span class="n-dot"></span>
+    </button>
+    <div class="pd-wrap">
+      <div class="nav-av" id="nav-av" onclick="toggleDrop()">
+        <img id="nav-av-img" src="images/jeweler-logos/muthoot-finance.png" alt="M" onerror="this.style.display='none'"/>
+      </div>
+      <div class="pd" id="pdrop">
+        <div class="pd-item" onclick="navPanel('profile')">🏢 Business Profile</div>
+        <div class="pd-item" onclick="navPanel('analytics')">📊 Analytics</div>
+        <div class="pd-item" onclick="navPanel('settings')">⚙️ Settings</div>
+        <div class="pd-sep"></div>
+        <div class="pd-item" style="color:#ef4444" onclick="window.location='login.html'">🚪 Logout</div>
+      </div>
+    </div>
+    <button id="theme-toggle" class="nav-theme" onclick="TM.toggle()">🌙</button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════
+     SIDEBAR
+════════════════════════════ -->
+<aside id="sidebar">
+  <div class="sb-sec">
+    <div class="sb-lbl">Main</div>
+    <div class="sb-it active" data-panel="dashboard">
+      <span class="sb-ic">🏠</span>Dashboard
+    </div>
+    <div class="sb-it" data-panel="leads">
+      <span class="sb-ic">🎯</span>Lead Management<span class="sb-bx red">22</span>
+    </div>
+    <div class="sb-it" data-panel="schemes">
+      <span class="sb-ic">📢</span>Schemes &amp; Offers<span class="sb-bx">3</span>
+    </div>
+    <div class="sb-it" data-panel="advertisements">
+      <span class="sb-ic">📸</span>Advertisements
+    </div>
+    <div class="sb-it" data-panel="analytics">
+      <span class="sb-ic">📊</span>Analytics
+    </div>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">Account</div>
+    <div class="sb-it" data-panel="profile">
+      <span class="sb-ic">🏢</span>Vendor Profile
+    </div>
+    <div class="sb-it" data-panel="settings">
+      <span class="sb-ic">⚙️</span>Settings
+    </div>
+    <div class="sb-it" data-panel="support">
+      <span class="sb-ic">🆘</span>Support
+    </div>
+  </div>
+  <div class="sb-plan">
+    <div class="sp-title">Starter Plan</div>
+    <div class="sp-sub">18 days remaining</div>
+    <div class="sp-bar"><div class="sp-fill"></div></div>
+    <div class="sp-days">Expires July 27, 2026</div>
+    <button class="sp-btn" onclick="navPanel('settings')">⬆ Upgrade Plan</button>
+  </div>
+</aside>
+
+<!-- ════════════════════════════
+     MAIN WRAP
+════════════════════════════ -->
+<div id="wrap">
+<div id="content">
+
+<!-- ══════════════════ DASHBOARD PANEL ══════════════════ -->
+<div id="p-dashboard" class="panel active">
+
+  <!-- Welcome Banner -->
+  <div class="wb">
+    <div class="wb-l">
+      <div class="wb-eye">Vendor Dashboard</div>
+      <h1 class="wb-h1">Welcome Back, <span id="vnd-name">Muthoot Finance</span></h1>
+      <p class="wb-sub">Manage customer opportunities, business visibility and growth through GoldBazaar.</p>
+      <div class="wb-chips">
+        <div class="wchip">📍 <span>Jayanagar, Bangalore</span></div>
+        <div class="wchip">🏦 <span>Gold Loan Provider</span></div>
+        <div class="wchip verified">✓ GoldBazaar Verified</div>
+        <div class="wchip">📅 <span id="wdate"></span></div>
+      </div>
+    </div>
+    <div class="wb-r">
+      <div class="vring">
+        <div class="vinner">
+          <img id="vnd-logo" src="images/jeweler-logos/muthoot-finance.png" alt="Muthoot Finance" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="vtag">
+        <div class="vbname" id="vnd-name2">Muthoot Finance</div>
+        <div class="vbcat">Gold Loan Provider</div>
+        <div class="vstars">⭐⭐⭐⭐⭐<span>4.8 (214 reviews)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="sec">
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-ic">👁️</div>
+        <div class="kpi-n">1,248</div>
+        <div class="kpi-l">Profile Reach</div>
+        <div class="kpi-s">Users discovered your business</div>
+        <div class="kpi-tr up">▲ 12.4% this week</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-ic">🚶</div>
+        <div class="kpi-n">356</div>
+        <div class="kpi-l">Vendor Visits</div>
+        <div class="kpi-s">Customers viewed your profile</div>
+        <div class="kpi-tr up">▲ 8.1% this week</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-ic">🎯</div>
+        <div class="kpi-n">48</div>
+        <div class="kpi-l">Assigned Leads</div>
+        <div class="kpi-s">Customer opportunities assigned</div>
+        <div class="kpi-tr up">▲ 5 new today</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-ic">⚡</div>
+        <div class="kpi-n">22</div>
+        <div class="kpi-l">Active Leads</div>
+        <div class="kpi-s">Pending customer engagement</div>
+        <div class="kpi-tr neu">→ No change</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-ic">✅</div>
+        <div class="kpi-n">12</div>
+        <div class="kpi-l">Converted</div>
+        <div class="kpi-s">Successfully converted customers</div>
+        <div class="kpi-tr up">▲ 3 this month</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-ic">💰</div>
+        <div class="kpi-n gold">₹8.5L</div>
+        <div class="kpi-l">Est. Opportunity</div>
+        <div class="kpi-s">Potential business value</div>
+        <div class="kpi-tr up">▲ ₹1.2L added</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Quick Action Center</div></div>
+    <div class="qa-grid">
+      <div class="qa" onclick="navPanel('leads')">
+        <div class="qa-ic">🎯</div>
+        <div class="qa-t">Lead Management</div>
+        <div class="qa-d">View and manage assigned customer enquiries. 22 leads require action.</div>
+        <div class="qa-go">Open Leads →</div>
+      </div>
+      <div class="qa" onclick="navPanel('schemes')">
+        <div class="qa-ic">📢</div>
+        <div class="qa-t">Schemes &amp; Offers</div>
+        <div class="qa-d">Manage business schemes, promotional offers and interest rate listings.</div>
+        <div class="qa-go">Manage Schemes →</div>
+      </div>
+      <div class="qa" onclick="navPanel('advertisements')">
+        <div class="qa-ic">📸</div>
+        <div class="qa-t">Advertisements</div>
+        <div class="qa-d">Manage banners, featured listings and sponsored placements.</div>
+        <div class="qa-go">View Ads →</div>
+      </div>
+      <div class="qa" onclick="navPanel('profile')">
+        <div class="qa-ic">🏢</div>
+        <div class="qa-t">Vendor Profile</div>
+        <div class="qa-d">Update business information, service areas and contact details.</div>
+        <div class="qa-go">Edit Profile →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Performance + Schemes -->
+  <div class="sec">
+    <div class="g2">
+      <!-- Charts -->
+      <div>
+        <div class="sh"><div class="sh-t">Business Performance</div><a href="#" class="sh-a" onclick="navPanel('analytics');return false">Full Report →</a></div>
+        <div class="card" style="display:flex;flex-direction:column;gap:22px">
+          <div>
+            <div class="ch-title">Profile Reach — Last 6 Months</div>
+            <div class="ch-rows">
+              <div class="cr"><span class="cr-lbl">Jan</span><div class="cr-bg"><div class="cr-fill" data-w="42"></div></div><span class="cr-v">524</span></div>
+              <div class="cr"><span class="cr-lbl">Feb</span><div class="cr-bg"><div class="cr-fill" data-w="55"></div></div><span class="cr-v">688</span></div>
+              <div class="cr"><span class="cr-lbl">Mar</span><div class="cr-bg"><div class="cr-fill" data-w="68"></div></div><span class="cr-v">850</span></div>
+              <div class="cr"><span class="cr-lbl">Apr</span><div class="cr-bg"><div class="cr-fill" data-w="76"></div></div><span class="cr-v">950</span></div>
+              <div class="cr"><span class="cr-lbl">May</span><div class="cr-bg"><div class="cr-fill" data-w="88"></div></div><span class="cr-v">1,100</span></div>
+              <div class="cr"><span class="cr-lbl">Jun</span><div class="cr-bg"><div class="cr-fill" data-w="100"></div></div><span class="cr-v">1,248</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="ch-title">Lead Generation — Last 6 Months</div>
+            <div class="ch-rows">
+              <div class="cr"><span class="cr-lbl">Jan</span><div class="cr-bg"><div class="cr-fill" data-w="25"></div></div><span class="cr-v">12</span></div>
+              <div class="cr"><span class="cr-lbl">Feb</span><div class="cr-bg"><div class="cr-fill" data-w="38"></div></div><span class="cr-v">18</span></div>
+              <div class="cr"><span class="cr-lbl">Mar</span><div class="cr-bg"><div class="cr-fill" data-w="52"></div></div><span class="cr-v">25</span></div>
+              <div class="cr"><span class="cr-lbl">Apr</span><div class="cr-bg"><div class="cr-fill" data-w="67"></div></div><span class="cr-v">32</span></div>
+              <div class="cr"><span class="cr-lbl">May</span><div class="cr-bg"><div class="cr-fill" data-w="83"></div></div><span class="cr-v">40</span></div>
+              <div class="cr"><span class="cr-lbl">Jun</span><div class="cr-bg"><div class="cr-fill" data-w="100"></div></div><span class="cr-v">48</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Schemes -->
+      <div>
+        <div class="sh"><div class="sh-t">Active Schemes</div><a href="#" class="sh-a" onclick="navPanel('schemes');return false">Manage All →</a></div>
+        <div class="card">
+          <div class="sc-it">
+            <div class="sc-ic">🏅</div>
+            <div><div class="sc-nm">Gold Loan @ 9.5% p.a.</div><div class="sc-ct">Gold Loan · Low Interest</div></div>
+            <div class="sc-ld">24 Leads<span>generated</span></div>
+            <div class="sc-ac"><button class="bsm bg">View</button><button class="bsm bbl">Edit</button></div>
+          </div>
+          <div class="sc-it">
+            <div class="sc-ic">⚡</div>
+            <div><div class="sc-nm">Instant Loan in 30 Mins</div><div class="sc-ct">Gold Loan · Express</div></div>
+            <div class="sc-ld">18 Leads<span>generated</span></div>
+            <div class="sc-ac"><button class="bsm bg">View</button><button class="bsm bbl">Edit</button></div>
+          </div>
+          <div class="sc-it">
+            <div class="sc-ic">🎁</div>
+            <div><div class="sc-nm">Free Gold Appraisal Visit</div><div class="sc-ct">Gold Loan · Offer</div></div>
+            <div class="sc-ld">10 Leads<span>generated</span></div>
+            <div class="sc-ac"><button class="bsm bg">View</button><button class="bsm bbl">Edit</button></div>
+          </div>
+          <button class="bsm bg" style="width:100%;padding:11px;font-size:13px;margin-top:14px" onclick="navPanel('schemes')">+ Add New Scheme</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Opportunities + Activity -->
+  <div class="sec">
+    <div class="g2">
+      <div>
+        <div class="sh"><div class="sh-t">Featured Opportunities</div></div>
+        <div class="g3">
+          <div class="opp">
+            <div class="opp-ic">📈</div>
+            <div class="opp-tag">High Demand</div>
+            <div class="opp-t">Surge in Gold Loan Requests</div>
+            <div class="opp-d">48% more users searching for gold loan providers this week.</div>
+            <div class="opp-go">Boost visibility →</div>
+          </div>
+          <div class="opp">
+            <div class="opp-ic">🌍</div>
+            <div class="opp-tag">Location Signal</div>
+            <div class="opp-t">Growing Demand in Whitefield</div>
+            <div class="opp-d">12 unserved leads this month — expand your coverage area.</div>
+            <div class="opp-go">Add coverage →</div>
+          </div>
+          <div class="opp">
+            <div class="opp-ic">🔥</div>
+            <div class="opp-tag">Trending</div>
+            <div class="opp-t">Gold Sell Interest Rising</div>
+            <div class="opp-d">Users increasingly searching for gold sell services near you.</div>
+            <div class="opp-go">Add service →</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sh"><div class="sh-t">Recent Customer Activity</div><a href="#" class="sh-a">All Activity →</a></div>
+        <div class="card">
+          <div class="af-it"><div class="af-dot d-go">👁️</div><div><div class="af-txt"><strong>Rahul S.</strong> viewed your vendor profile</div><div class="af-time">10 minutes ago</div></div></div>
+          <div class="af-it"><div class="af-dot d-bl">📋</div><div><div class="af-txt"><strong>Priya M.</strong> submitted a Gold Loan enquiry</div><div class="af-time">38 minutes ago</div></div></div>
+          <div class="af-it"><div class="af-dot d-gr">📢</div><div><div class="af-txt"><strong>Arun K.</strong> opened your <em>9.5% Loan</em> scheme</div><div class="af-time">1 hour ago</div></div></div>
+          <div class="af-it"><div class="af-dot d-pu">📅</div><div><div class="af-txt"><strong>Sindhu R.</strong> scheduled an appointment</div><div class="af-time">3 hours ago</div></div></div>
+          <div class="af-it"><div class="af-dot d-go">👁️</div><div><div class="af-txt"><strong>Vikram N.</strong> viewed your vendor profile</div><div class="af-time">Yesterday, 4:42 PM</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ad Performance + Notifications + Profile Snapshot -->
+  <div class="sec">
+    <div class="g2">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <!-- Ad Performance -->
+        <div>
+          <div class="sh"><div class="sh-t">Advertisement Performance</div><a class="sh-a" onclick="navPanel('advertisements');return false" href="#">View Ads →</a></div>
+          <div class="card">
+            <div class="ad-grid">
+              <div class="ad-s"><div class="ad-n" style="color:var(--g)">12,480</div><div class="ad-l">Banner Views</div></div>
+              <div class="ad-s"><div class="ad-n" style="color:#7dd3fc">842</div><div class="ad-l">Ad Clicks</div></div>
+              <div class="ad-s"><div class="ad-n" style="color:#86efac">6.75%</div><div class="ad-l">Engagement</div></div>
+              <div class="ad-s"><div class="ad-n" style="color:#c4b5fd">3,200</div><div class="ad-l">Sponsored Reach</div></div>
+            </div>
+          </div>
+        </div>
+        <!-- Notifications preview -->
+        <div id="notifications">
+          <div class="sh"><div class="sh-t">Notifications</div><a href="#" class="sh-a">Mark all read</a></div>
+          <div class="card" style="padding:16px">
+            <div class="nf-it nf-unread"><div class="nf-ic ni-g">🎯</div><div><div class="nf-tx">New Lead: Rahul Sharma submitted a Gold Loan enquiry.</div><div class="nf-tm">10 minutes ago</div></div></div>
+            <div class="nf-it nf-unread"><div class="nf-ic ni-b">💬</div><div><div class="nf-tx">Customer Priya Menon has requested contact.</div><div class="nf-tm">38 minutes ago</div></div></div>
+            <div class="nf-it nf-unread"><div class="nf-ic ni-r">⏰</div><div><div class="nf-tx">Scheme "Instant Loan in 30 Mins" expires in 5 days.</div><div class="nf-tm">2 hours ago</div></div></div>
+            <div class="nf-it"><div class="nf-ic ni-p">🔍</div><div><div class="nf-tx">Profile review pending: Add business photos to improve trust score.</div><div class="nf-tm">Yesterday</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <!-- Profile Snapshot -->
+        <div id="profile-snap">
+          <div class="sh"><div class="sh-t">Profile Snapshot</div><a href="#" class="sh-a" onclick="navPanel('profile');return false">Edit Profile →</a></div>
+          <div class="card">
+            <div class="ps-r"><span class="lbl">Business Name</span><span class="val">Muthoot Finance</span></div>
+            <div class="ps-r"><span class="lbl">Address</span><span class="val">14, 9th Main Rd, Jayanagar, BLR</span></div>
+            <div class="ps-r"><span class="lbl">Contact</span><span class="val">+91 98001 23456</span></div>
+            <div class="ps-r"><span class="lbl">Website</span><span class="val" style="color:var(--g)">muthootfinance.com</span></div>
+            <div class="ps-r"><span class="lbl">GST Status</span><span class="val" style="color:#86efac">✓ Registered</span></div>
+            <div class="ps-r"><span class="lbl">Verification</span><span class="val" style="color:#86efac">✓ GoldBazaar Verified</span></div>
+            <div class="ps-r"><span class="lbl">Trust Score</span><span class="val" style="color:var(--g)">⭐ 4.8 / 5</span></div>
+            <button class="bsm bg" style="width:100%;padding:11px;font-size:13px;margin-top:14px" onclick="navPanel('profile')">✏️ Edit Business Profile</button>
+          </div>
+        </div>
+        <!-- Plan Status -->
+        <div>
+          <div class="sh"><div class="sh-t">Free Plan Status</div></div>
+          <div class="card" style="background:linear-gradient(145deg,rgba(201,168,76,.07),rgba(201,168,76,.02));border-color:rgba(201,168,76,.2)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+              <div><div style="font-family:var(--fm);font-size:14px;font-weight:800;color:var(--t0)">Vendor Starter Plan</div><div style="font-size:12px;color:var(--t3);margin-top:2px">18 days remaining</div></div>
+              <span style="font-size:26px">🏅</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,.08);border-radius:3px;margin-bottom:14px"><div style="height:100%;width:60%;border-radius:3px;background:var(--gg)"></div></div>
+            <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px">
+              <div style="font-size:13px;color:var(--t2);display:flex;align-items:center;gap:8px"><span style="color:var(--g)">✓</span>Vendor Profile Listing</div>
+              <div style="font-size:13px;color:var(--t2);display:flex;align-items:center;gap:8px"><span style="color:var(--g)">✓</span>Scheme Listings (up to 3)</div>
+              <div style="font-size:13px;color:var(--t2);display:flex;align-items:center;gap:8px"><span style="color:var(--g)">✓</span>Lead Visibility</div>
+              <div style="font-size:13px;color:var(--t2);display:flex;align-items:center;gap:8px"><span style="color:var(--g)">✓</span>Basic Analytics</div>
+              <div style="font-size:13px;color:var(--t3);display:flex;align-items:center;gap:8px"><span>✗</span>Featured Listing <em style="font-size:11px">(Premium)</em></div>
+              <div style="font-size:13px;color:var(--t3);display:flex;align-items:center;gap:8px"><span>✗</span>Unlimited Schemes <em style="font-size:11px">(Premium)</em></div>
+            </div>
+            <button class="sp-btn" onclick="navPanel('settings')">⬆ Upgrade to Premium Plan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /p-dashboard -->
+
+<!-- ══════════════════ LEADS PANEL ══════════════════ -->
+<div id="p-leads" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Lead Management</div><span style="font-size:12px;color:var(--t3)">48 total · 22 active</span></div>
+    <div class="card" style="overflow-x:auto;padding:0">
+      <table class="lt">
+        <thead><tr>
+          <th>Lead ID</th><th>Customer</th><th>Service</th><th>Location</th><th>Budget</th><th>Gold Wt.</th><th>Status</th><th>Actions</th>
+        </tr></thead>
+        <tbody>
+          <tr><td><span class="lid">#LD-2406-0211</span></td><td>Rahul Sharma</td><td>Gold Loan</td><td>Jayanagar</td><td>₹2–3L</td><td>28g</td><td><span class="bdg b-hot">🔴 Urgent</span></td><td style="display:flex;gap:6px;padding:13px 14px"><button class="bsm bg">View</button><button class="bsm bgr">Accept</button><button class="bsm bbl">Contact</button></td></tr>
+          <tr><td><span class="lid">#LD-2406-0208</span></td><td>Priya Menon</td><td>Gold Loan</td><td>Koramangala</td><td>₹1–2L</td><td>18g</td><td><span class="bdg b-new">New</span></td><td style="display:flex;gap:6px;padding:13px 14px"><button class="bsm bg">View</button><button class="bsm bgr">Accept</button><button class="bsm bbl">Contact</button></td></tr>
+          <tr><td><span class="lid">#LD-2406-0195</span></td><td>Arun Kumar</td><td>Gold Loan</td><td>BTM Layout</td><td>₹4–5L</td><td>52g</td><td><span class="bdg b-acc">Accepted</span></td><td style="display:flex;gap:6px;padding:13px 14px"><button class="bsm bg">View</button><button class="bsm bbl">Contact</button></td></tr>
+          <tr><td><span class="lid">#LD-2406-0184</span></td><td>Sindhu Rao</td><td>Gold Loan</td><td>Whitefield</td><td>₹3–4L</td><td>38g</td><td><span class="bdg b-pnd">Pending</span></td><td style="display:flex;gap:6px;padding:13px 14px"><button class="bsm bg">View</button><button class="bsm bgr">Accept</button><button class="bsm bbl">Contact</button></td></tr>
+          <tr><td><span class="lid">#LD-2406-0172</span></td><td>Vikram Nair</td><td>Gold Loan</td><td>Electronic City</td><td>₹5L+</td><td>65g</td><td><span class="bdg b-cmp">Converted</span></td><td style="display:flex;gap:6px;padding:13px 14px"><button class="bsm bg">View</button></td></tr>
+          <tr><td><span class="lid">#LD-2406-0168</span></td><td>Kavitha S.</td><td>Gold Loan</td><td>JP Nagar</td><td>₹1.5–2L</td><td>20g</td><td><span class="bdg b-new">New</span></td><td style="display:flex;gap:6px;padding:13px 14px"><button class="bsm bg">View</button><button class="bsm bgr">Accept</button><button class="bsm bbl">Contact</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ SCHEMES PANEL ══════════════════ -->
+<div id="p-schemes" class="panel">
+  <div class="placeholder">
+    <div class="ph-icon">📢</div>
+    <div class="ph-title">Schemes &amp; Offers</div>
+    <div class="ph-sub">Create and manage your gold loan schemes, promotional offers and interest rate listings to attract more customers.</div>
+    <button class="ph-btn">+ Create New Scheme</button>
+  </div>
+</div>
+
+<!-- ══════════════════ ADVERTISEMENTS PANEL ══════════════════ -->
+<div id="p-advertisements" class="panel">
+  <div class="placeholder">
+    <div class="ph-icon">📸</div>
+    <div class="ph-title">Advertisements</div>
+    <div class="ph-sub">Manage banners, featured listings and sponsored placements to boost your visibility across the GoldBazaar platform.</div>
+    <button class="ph-btn">+ Create Advertisement</button>
+  </div>
+</div>
+
+<!-- ══════════════════ ANALYTICS PANEL ══════════════════ -->
+<div id="p-analytics" class="panel">
+  <div class="placeholder">
+    <div class="ph-icon">📊</div>
+    <div class="ph-title">Business Analytics</div>
+    <div class="ph-sub">Deep insights into your profile reach, lead performance, conversion rates and customer engagement across all services.</div>
+    <button class="ph-btn">View Full Analytics</button>
+  </div>
+</div>
+
+<!-- ══════════════════ PROFILE PANEL ══════════════════ -->
+<div id="p-profile" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Vendor Profile</div></div>
+    <div class="g2">
+      <div class="card" style="display:flex;flex-direction:column;gap:0">
+        <div style="display:flex;align-items:center;gap:18px;margin-bottom:20px;padding-bottom:18px;border-bottom:1px solid rgba(201,168,76,.1)">
+          <div class="vring" style="width:72px;height:72px;flex-shrink:0">
+            <div class="vinner"><img src="images/jeweler-logos/muthoot-finance.png" alt="M" onerror="this.style.display='none'"/></div>
+          </div>
+          <div>
+            <div style="font-family:var(--fm);font-size:16px;font-weight:800;color:var(--t0);margin-bottom:3px">Muthoot Finance</div>
+            <div style="font-size:12px;color:var(--g)">Gold Loan Provider</div>
+            <div style="font-size:11px;color:var(--t3);margin-top:4px">⭐ 4.8 · GoldBazaar Verified</div>
+          </div>
+        </div>
+        <div class="ps-r"><span class="lbl">Business Name</span><span class="val">Muthoot Finance</span></div>
+        <div class="ps-r"><span class="lbl">Address</span><span class="val">14, 9th Main Rd, Jayanagar, BLR</span></div>
+        <div class="ps-r"><span class="lbl">Contact</span><span class="val">+91 98001 23456</span></div>
+        <div class="ps-r"><span class="lbl">Website</span><span class="val" style="color:var(--g)">muthootfinance.com</span></div>
+        <div class="ps-r"><span class="lbl">GST Status</span><span class="val" style="color:#86efac">✓ Registered</span></div>
+        <div class="ps-r"><span class="lbl">Verification</span><span class="val" style="color:#86efac">✓ GoldBazaar Verified</span></div>
+        <button class="sp-btn" style="margin-top:18px">✏️ Edit Profile</button>
+      </div>
+      <div class="placeholder" style="padding:40px">
+        <div class="ph-icon">🖼️</div>
+        <div class="ph-title" style="font-size:16px">Business Photos</div>
+        <div class="ph-sub" style="font-size:13px">Add photos of your business, branch and team to increase customer trust and profile visits.</div>
+        <button class="ph-btn" style="font-size:12px;padding:9px 22px">+ Upload Photos</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ SETTINGS PANEL ══════════════════ -->
+<div id="p-settings" class="panel">
+  <div class="placeholder">
+    <div class="ph-icon">⚙️</div>
+    <div class="ph-title">Settings</div>
+    <div class="ph-sub">Manage notifications, account preferences, security settings and your subscription plan.</div>
+    <button class="ph-btn">Upgrade to Premium</button>
+  </div>
+</div>
+
+<!-- ══════════════════ SUPPORT PANEL ══════════════════ -->
+<div id="p-support" class="panel">
+  <div class="placeholder">
+    <div class="ph-icon">🆘</div>
+    <div class="ph-title">Help &amp; Support</div>
+    <div class="ph-sub">Get assistance from the GoldBazaar vendor support team. Raise tickets, browse FAQs or chat with our team.</div>
+    <button class="ph-btn">Contact Support</button>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<!-- ════════════════════════════
+     FOOTER (inside #wrap so sidebar doesn't cover it)
+════════════════════════════ -->
+<footer>
+  <div class="ft-inner">
+    <div class="ft-g">
+      <div class="ft-brand">
+        <img src="images/logo.png" alt="GoldBazaar"/>
+        <p>India's most trusted unified gold marketplace. Connecting gold owners with verified vendors across the country.</p>
+      </div>
+      <div class="ft-col">
+        <h4>For Vendors</h4>
+        <a href="#" onclick="navPanel('leads');return false">Lead Management</a>
+        <a href="#" onclick="navPanel('schemes');return false">Schemes &amp; Offers</a>
+        <a href="#" onclick="navPanel('advertisements');return false">Advertisements</a>
+        <a href="#" onclick="navPanel('analytics');return false">Analytics</a>
+      </div>
+      <div class="ft-col">
+        <h4>Platform</h4>
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="vendor-onboarding-complete.html">Onboarding</a>
+        <a href="#" onclick="navPanel('support');return false">Help Center</a>
+      </div>
+      <div class="ft-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms &amp; Conditions</a>
+        <a href="#">Contact Us</a>
+        <a href="#" onclick="navPanel('support');return false">Support</a>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <div class="ft-copy">© 2026 GoldBazaar Technologies Pvt. Ltd. All rights reserved.</div>
+      <div class="ft-tl">Explore Better Opportunities. Grow With Confidence.</div>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /wrap -->
+
+<script>
+/* ── VENDOR CONFIG (swap this per logged-in vendor) ── */
+const VENDOR = {
+  id: 'muthoot-finance',
+  name: 'Muthoot Finance',
+  logo: 'images/jeweler-logos/muthoot-finance.png',
+  category: 'Gold Loan Provider',
+  location: 'Jayanagar, Bangalore'
+};
+const LOGO_MAP = {
+  'muthoot-finance':    'images/jeweler-logos/muthoot-finance.png',
+  'manappuram-finance': 'images/jeweler-logos/manappuram-finance.png',
+  'iifl-finance':       'images/jeweler-logos/iifl-finance.png',
+  'bajaj-finserv':      'images/jeweler-logos/bajaj-finserv.png',
+  'tanishq':            'images/jeweler-logos/tanishq.png',
+  'kalyan-jewellers':   'images/jeweler-logos/kalyan-jewellers.png',
+  'malabar-gold':       'images/jeweler-logos/malabar-gold.png',
+  'joyalukkas':         'images/jeweler-logos/joyalukkas.png',
+};
+
+function applyVendor(){
+  const logoSrc = LOGO_MAP[VENDOR.id] || VENDOR.logo;
+  ['vnd-logo','nav-av-img'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){el.src=logoSrc;el.alt=VENDOR.name}
+  });
+  ['vnd-name','vnd-name2'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.textContent=VENDOR.name;
+  });
+}
+
+/* ── THEME ── */
+const TM={K:'gb-theme',D:'dark',L:'light',
+  init(){this.set(localStorage.getItem(this.K)||this.D)},
+  get(){return document.documentElement.dataset.theme||this.D},
+  set(t){const v=t===this.L?this.L:this.D;document.documentElement.dataset.theme=v;localStorage.setItem(this.K,v);this.upd()},
+  toggle(){this.set(this.get()===this.D?this.L:this.D)},
+  upd(){const b=document.getElementById('theme-toggle');if(b)b.textContent=this.get()===this.D?'🌙':'☀️'}
+};
+
+/* ── SIDEBAR ── */
+function toggleSB(){
+  const sb=document.getElementById('sidebar');
+  const isOpen=sb.classList.toggle('open');
+  // On desktop: collapse sidebar and reclaim space
+  if(window.innerWidth>960){
+    if(isOpen){
+      sb.style.transform='';
+      document.getElementById('wrap').style.marginLeft='var(--sb)';
+    } else {
+      sb.style.transform='translateX(-100%)';
+      document.getElementById('wrap').style.marginLeft='0';
+    }
+  }
+}
+
+/* ── PANEL NAV ── */
+function navPanel(id){
+  // Deactivate all panels
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  // Activate target
+  const p=document.getElementById('p-'+id);
+  if(p)p.classList.add('active');
+  // Update sidebar active
+  document.querySelectorAll('.sb-it').forEach(it=>{
+    it.classList.toggle('active', it.dataset.panel===id);
+  });
+  // Close sidebar on mobile
+  if(window.innerWidth<=960)document.getElementById('sidebar').classList.remove('open');
+  // Scroll to top
+  window.scrollTo({top:0,behavior:'smooth'});
+  // Re-animate charts if dashboard
+  if(id==='dashboard')animateBars();
+}
+
+// Wire up sidebar items
+document.querySelectorAll('.sb-it[data-panel]').forEach(it=>{
+  it.addEventListener('click',()=>navPanel(it.dataset.panel));
+});
+
+/* ── PROFILE DROPDOWN ── */
+function toggleDrop(){document.getElementById('pdrop').classList.toggle('open')}
+document.addEventListener('click',e=>{if(!e.target.closest('.pd-wrap'))document.getElementById('pdrop').classList.remove('open')});
+
+/* ── DATE ── */
+const wd=document.getElementById('wdate');
+if(wd){wd.textContent=new Date().toLocaleDateString('en-IN',{weekday:'short',month:'short',day:'numeric',year:'numeric'})}
+
+/* ── ANIMATE BARS ── */
+function animateBars(){
+  document.querySelectorAll('#p-dashboard .cr-fill').forEach(b=>{
+    b.style.width='0';
+    const w=b.dataset.w;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{b.style.width=w+'%'}));
+  });
+}
+
+/* ── INIT ── */
+document.addEventListener('DOMContentLoaded',()=>{
+  TM.init();
+  applyVendor();
+  setTimeout(animateBars,400);
+});
+</script>
+</body>
+</html>

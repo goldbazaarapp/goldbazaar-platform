@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>My Dashboard — GoldBazaar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;background:var(--b0)}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+img{display:block;max-width:100%}
+
+/* ── TOKENS ── */
+:root{
+  --g:#C9A84C;--gl:#E8C96A;--gd:#9B7B2E;
+  --b0:#070604;--b1:#0F0D08;--b2:#17140C;--b3:#1E1A10;
+  --t0:#FFFFFF;--t1:rgba(255,255,255,.88);--t2:rgba(255,255,255,.55);--t3:rgba(255,255,255,.30);
+  --gg:linear-gradient(135deg,#C9A84C 0%,#E8C96A 50%,#C9A84C 100%);
+  --ease:cubic-bezier(.4,0,.2,1);
+  --nav:68px;--sb:250px;--r:14px;
+  --fd:'Playfair Display',Georgia,serif;
+  --fm:'Montserrat','Inter',sans-serif;
+}
+[data-theme="light"]{
+  --b0:#F5F0E8;--b1:#EDE7D9;--b2:#E0D8C8;--b3:#D4CBBA;
+  --t0:#0F0D08;--t1:rgba(0,0,0,.86);--t2:rgba(0,0,0,.54);--t3:rgba(0,0,0,.30);
+}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(201,168,76,.28);border-radius:2px}
+
+/* ══════════════════════════════
+   TOP NAV
+══════════════════════════════ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--nav);display:flex;align-items:center;
+  justify-content:space-between;padding:0 24px 0 14px;
+  background:rgba(7,6,4,.92);backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(201,168,76,.14);
+}
+.nav-l{display:flex;align-items:center;gap:8px}
+.sb-btn{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--t2);font-size:20px;transition:all .2s}
+.sb-btn:hover{background:rgba(255,255,255,.07);color:var(--t0)}
+.nav-logo img{height:40px;width:auto}
+.nav-r{display:flex;align-items:center;gap:8px}
+.nav-back{display:flex;align-items:center;gap:6px;padding:7px 15px;border-radius:9px;border:1px solid rgba(201,168,76,.22);background:rgba(201,168,76,.06);font-size:13px;font-weight:600;color:var(--g);transition:all .2s}
+.nav-back:hover{background:rgba(201,168,76,.14);border-color:rgba(201,168,76,.4)}
+.ni-btn{position:relative;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);color:var(--t1);font-size:15px;transition:all .2s;cursor:pointer}
+.ni-btn:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.28);color:var(--g)}
+.n-dot{position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:#ef4444;border:1.5px solid var(--b0)}
+.nav-av{width:36px;height:36px;border-radius:50%;background:var(--gg);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#000;border:2px solid rgba(201,168,76,.4);cursor:pointer;transition:all .2s}
+.nav-av:hover{border-color:var(--g)}
+.nav-theme{padding:5px 8px;font-size:16px;color:var(--t0);transition:transform .2s}
+.nav-theme:hover{transform:scale(1.15)}
+.nav-user-chip{padding:5px 14px;border-radius:20px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--g)}
+/* Dropdown */
+.pd-wrap{position:relative}
+.pd{position:absolute;top:calc(100% + 10px);right:0;background:rgba(8,6,2,.98);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:8px;min-width:175px;backdrop-filter:blur(24px);z-index:2000;opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .2s,transform .2s}
+.pd.open{opacity:1;transform:translateY(0);pointer-events:auto}
+.pd-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:13px;font-weight:500;color:var(--t1);cursor:pointer;transition:background .15s}
+.pd-item:hover{background:rgba(201,168,76,.08);color:var(--g)}
+.pd-sep{height:1px;background:rgba(201,168,76,.1);margin:4px 0}
+
+/* ══════════════════════════════
+   LEFT SIDEBAR
+══════════════════════════════ */
+#sidebar{
+  position:fixed;top:var(--nav);left:0;bottom:0;
+  width:var(--sb);z-index:500;
+  background:rgba(6,4,1,.98);
+  border-right:1px solid rgba(201,168,76,.1);
+  display:flex;flex-direction:column;
+  overflow-y:auto;overflow-x:hidden;
+  transition:transform .3s var(--ease);
+}
+.sb-sec{padding:18px 12px 8px}
+.sb-lbl{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);padding:0 8px;margin-bottom:8px}
+.sb-it{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:500;color:var(--t2);cursor:pointer;transition:all .2s;margin-bottom:2px;letter-spacing:.01em}
+.sb-it:hover{background:rgba(201,168,76,.06);color:var(--t1)}
+.sb-it.active{background:rgba(201,168,76,.1);color:var(--g);border:1px solid rgba(201,168,76,.18)}
+.sb-ic{font-size:15px;width:20px;text-align:center;flex-shrink:0}
+.sb-bx{margin-left:auto;min-width:20px;height:18px;padding:0 6px;border-radius:9px;background:rgba(239,68,68,.2);font-size:10px;font-weight:800;color:#fca5a5;display:flex;align-items:center;justify-content:center}
+.sb-bx.g{background:rgba(201,168,76,.18);color:var(--g)}
+.sb-sep{height:1px;background:rgba(201,168,76,.08);margin:8px 12px}
+
+/* Gold rate sidebar widget */
+.sb-rates{margin:auto 12px 16px;padding:14px;border-radius:12px;background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.04));border:1px solid rgba(201,168,76,.2)}
+.sbr-title{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g);margin-bottom:10px}
+.sbr-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.sbr-row:last-child{margin-bottom:0}
+.sbr-k{font-size:11px;color:var(--t2)}
+.sbr-v{font-size:12px;font-weight:800;color:var(--t0)}
+.sbr-chg{font-size:10px;font-weight:700}
+.up{color:#22c55e}.dn{color:#ef4444}.neu{color:var(--t3)}
+
+/* ══════════════════════════════
+   MAIN WRAP
+══════════════════════════════ */
+#wrap{margin-top:var(--nav);margin-left:var(--sb);min-height:calc(100vh - var(--nav));display:flex;flex-direction:column;transition:margin-left .3s var(--ease)}
+#content{flex:1}
+.panel{display:none}
+.panel.active{display:block;animation:fadeUp .3s var(--ease)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Sections */
+.sec{padding:28px 32px 0}
+.sec:last-child{padding-bottom:48px}
+
+/* ══════════════════════════════
+   SECTION HEADERS
+══════════════════════════════ */
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:12px}
+.sh-t{font-family:var(--fm);font-size:16px;font-weight:700;color:var(--t0);display:flex;align-items:center;gap:10px}
+.sh-t::before{content:'';display:inline-block;width:3px;height:18px;background:var(--gg);border-radius:2px}
+.sh-a{font-size:12px;font-weight:600;color:var(--g);cursor:pointer;white-space:nowrap}
+.sh-a:hover{text-decoration:underline}
+
+/* ══════════════════════════════
+   WELCOME BANNER
+══════════════════════════════ */
+.wb{
+  margin:28px 32px 0;border-radius:20px;
+  background:var(--b1);border:1px solid rgba(201,168,76,.18);
+  padding:30px 36px;position:relative;overflow:hidden;
+}
+.wb::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g) 30%,var(--gl) 70%,transparent)}
+.wb::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 90% 50%,rgba(201,168,76,.06),transparent 70%);pointer-events:none}
+.wb-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.wb-eye{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--g);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.wb-eye::after{content:'';width:32px;height:1px;background:rgba(201,168,76,.4)}
+.wb-h1{font-family:var(--fd);font-size:26px;font-weight:700;color:var(--t0);margin-bottom:6px;line-height:1.25}
+.wb-h1 span{background:var(--gg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.wb-sub{font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:18px}
+.wb-chips{display:flex;flex-wrap:wrap;gap:10px}
+.wchip{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.14);font-size:12px;color:var(--t2)}
+/* Rate cards in banner */
+.wb-rates{display:flex;gap:12px;flex-wrap:wrap}
+.rc{background:rgba(0,0,0,.35);border:1px solid rgba(201,168,76,.22);border-radius:14px;padding:14px 20px;text-align:center;min-width:110px;position:relative;overflow:hidden;transition:transform .2s,border-color .2s}
+.rc:hover{transform:translateY(-2px);border-color:rgba(201,168,76,.45)}
+.rc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gg)}
+.rc-k{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:4px}
+.rc-p{font-family:var(--fm);font-size:17px;font-weight:800;color:var(--t0);margin-bottom:1px}
+.rc-u{font-size:9px;color:var(--t3)}
+.rc-c{font-size:10px;font-weight:700;margin-top:4px}
+
+/* ══════════════════════════════
+   STAT CHIPS
+══════════════════════════════ */
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:20px}
+.stat{background:var(--b1);border:1px solid rgba(201,168,76,.1);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:4px;transition:all .2s}
+.stat:hover{border-color:rgba(201,168,76,.28)}
+.stat-n{font-family:var(--fm);font-size:22px;font-weight:800;background:var(--gg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1}
+.stat-l{font-size:11px;color:var(--t3)}
+
+/* ══════════════════════════════
+   KPI CARDS
+══════════════════════════════ */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi{background:var(--b1);border:1px solid rgba(201,168,76,.1);border-radius:var(--r);padding:18px 16px;display:flex;flex-direction:column;gap:4px;position:relative;overflow:hidden;transition:all .25s var(--ease);cursor:default}
+.kpi:hover{transform:translateY(-3px);border-color:rgba(201,168,76,.3);box-shadow:0 12px 32px rgba(0,0,0,.4)}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gg)}
+.kpi-ic{font-size:18px;margin-bottom:2px}
+.kpi-n{font-family:var(--fm);font-size:22px;font-weight:800;color:var(--t0);line-height:1.1}
+.kpi-n.gold{background:var(--gg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.kpi-l{font-size:12px;font-weight:700;color:var(--t1)}
+.kpi-s{font-size:11px;color:var(--t3);line-height:1.4}
+.kpi-tr{font-size:11px;font-weight:700;margin-top:3px;display:flex;align-items:center;gap:3px}
+
+/* ══════════════════════════════
+   QUICK ACTIONS
+══════════════════════════════ */
+.qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.qa{background:var(--b1);border:1px solid rgba(201,168,76,.1);border-radius:var(--r);padding:22px 20px;cursor:pointer;transition:all .25s var(--ease);display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
+.qa::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.05),transparent);opacity:0;transition:opacity .25s}
+.qa:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.34);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.qa:hover::after{opacity:1}
+.qa-ic{width:46px;height:46px;border-radius:12px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:20px}
+.qa-t{font-family:var(--fm);font-size:14px;font-weight:700;color:var(--t0)}
+.qa-d{font-size:12px;color:var(--t2);line-height:1.6}
+.qa-go{font-size:12px;color:var(--g);font-weight:700;margin-top:auto;align-self:flex-end}
+
+/* ══════════════════════════════
+   CARD BASE
+══════════════════════════════ */
+.card{background:var(--b1);border:1px solid rgba(201,168,76,.1);border-radius:var(--r);padding:22px}
+
+/* ══════════════════════════════
+   TABLES
+══════════════════════════════ */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left;white-space:nowrap}
+.tbl td{padding:12px 14px;color:var(--t1);border-bottom:1px solid rgba(255,255,255,.04)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(201,168,76,.025)}
+.tid{font-family:monospace;color:var(--g);font-weight:700;font-size:11px}
+.bdg{display:inline-flex;align-items:center;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.b-sub{background:rgba(99,102,241,.13);color:#a5b4fc;border:1px solid rgba(99,102,241,.25)}
+.b-acc{background:rgba(34,197,94,.1);color:#86efac;border:1px solid rgba(34,197,94,.25)}
+.b-con{background:rgba(245,158,11,.1);color:#fcd34d;border:1px solid rgba(245,158,11,.25)}
+.b-apt{background:rgba(14,165,233,.1);color:#7dd3fc;border:1px solid rgba(14,165,233,.25)}
+.b-cmp{background:rgba(201,168,76,.1);color:var(--gl);border:1px solid rgba(201,168,76,.25)}
+.bsm{padding:5px 11px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;transition:all .18s;font-family:inherit}
+.bg{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.22);color:var(--g)}
+.bg:hover{background:rgba(201,168,76,.18)}
+.bbl{background:rgba(14,165,233,.08);border:1px solid rgba(14,165,233,.22);color:#7dd3fc}
+.bbl:hover{background:rgba(14,165,233,.18)}
+.brd{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.22);color:#fca5a5}
+.bam{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.22);color:#fcd34d}
+.acts{display:flex;gap:5px}
+
+/* ══════════════════════════════
+   GRID HELPERS
+══════════════════════════════ */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+
+/* ══════════════════════════════
+   VENDOR CARDS
+══════════════════════════════ */
+.vc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.vc{background:var(--b1);border:1px solid rgba(201,168,76,.09);border-radius:12px;padding:18px;text-align:center;cursor:pointer;transition:all .25s var(--ease)}
+.vc:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.3);box-shadow:0 12px 28px rgba(0,0,0,.35)}
+.vc-av{width:52px;height:52px;border-radius:14px;background:var(--gg);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#000;margin:0 auto 10px;overflow:hidden}
+.vc-av img{width:100%;height:100%;object-fit:contain;background:#fff}
+.vc-name{font-family:var(--fm);font-size:13px;font-weight:700;color:var(--t0);margin-bottom:3px}
+.vc-loc{font-size:11px;color:var(--t3);margin-bottom:6px}
+.vc-sc{font-size:12px;color:var(--g);font-weight:700}
+
+/* ══════════════════════════════
+   RECOMMENDED CARDS
+══════════════════════════════ */
+.rec-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.rec{background:var(--b1);border:1px solid rgba(201,168,76,.1);border-radius:12px;padding:18px 14px;text-align:center;cursor:pointer;transition:all .25s var(--ease)}
+.rec:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.35);box-shadow:0 12px 28px rgba(0,0,0,.3)}
+.rec-ic{font-size:26px;margin-bottom:8px}
+.rec-t{font-size:13px;font-weight:700;color:var(--t0);margin-bottom:4px}
+.rec-d{font-size:11px;color:var(--t2);line-height:1.5}
+
+/* ══════════════════════════════
+   ACTIVITY FEED
+══════════════════════════════ */
+.af-it{display:flex;align-items:flex-start;gap:13px;padding:13px 14px;border-radius:10px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);transition:background .2s;margin-bottom:8px}
+.af-it:last-child{margin-bottom:0}
+.af-it:hover{background:rgba(201,168,76,.04);border-color:rgba(201,168,76,.13)}
+.af-dot{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.d-go{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2)}
+.d-bl{background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.2)}
+.d-gr{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.2)}
+.d-pu{background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.2)}
+.d-rd{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.2)}
+.af-tx{font-size:13px;color:var(--t1);line-height:1.55}
+.af-tm{font-size:11px;color:var(--t3);margin-top:3px}
+
+/* ══════════════════════════════
+   NOTIFICATIONS
+══════════════════════════════ */
+.nf-it{display:flex;align-items:flex-start;gap:12px;padding:13px;border-radius:10px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);transition:background .2s;margin-bottom:8px}
+.nf-it:last-child{margin-bottom:0}
+.nf-it:hover{background:rgba(201,168,76,.04);border-color:rgba(201,168,76,.13)}
+.nf-ic{width:34px;height:34px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.ni-go{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2)}
+.ni-bl{background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.2)}
+.ni-gr{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.2)}
+.ni-rd{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.2)}
+.nf-tx{font-size:13px;color:var(--t1);line-height:1.5}
+.nf-tm{font-size:11px;color:var(--t3);margin-top:2px}
+.nf-unread .nf-tx::after{content:'●';font-size:7px;margin-left:7px;color:var(--g);vertical-align:middle}
+
+/* ══════════════════════════════
+   APPOINTMENT CARDS
+══════════════════════════════ */
+.apt{padding:16px;border-radius:12px;background:rgba(255,255,255,.025);border:1px solid rgba(201,168,76,.08);margin-bottom:10px;transition:all .2s}
+.apt:last-child{margin-bottom:0}
+.apt:hover{background:rgba(201,168,76,.04);border-color:rgba(201,168,76,.18)}
+.apt-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;gap:12px}
+.apt-name{font-size:14px;font-weight:700;color:var(--t0)}
+.apt-svc{font-size:11px;color:var(--g);margin-top:2px}
+.apt-meta{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:10px}
+.apt-m{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t2)}
+.apt-acts{display:flex;gap:8px}
+
+/* ══════════════════════════════
+   CALCULATORS
+══════════════════════════════ */
+.calc-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.ctab{padding:8px 18px;border-radius:8px;font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--t2);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);cursor:pointer;transition:all .2s}
+.ctab:hover{color:var(--t1);border-color:rgba(201,168,76,.2)}
+.ctab.active{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.35);color:var(--g)}
+.cp{display:none}
+.cp.active{display:block;animation:fadeUp .25s var(--ease)}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:end}
+.flbl{display:block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+.fi{width:100%;padding:11px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.16);border-radius:10px;color:var(--t0);font-size:13px;font-family:inherit;outline:none;transition:border-color .2s,box-shadow .2s}
+.fi::placeholder{color:var(--t3)}
+.fi:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(201,168,76,.1)}
+.fi option{background:var(--b1)}
+.calc-res{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:16px 20px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.cr-lbl{font-size:12px;color:var(--t2)}
+.cr-val{font-family:var(--fm);font-size:22px;font-weight:800;background:var(--gg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.btn-calc{padding:11px 28px;background:var(--gg);color:#000;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;font-family:var(--fm)}
+.btn-calc:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.35)}
+
+/* ══════════════════════════════
+   NEWS
+══════════════════════════════ */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.nc{background:var(--b1);border:1px solid rgba(201,168,76,.08);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:all .25s var(--ease)}
+.nc:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.28);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.nc-img{height:120px;background:linear-gradient(135deg,var(--b2),var(--b3));display:flex;align-items:center;justify-content:center;font-size:32px}
+.nc-body{padding:14px}
+.nc-cat{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--g);margin-bottom:5px}
+.nc-t{font-size:13px;font-weight:700;color:var(--t0);line-height:1.45;margin-bottom:6px}
+.nc-meta{font-size:11px;color:var(--t3);display:flex;justify-content:space-between}
+
+/* ══════════════════════════════
+   PROFILE
+══════════════════════════════ */
+.pg{display:grid;grid-template-columns:260px 1fr;gap:20px}
+.pcard{background:var(--b1);border:1px solid rgba(201,168,76,.12);border-radius:var(--r);padding:24px;text-align:center}
+.pav{width:80px;height:80px;border-radius:50%;margin:0 auto 14px;background:var(--gg);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;color:#000;border:3px solid rgba(201,168,76,.4);position:relative;cursor:pointer}
+.pav-e{position:absolute;bottom:0;right:0;width:24px;height:24px;border-radius:50%;background:var(--b0);border:1.5px solid var(--g);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--g)}
+.p-name{font-family:var(--fm);font-size:17px;font-weight:700;color:var(--t0);margin-bottom:3px}
+.p-mob{font-size:12px;color:var(--t3);margin-bottom:12px}
+.p-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);font-size:10px;font-weight:700;color:var(--g);margin-bottom:16px}
+.p-sep{height:1px;background:rgba(201,168,76,.1);margin:14px 0}
+.p-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--t2);margin-bottom:8px}
+.p-row span:first-child{color:var(--t3)}
+.ps-block{background:var(--b1);border:1px solid rgba(201,168,76,.08);border-radius:var(--r);padding:20px}
+.ps-title{font-size:13px;font-weight:700;color:var(--t0);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ps-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;color:var(--t1)}
+.ps-row:last-child{border-bottom:none;padding-bottom:0}
+.ps-row span:first-child{color:var(--t2);font-size:12px}
+.tsw{position:relative;width:40px;height:22px;cursor:pointer;display:inline-block}
+.tsw input{opacity:0;width:0;height:0;position:absolute}
+.tsw .trk{position:absolute;inset:0;border-radius:11px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);transition:background .2s}
+.tsw input:checked+.trk{background:rgba(201,168,76,.35);border-color:rgba(201,168,76,.5)}
+.tsw .thm{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s}
+.tsw input:checked~.thm{transform:translateX(18px);background:var(--g)}
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.1);padding:38px 0 24px}
+.ft-in{padding:0 32px}
+.ft-g{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px;margin-bottom:26px}
+.ft-brand img{height:36px;margin-bottom:11px}
+.ft-brand p{font-size:13px;color:var(--t2);line-height:1.7;max-width:280px}
+.ft-col h4{font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--g);margin-bottom:13px}
+.ft-col a{display:block;font-size:13px;color:var(--t2);margin-bottom:8px;transition:color .2s}
+.ft-col a:hover{color:var(--g)}
+.ft-bot{border-top:1px solid rgba(201,168,76,.07);padding-top:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ft-copy{font-size:12px;color:var(--t3)}
+.ft-tl{font-family:var(--fd);font-size:13px;color:rgba(201,168,76,.45);font-style:italic}
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media(max-width:1200px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .qa-grid{grid-template-columns:repeat(2,1fr)}
+  .rec-grid{grid-template-columns:repeat(3,1fr)}
+  .stats-row{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:1024px){
+  .g2{grid-template-columns:1fr}
+  .news-grid{grid-template-columns:1fr 1fr}
+  .pg{grid-template-columns:1fr}
+  .ft-g{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+  #sidebar{transform:translateX(-100%)}
+  #sidebar.open{transform:translateX(0)}
+  #wrap{margin-left:0}
+}
+@media(max-width:600px){
+  .sec{padding:20px 16px 0}
+  .wb{margin:18px 16px 0;padding:20px 18px}
+  .wb-h1{font-size:22px}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .qa-grid{grid-template-columns:1fr}
+  .vc-grid{grid-template-columns:1fr 1fr}
+  .rec-grid{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .wb-inner{flex-direction:column;align-items:flex-start}
+  .calc-grid{grid-template-columns:1fr}
+  .ft-g{grid-template-columns:1fr;padding:0 16px}
+  .ft-in{padding:0 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav id="nav">
+  <div class="nav-l">
+    <button class="sb-btn" onclick="toggleSB()">☰</button>
+    <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
+  </div>
+  <div class="nav-r">
+    <a href="index.html" class="nav-back">← Back to Home</a>
+    <div class="nav-user-chip">👤 User</div>
+    <button class="ni-btn" onclick="navPanel('notifications')">🔔<span class="n-dot"></span></button>
+    <div class="pd-wrap">
+      <div class="nav-av" onclick="toggleDrop()">R</div>
+      <div class="pd" id="pdrop">
+        <div class="pd-item" onclick="navPanel('profile')">👤 My Profile</div>
+        <div class="pd-item" onclick="navPanel('enquiries')">📋 My Enquiries</div>
+        <div class="pd-item" onclick="navPanel('appointments')">📅 Appointments</div>
+        <div class="pd-sep"></div>
+        <div class="pd-item" style="color:#fca5a5" onclick="window.location='login.html'">🚪 Logout</div>
+      </div>
+    </div>
+    <button id="theme-toggle" class="nav-theme" onclick="TM.toggle()">🌙</button>
+  </div>
+</nav>
+
+<!-- ══ SIDEBAR ══ -->
+<aside id="sidebar">
+  <div class="sb-sec">
+    <div class="sb-lbl">Overview</div>
+    <div class="sb-it active" data-panel="dashboard"><span class="sb-ic">🏠</span>Dashboard</div>
+    <div class="sb-it" data-panel="enquiries"><span class="sb-ic">📋</span>My Enquiries<span class="sb-bx">3</span></div>
+    <div class="sb-it" data-panel="appointments"><span class="sb-ic">📅</span>Appointments<span class="sb-bx g">2</span></div>
+    <div class="sb-sep"></div>
+    <div class="sb-lbl">Services</div>
+    <div class="sb-it" data-panel="services"><span class="sb-ic">⚡</span>Quick Services</div>
+    <div class="sb-it" data-panel="vendors"><span class="sb-ic">🏢</span>Saved Vendors<span class="sb-bx g">8</span></div>
+    <div class="sb-it" data-panel="calculators"><span class="sb-ic">🧮</span>Calculators</div>
+    <div class="sb-sep"></div>
+    <div class="sb-lbl">Info</div>
+    <div class="sb-it" data-panel="news"><span class="sb-ic">📰</span>Gold News</div>
+    <div class="sb-it" data-panel="notifications"><span class="sb-ic">🔔</span>Notifications<span class="sb-bx">3</span></div>
+    <div class="sb-it" data-panel="profile"><span class="sb-ic">👤</span>Profile &amp; Settings</div>
+  </div>
+
+  <!-- Live gold rates -->
+  <div class="sb-rates">
+    <div class="sbr-title">Live Gold Rates</div>
+    <div class="sbr-row"><span class="sbr-k">24K</span><span class="sbr-v">₹7,284/g</span><span class="sbr-chg up">▲ 0.42%</span></div>
+    <div class="sbr-row"><span class="sbr-k">22K</span><span class="sbr-v">₹6,677/g</span><span class="sbr-chg up">▲ 0.38%</span></div>
+    <div class="sbr-row"><span class="sbr-k">18K</span><span class="sbr-v">₹5,463/g</span><span class="sbr-chg dn">▼ 0.05%</span></div>
+  </div>
+</aside>
+
+<!-- ══ MAIN ══ -->
+<div id="wrap">
+<div id="content">
+
+<!-- ════════════ DASHBOARD ════════════ -->
+<div id="p-dashboard" class="panel active">
+
+  <!-- Welcome Banner -->
+  <div class="wb">
+    <div class="wb-inner">
+      <div>
+        <div class="wb-eye">User Dashboard</div>
+        <h1 class="wb-h1">Welcome Back, <span>Rahul</span> 👋</h1>
+        <p class="wb-sub">Explore trusted gold services and manage your opportunities from one place.</p>
+        <div class="wb-chips">
+          <div class="wchip">📍 Bangalore, KA</div>
+          <div class="wchip">✓ Verified User</div>
+          <div class="wchip">📅 <span id="wdate"></span></div>
+        </div>
+      </div>
+      <div class="wb-rates">
+        <div class="rc"><div class="rc-k">24K Gold</div><div class="rc-p">₹7,284</div><div class="rc-u">per gram</div><div class="rc-c up">▲ 0.42%</div></div>
+        <div class="rc"><div class="rc-k">22K Gold</div><div class="rc-p">₹6,677</div><div class="rc-u">per gram</div><div class="rc-c up">▲ 0.38%</div></div>
+        <div class="rc"><div class="rc-k">18K Gold</div><div class="rc-p">₹5,463</div><div class="rc-u">per gram</div><div class="rc-c dn">▼ 0.05%</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="sec" style="padding-top:20px">
+    <div class="stats-row">
+      <div class="stat"><div class="stat-n">3</div><div class="stat-l">Active Enquiries</div></div>
+      <div class="stat"><div class="stat-n">2</div><div class="stat-l">Appointments</div></div>
+      <div class="stat"><div class="stat-n">5</div><div class="stat-l">Vendor Responses</div></div>
+      <div class="stat"><div class="stat-n">8</div><div class="stat-l">Saved Vendors</div></div>
+      <div class="stat"><div class="stat-n">12</div><div class="stat-l">Completed</div></div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Quick Services</div><span class="sh-a" onclick="navPanel('services')">All Services →</span></div>
+    <div class="qa-grid">
+      <div class="qa" onclick="navPanel('services')"><div class="qa-ic">🏦</div><div class="qa-t">Gold Loan</div><div class="qa-d">Explore loan opportunities from trusted providers near you.</div><div class="qa-go">Explore →</div></div>
+      <div class="qa" onclick="navPanel('services')"><div class="qa-ic">💰</div><div class="qa-t">Gold Sell</div><div class="qa-d">Discover vendors interested in buying at best market rates.</div><div class="qa-go">Discover →</div></div>
+      <div class="qa" onclick="navPanel('services')"><div class="qa-ic">🔄</div><div class="qa-t">Gold Exchange</div><div class="qa-d">Upgrade old jewellery with minimal making charges.</div><div class="qa-go">Browse →</div></div>
+      <div class="qa" onclick="navPanel('vendors')"><div class="qa-ic">📍</div><div class="qa-t">Find Vendors</div><div class="qa-d">Browse trusted verified vendors near your location.</div><div class="qa-go">Find →</div></div>
+    </div>
+  </div>
+
+  <!-- Recent Enquiries + Activity -->
+  <div class="sec">
+    <div class="g2">
+      <div>
+        <div class="sh"><div class="sh-t">Recent Enquiries</div><span class="sh-a" onclick="navPanel('enquiries')">View All →</span></div>
+        <div class="card" style="overflow-x:auto;padding:0">
+          <table class="tbl">
+            <thead><tr><th>Enquiry ID</th><th>Service</th><th>Vendor</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><span class="tid">#ENQ-0091</span></td><td>Gold Loan</td><td>Muthoot Finance</td><td><span class="bdg b-apt">Appointment</span></td><td><button class="bsm bg">View</button></td></tr>
+              <tr><td><span class="tid">#ENQ-0082</span></td><td>Gold Sell</td><td>KGN Jewellers</td><td><span class="bdg b-acc">Accepted</span></td><td><button class="bsm bg">View</button></td></tr>
+              <tr><td><span class="tid">#ENQ-0074</span></td><td>Gold Exchange</td><td>Tanishq</td><td><span class="bdg b-con">Contacted</span></td><td><button class="bsm bg">View</button></td></tr>
+              <tr><td><span class="tid">#ENQ-0059</span></td><td>Gold Loan</td><td>HDFC Gold</td><td><span class="bdg b-cmp">Completed</span></td><td><button class="bsm bg">View</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="sh"><div class="sh-t">Vendor Responses</div><span class="sh-a" onclick="navPanel('enquiries')">All Responses →</span></div>
+        <div class="card">
+          <div class="af-it"><div class="af-dot d-go">🏦</div><div><div class="af-tx"><strong>Muthoot Finance</strong> accepted your Gold Loan — ₹2.4L at 9.5%</div><div class="af-tm">Jun 8 · Appointment set Jun 12</div></div><button class="bsm bg" style="flex-shrink:0">View</button></div>
+          <div class="af-it"><div class="af-dot d-bl">💰</div><div><div class="af-tx"><strong>KGN Jewellers</strong> offered ₹7,180/gram for Gold Sell</div><div class="af-tm">Jun 5 · Accepted</div></div><button class="bsm bg" style="flex-shrink:0">View</button></div>
+          <div class="af-it"><div class="af-dot d-gr">🔄</div><div><div class="af-tx"><strong>Tanishq</strong> — Exchange + ₹4,200 upgrade offer</div><div class="af-tm">Jun 1 · Contacted</div></div><button class="bsm bg" style="flex-shrink:0">View</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notifications preview -->
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Recent Notifications</div><span class="sh-a" onclick="navPanel('notifications')">All →</span></div>
+    <div class="g2">
+      <div class="card" style="padding:16px">
+        <div class="nf-it nf-unread"><div class="nf-ic ni-go">🏦</div><div><div class="nf-tx">Muthoot Finance accepted your Gold Loan enquiry.</div><div class="nf-tm">2 hours ago</div></div></div>
+        <div class="nf-it nf-unread"><div class="nf-ic ni-bl">📅</div><div><div class="nf-tx">Appointment confirmed at Muthoot Finance — Jun 12, 10:30 AM.</div><div class="nf-tm">3 hours ago</div></div></div>
+        <div class="nf-it"><div class="nf-ic ni-gr">💬</div><div><div class="nf-tx">KGN Jewellers responded to your Gold Sell enquiry.</div><div class="nf-tm">Yesterday</div></div></div>
+      </div>
+      <div class="card" style="padding:20px">
+        <div style="font-family:var(--fm);font-size:13px;font-weight:700;color:var(--t0);margin-bottom:12px">Upcoming Appointment</div>
+        <div class="apt" style="margin-bottom:0">
+          <div class="apt-top"><div><div class="apt-name">Muthoot Finance</div><div class="apt-svc">Gold Loan Assessment</div></div><span class="bdg b-apt">Confirmed</span></div>
+          <div class="apt-meta">
+            <div class="apt-m">📅 Jun 12, 2026</div>
+            <div class="apt-m">⏰ 10:30 AM</div>
+            <div class="apt-m">📍 Jayanagar Branch</div>
+          </div>
+          <div class="apt-acts"><button class="bsm bg">Details</button><button class="bsm bam">Reschedule</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ MY ENQUIRIES ════════════ -->
+<div id="p-enquiries" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">My Enquiries</div><span style="font-size:12px;color:var(--t3)">15 total · 3 active</span></div>
+    <div class="card" style="overflow-x:auto;padding:0">
+      <table class="tbl">
+        <thead><tr><th>Enquiry ID</th><th>Service Type</th><th>Vendor Assigned</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tid">#ENQ-2406-0091</span></td><td>Gold Loan</td><td>Muthoot Finance, Jayanagar</td><td>Jun 8, 2026</td><td><span class="bdg b-apt">Appointment Scheduled</span></td><td><div class="acts"><button class="bsm bg">View</button></div></td></tr>
+          <tr><td><span class="tid">#ENQ-2406-0082</span></td><td>Gold Sell</td><td>KGN Jewellers</td><td>Jun 5, 2026</td><td><span class="bdg b-acc">Vendor Accepted</span></td><td><div class="acts"><button class="bsm bg">View</button></div></td></tr>
+          <tr><td><span class="tid">#ENQ-2406-0074</span></td><td>Gold Exchange</td><td>Tanishq, Koramangala</td><td>Jun 1, 2026</td><td><span class="bdg b-con">Vendor Contacted</span></td><td><div class="acts"><button class="bsm bg">View</button></div></td></tr>
+          <tr><td><span class="tid">#ENQ-2405-0059</span></td><td>Gold Loan</td><td>HDFC Gold Loan</td><td>May 22, 2026</td><td><span class="bdg b-cmp">Completed</span></td><td><div class="acts"><button class="bsm bg">View</button></div></td></tr>
+          <tr><td><span class="tid">#ENQ-2405-0041</span></td><td>Gold Insurance</td><td>—</td><td>May 10, 2026</td><td><span class="bdg b-sub">Submitted</span></td><td><div class="acts"><button class="bsm bg">View</button></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ APPOINTMENTS ════════════ -->
+<div id="p-appointments" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Upcoming Appointments</div><span style="font-size:12px;color:var(--t3)">2 upcoming</span></div>
+    <div class="card">
+      <div class="apt">
+        <div class="apt-top"><div><div class="apt-name">Muthoot Finance</div><div class="apt-svc">Gold Loan Assessment</div></div><span class="bdg b-apt">Confirmed</span></div>
+        <div class="apt-meta"><div class="apt-m">📅 Jun 12, 2026</div><div class="apt-m">⏰ 10:30 AM</div><div class="apt-m">📍 Jayanagar Branch</div><div class="apt-m">📞 +91 98001 23456</div></div>
+        <div class="apt-acts"><button class="bsm bg">View Details</button><button class="bsm bam">Reschedule</button><button class="bsm brd">Cancel</button></div>
+      </div>
+      <div class="apt">
+        <div class="apt-top"><div><div class="apt-name">KGN Jewellers</div><div class="apt-svc">Gold Sell Valuation</div></div><span class="bdg b-sub">Pending Confirm</span></div>
+        <div class="apt-meta"><div class="apt-m">📅 Jun 15, 2026</div><div class="apt-m">⏰ 3:00 PM</div><div class="apt-m">📍 BTM Layout</div><div class="apt-m">📞 +91 97400 56789</div></div>
+        <div class="apt-acts"><button class="bsm bg">View Details</button><button class="bsm bam">Reschedule</button><button class="bsm brd">Cancel</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ SERVICES ════════════ -->
+<div id="p-services" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Gold Services</div></div>
+    <div class="qa-grid">
+      <div class="qa"><div class="qa-ic">🏦</div><div class="qa-t">Gold Loan</div><div class="qa-d">Quick loans against your gold jewellery. Get up to 75% LTV from trusted NBFCs.</div><div class="qa-go">Request Enquiry →</div></div>
+      <div class="qa"><div class="qa-ic">💰</div><div class="qa-t">Gold Sell</div><div class="qa-d">Sell gold at best transparent market rates. Compare offers from multiple vendors.</div><div class="qa-go">Get Offers →</div></div>
+      <div class="qa"><div class="qa-ic">🔄</div><div class="qa-t">Gold Exchange</div><div class="qa-d">Upgrade old jewellery to new designs with minimal exchange charges.</div><div class="qa-go">Explore →</div></div>
+      <div class="qa"><div class="qa-ic">🪙</div><div class="qa-t">Gold Savings</div><div class="qa-d">Accumulate gold through monthly SIP plans with trusted jewellers.</div><div class="qa-go">Start SIP →</div></div>
+      <div class="qa" style="grid-column:span 2 / span 2"><div class="qa-ic">🛡️</div><div class="qa-t">Gold Insurance</div><div class="qa-d">Protect your gold assets with comprehensive jewellery and asset insurance plans.</div><div class="qa-go">Get Covered →</div></div>
+    </div>
+
+    <div style="margin-top:28px">
+      <div class="sh"><div class="sh-t">Recommended For You</div></div>
+      <div class="rec-grid">
+        <div class="rec"><div class="rec-ic">🏦</div><div class="rec-t">Gold Loan</div><div class="rec-d">Popular with users in your area</div></div>
+        <div class="rec"><div class="rec-ic">💰</div><div class="rec-t">Gold Sell</div><div class="rec-d">Best rates available this week</div></div>
+        <div class="rec"><div class="rec-ic">🔄</div><div class="rec-t">Gold Exchange</div><div class="rec-d">Based on your past activity</div></div>
+        <div class="rec"><div class="rec-ic">🪙</div><div class="rec-t">Gold Savings</div><div class="rec-d">Growing demand near you</div></div>
+        <div class="rec"><div class="rec-ic">🛡️</div><div class="rec-t">Gold Insurance</div><div class="rec-d">Protect your assets today</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ SAVED VENDORS ════════════ -->
+<div id="p-vendors" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Saved Vendors</div><span style="font-size:12px;color:var(--t3)">8 saved</span></div>
+    <div class="vc-grid">
+      <div class="vc">
+        <div class="vc-av"><img src="images/jeweler-logos/muthoot-finance.png" alt="M" onerror="this.style.display='none'"/></div>
+        <div class="vc-name">Muthoot Finance</div><div class="vc-loc">📍 Jayanagar, BLR</div>
+        <div class="vc-sc">⭐ 4.8 Trust Score</div>
+        <button class="bsm bg" style="width:100%;margin-top:10px">View Profile</button>
+      </div>
+      <div class="vc">
+        <div class="vc-av"><img src="images/jeweler-logos/tanishq.png" alt="T" onerror="this.style.display='none'"/></div>
+        <div class="vc-name">Tanishq</div><div class="vc-loc">📍 Koramangala, BLR</div>
+        <div class="vc-sc">⭐ 4.9 Trust Score</div>
+        <button class="bsm bg" style="width:100%;margin-top:10px">View Profile</button>
+      </div>
+      <div class="vc">
+        <div class="vc-av"><img src="images/jeweler-logos/kalyan-jewellers.png" alt="K" onerror="this.style.display='none'"/></div>
+        <div class="vc-name">Kalyan Jewellers</div><div class="vc-loc">📍 Indiranagar, BLR</div>
+        <div class="vc-sc">⭐ 4.7 Trust Score</div>
+        <button class="bsm bg" style="width:100%;margin-top:10px">View Profile</button>
+      </div>
+      <div class="vc">
+        <div class="vc-av"><img src="images/jeweler-logos/malabar-gold.png" alt="MG" onerror="this.style.display='none'"/></div>
+        <div class="vc-name">Malabar Gold</div><div class="vc-loc">📍 Malleshwaram, BLR</div>
+        <div class="vc-sc">⭐ 4.8 Trust Score</div>
+        <button class="bsm bg" style="width:100%;margin-top:10px">View Profile</button>
+      </div>
+      <div class="vc">
+        <div class="vc-av"><img src="images/jeweler-logos/joyalukkas.png" alt="J" onerror="this.style.display='none'"/></div>
+        <div class="vc-name">Joyalukkas</div><div class="vc-loc">📍 HSR Layout, BLR</div>
+        <div class="vc-sc">⭐ 4.6 Trust Score</div>
+        <button class="bsm bg" style="width:100%;margin-top:10px">View Profile</button>
+      </div>
+      <div class="vc">
+        <div class="vc-av"><img src="images/jeweler-logos/iifl-finance.png" alt="I" onerror="this.style.display='none'"/></div>
+        <div class="vc-name">IIFL Finance</div><div class="vc-loc">📍 Whitefield, BLR</div>
+        <div class="vc-sc">⭐ 4.5 Trust Score</div>
+        <button class="bsm bg" style="width:100%;margin-top:10px">View Profile</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ CALCULATORS ════════════ -->
+<div id="p-calculators" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Gold Calculators</div></div>
+    <div class="card">
+      <div class="calc-tabs">
+        <button class="ctab active" onclick="switchCalc('loan',this)">Gold Loan</button>
+        <button class="ctab" onclick="switchCalc('sell',this)">Gold Sell</button>
+        <button class="ctab" onclick="switchCalc('value',this)">Gold Value</button>
+        <button class="ctab" onclick="switchCalc('insure',this)">Gold Insurance</button>
+      </div>
+      <!-- Loan -->
+      <div id="cc-loan" class="cp active">
+        <div class="calc-grid">
+          <div><label class="flbl">Gold Weight (grams)</label><input type="number" class="fi" id="l-wt" placeholder="e.g. 20" min="1"/></div>
+          <div><label class="flbl">Purity</label><select class="fi" id="l-pur"><option value="24">24K (99.9%)</option><option value="22" selected>22K (91.6%)</option><option value="18">18K (75%)</option></select></div>
+          <div><label class="flbl">LTV Ratio</label><select class="fi" id="l-ltv"><option value="75">75% (Standard)</option><option value="65">65% (Conservative)</option><option value="85">85% (Premium)</option></select></div>
+          <div style="display:flex;align-items:flex-end"><button class="btn-calc" onclick="calcLoan()">Calculate</button></div>
+        </div>
+        <div class="calc-res" id="loan-res" style="display:none">
+          <div><div class="cr-lbl">Estimated Loan Amount</div><div class="cr-val" id="loan-val">—</div></div>
+          <div><div class="cr-lbl">Gold Value</div><div style="font-size:16px;font-weight:700;color:var(--t1)" id="loan-gv">—</div></div>
+          <div><div class="cr-lbl">Rate Used</div><div style="font-size:13px;color:var(--t2)" id="loan-rt">—</div></div>
+        </div>
+      </div>
+      <!-- Sell -->
+      <div id="cc-sell" class="cp">
+        <div class="calc-grid">
+          <div><label class="flbl">Gold Weight (grams)</label><input type="number" class="fi" id="s-wt" placeholder="e.g. 10" min="1"/></div>
+          <div><label class="flbl">Purity</label><select class="fi" id="s-pur"><option value="24">24K</option><option value="22" selected>22K</option><option value="18">18K</option></select></div>
+          <div><label class="flbl">Making Charges Deduction (%)</label><input type="number" class="fi" id="s-mc" placeholder="e.g. 5" min="0" max="30" value="5"/></div>
+          <div style="display:flex;align-items:flex-end"><button class="btn-calc" onclick="calcSell()">Calculate</button></div>
+        </div>
+        <div class="calc-res" id="sell-res" style="display:none">
+          <div><div class="cr-lbl">Estimated Sale Value</div><div class="cr-val" id="sell-val">—</div></div>
+          <div><div class="cr-lbl">Market Value</div><div style="font-size:16px;font-weight:700;color:var(--t1)" id="sell-mv">—</div></div>
+          <div><div class="cr-lbl">Deduction</div><div style="font-size:13px;color:var(--t2)" id="sell-ded">—</div></div>
+        </div>
+      </div>
+      <!-- Value -->
+      <div id="cc-value" class="cp">
+        <div class="calc-grid">
+          <div><label class="flbl">Gold Weight (grams)</label><input type="number" class="fi" id="v-wt" placeholder="e.g. 50" min="1"/></div>
+          <div><label class="flbl">Purity</label><select class="fi" id="v-pur"><option value="24">24K (₹7,284/g)</option><option value="22" selected>22K (₹6,677/g)</option><option value="18">18K (₹5,463/g)</option></select></div>
+          <div style="display:flex;align-items:flex-end;grid-column:span 2"><button class="btn-calc" onclick="calcValue()">Calculate Value</button></div>
+        </div>
+        <div class="calc-res" id="value-res" style="display:none">
+          <div><div class="cr-lbl">Total Gold Value</div><div class="cr-val" id="value-val">—</div></div>
+          <div><div class="cr-lbl">Weight</div><div style="font-size:16px;font-weight:700;color:var(--t1)" id="value-wt">—</div></div>
+          <div><div class="cr-lbl">Rate</div><div style="font-size:13px;color:var(--t2)" id="value-rt">—</div></div>
+        </div>
+      </div>
+      <!-- Insurance -->
+      <div id="cc-insure" class="cp">
+        <div class="calc-grid">
+          <div><label class="flbl">Total Gold Value (₹)</label><input type="number" class="fi" id="i-val" placeholder="e.g. 500000" min="1"/></div>
+          <div><label class="flbl">Coverage Plan</label><select class="fi" id="i-plan"><option value="0.5">Basic (0.5% p.a.)</option><option value="0.8" selected>Standard (0.8% p.a.)</option><option value="1.2">Premium (1.2% p.a.)</option></select></div>
+          <div style="display:flex;align-items:flex-end;grid-column:span 2"><button class="btn-calc" onclick="calcInsure()">Calculate Premium</button></div>
+        </div>
+        <div class="calc-res" id="insure-res" style="display:none">
+          <div><div class="cr-lbl">Annual Premium</div><div class="cr-val" id="insure-val">—</div></div>
+          <div><div class="cr-lbl">Monthly Premium</div><div style="font-size:16px;font-weight:700;color:var(--t1)" id="insure-mo">—</div></div>
+          <div><div class="cr-lbl">Coverage</div><div style="font-size:13px;color:var(--t2)" id="insure-cov">—</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ GOLD NEWS ════════════ -->
+<div id="p-news" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Gold News &amp; Market Feed</div></div>
+    <div class="news-grid">
+      <div class="nc"><div class="nc-img">📈</div><div class="nc-body"><div class="nc-cat">Market Update</div><div class="nc-t">Gold hits 3-month high as US Fed signals rate pause</div><div class="nc-meta"><span>Jun 9, 2026</span><span style="color:var(--g)">Read →</span></div></div></div>
+      <div class="nc"><div class="nc-img">🏛️</div><div class="nc-body"><div class="nc-cat">RBI Policy</div><div class="nc-t">RBI revises gold loan LTV norms — what it means for borrowers</div><div class="nc-meta"><span>Jun 7, 2026</span><span style="color:var(--g)">Read →</span></div></div></div>
+      <div class="nc"><div class="nc-img">💎</div><div class="nc-body"><div class="nc-cat">Price Insight</div><div class="nc-t">India's gold demand surges 14% in Q1 2026 — WGC report</div><div class="nc-meta"><span>Jun 5, 2026</span><span style="color:var(--g)">Read →</span></div></div></div>
+      <div class="nc"><div class="nc-img">🌐</div><div class="nc-body"><div class="nc-cat">Global</div><div class="nc-t">China's central bank adds 8 tonnes of gold to reserves in May</div><div class="nc-meta"><span>Jun 4, 2026</span><span style="color:var(--g)">Read →</span></div></div></div>
+      <div class="nc"><div class="nc-img">🇮🇳</div><div class="nc-body"><div class="nc-cat">India</div><div class="nc-t">Akshaya Tritiya 2026 sees 22% jump in gold jewellery sales</div><div class="nc-meta"><span>Jun 2, 2026</span><span style="color:var(--g)">Read →</span></div></div></div>
+      <div class="nc"><div class="nc-img">📊</div><div class="nc-body"><div class="nc-cat">Analysis</div><div class="nc-t">Expert outlook: Gold expected to cross ₹8,000/gram by Q4 2026</div><div class="nc-meta"><span>Jun 1, 2026</span><span style="color:var(--g)">Read →</span></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ NOTIFICATIONS ════════════ -->
+<div id="p-notifications" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Notifications</div><span class="sh-a">Mark all read</span></div>
+    <div class="card" style="padding:16px">
+      <div class="nf-it nf-unread"><div class="nf-ic ni-go">🏦</div><div><div class="nf-tx">Muthoot Finance accepted your Gold Loan enquiry.</div><div class="nf-tm">2 hours ago</div></div></div>
+      <div class="nf-it nf-unread"><div class="nf-ic ni-bl">📅</div><div><div class="nf-tx">Appointment confirmed at Muthoot Finance — Jun 12, 10:30 AM.</div><div class="nf-tm">3 hours ago</div></div></div>
+      <div class="nf-it nf-unread"><div class="nf-ic ni-gr">💬</div><div><div class="nf-tx">New response received from KGN Jewellers for your Gold Sell enquiry.</div><div class="nf-tm">Yesterday</div></div></div>
+      <div class="nf-it"><div class="nf-ic ni-rd">⚠️</div><div><div class="nf-tx">Gold price alert: 24K gold crossed ₹7,200/gram.</div><div class="nf-tm">Jun 7, 2026</div></div></div>
+      <div class="nf-it"><div class="nf-ic ni-go">✅</div><div><div class="nf-tx">Your enquiry #ENQ-2405-0059 has been marked Completed.</div><div class="nf-tm">May 22, 2026</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ PROFILE ════════════ -->
+<div id="p-profile" class="panel">
+  <div class="sec">
+    <div class="sh"><div class="sh-t">Profile &amp; Settings</div></div>
+    <div class="pg">
+      <div class="pcard">
+        <div class="pav">R<div class="pav-e">✏️</div></div>
+        <div class="p-name">Rahul Sharma</div>
+        <div class="p-mob">+91 98765 43210</div>
+        <div class="p-tag">✓ Verified User</div>
+        <div class="p-sep"></div>
+        <div class="p-row"><span>Location</span><span>Bangalore, KA</span></div>
+        <div class="p-row"><span>Member Since</span><span>Jan 2025</span></div>
+        <div class="p-row"><span>Preferred Service</span><span>Gold Loan</span></div>
+        <div class="p-row"><span>Total Enquiries</span><span>15</span></div>
+        <div class="p-sep"></div>
+        <button class="bsm bg" style="width:100%;padding:10px">✏️ Edit Profile</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="ps-block">
+          <div class="ps-title">⚙️ Notification Settings</div>
+          <div class="ps-row"><span>Email Notifications</span><label class="tsw"><input type="checkbox" checked/><div class="trk"></div><div class="thm"></div></label></div>
+          <div class="ps-row"><span>SMS Alerts</span><label class="tsw"><input type="checkbox" checked/><div class="trk"></div><div class="thm"></div></label></div>
+          <div class="ps-row"><span>Gold Price Alerts</span><label class="tsw"><input type="checkbox"/><div class="trk"></div><div class="thm"></div></label></div>
+          <div class="ps-row"><span>WhatsApp Notifications</span><label class="tsw"><input type="checkbox" checked/><div class="trk"></div><div class="thm"></div></label></div>
+        </div>
+        <div class="ps-block">
+          <div class="ps-title">🛡️ Privacy &amp; Security</div>
+          <div class="ps-row"><span>Two-Factor Authentication</span><label class="tsw"><input type="checkbox" checked/><div class="trk"></div><div class="thm"></div></label></div>
+          <div class="ps-row"><span>Profile Visibility to Vendors</span><label class="tsw"><input type="checkbox" checked/><div class="trk"></div><div class="thm"></div></label></div>
+          <div class="ps-row"><span>Activity Tracking</span><label class="tsw"><input type="checkbox"/><div class="trk"></div><div class="thm"></div></label></div>
+        </div>
+        <div class="ps-block">
+          <div class="ps-title">📍 Preferred Services</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+            <span class="bdg b-cmp" style="cursor:pointer;padding:6px 14px">Gold Loan ✓</span>
+            <span class="bdg b-cmp" style="cursor:pointer;padding:6px 14px">Gold Sell ✓</span>
+            <span class="bdg b-sub" style="cursor:pointer;padding:6px 14px;opacity:.5">Gold Exchange</span>
+            <span class="bdg b-sub" style="cursor:pointer;padding:6px 14px;opacity:.5">Gold Savings</span>
+            <span class="bdg b-sub" style="cursor:pointer;padding:6px 14px;opacity:.5">Gold Insurance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="ft-in">
+    <div class="ft-g">
+      <div class="ft-brand"><img src="images/logo.png" alt="GoldBazaar"/><p>India's most trusted unified gold marketplace. Connecting gold owners with verified vendors across the country.</p></div>
+      <div class="ft-col"><h4>Services</h4><a href="#" onclick="navPanel('services');return false">Gold Loan</a><a href="#" onclick="navPanel('services');return false">Gold Sell</a><a href="#" onclick="navPanel('services');return false">Gold Exchange</a><a href="#" onclick="navPanel('services');return false">Gold Savings</a></div>
+      <div class="ft-col"><h4>Platform</h4><a href="index.html">Home</a><a href="login.html">Login</a><a href="#" onclick="navPanel('news');return false">Gold News</a><a href="#">Help Center</a></div>
+      <div class="ft-col"><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a><a href="#">Contact Us</a><a href="#">Support</a></div>
+    </div>
+    <div class="ft-bot">
+      <div class="ft-copy">© 2026 GoldBazaar Technologies Pvt. Ltd. All rights reserved.</div>
+      <div class="ft-tl">Explore Better Opportunities. Grow With Confidence.</div>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /wrap -->
+
+<script>
+/* ── Theme ── */
+const TM={K:'gb-theme',D:'dark',L:'light',
+  init(){this.set(localStorage.getItem(this.K)||this.D)},
+  get(){return document.documentElement.dataset.theme||this.D},
+  set(t){const v=t===this.L?this.L:this.D;document.documentElement.dataset.theme=v;localStorage.setItem(this.K,v);this.upd()},
+  toggle(){this.set(this.get()===this.D?this.L:this.D)},
+  upd(){const b=document.getElementById('theme-toggle');if(b)b.textContent=this.get()===this.D?'🌙':'☀️'}
+};
+
+/* ── Sidebar toggle ── */
+function toggleSB(){
+  const sb=document.getElementById('sidebar'),wr=document.getElementById('wrap');
+  if(window.innerWidth>900){
+    const c=sb.style.transform==='translateX(-100%)';
+    if(c){sb.style.transform='';wr.style.marginLeft='var(--sb)'}
+    else{sb.style.transform='translateX(-100%)';wr.style.marginLeft='0'}
+  }else{sb.classList.toggle('open')}
+}
+
+/* ── Panel navigation ── */
+function navPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  const p=document.getElementById('p-'+id);
+  if(p)p.classList.add('active');
+  document.querySelectorAll('.sb-it').forEach(it=>it.classList.toggle('active',it.dataset.panel===id));
+  if(window.innerWidth<=900)document.getElementById('sidebar').classList.remove('open');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.sb-it[data-panel]').forEach(it=>it.addEventListener('click',()=>navPanel(it.dataset.panel)));
+
+/* ── Dropdown ── */
+function toggleDrop(){document.getElementById('pdrop').classList.toggle('open')}
+document.addEventListener('click',e=>{if(!e.target.closest('.pd-wrap'))document.getElementById('pdrop').classList.remove('open')});
+
+/* ── Date ── */
+const wd=document.getElementById('wdate');
+if(wd)wd.textContent=new Date().toLocaleDateString('en-IN',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+
+/* ── Calculators ── */
+function switchCalc(id,btn){
+  document.querySelectorAll('.ctab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  document.querySelectorAll('.cp').forEach(p=>p.classList.remove('active'));
+  document.getElementById('cc-'+id).classList.add('active');
+}
+const R={24:7284,22:6677,18:5463};
+const fmt=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+function calcLoan(){
+  const wt=parseFloat(document.getElementById('l-wt').value)||0,pur=+document.getElementById('l-pur').value,ltv=+document.getElementById('l-ltv').value;
+  if(!wt){alert('Enter gold weight');return}
+  const gv=wt*R[pur],loan=gv*(ltv/100);
+  document.getElementById('loan-val').textContent=fmt(loan);document.getElementById('loan-gv').textContent=fmt(gv);document.getElementById('loan-rt').textContent=fmt(R[pur])+'/g ('+pur+'K)';
+  document.getElementById('loan-res').style.display='flex';
+}
+function calcSell(){
+  const wt=parseFloat(document.getElementById('s-wt').value)||0,pur=+document.getElementById('s-pur').value,mc=parseFloat(document.getElementById('s-mc').value)||0;
+  if(!wt){alert('Enter gold weight');return}
+  const mv=wt*R[pur],ded=mv*(mc/100);
+  document.getElementById('sell-val').textContent=fmt(mv-ded);document.getElementById('sell-mv').textContent=fmt(mv);document.getElementById('sell-ded').textContent=fmt(ded)+' ('+mc+'% deducted)';
+  document.getElementById('sell-res').style.display='flex';
+}
+function calcValue(){
+  const wt=parseFloat(document.getElementById('v-wt').value)||0,pur=+document.getElementById('v-pur').value;
+  if(!wt){alert('Enter gold weight');return}
+  document.getElementById('value-val').textContent=fmt(wt*R[pur]);document.getElementById('value-wt').textContent=wt+'g';document.getElementById('value-rt').textContent=fmt(R[pur])+'/g';
+  document.getElementById('value-res').style.display='flex';
+}
+function calcInsure(){
+  const val=parseFloat(document.getElementById('i-val').value)||0,pct=+document.getElementById('i-plan').value;
+  if(!val){alert('Enter gold value');return}
+  const ann=val*(pct/100);
+  document.getElementById('insure-val').textContent=fmt(ann);document.getElementById('insure-mo').textContent=fmt(ann/12);document.getElementById('insure-cov').textContent=fmt(val)+' full coverage';
+  document.getElementById('insure-res').style.display='flex';
+}
+
+/* ── Init ── */
+document.addEventListener('DOMContentLoaded',()=>TM.init());
+</script>
+</body>
+</html>
