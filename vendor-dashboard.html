@@ -521,6 +521,26 @@ footer{
 </head>
 <body>
 
+<!-- DEMO BANNER -->
+<div id="demo-bar" style="
+  position:fixed;top:0;left:0;right:0;z-index:9999;
+  background:linear-gradient(90deg,#9B7B2E,#C9A84C,#E8C96A,#C9A84C,#9B7B2E);
+  background-size:200% auto;
+  animation:demoBg 4s linear infinite;
+  color:#000;font-size:12px;font-weight:800;letter-spacing:.15em;
+  text-transform:uppercase;text-align:center;
+  padding:7px 16px;display:flex;align-items:center;justify-content:center;gap:10px;">
+  <span>⚡</span>
+  <span>Demo Mode — Sample data only. No real transactions.</span>
+  <span>⚡</span>
+</div>
+<style>
+  @keyframes demoBg{0%{background-position:0% center}100%{background-position:200% center}}
+  #nav{top:34px!important}
+  .sb{top:calc(34px + var(--nav))!important;height:calc(100vh - 34px - var(--nav))!important}
+  .main-content{padding-top:calc(34px + var(--nav) + 24px)!important}
+</style>
+
 <!-- ════════════════════════════
      TOP NAV
 ════════════════════════════ -->
