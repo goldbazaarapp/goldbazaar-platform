@@ -36,7 +36,7 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 /* NAV */
 #nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 32px;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
 #nav.scrolled{background:rgba(0,0,0,.94);backdrop-filter:blur(20px);border-color:rgba(201,168,76,.12)}
-.nav-logo img{height:44px;width:auto}
+.nav-logo img{height:56px;width:auto}
 .nav-center{display:flex;align-items:center;gap:4px}
 .nav-center a{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);padding:7px 12px;border-radius:7px;white-space:nowrap;transition:color .2s}
 .nav-center a:hover,.nav-center a.active{color:var(--g)}
@@ -106,10 +106,15 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 .ad-card-tag{font-size:10px;font-weight:700;padding:4px 10px;border:1px solid rgba(201,168,76,.3);border-radius:20px;color:var(--g)}
 .ad-card-cta{padding:8px 16px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:12px;font-weight:700;border-radius:6px;cursor:pointer;border:none}
 /* SERVICE TILES */
+/* MVP: 2 services only — centred pair */
+.svc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,420px));gap:24px;justify-content:center}
+@media(max-width:768px){.svc-grid{grid-template-columns:1fr 1fr;gap:14px}}
+@media(max-width:480px){.svc-grid{grid-template-columns:1fr;gap:12px}}
+/* re-enable below when more services are added:
 .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 @media(max-width:1100px){.svc-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:768px){.svc-grid{grid-template-columns:repeat(2,1fr);gap:14px}}
-@media(max-width:480px){.svc-grid{grid-template-columns:1fr;gap:12px}}
+@media(max-width:480px){.svc-grid{grid-template-columns:1fr;gap:12px}} */
 .svc-tile{display:flex;flex-direction:column;gap:14px;padding:22px 20px;background:var(--b3);border:1px solid rgba(201,168,76,.1);border-radius:18px;text-decoration:none;color:inherit;transition:all .28s var(--ease);position:relative;overflow:hidden;cursor:pointer}
 .svc-tile:hover{border-color:rgba(201,168,76,.3);transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.25)}
 html[data-theme="light"] .svc-tile{background:#fff;border-color:rgba(0,0,0,.07)}
@@ -241,7 +246,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
 .footer-logo .jeweler-logo-fallback{font-size:20px;display:none}
 .foot-inner{max-width:1200px;margin:0 auto;padding:48px 48px 24px}
 .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
-.foot-logo img{height:40px;margin-bottom:16px}
+.foot-logo img{height:60px;margin-bottom:16px}
 .foot-desc{font-size:13px;color:var(--text-tertiary);line-height:1.7;max-width:260px;margin-bottom:20px}
 .foot-socials{display:flex;gap:10px}
 .fsoc{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all .2s}
@@ -263,6 +268,220 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
 @media(max-width:1100px){.foot-grid{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr}.foot-inner{padding:32px 20px 20px}}
 @media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
+
+/* ===== SECTION BORDERS & ANIMATIONS ===== */
+.section,.section.alt{position:relative}
+.section::before,.section.alt::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:70%;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.18),transparent);pointer-events:none}
+.svc-tile{transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.svc-tile:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(201,168,76,.1)}
+.step{transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.step:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.3)}
+.why-card{transition:transform .3s var(--ease),border-color .3s}
+.why-card:hover{transform:translateY(-3px);border-color:rgba(201,168,76,.25)}
+.news-card-live{transition:transform .3s var(--ease),border-color .3s}
+.news-card-live:hover{transform:translateY(-3px);border-color:rgba(201,168,76,.2)}
+@keyframes pulseGold{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.0)}50%{box-shadow:0 0 0 6px rgba(201,168,76,.07)}}
+.svc-tile:hover{animation:pulseGold .8s ease}
+
+/* ===== COMING SOON STYLES ===== */
+.cs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:900px){.cs-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.cs-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:380px){.cs-grid{grid-template-columns:1fr}}
+.cs-tile{position:relative;padding:22px 18px;background:var(--b3);border:1px solid rgba(201,168,76,.08);border-radius:16px;overflow:hidden;cursor:default;transition:border-color .3s}
+.cs-tile:hover{border-color:rgba(201,168,76,.18)}
+.cs-overlay{position:absolute;inset:0;background:rgba(0,0,0,.3);z-index:1;display:flex;align-items:flex-start;justify-content:flex-end;padding:12px}
+.cs-badge{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);color:var(--g);padding:4px 10px;border-radius:20px}
+.cs-content{position:relative;z-index:2;opacity:.65}
+.cs-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:12px}
+.cs-name{font-size:15px;font-weight:800;color:var(--text-primary);margin-bottom:5px}
+.cs-desc{font-size:12px;color:var(--text-tertiary);line-height:1.55}
+.cs-eta{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(201,168,76,.55);margin-top:10px;display:flex;align-items:center;gap:5px}
+.cs-notify-row{text-align:center;margin-top:44px;padding:28px 0;border-top:1px solid rgba(201,168,76,.08)}
+.cs-notify-row p{font-size:14px;color:var(--text-tertiary);margin-bottom:16px}
+
+/* ===== LIGHT THEME — COMPREHENSIVE OVERRIDES ===== */
+html[data-theme="light"] #nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 2px 16px rgba(0,0,0,.1)}
+html[data-theme="light"] .nav-center a{color:rgba(0,0,0,.6)}
+html[data-theme="light"] .nav-center a:hover,html[data-theme="light"] .nav-center a.active{color:var(--g)}
+html[data-theme="light"] .hamburger span{background:#1a1a1a}
+html[data-theme="light"] .nav-vendor{border-color:rgba(0,0,0,.18);color:rgba(0,0,0,.65)}
+html[data-theme="light"] .nav-vendor:hover{border-color:var(--g);color:var(--g)}
+html[data-theme="light"] .nav-login{color:var(--g);border-color:rgba(201,168,76,.45)}
+html[data-theme="light"] .nav-logo img{filter:drop-shadow(0 1px 3px rgba(0,0,0,.12))}
+html[data-theme="light"] #mob-nav{background:rgba(255,255,255,.98);border-bottom-color:rgba(0,0,0,.08)}
+html[data-theme="light"] #mob-nav a{color:rgba(0,0,0,.65);border-bottom-color:rgba(0,0,0,.06)}
+html[data-theme="light"] #mob-nav a:hover{color:var(--g)}
+html[data-theme="light"] .btn-ghost{border-color:rgba(0,0,0,.18);color:rgba(0,0,0,.7);background:rgba(0,0,0,.04)}
+html[data-theme="light"] .btn-ghost:hover{border-color:var(--g);color:var(--g);background:rgba(201,168,76,.05)}
+html[data-theme="light"] .gold-widget{background:rgba(255,255,255,.9);border-color:rgba(201,168,76,.35);box-shadow:0 4px 20px rgba(0,0,0,.1)}
+html[data-theme="light"] .gold-widget-header{border-bottom-color:rgba(0,0,0,.06)}
+html[data-theme="light"] .gold-widget-rate{border-bottom-color:rgba(0,0,0,.06)}
+html[data-theme="light"] .contact-left h3{color:#1a1a1a}
+html[data-theme="light"] .contact-info-text{color:rgba(0,0,0,.65)}
+html[data-theme="light"] .why-card h3{color:#1a1a1a}
+html[data-theme="light"] .step-title{color:#1a1a1a}
+html[data-theme="light"] .step-icon{filter:none}
+html[data-theme="light"] .cs-eta{color:rgba(180,140,40,.8)}
+html[data-theme="light"] .cs-notify-row p{color:rgba(0,0,0,.5)}
+html[data-theme="light"] .cs-notify-row{border-top-color:rgba(0,0,0,.08)}
+html[data-theme="light"] .ad-banner{background:rgba(201,168,76,.04);border-color:rgba(201,168,76,.12)}
+html[data-theme="light"] .ticker-wrap{background:rgba(248,248,248,.95);border-color:rgba(0,0,0,.08)}
+html[data-theme="light"] .tick-item{color:rgba(0,0,0,.55)}
+html[data-theme="light"] .tick-sep{color:rgba(0,0,0,.2)}
+html[data-theme="light"] .ad-card{background:rgba(255,255,255,.95);border-color:rgba(0,0,0,.08)}
+html[data-theme="light"] .ad-card-title{color:#1a1a1a}
+html[data-theme="light"] .ad-card-scheme{color:rgba(0,0,0,.65)}
+html[data-theme="light"] .ad-card-detail-item{color:rgba(0,0,0,.5)}
+html[data-theme="light"] .ad-card-pct{color:#1a1a1a}
+html[data-theme="light"] .svc-arrow{color:rgba(0,0,0,.15)}
+html[data-theme="light"] .step{background:#fff;border-color:rgba(0,0,0,.08);box-shadow:0 2px 12px rgba(0,0,0,.05)}
+html[data-theme="light"] .step:hover{box-shadow:0 12px 32px rgba(0,0,0,.1)}
+html[data-theme="light"] .step-num{color:rgba(0,0,0,.08)}
+html[data-theme="light"] .step-desc{color:rgba(0,0,0,.5)}
+html[data-theme="light"] .trusted-vendors-banner{background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(201,168,76,.02));border-color:rgba(201,168,76,.2)}
+html[data-theme="light"] .trusted-title{color:rgba(0,0,0,.4)}
+html[data-theme="light"] .gb-tabs{background:#fff;border-color:rgba(0,0,0,.08)}
+html[data-theme="light"] .gb-tab{color:rgba(0,0,0,.4)}
+html[data-theme="light"] .gb-input-card,html[data-theme="light"] .gb-result-card{background:#fff;border-color:rgba(0,0,0,.08);box-shadow:0 2px 12px rgba(0,0,0,.05)}
+html[data-theme="light"] .gb-field-label{color:rgba(0,0,0,.45)}
+html[data-theme="light"] .gb-field select,html[data-theme="light"] .gb-field input[type=number]{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.12);color:#1a1a1a}
+html[data-theme="light"] .gb-input-prefix{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.12)}
+html[data-theme="light"] .gb-input-prefix input{color:#1a1a1a}
+html[data-theme="light"] .gb-result-hero-label{color:rgba(0,0,0,.45)}
+html[data-theme="light"] .gb-result-hero-sub{color:rgba(0,0,0,.45)}
+html[data-theme="light"] .gb-result-row-label{color:rgba(0,0,0,.5)}
+html[data-theme="light"] .gb-result-row-val{color:#1a1a1a}
+html[data-theme="light"] .gb-hint{color:rgba(0,0,0,.35)}
+html[data-theme="light"] .gb-insight{color:rgba(0,0,0,.6);background:rgba(201,168,76,.07);border-color:rgba(201,168,76,.2)}
+html[data-theme="light"] .gb-empty-text{color:rgba(0,0,0,.4)}
+html[data-theme="light"] .gb-rate-bar{background:rgba(201,168,76,.07);border-color:rgba(201,168,76,.15)}
+html[data-theme="light"] .gb-rate-bar-label{color:rgba(0,0,0,.45)}
+html[data-theme="light"] .news-card-live{background:#fff;border-color:rgba(0,0,0,.08);box-shadow:0 2px 12px rgba(0,0,0,.05)}
+html[data-theme="light"] .news-card-live:hover{box-shadow:0 12px 28px rgba(0,0,0,.1)}
+html[data-theme="light"] .news-card-source{color:rgba(0,0,0,.4)}
+html[data-theme="light"] .news-card-time{color:rgba(0,0,0,.35)}
+html[data-theme="light"] .news-sentiment-badge{color:rgba(0,0,0,.5);border-color:rgba(0,0,0,.12)}
+html[data-theme="light"] .why-card{background:#fff;border-color:rgba(0,0,0,.08);box-shadow:0 2px 12px rgba(0,0,0,.05)}
+html[data-theme="light"] .why-card:hover{box-shadow:0 12px 28px rgba(0,0,0,.1);border-color:rgba(201,168,76,.25)}
+html[data-theme="light"] .why-card-body{color:rgba(0,0,0,.5)}
+html[data-theme="light"] .contact-right{background:#fff;border-color:rgba(0,0,0,.08);box-shadow:0 2px 16px rgba(0,0,0,.06)}
+html[data-theme="light"] .cf-field label{color:rgba(0,0,0,.5)}
+html[data-theme="light"] .cf-field input,html[data-theme="light"] .cf-field select,html[data-theme="light"] .cf-field textarea{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.12);color:#1a1a1a}
+html[data-theme="light"] .cf-field input::placeholder,html[data-theme="light"] .cf-field textarea::placeholder{color:rgba(0,0,0,.3)}
+html[data-theme="light"] .cf-field input:focus,html[data-theme="light"] .cf-field select:focus,html[data-theme="light"] .cf-field textarea:focus{background:rgba(0,0,0,.02);border-color:rgba(201,168,76,.5)}
+html[data-theme="light"] .contact-info-icon{background:rgba(201,168,76,.12)}
+html[data-theme="light"] .contact-info-item{border-bottom-color:rgba(0,0,0,.06)}
+html[data-theme="light"] footer{background:#f5f5f0;border-top-color:rgba(0,0,0,.06)}
+html[data-theme="light"] .footer-partners-label{color:rgba(0,0,0,.4)}
+html[data-theme="light"] .footer-logo{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.08)}
+html[data-theme="light"] .foot-desc{color:rgba(0,0,0,.45)}
+html[data-theme="light"] .foot-col h4{color:#1a1a1a}
+html[data-theme="light"] .foot-col ul li a{color:rgba(0,0,0,.5)}
+html[data-theme="light"] .foot-col ul li a:hover{color:var(--g)}
+html[data-theme="light"] .foot-bottom{border-top-color:rgba(0,0,0,.08)}
+html[data-theme="light"] .foot-bottom p{color:rgba(0,0,0,.4)}
+html[data-theme="light"] .f-badge{color:rgba(0,0,0,.4);border-color:rgba(0,0,0,.15)}
+html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1);color:rgba(0,0,0,.5)}
+html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-color:var(--g);color:var(--g)}
+html[data-theme="light"] .rate-purity{color:rgba(0,0,0,.6)}
+html[data-theme="light"] .gold-widget-footer{color:rgba(0,0,0,.45);background:rgba(0,0,0,.03);border-top-color:rgba(0,0,0,.06)}
+html[data-theme="light"] .q-chip{background:rgba(255,255,255,.7);border-color:rgba(201,168,76,.25);color:rgba(0,0,0,.65);backdrop-filter:blur(8px)}
+html[data-theme="light"] .cs-tile{background:#f8f8f6;border-color:rgba(0,0,0,.08)}
+html[data-theme="light"] .cs-overlay{background:rgba(255,255,255,.25)}
+html[data-theme="light"] .cs-name{color:#1a1a1a}
+html[data-theme="light"] .cs-desc{color:rgba(0,0,0,.45)}
+html[data-theme="light"] .section::before,.section.alt::before{background:linear-gradient(90deg,transparent,rgba(201,168,76,.12),transparent)}
+
+/* ===== GOLD BORDER ENHANCEMENTS ===== */
+
+/* Section top-line accent */
+.section,.section.alt{border-top:1px solid rgba(201,168,76,.22)}
+.section::before,.section.alt::before{width:100%;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(201,168,76,.35) 30%,rgba(232,201,106,.55) 50%,rgba(201,168,76,.35) 70%,transparent 100%)}
+
+/* Section bottom separator */
+.section::after,.section.alt::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80%;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.18),transparent);pointer-events:none}
+
+/* Ticker — gold top + bottom lines */
+.ticker-wrap{border-top:1.5px solid rgba(201,168,76,.4);border-bottom:1.5px solid rgba(201,168,76,.4)}
+html[data-theme="light"] .ticker-wrap{border-top-color:rgba(201,168,76,.5);border-bottom-color:rgba(201,168,76,.5)}
+
+/* Ad banner — visible gold frame */
+.ad-banner{border-top:1.5px solid rgba(201,168,76,.35);border-bottom:1.5px solid rgba(201,168,76,.35)}
+html[data-theme="light"] .ad-banner{border-top-color:rgba(201,168,76,.4);border-bottom-color:rgba(201,168,76,.4)}
+
+/* Service tiles */
+.svc-tile{border:1.5px solid rgba(201,168,76,.22);box-shadow:0 2px 16px rgba(201,168,76,.06)}
+.svc-tile:hover{border-color:rgba(201,168,76,.55);box-shadow:0 12px 36px rgba(201,168,76,.18),0 0 0 1px rgba(201,168,76,.12)}
+html[data-theme="light"] .svc-tile{border-color:rgba(201,168,76,.3);box-shadow:0 2px 12px rgba(201,168,76,.08)}
+html[data-theme="light"] .svc-tile:hover{border-color:rgba(201,168,76,.6);box-shadow:0 12px 32px rgba(201,168,76,.2)}
+
+/* Coming soon tiles */
+.cs-tile{border:1.5px solid rgba(201,168,76,.2)}
+.cs-tile:hover{border-color:rgba(201,168,76,.45)}
+html[data-theme="light"] .cs-tile{border-color:rgba(201,168,76,.25)}
+html[data-theme="light"] .cs-tile:hover{border-color:rgba(201,168,76,.5)}
+
+/* Why/About cards */
+.why-card{border:1.5px solid rgba(201,168,76,.2);box-shadow:0 2px 12px rgba(201,168,76,.04)}
+.why-card:hover{border-color:rgba(201,168,76,.5);box-shadow:0 12px 32px rgba(201,168,76,.14)}
+html[data-theme="light"] .why-card{border-color:rgba(201,168,76,.28)}
+html[data-theme="light"] .why-card:hover{border-color:rgba(201,168,76,.6)}
+
+/* News cards */
+.news-card-live{border:1.5px solid rgba(201,168,76,.18);box-shadow:0 2px 12px rgba(201,168,76,.04)}
+.news-card-live:hover{border-color:rgba(201,168,76,.45);box-shadow:0 10px 28px rgba(201,168,76,.12)}
+.news-card-live::before{height:3px;background:linear-gradient(90deg,var(--g),var(--gl),transparent)}
+html[data-theme="light"] .news-card-live{border-color:rgba(201,168,76,.25)}
+html[data-theme="light"] .news-card-live:hover{border-color:rgba(201,168,76,.55)}
+
+/* Step cards */
+.step{border:1.5px solid rgba(201,168,76,.2)}
+.step:hover{border-color:rgba(201,168,76,.5);box-shadow:0 10px 28px rgba(201,168,76,.14)}
+html[data-theme="light"] .step{border-color:rgba(201,168,76,.25)!important}
+html[data-theme="light"] .step:hover{border-color:rgba(201,168,76,.55)!important;box-shadow:0 10px 28px rgba(201,168,76,.15)!important}
+
+/* Calculator cards */
+.gb-input-card,.gb-result-card{border:1.5px solid rgba(201,168,76,.28);box-shadow:0 4px 20px rgba(201,168,76,.06)}
+html[data-theme="light"] .gb-input-card,html[data-theme="light"] .gb-result-card{border-color:rgba(201,168,76,.35)!important;box-shadow:0 4px 20px rgba(201,168,76,.1)!important}
+.gb-result-hero{border:1.5px solid rgba(201,168,76,.4)}
+.gb-tabs{border:1.5px solid rgba(201,168,76,.3)}
+html[data-theme="light"] .gb-tabs{border-color:rgba(201,168,76,.4)!important}
+
+/* Contact form card */
+.contact-right{border:1.5px solid rgba(201,168,76,.3);box-shadow:0 4px 24px rgba(201,168,76,.08)}
+html[data-theme="light"] .contact-right{border-color:rgba(201,168,76,.4)!important;box-shadow:0 4px 24px rgba(201,168,76,.12)!important}
+.cf-field input:focus,.cf-field select:focus,.cf-field textarea:focus{border-color:rgba(201,168,76,.6);box-shadow:0 0 0 3px rgba(201,168,76,.08)}
+
+/* Ghost button */
+.btn-ghost{border:1.5px solid rgba(201,168,76,.3);color:var(--g)}
+.btn-ghost:hover{border-color:var(--g);background:rgba(201,168,76,.08);box-shadow:0 4px 16px rgba(201,168,76,.18)}
+html[data-theme="light"] .btn-ghost{border-color:rgba(201,168,76,.45);color:var(--gd);background:rgba(201,168,76,.06)}
+html[data-theme="light"] .btn-ghost:hover{border-color:var(--g);background:rgba(201,168,76,.12)}
+
+/* Gold widget border */
+.gold-widget{border:1.5px solid rgba(201,168,76,.45)}
+html[data-theme="light"] .gold-widget{border-color:rgba(201,168,76,.5)!important}
+
+/* Trusted vendors banner */
+.trusted-vendors-banner{border:1.5px solid rgba(201,168,76,.28)}
+html[data-theme="light"] .trusted-vendors-banner{border-color:rgba(201,168,76,.4)!important}
+.vendor-logo-item{border:1.5px solid rgba(201,168,76,.25)}
+.vendor-logo-item:hover{border-color:rgba(201,168,76,.6);box-shadow:0 6px 20px rgba(201,168,76,.18)}
+
+/* Nav scrolled border */
+#nav.scrolled{border-bottom:1px solid rgba(201,168,76,.25)}
+html[data-theme="light"] #nav.scrolled{border-bottom-color:rgba(201,168,76,.35)!important}
+
+/* Footer top line */
+footer{border-top:1.5px solid rgba(201,168,76,.25)}
+html[data-theme="light"] footer{border-top-color:rgba(201,168,76,.35)!important}
+
+/* Ad cards */
+.ad-card{border:1.5px solid rgba(201,168,76,.28)}
+.ad-card:hover{border-color:rgba(201,168,76,.55);box-shadow:0 12px 32px rgba(201,168,76,.15)}
+html[data-theme="light"] .ad-card{border-color:rgba(201,168,76,.35)!important}
+html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!important}
 </style>
 </head>
 <body>
@@ -420,6 +639,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
         <div class="svc-stats"><span>💎 ₹6,842/g (22K)</span><span>✓ BIS Certified</span></div>
         <div class="svc-arrow">→</div>
       </a>
+      <!-- MVP-HIDDEN SERVICES (re-enable for v2)
       <a class="svc-tile" href="gold-exchange.html">
         <div class="svc-icon-wrap" style="--svc-c1:#3b82f6;--svc-c2:#60a5fa">🔄</div>
         <div class="svc-label">Old for New</div>
@@ -468,6 +688,78 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
         <div class="svc-stats"><span>📊 Gold ETF / SGB</span><span>💹 Live Tracking</span></div>
         <div class="svc-arrow">→</div>
       </a>
+      END MVP-HIDDEN SERVICES -->
+    </div>
+  </div>
+</section>
+
+<!-- COMING SOON SERVICES -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Expanding Platform</div>
+      <h2 class="sec-title">More Services <span class="gold">Coming Soon</span></h2>
+      <p class="sec-body">We're building India's most comprehensive gold ecosystem. These services are in active development — launching soon with exclusive early access benefits.</p>
+    </div>
+    <div class="cs-grid reveal">
+      <div class="cs-tile">
+        <div class="cs-overlay"><span class="cs-badge">Coming Soon</span></div>
+        <div class="cs-content">
+          <div class="cs-icon" style="background:linear-gradient(135deg,rgba(59,130,246,.18),rgba(96,165,250,.06))">🔄</div>
+          <div class="cs-name">Gold Exchange</div>
+          <div class="cs-desc">Exchange your old gold for new jewellery at zero melting charges with BIS-certified partners.</div>
+          <div class="cs-eta">🕒 Q3 2026</div>
+        </div>
+      </div>
+      <div class="cs-tile">
+        <div class="cs-overlay"><span class="cs-badge">Coming Soon</span></div>
+        <div class="cs-content">
+          <div class="cs-icon" style="background:linear-gradient(135deg,rgba(236,72,153,.18),rgba(244,114,182,.06))">💍</div>
+          <div class="cs-name">Jewellery Purchase</div>
+          <div class="cs-desc">Buy hallmarked jewellery from 8,500+ verified jewellers across India with transparent pricing.</div>
+          <div class="cs-eta">🕒 Q3 2026</div>
+        </div>
+      </div>
+      <div class="cs-tile">
+        <div class="cs-overlay"><span class="cs-badge">Coming Soon</span></div>
+        <div class="cs-content">
+          <div class="cs-icon" style="background:linear-gradient(135deg,rgba(249,115,22,.18),rgba(251,146,60,.06))">🏺</div>
+          <div class="cs-name">Gold Savings Scheme</div>
+          <div class="cs-desc">Save systematically in gold every month from just ₹500. Auto-invest &amp; earn better than FDs.</div>
+          <div class="cs-eta">🕒 Q4 2026</div>
+        </div>
+      </div>
+      <div class="cs-tile">
+        <div class="cs-overlay"><span class="cs-badge">Coming Soon</span></div>
+        <div class="cs-content">
+          <div class="cs-icon" style="background:linear-gradient(135deg,rgba(6,182,212,.18),rgba(34,211,238,.06))">📱</div>
+          <div class="cs-name">Digital Gold</div>
+          <div class="cs-desc">Buy 24K pure gold digitally from ₹1. Stored securely in SEBI-regulated vaults. Anytime redemption.</div>
+          <div class="cs-eta">🕒 Q4 2026</div>
+        </div>
+      </div>
+      <div class="cs-tile">
+        <div class="cs-overlay"><span class="cs-badge">Coming Soon</span></div>
+        <div class="cs-content">
+          <div class="cs-icon" style="background:linear-gradient(135deg,rgba(139,92,246,.18),rgba(167,139,250,.06))">🛡️</div>
+          <div class="cs-name">Gold Insurance</div>
+          <div class="cs-desc">Comprehensive protection for your gold holdings against theft, loss and damage with RBI partners.</div>
+          <div class="cs-eta">🕒 Q4 2026</div>
+        </div>
+      </div>
+      <div class="cs-tile">
+        <div class="cs-overlay"><span class="cs-badge">Coming Soon</span></div>
+        <div class="cs-content">
+          <div class="cs-icon" style="background:linear-gradient(135deg,rgba(16,185,129,.18),rgba(52,211,153,.06))">📈</div>
+          <div class="cs-name">Gold Investment</div>
+          <div class="cs-desc">Invest in Gold ETFs, Sovereign Gold Bonds &amp; Gold Funds with real-time portfolio tracking.</div>
+          <div class="cs-eta">🕒 Q1 2027</div>
+        </div>
+      </div>
+    </div>
+    <div class="cs-notify-row reveal">
+      <p>Want early access to these features?</p>
+      <a href="#contact-us" class="btn-gold">Register for Early Access →</a>
     </div>
   </div>
 </section>
@@ -500,29 +792,6 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
     <div class="vendor-logo-item"><img src="images/jeweler-logos/joyalukkas.png" class="jeweler-logo" alt="Joyalukkas" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💍</span></div>
   </div>
 </div></div>
-
-<!-- NEWS -->
-<section id="gold-news" class="section alt">
-  <div class="wrap">
-    <div class="sec-head reveal"><div class="eyebrow">Market Updates</div><h2 class="sec-title">Latest <span class="gold">Gold News</span></h2><p class="sec-body">Stay updated with real-time gold market news, RBI updates and price trends.</p></div>
-    <div class="news-grid-live reveal" id="news-grid"></div>
-  </div>
-</section>
-
-<!-- WHY -->
-<section id="why" class="section">
-  <div class="wrap">
-    <div class="sec-head reveal"><div class="eyebrow">Why Choose Us</div><h2 class="sec-title">India's Most <span class="gold">Trusted</span> Gold Platform</h2><p class="sec-body">We connect you directly with verified gold service providers — no middlemen, no hidden fees.</p></div>
-    <div class="why-grid reveal">
-      <div class="why-card"><div class="why-icon">🛡️</div><h3>100% Verified</h3><p>Every vendor undergoes rigorous checks and holds valid RBI/BIS certifications.</p></div>
-      <div class="why-card"><div class="why-icon">⚡</div><h3>Instant Explore</h3><p>Explore rates, LTV ratios, and reviews from 500+ providers in seconds.</p></div>
-      <div class="why-card"><div class="why-icon">🔒</div><h3>Bank-Grade Security</h3><p>ISO 27001 certified. Your data is always safe and encrypted.</p></div>
-      <div class="why-card"><div class="why-icon">📍</div><h3>500+ Cities</h3><p>Find gold service providers in your neighbourhood across all major Indian cities.</p></div>
-      <div class="why-card"><div class="why-icon">💬</div><h3>Real Reviews</h3><p>Authentic customer reviews help you make informed decisions.</p></div>
-      <div class="why-card"><div class="why-icon">🆓</div><h3>Free to Use</h3><p>GoldBazaar is completely free for customers. No hidden charges.</p></div>
-    </div>
-  </div>
-</section>
 
 <!-- CALCULATOR -->
 <section id="gold-calculator" class="section" style="background:linear-gradient(180deg,var(--b1) 0%,var(--b0) 100%)">
@@ -669,6 +938,29 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
   </div>
 </section>
 
+<!-- NEWS -->
+<section id="gold-news" class="section alt">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="eyebrow">Market Updates</div><h2 class="sec-title">Latest <span class="gold">Gold News</span></h2><p class="sec-body">Stay updated with real-time gold market news, RBI updates and price trends.</p></div>
+    <div class="news-grid-live reveal" id="news-grid"></div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why" class="section">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="eyebrow">Why Choose Us</div><h2 class="sec-title">India's Most <span class="gold">Trusted</span> Gold Platform</h2><p class="sec-body">We connect you directly with verified gold service providers — no middlemen, no hidden fees.</p></div>
+    <div class="why-grid reveal">
+      <div class="why-card"><div class="why-icon">🛡️</div><h3>100% Verified</h3><p>Every vendor undergoes rigorous checks and holds valid RBI/BIS certifications.</p></div>
+      <div class="why-card"><div class="why-icon">⚡</div><h3>Instant Explore</h3><p>Explore rates, LTV ratios, and reviews from 500+ providers in seconds.</p></div>
+      <div class="why-card"><div class="why-icon">🔒</div><h3>Bank-Grade Security</h3><p>ISO 27001 certified. Your data is always safe and encrypted.</p></div>
+      <div class="why-card"><div class="why-icon">📍</div><h3>500+ Cities</h3><p>Find gold service providers in your neighbourhood across all major Indian cities.</p></div>
+      <div class="why-card"><div class="why-icon">💬</div><h3>Real Reviews</h3><p>Authentic customer reviews help you make informed decisions.</p></div>
+      <div class="why-card"><div class="why-icon">🆓</div><h3>Free to Use</h3><p>GoldBazaar is completely free for customers. No hidden charges.</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact-us" class="section alt">
   <div class="wrap">
@@ -678,23 +970,23 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
         <h2>We're Here<br><span>to Help You</span></h2>
         <p>Whether you're a customer seeking gold services or a business ready to grow — reach out and our team will respond within 4 business hours.</p>
         <div class="contact-info-list">
-          <div class="contact-info-item"><div class="contact-info-icon">✉️</div><span class="contact-info-text">Bagal.DJ@goldbazaar.in</span></div>
-          <div class="contact-info-item"><div class="contact-info-icon">📞</div><span class="contact-info-text">+91 98765 43210</span></div>
-          <div class="contact-info-item"><div class="contact-info-icon">🌐</div><span class="contact-info-text">www.goldbazaar.in</span></div>
-          <div class="contact-info-item"><div class="contact-info-icon">📍</div><span class="contact-info-text">GoldBazaar HQ, Laggere, Bengaluru, India</span></div>
-          <div class="contact-info-item"><div class="contact-info-icon">🕐</div><span class="contact-info-text">Mon–Sat, 9:00 AM – 7:00 PM IST</span></div>
+          <div class="contact-info-item"><div class="contact-info-icon">✉️</div><span class="contact-info-text">goldbazaar.app@gmail.com</span></div>
+          <div class="contact-info-item"><div class="contact-info-icon">📞</div><span class="contact-info-text">+91 70196 09180</span></div>
+          <div class="contact-info-item"><div class="contact-info-icon">🌐</div><span class="contact-info-text">www.goldbazaar.app</span></div>
+          <div class="contact-info-item"><div class="contact-info-icon">📍</div><span class="contact-info-text">GoldBazaar HQ, Bengaluru, India</span></div>
+          <div class="contact-info-item"><div class="contact-info-icon">🕐</div><span class="contact-info-text">Mon–Sun, 9:00 AM – 7:00 PM IST</span></div>
         </div>
       </div>
       <div class="contact-right">
         <h3>Send Us a Message</h3>
         <div class="contact-form-row">
-          <div class="cf-field"><label>Full Name</label><input type="text" placeholder="Rajesh Kumar"/></div>
-          <div class="cf-field"><label>Mobile</label><input type="tel" placeholder="+91 98765 43210"/></div>
+          <div class="cf-field"><label for="cf-name">Full Name</label><input id="cf-name" type="text" placeholder="Rajesh Kumar"/></div>
+          <div class="cf-field"><label for="cf-mobile">Mobile</label><input id="cf-mobile" type="tel" placeholder="+91 98765 43210"/></div>
         </div>
-        <div class="cf-field"><label>I Am A</label><select><option>Customer seeking gold services</option><option>Jeweller / Gold dealer</option><option>Gold loan provider</option><option>Vendor wanting to list on GoldBazaar</option></select></div>
-        <div class="cf-field"><label>City</label><input type="text" placeholder="Chennai, Tamil Nadu"/></div>
-        <div class="cf-field"><label>Message</label><textarea rows="4" placeholder="Tell us about your requirements..."></textarea></div>
-        <button class="cf-submit" onclick="toast('Message sent! We\'ll respond within 4 hours.')">Send Message →</button>
+        <div class="cf-field"><label for="cf-type">I Am A</label><select id="cf-type"><option value="Customer seeking gold services">Customer seeking gold services</option><option value="Jeweller / Gold dealer">Jeweller / Gold dealer</option><option value="Gold loan provider">Gold loan provider</option><option value="Vendor wanting to list on GoldBazaar">Vendor wanting to list on GoldBazaar</option></select></div>
+        <div class="cf-field"><label for="cf-city">City</label><input id="cf-city" type="text" placeholder="Chennai, Tamil Nadu"/></div>
+        <div class="cf-field"><label for="cf-message">Message</label><textarea id="cf-message" rows="4" placeholder="Tell us about your requirements..."></textarea></div>
+        <button class="cf-submit" onclick="submitContactForm()">Send Message →</button>
       </div>
     </div>
   </div>
@@ -792,6 +1084,22 @@ function scrollCarousel(d){const t=document.getElementById('carousel-track');if(
 setInterval(()=>{const t=document.getElementById('carousel-track');if(t){const max=t.scrollWidth-t.clientWidth;if(t.scrollLeft>=max-10)t.scrollLeft=0;else t.scrollBy({left:316,behavior:'smooth'})}},3500);
 const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')})},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+/* Scroll Spy — highlight active nav link */
+(function(){
+  const sections=['hero','services','gold-calculator','gold-news','why','contact-us'];
+  const links=document.querySelectorAll('.nav-center a');
+  const spy=new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        const id=en.target.id;
+        links.forEach(a=>{
+          a.classList.toggle('active',a.getAttribute('href')==='#'+id);
+        });
+      }
+    });
+  },{rootMargin:'-40% 0px -55% 0px',threshold:0});
+  sections.forEach(id=>{const el=document.getElementById(id);if(el)spy.observe(el);});
+})();
 /* Steps Animation - Page Load + Auto Repeat */
 function animateSteps(){const sf=document.getElementById('steps-flow');if(!sf)return;const steps=sf.querySelectorAll('.step');steps.forEach(s=>s.classList.remove('in'));steps.forEach((s,i)=>setTimeout(()=>s.classList.add('in'),i*1000));setTimeout(animateSteps,6700)}
 window.addEventListener('load',()=>setTimeout(animateSteps,300));
@@ -821,6 +1129,36 @@ function calcSG(){const p=parseFloat(document.getElementById('sg-purity').value)
 function calcEX(){const op=parseFloat(document.getElementById('ex-old-p').value);const ow=parseFloat(document.getElementById('ex-old-w').value);const mc=parseFloat(document.getElementById('ex-mc').value)||12;if(!ow||ow<=0){show('ex-empty',true);show('ex-res',false);return}const oval=ow*grate(op);const credit=oval*.98;const mca=credit*(mc/100);const gst=mca*.03;const total=credit+mca+gst;const diff=credit-total;show('ex-empty',false);show('ex-res',true);set('ex-credit',gfmt(credit));set('ex-oval',gfmt(oval));set('ex-mca','+'+gfmt(mca));set('ex-gst','+'+gfmt(gst));const el=document.getElementById('ex-diff');if(el){el.textContent=diff>=0?'You Get Back '+gfmt(Math.abs(diff)):'You Pay '+gfmt(Math.abs(diff));el.className='gb-result-row-val '+(diff>=0?'pos':'neg')}document.getElementById('ex-insight').innerHTML='✨ <strong>Malabar Gold &amp; Kalyan</strong> offer zero melting charges.'}
 function calcEM(){const P=parseFloat(document.getElementById('em-amt').value);const r=parseFloat(document.getElementById('em-rate').value)||8.5;const n=parseInt(document.getElementById('em-tenure').value)||12;const type=document.getElementById('em-type').value;if(!P||P<=0){show('em-empty',true);show('em-res',false);return}let monthly,ti,lbl,sub;if(type==='emi'){const mr=r/100/12;monthly=P*(mr*Math.pow(1+mr,n))/(Math.pow(1+mr,n)-1);ti=monthly*n-P;lbl='Monthly EMI';sub='principal + interest'}else if(type==='bullet'){monthly=P*(r/100/12);ti=monthly*n;lbl='Monthly Interest';sub='principal returned at end'}else{monthly=P*(r/100/12);ti=monthly*n*.5;lbl='Avg Monthly Cost';sub='overdraft ~50% utilisation'}const saving=Math.max(0,P*(15/100/12)*n-ti);show('em-empty',false);show('em-res',true);set('em-hero-lbl',lbl);set('em-monthly',gfmt(monthly)+'/mo');set('em-hero-sub',sub);set('em-principal',gfmt(P));set('em-tint',gfmt(ti));set('em-total',gfmt(P+ti));set('em-savings',gfmt(saving));document.getElementById('em-insight').innerHTML='💡 At <strong>'+r+'% p.a.</strong>, effective cost per ₹1L is <strong>'+gfmt(ti/P*100)+'%</strong> over '+n+' months.'}
 window.addEventListener('DOMContentLoaded',()=>{ThemeManager.init();GoldRateManager.init();HeroManager.init();loadNews()});
+
+// ===== CONTACT FORM — SAVES TO GOOGLE SHEET =====
+// After completing customer_data/SETUP.md, paste your Apps Script URL below:
+const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwS9hXLcvJA3VWLVO5EmoJMmnEWdp-FvOOGY-DqHQpJVE4LUshAFcGBp21w4ACCkDrcHQ/exec';
+
+function submitContactForm(){
+  const name=document.getElementById('cf-name').value.trim();
+  const mobile=document.getElementById('cf-mobile').value.trim();
+  const type=document.getElementById('cf-type').value.trim();
+  const city=document.getElementById('cf-city').value.trim();
+  const message=document.getElementById('cf-message').value.trim();
+  if(!name||!mobile){toast('Please fill in your Name and Mobile number.');return;}
+  const btn=document.querySelector('.cf-submit');
+  if(btn){btn.textContent='Sending…';btn.disabled=true;}
+  const params=new URLSearchParams({sheet:'contact',name,mobile,type,city,message});
+  fetch(FORM_ENDPOINT+'?'+params,{mode:'no-cors'})
+  .then(()=>{
+    document.getElementById('cf-name').value='';
+    document.getElementById('cf-mobile').value='';
+    document.getElementById('cf-city').value='';
+    document.getElementById('cf-message').value='';
+    document.getElementById('cf-type').selectedIndex=0;
+    if(btn){btn.textContent='Send Message →';btn.disabled=false;}
+    toast('✓ Message sent! We\'ll respond within 4 hours.');
+  }).catch(()=>{
+    if(btn){btn.textContent='Send Message →';btn.disabled=false;}
+    toast('⚠ Could not reach server — check your internet connection.');
+  });
+}
 </script>
+<!-- SheetJS removed: form data now auto-saves via server.py → customer_data/GoldBazaar_Leads.xlsx -->
 </body>
 </html>

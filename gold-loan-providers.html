@@ -52,7 +52,7 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
   border-bottom:1px solid transparent;
 }
 #nav.scrolled{background:rgba(0,0,0,.94);backdrop-filter:blur(20px);border-color:rgba(201,168,76,.12)}
-.nav-logo img{height:44px;width:auto}
+.nav-logo img{height:56px;width:auto}
 .nav-right{display:flex;align-items:center;gap:10px}
 .nav-back{padding:8px 16px;border:1px solid rgba(201,168,76,.3);border-radius:8px;font-size:13px;font-weight:500;color:var(--g);transition:all .2s}
 .nav-back:hover{background:rgba(201,168,76,.08)}
@@ -116,12 +116,12 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 /*──────────────────────────────────────
   MARKETPLACE CARDS
 ──────────────────────────────────────*/
-.mkt-view-toggle{display:flex;gap:8px;align-items:center;justify-content:center;margin-bottom:28px}
-.mkt-view-btn{padding:8px 18px;border:1.5px solid rgba(201,168,76,.3);border-radius:7px;background:none;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s}
+.mkt-view-toggle{display:flex;gap:6px;align-items:center;margin-left:auto}
+.mkt-view-btn{padding:7px 16px;border:1.5px solid rgba(201,168,76,.3);border-radius:7px;background:none;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s}
 .mkt-view-btn.active{background:linear-gradient(135deg,var(--g),var(--gl));color:#000;border-color:var(--g)}
 .mkt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .mkt-grid.list-view{grid-template-columns:1fr;gap:0;background:var(--b3);border:1px solid rgba(201,168,76,.12);border-radius:14px;overflow:hidden}
-.mkt-card{background:var(--b3);border:1px solid var(--b4);border-radius:12px;overflow:hidden;transition:all .3s,border-color .3s;cursor:pointer;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.mkt-card{background:var(--b3);border:1px solid var(--b4);border-radius:12px;overflow:hidden;transition:all .3s,border-color .3s;cursor:pointer;display:flex;flex-direction:row;align-items:flex-start;padding:16px;gap:0;box-shadow:0 2px 8px rgba(0,0,0,.1)}
 .mkt-card:hover{transform:translateY(-2px);border-color:rgba(201,168,76,.3);box-shadow:0 12px 28px rgba(201,168,76,.1)}
 html[data-theme="light"] .mkt-card{background:#FFFFFF;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 8px rgba(0,0,0,.06)}
 html[data-theme="light"] .mkt-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.12)}
@@ -140,7 +140,7 @@ html[data-theme="light"] .mkt-card-loc{color:var(--text-secondary)}
 .mkt-table-header{display:none}
 .mkt-grid.list-view .mkt-table-header{
   display:grid;
-  grid-template-columns:2.2fr 1.6fr 1fr 2.4fr 1.4fr 1fr;
+  grid-template-columns:72px 2fr 1.5fr 1fr 2.4fr 1.2fr 1fr;
   background:linear-gradient(90deg,rgba(201,168,76,.22),rgba(201,168,76,.10));
   border-bottom:2px solid rgba(201,168,76,.35);
   font-size:10px;font-weight:800;letter-spacing:.12em;
@@ -157,7 +157,7 @@ html[data-theme="light"] .mkt-card-loc{color:var(--text-secondary)}
   border-bottom:1px solid rgba(201,168,76,.08);
   border-radius:0;padding:0;
   display:grid;
-  grid-template-columns:2.2fr 1.6fr 1fr 2.4fr 1.4fr 1fr;
+  grid-template-columns:72px 2fr 1.5fr 1fr 2.4fr 1.2fr 1fr;
   align-items:stretch;min-height:64px;
 }
 .mkt-grid.list-view .mkt-card:last-child{border-bottom:none}
@@ -165,31 +165,31 @@ html[data-theme="light"] .mkt-card-loc{color:var(--text-secondary)}
   background:rgba(201,168,76,.04);transform:none;box-shadow:none;
   border-color:rgba(201,168,76,.08);
 }
-.mkt-grid.list-view .mkt-card-img{display:flex;width:64px;height:52px;border-radius:10px;flex-shrink:0}
+.mkt-grid.list-view .mkt-card-img{display:flex;width:64px;height:52px;border-radius:10px;flex-shrink:0;grid-column:1;align-self:center;justify-self:center;padding:6px}
 .mkt-grid.list-view .mkt-card-body{display:contents}
 .mkt-grid.list-view .mkt-card-tag{display:none}
 .mkt-grid.list-view .mkt-card-rate-lbl{display:none}
 
 .mkt-grid.list-view .mkt-card-name{
-  grid-column:1;padding:12px 14px;margin:0;
+  grid-column:2;padding:12px 14px;margin:0;
   font-size:13px;font-weight:700;color:#fff;
   border-right:1px solid rgba(201,168,76,.08);
   display:flex;align-items:center;
 }
 .mkt-grid.list-view .mkt-card-loc{
-  grid-column:2;padding:12px 14px;margin:0;
+  grid-column:3;padding:12px 14px;margin:0;
   font-size:11px;color:rgba(255,255,255,.6);
   border-right:1px solid rgba(201,168,76,.08);
   display:flex;align-items:center;
 }
 .mkt-grid.list-view .mkt-card-rate{
-  grid-column:3;padding:12px 14px;margin:0;
+  grid-column:4;padding:12px 14px;margin:0;
   font-size:14px;font-weight:800;color:var(--g);
   border-right:1px solid rgba(201,168,76,.08);
   display:flex;align-items:center;justify-content:center;
 }
 .mkt-grid.list-view .mkt-card-meta{
-  grid-column:4;padding:10px 14px;margin:0;
+  grid-column:5;padding:10px 14px;margin:0;
   display:flex;flex-wrap:wrap;gap:5px;align-items:center;
   border-right:1px solid rgba(201,168,76,.08);
 }
@@ -202,7 +202,7 @@ html[data-theme="light"] .mkt-card-loc{color:var(--text-secondary)}
 }
 .mkt-grid.list-view .mkt-card-footer{display:contents}
 .mkt-grid.list-view .mkt-card-footer > div{
-  grid-column:5;padding:8px 14px;
+  grid-column:6;padding:8px 14px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
   border-right:1px solid rgba(201,168,76,.08);
 }
@@ -211,7 +211,7 @@ html[data-theme="light"] .mkt-card-loc{color:var(--text-secondary)}
   font-size:9px;color:rgba(255,255,255,.55);font-weight:500;
 }
 .mkt-grid.list-view .view-btn{
-  grid-column:6;align-self:center;justify-self:center;
+  grid-column:7;align-self:center;justify-self:center;
   padding:7px 14px;font-size:11px;font-weight:700;
   background:linear-gradient(135deg,var(--g),var(--gl));
   color:#000;border:none;border-radius:6px;
@@ -220,9 +220,9 @@ html[data-theme="light"] .mkt-card-loc{color:var(--text-secondary)}
 .mkt-grid.list-view .view-btn:hover{box-shadow:0 4px 12px rgba(201,168,76,.35)}
 
 /* TILE VIEW */
-.mkt-card-img{height:90px;width:90px;background:linear-gradient(135deg,#1A1200,#0D0800);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-radius:12px;flex-shrink:0}
+.mkt-card-img{height:80px;width:80px;background:linear-gradient(135deg,#1A1200,#0D0800);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-radius:10px;flex-shrink:0}
 .mkt-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.1) 0%,transparent 60%);pointer-events:none}
-.mkt-card-body{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.mkt-card-body{padding:0 0 0 14px;display:flex;flex-direction:column;gap:6px;flex:1}
 .mkt-card-tag{display:inline-block;padding:3px 8px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;width:fit-content}
 .tag-loan{background:rgba(201,168,76,.13);color:var(--g)}
 .mkt-card-name{font-size:14px;font-weight:700;margin:0;line-height:1.2}
@@ -249,7 +249,7 @@ html[data-theme="light"] .mkt-card-loc{color:var(--text-secondary)}
 footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40px 0 24px}
 .foot-inner{max-width:1200px;margin:0 auto;padding:0 48px}
 .foot-row{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:28px;flex-wrap:wrap}
-.foot-logo img{height:36px}
+.foot-logo img{height:60px}
 .foot-links{display:flex;gap:24px;flex-wrap:wrap}
 .foot-links a{font-size:13px;color:var(--text-tertiary);transition:color .2s}
 .foot-links a:hover{color:var(--g)}
@@ -314,7 +314,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
 </div>
 
 <!-- ═══════════════════ SIMPLE PROCESS SECTION ═══════════════════ -->
-<section class="section">
+<section class="section" style="padding-bottom:40px">
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="eyebrow" style="color:var(--g)">Quick & Easy</div>
@@ -351,7 +351,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
 </section>
 
 <!-- ═══════════════════ MAIN SECTION ═══════════════════ -->
-<section class="section">
+<section class="section" style="padding-top:40px">
   <div class="wrap">
 
     <!-- Filter Bar -->
@@ -375,12 +375,11 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
         </select>
       </div>
       <button class="filter-reset" onclick="resetFilters()">Reset Filters</button>
-    </div>
-
-    <!-- View Toggle -->
-    <div class="mkt-view-toggle">
-      <button class="mkt-view-btn" onclick="toggleMktView(this, 'tiles')">Tiles</button>
-      <button class="mkt-view-btn active" onclick="toggleMktView(this, 'list')">List</button>
+      <!-- View Toggle (inline in filter bar) -->
+      <div class="mkt-view-toggle">
+        <button class="mkt-view-btn" onclick="toggleMktView(this, 'tiles')">Tiles</button>
+        <button class="mkt-view-btn active" onclick="toggleMktView(this, 'list')">List</button>
+      </div>
     </div>
 
     <!-- Grid -->
@@ -770,10 +769,10 @@ document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 
 /* ── View Toggle ── */
 function toggleMktView(btn, view){
-  const parent = btn.parentElement;
-  parent.querySelectorAll('.mkt-view-btn').forEach(b => b.classList.remove('active'));
+  const toggleWrap = btn.parentElement; // .mkt-view-toggle
+  toggleWrap.querySelectorAll('.mkt-view-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const grid = parent.nextElementSibling;
+  const grid = document.getElementById('providers-grid');
   if(view === 'list') grid.classList.add('list-view');
   else grid.classList.remove('list-view');
 }

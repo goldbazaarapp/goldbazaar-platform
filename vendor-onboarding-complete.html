@@ -78,7 +78,7 @@
     }
 
     .nav-logo img {
-      height: 44px;
+      height: 56px;
       width: auto;
       display: block;
     }
@@ -190,12 +190,15 @@
     .login-screen {
       position: fixed;
       top: 68px; left: 0; right: 0; bottom: 0;
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
       background: var(--b0);
       padding: 20px;
       z-index: 200;
+    }
+    .login-screen.visible {
+      display: flex;
     }
 
     .login-container {
@@ -340,12 +343,199 @@
       background: var(--g);
     }
 
+    /* No scroll during hero-upload phase */
+    /* Lock scroll during hero phase, but keep footer visible */
+    body.hero-phase { overflow: hidden; }
+
     /* Main Content */
-    .page-header {
+    /* ── Hero + Upload Wrap ── */
+    /* Height = viewport minus nav (68px) minus footer (~56px) */
+    #hero-upload-wrap {
+      display: none;
+      flex-direction: row;
       margin-top: 68px;
-      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
-      background: linear-gradient(180deg, rgba(20, 15, 10, 0.4), rgba(0, 0, 0, 0.2));
-      padding: 32px 0;
+      height: calc(100vh - 124px);
+      border-bottom: 1px solid rgba(201,168,76,0.18);
+    }
+    #hero-upload-wrap.visible { display: flex; }
+
+    /* ── Left: Hero Slider (70%) ── */
+    #ob-hero {
+      flex: 0 0 70%;
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1a1005 0%, #0d0a04 50%, #1a1005 100%);
+    }
+
+    /* ── Right: Upload Panel (30%) ── */
+    #upload-panel {
+      flex: 0 0 30%;
+      height: 100%;
+      background: #080806;
+      border-left: 1px solid rgba(201,168,76,0.18);
+      display: flex;
+      flex-direction: column;
+      padding: 16px 18px 14px;
+      overflow-y: hidden;
+      gap: 10px;
+    }
+    #upload-panel h3 {
+      font-family: var(--fd);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--gl);
+      margin-bottom: 2px;
+    }
+    #upload-panel .up-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+    }
+    .up-specs {
+      background: rgba(201,168,76,0.06);
+      border: 1px solid rgba(201,168,76,0.18);
+      border-radius: 10px;
+      padding: 9px 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 10px;
+      flex-shrink: 0;
+    }
+    .up-spec-item { display: flex; flex-direction: column; gap: 1px; }
+    .up-spec-label { font-size: 9.5px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--g); }
+    .up-spec-val   { font-size: 11.5px; color: rgba(255,255,255,0.75); }
+    .up-dropzone {
+      border: 2px dashed rgba(201,168,76,0.3);
+      border-radius: 12px;
+      padding: 14px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      background: rgba(201,168,76,0.03);
+      flex-shrink: 0;
+    }
+    .up-dropzone:hover { border-color: var(--g); background: rgba(201,168,76,0.07); }
+    .up-dropzone .up-icon { font-size: 24px; margin-bottom: 4px; }
+    .up-dropzone p { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+    .up-dropzone strong { color: var(--g); cursor: pointer; }
+    #up-file-input { display: none; }
+    .up-file-info {
+      display: none;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 10px;
+      padding: 10px 14px;
+      gap: 10px;
+      align-items: center;
+    }
+    .up-file-info.show { display: flex; }
+    .up-file-thumb {
+      width: 48px; height: 36px;
+      border-radius: 6px;
+      object-fit: cover;
+      border: 1px solid rgba(201,168,76,0.3);
+      flex-shrink: 0;
+    }
+    .up-file-details { flex: 1; min-width: 0; }
+    .up-file-name { font-size: 12px; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .up-file-meta { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+    .up-file-ok   { color: #4caf50; font-size: 16px; flex-shrink: 0; }
+    .up-spacer  { flex: 1; min-height: 0; }
+    .up-actions { display: flex; flex-direction: column; gap: 7px; flex-shrink: 0; }
+    .up-btn {
+      width: 100%; padding: 10px 0;
+      border-radius: 8px; border: none;
+      font-size: 13px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+      letter-spacing: 0.04em;
+    }
+    .up-btn-preview {
+      background: transparent;
+      border: 1.5px solid var(--g);
+      color: var(--g);
+      display: none;
+    }
+    .up-btn-preview.show { display: block; }
+    .up-btn-preview:hover { background: rgba(201,168,76,0.1); }
+    .up-btn-submit {
+      background: linear-gradient(135deg, var(--g), var(--gd));
+      color: #000;
+    }
+    .up-btn-submit:hover { filter: brightness(1.1); }
+    .up-note {
+      font-size: 10.5px;
+      color: rgba(255,255,255,0.3);
+      text-align: center;
+      line-height: 1.5;
+    }
+    .up-note code { color: rgba(201,168,76,0.7); font-size: 10px; }
+    #ob-hero .bg-scene {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    #ob-hero .bg-scene.active { opacity: 1; }
+    #ob-hero .bg-scene.instant { transition: none; }
+    #ob-hero .ob-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg,
+        rgba(0,0,0,0.62) 0%,
+        rgba(0,0,0,0.28) 50%,
+        rgba(0,0,0,0.55) 100%);
+      display: flex; align-items: center;
+      padding: 0 64px;
+    }
+    #ob-hero .ob-caption h2 {
+      font-family: var(--fd);
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+    }
+    #ob-hero .ob-caption p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.03em;
+    }
+    #ob-hero .ob-caption .ob-badge {
+      display: inline-block;
+      background: var(--gg);
+      color: #000;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    #ob-hero .ob-dots {
+      position: absolute; bottom: 14px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; gap: 8px;
+    }
+    #ob-hero .ob-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    #ob-hero .ob-dot.active {
+      background: var(--g);
+      transform: scale(1.35);
+    }
+
+    .page-header {
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+      background: linear-gradient(180deg, rgba(15,10,5,0.98), rgba(0,0,0,1));
+      padding: 12px 0 10px;
+      margin-top: 68px;
       display: none;
     }
 
@@ -353,18 +543,38 @@
       display: block;
     }
 
+    .page-header .ph-inner {
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .page-header .ph-icon {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, var(--g), var(--gd));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
     .page-header h1 {
       font-family: var(--fd);
-      font-size: clamp(28px, 4vw, 48px);
+      font-size: clamp(22px, 3vw, 30px);
       font-weight: 600;
-      letter-spacing: -0.03em;
-      line-height: 1.12;
-      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 4px;
+      background: linear-gradient(135deg, #fff 60%, var(--gl));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .page-header p {
-      font-size: 15px;
-      color: rgba(255, 255, 255, 0.58);
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.01em;
     }
 
     /* Tab Navigation */
@@ -382,7 +592,7 @@
     }
 
     .tab-nav button {
-      padding: 14px 24px;
+      padding: 10px 20px;
       border: none;
       background: none;
       font-size: 13px;
@@ -408,22 +618,15 @@
       display: none;
       padding: 48px 32px;
     }
-    /* Onboarding tab: full-viewport fixed panel (no scroll) */
+    /* Onboarding tab: normal scrollable flow */
     #onboarding.active {
-      position: fixed;
-      top: 68px; left: 0; right: 0; bottom: 0;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
+      display: block;
+      padding: 20px 24px 32px;
       background: var(--b0);
-      z-index: 10;
     }
     #onboarding.active > div {
-      width: 100%;
-      max-width: 780px;
-      padding: 0 24px;
+      max-width: 860px;
+      margin: 0 auto;
     }
 
     .tab-content.active {
@@ -436,12 +639,12 @@
       to { opacity: 1; }
     }
 
-    /* Footer */
+    /* Footer — minimal strip */
     footer {
-      background: var(--b1);
-      border-top: 1px solid var(--b4);
-      padding: 64px 0 32px;
-      margin-top: 96px;
+      background: #0a0a0a !important;
+      border-top: 1px solid rgba(201,168,76,0.15) !important;
+      padding: 18px 48px !important;
+      margin-top: 0 !important;
     }
 
     .foot-inner {
@@ -458,7 +661,7 @@
     }
 
     .foot-logo img {
-      height: 64px;
+      height: 60px;
       width: auto;
       margin-bottom: 14px;
     }
@@ -732,11 +935,93 @@
     </div>
   </div>
 
+  <!-- ═══════════════════ HERO + UPLOAD WRAP ═══════════════════ -->
+  <div id="hero-upload-wrap">
+
+    <!-- LEFT 70%: Hero Slider -->
+    <div id="ob-hero">
+      <!-- bg-scene divs injected by JS -->
+      <div class="ob-overlay"></div>
+      <div class="ob-dots" id="obDots"></div>
+    </div>
+
+    <!-- RIGHT 30%: Upload Panel -->
+    <div id="upload-panel">
+      <div>
+        <h3>Showcase Your Brand Identity</h3>
+        <p class="up-sub">Upload a banner to see how your brand will appear across the GoldBazaar platform before going live.</p>
+      </div>
+
+      <!-- File Specifications -->
+      <div class="up-specs">
+        <div class="up-spec-item">
+          <span class="up-spec-label">Recommended</span>
+          <span class="up-spec-val">1920 × 1080 px</span>
+        </div>
+        <div class="up-spec-item">
+          <span class="up-spec-label">Minimum</span>
+          <span class="up-spec-val">1280 × 720 px</span>
+        </div>
+        <div class="up-spec-item">
+          <span class="up-spec-label">Formats</span>
+          <span class="up-spec-val">JPG, PNG, WebP</span>
+        </div>
+        <div class="up-spec-item">
+          <span class="up-spec-label">Max File Size</span>
+          <span class="up-spec-val">5 MB</span>
+        </div>
+        <div class="up-spec-item">
+          <span class="up-spec-label">Aspect Ratio</span>
+          <span class="up-spec-val">16 : 9 (Full HD)</span>
+        </div>
+        <div class="up-spec-item">
+          <span class="up-spec-label">Save As</span>
+          <span class="up-spec-val">slide-1.jpg</span>
+        </div>
+      </div>
+
+      <!-- Drop Zone -->
+      <div class="up-dropzone" id="upDropzone" onclick="document.getElementById('up-file-input').click()">
+        <div class="up-icon">🖼️</div>
+        <p>Drag & drop your banner here<br>or <strong>click to browse</strong></p>
+        <input type="file" id="up-file-input" accept="image/jpeg,image/png,image/webp" onchange="handleBannerUpload(event)">
+      </div>
+
+      <!-- File Info (shown after upload) -->
+      <div class="up-file-info" id="upFileInfo">
+        <img id="upThumb" class="up-file-thumb" src="" alt="preview"/>
+        <div class="up-file-details">
+          <div class="up-file-name" id="upFileName">—</div>
+          <div class="up-file-meta" id="upFileMeta">—</div>
+        </div>
+        <span class="up-file-ok">✓</span>
+      </div>
+
+    
+
+      <!-- Flex spacer — collapses when file-info/preview-done is shown -->
+      <div class="up-spacer"></div>
+
+      <!-- Action Buttons -->
+      <div class="up-actions">
+        <button class="up-btn up-btn-preview" id="upPreviewBtn" onclick="previewBanner()">Visualise Banner</button>
+        <button class="up-btn up-btn-submit" id="upContinueBtn" onclick="submitHeroStep()">Continue to Onboarding →</button>
+      </div>
+    </div>
+
+  </div><!-- /#hero-upload-wrap -->
+
   <!-- ═══════════════════ PAGE HEADER ═══════════════════ -->
   <div class="page-header" id="pageHeader">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 48px;">
-      <h1 id="pageHeaderTitle">Vendor Registration</h1>
-      <p id="pageHeaderSub">Complete your profile to join India's largest gold marketplace network</p>
+    <div class="ph-inner">
+      <div class="ph-icon">🏪</div>
+      <div style="flex:1;">
+        <h1 id="pageHeaderTitle">Vendor Onboarding</h1>
+        <p id="pageHeaderSub">Join India's largest gold marketplace — complete your profile in 3 simple steps</p>
+      </div>
+      <button onclick="backToBannerPreview()" style="background:transparent; border:1px solid rgba(201,168,76,0.35); color:rgba(201,168,76,0.85); padding:7px 16px; border-radius:8px; font-size:12px; font-weight:600; cursor:pointer; letter-spacing:0.03em; transition:all .2s; white-space:nowrap; flex-shrink:0;" onmouseover="this.style.borderColor='var(--g)'; this.style.color='var(--g)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.35)'; this.style.color='rgba(201,168,76,0.85)'">
+        ← Back to Banner Preview
+      </button>
     </div>
   </div>
 
@@ -750,197 +1035,198 @@
   <!-- ═══════════════════ ONBOARDING FORM ═══════════════════ -->
   <div id="onboarding" class="tab-content">
     <div style="max-width: 1200px; margin: 0 auto;">
-      <div style="background: rgba(22, 22, 22, 0.8); border: 1px solid rgba(201, 168, 76, 0.12); border-radius: 16px; padding: 16px 20px;">
-        <div style="text-align: center; margin-bottom: 12px;">
-          <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 4px; color: white;">Complete Your Vendor Onboarding</h2>
-          <p style="font-size: 13px; color: rgba(255, 255, 255, 0.6);">Fill out the form below to register your business on GoldBazaar</p>
+      <div style="background:rgba(18,14,8,0.95); border:1px solid rgba(201,168,76,0.15); border-radius:16px; padding:20px 28px 20px;">
+
+        <!-- Header -->
+        <div style="text-align:center; margin-bottom:16px;">
+          <h2 style="font-size:20px; font-weight:700; color:white; margin-bottom:4px;">Complete Your Vendor Onboarding</h2>
+          <p style="font-size:12.5px; color:rgba(255,255,255,0.5);">3 quick steps to join India's gold marketplace</p>
         </div>
 
         <!-- Step Progress -->
-        <div style="margin-bottom: 10px;">
-          <div id="progressBar" style="width: 100%; display: flex; align-items: center; gap: 4px; margin-bottom: 16px;">
-            <!-- Dynamically updated by JavaScript -->
+        <div style="margin-bottom:16px;">
+          <div style="display:flex; align-items:center; gap:0; margin-bottom:10px;">
+            <div id="sp-1" style="display:flex; align-items:center; flex:1;">
+              <div style="width:32px; height:32px; border-radius:50%; background:var(--g); color:#000; font-weight:800; font-size:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</div>
+              <div style="flex:1; height:2px; background:rgba(201,168,76,0.2);"></div>
+            </div>
+            <div id="sp-2" style="display:flex; align-items:center; flex:1;">
+              <div style="width:32px; height:32px; border-radius:50%; background:rgba(201,168,76,0.15); border:2px solid rgba(201,168,76,0.3); color:rgba(255,255,255,0.4); font-weight:800; font-size:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0;" id="sp2-circle">2</div>
+              <div style="flex:1; height:2px; background:rgba(201,168,76,0.2);"></div>
+            </div>
+            <div id="sp-3" style="display:flex; align-items:center;">
+              <div style="width:32px; height:32px; border-radius:50%; background:rgba(201,168,76,0.15); border:2px solid rgba(201,168,76,0.3); color:rgba(255,255,255,0.4); font-weight:800; font-size:13px; display:flex; align-items:center; justify-content:center;" id="sp3-circle">3</div>
+            </div>
           </div>
-          <p id="stepLabel" style="text-align: center; color: var(--g); font-weight: 600; font-size: 12px;">Step 1 of 7: Mobile Verification</p>
+          <p id="stepLabel" style="color:var(--g); font-weight:600; font-size:12px; letter-spacing:0.05em; text-transform:uppercase;">Step 1 of 3 — Business & Location</p>
         </div>
 
         <!-- Form Container -->
-        <div style="max-width: 600px; margin: 0 auto;">
+        <div>
           <form id="onboardingForm" onsubmit="return false;">
-            <!-- STEP 1: Business Information -->
-            <div id="step-1" class="form-step active" style="display: block;">
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+
+            <!-- STEP 1: Business Info + Location (merged) -->
+            <div id="step-1" class="form-step" style="display:block;">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
                 <div>
-                  <label class="fi-label">Mobile Number</label>
+                  <label class="fi-label">Business Name *</label>
+                  <input type="text" id="businessName" name="businessName" placeholder="Your Business Name" class="form-input fi-compact"/>
+                  <span class="error-msg" id="businessNameError"></span>
+                </div>
+                <div>
+                  <label class="fi-label">Owner Name *</label>
+                  <input type="text" id="ownerName" name="ownerName" placeholder="Full Name" class="form-input fi-compact"/>
+                  <span class="error-msg" id="ownerNameError"></span>
+                </div>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;">
+                <div>
+                  <label class="fi-label">Mobile Number *</label>
                   <input type="tel" id="vendorMobile" name="vendorMobile" placeholder="+91 98765 43210" class="form-input fi-compact"/>
                   <span class="error-msg" id="vendorMobileError"></span>
                 </div>
                 <div>
-                  <label class="fi-label">Business Name</label>
-                  <input type="text" id="businessName" name="businessName" placeholder="Your Business Name" class="form-input fi-compact"/>
-                  <span class="error-msg" id="businessNameError"></span>
-                </div>
-              </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
-                <div>
-                  <label class="fi-label">Owner Name</label>
-                  <input type="text" id="ownerName" name="ownerName" placeholder="Full Name" class="form-input fi-compact"/>
-                  <span class="error-msg" id="ownerNameError"></span>
-                </div>
-                <div>
-                  <label class="fi-label">GST Number</label>
-                  <input type="text" id="gstNumber" name="gstNumber" placeholder="GST Number" class="form-input fi-compact"/>
-                  <span class="error-msg" id="gstNumberError"></span>
-                </div>
-              </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
-                <div>
-                  <label class="fi-label">Category</label>
+                  <label class="fi-label">Category *</label>
                   <select id="category" name="category" class="form-input fi-compact">
                     <option value="">Select Category</option>
+                    <option value="jeweler">Jeweller</option>
                     <option value="dealer">Gold Dealer</option>
-                    <option value="jeweler">Jeweler</option>
                     <option value="pawn">Pawn Shop</option>
+                    <option value="lender">Gold Lender / NBFC</option>
                   </select>
                   <span class="error-msg" id="categoryError"></span>
                 </div>
-                <div>
-                  <label class="fi-label">Years in Business</label>
-                  <input type="number" id="years" name="years" placeholder="5" min="0" max="70" class="form-input fi-compact"/>
-                  <span class="error-msg" id="yearsError"></span>
-                </div>
               </div>
-            </div>
-
-            <!-- STEP 2: Business Address -->
-            <div id="step-2" class="form-step" style="display: none;">
-              <div style="margin-bottom: 14px;">
-                <label class="fi-label">Street Address</label>
-                <input type="text" id="address" name="address" placeholder="Street Address" class="form-input fi-compact"/>
-                <span class="error-msg" id="addressError"></span>
-              </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+              <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:10px;">
                 <div>
-                  <label class="fi-label">City</label>
+                  <label class="fi-label">City *</label>
                   <input type="text" id="city" name="city" placeholder="Bangalore" class="form-input fi-compact"/>
                   <span class="error-msg" id="cityError"></span>
                 </div>
                 <div>
-                  <label class="fi-label">State</label>
+                  <label class="fi-label">State *</label>
                   <input type="text" id="state" name="state" placeholder="Karnataka" class="form-input fi-compact"/>
                   <span class="error-msg" id="stateError"></span>
                 </div>
-              </div>
-              <div style="margin-bottom: 14px;">
-                <label class="fi-label">Pincode</label>
-                <input type="text" id="pincode" name="pincode" placeholder="560001" class="form-input fi-compact" maxlength="6"/>
-                <span class="error-msg" id="pincodeError"></span>
-              </div>
-            </div>
-
-            <!-- STEP 3: Services -->
-            <div id="step-3" class="form-step" style="display: none;">
-              <p style="font-size: 13px; color: rgba(255, 255, 255, 0.6); margin-bottom: 20px;">Select at least one service you offer:</p>
-              <div style="space-y: 12px;">
-                <label style="display: flex; align-items: center; padding: 12px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 10px; margin-bottom: 12px; cursor: pointer;">
-                  <input type="checkbox" name="services" value="gold-loan" style="margin-right: 12px;"/> <span style="color: rgba(255, 255, 255, 0.8);">Gold Loan</span>
-                </label>
-                <label style="display: flex; align-items: center; padding: 12px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 10px; margin-bottom: 12px; cursor: pointer;">
-                  <input type="checkbox" name="services" value="gold-sell" style="margin-right: 12px;"/> <span style="color: rgba(255, 255, 255, 0.8);">Gold Sell</span>
-                </label>
-                <label style="display: flex; align-items: center; padding: 12px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 10px; margin-bottom: 12px; cursor: pointer;">
-                  <input type="checkbox" name="services" value="gold-exchange" style="margin-right: 12px;"/> <span style="color: rgba(255, 255, 255, 0.8);">Gold Exchange</span>
-                </label>
-                <label style="display: flex; align-items: center; padding: 12px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 10px; margin-bottom: 12px; cursor: pointer;">
-                  <input type="checkbox" name="services" value="jewellery" style="margin-right: 12px;"/> <span style="color: rgba(255, 255, 255, 0.8);">Jewellery Purchase</span>
-                </label>
-                <label style="display: flex; align-items: center; padding: 12px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 10px; margin-bottom: 12px; cursor: pointer;">
-                  <input type="checkbox" name="services" value="savings" style="margin-right: 12px;"/> <span style="color: rgba(255, 255, 255, 0.8);">Gold Savings Scheme</span>
-                </label>
-              </div>
-              <span class="error-msg" id="servicesError"></span>
-            </div>
-
-            <!-- STEP 4: Branding -->
-            <div id="step-4" class="form-step" style="display: none;">
-              <p style="font-size: 13px; color: rgba(255, 255, 255, 0.6); margin-bottom: 20px;">Upload your business branding materials:</p>
-              <div style="border: 2px dashed rgba(201, 168, 76, 0.3); border-radius: 10px; padding: 20px; text-align: center; margin-bottom: 20px;">
-                <p style="font-size: 12px; color: rgba(255, 255, 255, 0.7);">📁 Logo / Images</p>
-                <p style="font-size: 11px; color: rgba(255, 255, 255, 0.5);">Drag and drop or click to browse</p>
-              </div>
-              <p style="font-size: 11px; color: rgba(255, 255, 255, 0.5); text-align: center;">✓ Optional — click Next to skip and add later</p>
-            </div>
-
-            <!-- STEP 5: Scheme Setup -->
-            <div id="step-5" class="form-step" style="display: none;">
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
                 <div>
-                  <label class="fi-label">Scheme Name</label>
-                  <input type="text" id="schemeName" name="schemeName" placeholder="e.g., Gold Savings Plus" class="form-input fi-compact"/>
-                  <span class="error-msg" id="schemeNameError"></span>
+                  <label class="fi-label">Pincode *</label>
+                  <input type="text" id="pincode" name="pincode" placeholder="560001" maxlength="6" class="form-input fi-compact"/>
+                  <span class="error-msg" id="pincodeError"></span>
+                </div>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <div>
+                  <label class="fi-label">GST Number <span style="font-weight:400;opacity:.5;">(optional)</span></label>
+                  <input type="text" id="gstNumber" name="gstNumber" placeholder="GST Number" class="form-input fi-compact"/>
                 </div>
                 <div>
-                  <label class="fi-label">Validity (months)</label>
-                  <input type="number" id="validity" name="validity" placeholder="12" min="1" max="60" class="form-input fi-compact"/>
-                  <span class="error-msg" id="validityError"></span>
-                </div>
-              </div>
-              <div style="margin-bottom: 14px;">
-                <label class="fi-label">Key Benefits</label>
-                <input type="text" id="benefits" name="benefits" placeholder="e.g., Low interest, Fast approval" class="form-input fi-compact"/>
-                <span class="error-msg" id="benefitsError"></span>
-              </div>
-              <div style="margin-bottom: 14px;">
-                <label class="fi-label">Description</label>
-                <textarea id="schemeDesc" name="schemeDesc" placeholder="Describe your scheme..." class="form-input fi-compact" style="resize: vertical; min-height: 70px;"></textarea>
-                <span class="error-msg" id="schemeDescError"></span>
-              </div>
-            </div>
-
-            <!-- STEP 6: Review -->
-            <div id="step-6" class="form-step" style="display: none;">
-              <div style="background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 10px; padding: 16px; margin-bottom: 20px;">
-                <p style="font-size: 13px; color: #22c55e; font-weight: 600;">✓ All information validated and ready!</p>
-              </div>
-              <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(201, 168, 76, 0.2); border-radius: 10px; padding: 20px;">
-                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(201, 168, 76, 0.1);">
-                  <span style="color: rgba(255, 255, 255, 0.6);">Mobile</span>
-                  <span style="color: rgba(255, 255, 255, 0.9); font-weight: 600;" id="reviewMobile">-</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(201, 168, 76, 0.1);">
-                  <span style="color: rgba(255, 255, 255, 0.6);">Business</span>
-                  <span style="color: rgba(255, 255, 255, 0.9); font-weight: 600;" id="reviewBusiness">-</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(201, 168, 76, 0.1);">
-                  <span style="color: rgba(255, 255, 255, 0.6);">Owner</span>
-                  <span style="color: rgba(255, 255, 255, 0.9); font-weight: 600;" id="reviewOwner">-</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; padding: 10px 0;">
-                  <span style="color: rgba(255, 255, 255, 0.6);">Location</span>
-                  <span style="color: rgba(255, 255, 255, 0.9); font-weight: 600;" id="reviewLocation">-</span>
+                  <label class="fi-label">Years in Business</label>
+                  <input type="number" id="years" name="years" placeholder="5" min="0" max="70" class="form-input fi-compact"/>
                 </div>
               </div>
             </div>
 
-            <!-- Navigation Buttons -->
-            <div style="display: flex; gap: 12px; margin-top: 16px;">
-              <button
-                id="prevBtn"
-                type="button"
-                style="flex: 1; padding: 13px; background: rgba(201, 168, 76, 0.15); color: var(--g); border: 1px solid rgba(201, 168, 76, 0.3); border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: none;"
-                onclick="previousStep()"
-              >
+            <!-- STEP 2: Services -->
+            <div id="step-2" class="form-step" style="display:none;">
+              <p style="font-size:13px; color:rgba(255,255,255,0.55); margin-bottom:16px;">Select the services you offer (choose at least one):</p>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <label style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:rgba(0,0,0,0.3); border:1px solid rgba(201,168,76,0.2); border-radius:10px; cursor:pointer; transition:border-color .2s;">
+                  <input type="checkbox" name="services" value="gold-loan" style="accent-color:var(--g);"/>
+                  <span style="font-size:13px; color:rgba(255,255,255,0.8);">🏦 Gold Loan</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:rgba(0,0,0,0.3); border:1px solid rgba(201,168,76,0.2); border-radius:10px; cursor:pointer; transition:border-color .2s;">
+                  <input type="checkbox" name="services" value="gold-sell" style="accent-color:var(--g);"/>
+                  <span style="font-size:13px; color:rgba(255,255,255,0.8);">💰 Gold Sell</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:rgba(0,0,0,0.3); border:1px solid rgba(201,168,76,0.2); border-radius:10px; cursor:pointer; transition:border-color .2s;">
+                  <input type="checkbox" name="services" value="gold-exchange" style="accent-color:var(--g);"/>
+                  <span style="font-size:13px; color:rgba(255,255,255,0.8);">🔄 Gold Exchange</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:rgba(0,0,0,0.3); border:1px solid rgba(201,168,76,0.2); border-radius:10px; cursor:pointer; transition:border-color .2s;">
+                  <input type="checkbox" name="services" value="jewellery" style="accent-color:var(--g);"/>
+                  <span style="font-size:13px; color:rgba(255,255,255,0.8);">💍 Jewellery</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:rgba(0,0,0,0.3); border:1px solid rgba(201,168,76,0.2); border-radius:10px; cursor:pointer; transition:border-color .2s;">
+                  <input type="checkbox" name="services" value="savings" style="accent-color:var(--g);"/>
+                  <span style="font-size:13px; color:rgba(255,255,255,0.8);">📈 Savings Scheme</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:rgba(0,0,0,0.3); border:1px solid rgba(201,168,76,0.2); border-radius:10px; cursor:pointer; transition:border-color .2s;">
+                  <input type="checkbox" name="services" value="valuation" style="accent-color:var(--g);"/>
+                  <span style="font-size:13px; color:rgba(255,255,255,0.8);">⚖️ Gold Valuation</span>
+                </label>
+              </div>
+              <span class="error-msg" id="servicesError" style="margin-top:10px; display:block;"></span>
+
+              <!-- Banner Upload in Step 2 -->
+              <div style="margin-top:22px; border-top:1px solid rgba(201,168,76,0.12); padding-top:20px;">
+                <p style="font-size:13px; font-weight:700; color:var(--gl); margin-bottom:4px;">📸 Upload Your Hero Banner</p>
+                <p style="font-size:11.5px; color:rgba(255,255,255,0.45); margin-bottom:14px;">
+                  Recommended: <strong style="color:rgba(255,255,255,0.7);">1920 × 1080 px · 16:9 (Full HD)</strong> · JPG / PNG / WebP · Max 5 MB · Save as <code style="color:var(--g); font-size:10.5px;">slide-1.jpg</code> in <code style="color:var(--g); font-size:10.5px;">images\onboarding-hero\</code>
+                </p>
+                <div id="s2DropZone" onclick="document.getElementById('s2-file-input').click()"
+                  style="border:2px dashed rgba(201,168,76,0.28); border-radius:10px; padding:18px; text-align:center; cursor:pointer; background:rgba(201,168,76,0.03); transition:border-color .2s;">
+                  <div style="font-size:24px; margin-bottom:6px;">🖼️</div>
+                  <p style="font-size:12px; color:rgba(255,255,255,0.45);">Drag & drop or <strong style="color:var(--g); cursor:pointer;">click to browse</strong></p>
+                  <input type="file" id="s2-file-input" accept="image/jpeg,image/png,image/webp" style="display:none;" onchange="handleS2Upload(event)">
+                </div>
+                <!-- File info after upload -->
+                <div id="s2FileInfo" style="display:none; margin-top:10px; background:rgba(0,0,0,0.35); border:1px solid rgba(201,168,76,0.2); border-radius:8px; padding:10px 14px; align-items:center; gap:10px;">
+                  <img id="s2Thumb" style="width:48px; height:36px; border-radius:5px; object-fit:cover; border:1px solid rgba(201,168,76,0.3); flex-shrink:0;" src="" alt="">
+                  <div style="flex:1; min-width:0;">
+                    <div id="s2FileName" style="font-size:12px; font-weight:600; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"></div>
+                    <div id="s2FileMeta" style="font-size:11px; color:rgba(255,255,255,0.45); margin-top:2px;"></div>
+                  </div>
+                  <span style="color:#4caf50; font-size:16px; flex-shrink:0;">✓</span>
+                </div>
+                <!-- Preview in hero button -->
+                <button id="s2PreviewBtn" onclick="backToBannerPreview()" style="display:none; width:100%; margin-top:10px; padding:9px; background:transparent; border:1.5px solid var(--g); color:var(--g); border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; transition:all .2s;">
+                  ← Back to Banner Preview
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 3: Review & Submit -->
+            <div id="step-3" class="form-step" style="display:none;">
+              <div style="background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.25); border-radius:10px; padding:12px 16px; margin-bottom:18px; display:flex; align-items:center; gap:10px;">
+                <span style="font-size:18px;">✅</span>
+                <p style="font-size:13px; color:#4ade80; font-weight:600; margin:0;">All details ready — review before submitting</p>
+              </div>
+              <div style="background:rgba(0,0,0,0.35); border:1px solid rgba(201,168,76,0.15); border-radius:12px; overflow:hidden;">
+                <div style="display:flex; justify-content:space-between; padding:11px 16px; border-bottom:1px solid rgba(201,168,76,0.08);">
+                  <span style="font-size:12px; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:.05em;">Business</span>
+                  <span style="font-size:13px; color:#fff; font-weight:600;" id="reviewBusiness">—</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:11px 16px; border-bottom:1px solid rgba(201,168,76,0.08);">
+                  <span style="font-size:12px; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:.05em;">Owner</span>
+                  <span style="font-size:13px; color:#fff; font-weight:600;" id="reviewOwner">—</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:11px 16px; border-bottom:1px solid rgba(201,168,76,0.08);">
+                  <span style="font-size:12px; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:.05em;">Mobile</span>
+                  <span style="font-size:13px; color:#fff; font-weight:600;" id="reviewMobile">—</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:11px 16px; border-bottom:1px solid rgba(201,168,76,0.08);">
+                  <span style="font-size:12px; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:.05em;">Location</span>
+                  <span style="font-size:13px; color:#fff; font-weight:600;" id="reviewLocation">—</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:11px 16px;">
+                  <span style="font-size:12px; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:.05em;">Services</span>
+                  <span style="font-size:13px; color:#fff; font-weight:600;" id="reviewServices">—</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Navigation -->
+            <div style="display:flex; gap:12px; margin-top:16px;">
+              <button id="prevBtn" type="button" onclick="previousStep()"
+                style="display:none; flex:1; padding:13px; background:rgba(201,168,76,0.1); color:var(--g); border:1px solid rgba(201,168,76,0.3); border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; transition:all .2s;">
                 ← Back
               </button>
-              <button
-                id="nextBtn"
-                type="button"
-                style="flex: 1; padding: 13px; background: linear-gradient(135deg, #C9A84C, #E8C96A); color: #000; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s;"
-                onclick="handleNextStep(event)"
-              >
+              <button id="nextBtn" type="button" onclick="handleNextStep(event)"
+                style="flex:1; padding:13px; background:linear-gradient(135deg,#C9A84C,#E8C96A); color:#000; border:none; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; transition:all .2s;">
                 Next →
               </button>
             </div>
+
           </form>
         </div>
       </div>
@@ -1877,56 +2163,13 @@
   </div>
 
   <!-- ═══════════════════ FOOTER ═══════════════════ -->
-  <footer>
-    <div class="foot-inner">
-      <div class="foot-grid">
-        <div>
-          <div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div>
-          <p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions on one trusted platform.</p>
-          <div class="foot-socials">
-            <a href="https://www.linkedin.com/company/goldbazaar" target="_blank" rel="noopener" class="fsoc" title="LinkedIn">in</a>
-            <a href="https://www.facebook.com/goldbazaar" target="_blank" rel="noopener" class="fsoc" title="Facebook">f</a>
-            <a href="https://www.instagram.com/goldbazaar" target="_blank" rel="noopener" class="fsoc" title="Instagram">📷</a>
-            <a href="https://twitter.com/goldbazaar" target="_blank" rel="noopener" class="fsoc" title="X / Twitter">𝕏</a>
-            <a href="https://www.youtube.com/@goldbazaar" target="_blank" rel="noopener" class="fsoc" title="YouTube">▶</a>
-          </div>
-        </div>
-        <div class="foot-col"><h4>Services</h4><ul>
-          <li><a href="index.html#gold-loan">Gold Loan</a></li>
-          <li><a href="index.html#gold-sell">Gold Sell</a></li>
-          <li><a href="index.html#vendors">Gold Exchange</a></li>
-          <li><a href="index.html#vendors">Jewellery</a></li>
-          <li><a href="index.html#vendors">Savings Scheme</a></li>
-        </ul></div>
-        <div class="foot-col"><h4>Platform</h4><ul>
-          <li><a href="index.html#vendors">Find Vendors</a></li>
-          <li><a href="index.html#gold-calculator">Gold Calculator</a></li>
-          <li><a href="index.html#gold-news">Gold News</a></li>
-          <li><a href="vendor-onboarding-complete.html">Vendor Onboarding</a></li>
-          <li><a href="index.html">Vendor Login</a></li>
-        </ul></div>
-        <div class="foot-col"><h4>Company</h4><ul>
-          <li><a href="index.html#why">About Us</a></li>
-          <li><a href="index.html#contact-us">Contact Us</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Press Kit</a></li>
-          <li><a href="index.html#gold-news">Blog</a></li>
-        </ul></div>
-        <div class="foot-col"><h4>Legal</h4><ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms & Conditions</a></li>
-          <li><a href="#">Grievance Policy</a></li>
-          <li><a href="#">Refund Policy</a></li>
-          <li><a href="#">Sitemap</a></li>
-        </ul></div>
-      </div>
-      <div class="foot-bottom">
-        <p>© 2025 GoldBazaar.app — All rights reserved. GoldBazaar Technologies Pvt. Ltd.</p>
-        <div class="foot-badges">
-          <span class="f-badge">DPDP 2023</span><span class="f-badge">ISO 27001</span>
-          <span class="f-badge">PCI DSS</span><span class="f-badge">BIS Partner</span><span class="f-badge">RBI Compliant</span>
-        </div>
-      </div>
+  <footer style="background:#0a0a0a; border-top:1px solid rgba(201,168,76,0.1); padding:18px 48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+    <p style="font-size:12px; color:rgba(255,255,255,0.3); margin:0;">© 2025 GoldBazaar Technologies Pvt. Ltd. All rights reserved.</p>
+    <div style="display:flex; gap:24px; align-items:center;">
+      <a href="#" style="font-size:12px; color:rgba(255,255,255,0.35); text-decoration:none;">Privacy Policy</a>
+      <a href="#" style="font-size:12px; color:rgba(255,255,255,0.35); text-decoration:none;">Terms</a>
+      <a href="index.html#contact-us" style="font-size:12px; color:rgba(255,255,255,0.35); text-decoration:none;">Contact</a>
+      <a href="index.html" style="font-size:12px; color:rgba(201,168,76,0.7); text-decoration:none; font-weight:600;">← Back to Home</a>
     </div>
   </footer>
 
@@ -1941,13 +2184,209 @@
       }
     });
 
-    // ── On page load: show onboarding form directly (skip OTP gate) ──
+    // ── On page load: show Hero + Upload panel first ──
     document.addEventListener('DOMContentLoaded', function () {
-      document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('pageHeader').classList.add('visible');
-      document.getElementById('onboarding').classList.add('active');
-      initializeForm();
+      document.getElementById('loginScreen').classList.remove('visible');
+      document.getElementById('hero-upload-wrap').classList.add('visible');
+      document.body.classList.add('hero-phase');
+      initObHero();
     });
+
+    // ── Banner Upload ──
+    let uploadedBlobUrl = null;
+
+    function handleBannerUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      // Validate format
+      const allowed = ['image/jpeg','image/png','image/webp'];
+      if (!allowed.includes(file.type)) {
+        alert('❌ Unsupported format. Please upload JPG, PNG, or WebP.');
+        return;
+      }
+      // Validate size (5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('❌ File too large. Maximum size is 5 MB.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        uploadedBlobUrl = e.target.result;
+        // Thumbnail
+        document.getElementById('upThumb').src = uploadedBlobUrl;
+        document.getElementById('upFileName').textContent = file.name;
+        const kb = (file.size / 1024).toFixed(0);
+        const mb = (file.size / (1024*1024)).toFixed(2);
+        document.getElementById('upFileMeta').textContent =
+          (file.size > 1024*1024 ? mb + ' MB' : kb + ' KB') +
+          ' · ' + file.type.split('/')[1].toUpperCase();
+        document.getElementById('upFileInfo').classList.add('show');
+        document.getElementById('upPreviewBtn').classList.add('show');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function previewBanner() {
+      if (!uploadedBlobUrl) return;
+      const hero = document.getElementById('ob-hero');
+      // Clear existing bg-scenes
+      hero.querySelectorAll('.bg-scene').forEach(s => s.remove());
+      // Inject uploaded image as first scene
+      const sc = document.createElement('div');
+      sc.className = 'bg-scene active instant';
+      sc.style.backgroundImage = `url("${uploadedBlobUrl}")`;
+      hero.insertBefore(sc, hero.querySelector('.ob-overlay'));
+      // Clear dots
+      document.getElementById('obDots').innerHTML = '';
+      // Flash border to indicate preview active
+      hero.style.outline = '3px solid var(--g)';
+      setTimeout(() => hero.style.outline = '', 1800);
+      // Show preview-done state in panel
+      document.getElementById('upPreviewBtn').style.display = 'none';
+      document.getElementById('upPreviewDone').style.display = 'block';
+      // Upgrade the Continue button to "Proceed to Onboarding"
+      const continueBtn = document.getElementById('upContinueBtn');
+      continueBtn.textContent = 'Proceed to Onboarding →';
+      continueBtn.style.background = 'linear-gradient(135deg, #E8C96A, #C9A84C)';
+    }
+
+    // ── Step 2 Banner Upload ──
+    function handleS2Upload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const allowed = ['image/jpeg','image/png','image/webp'];
+      if (!allowed.includes(file.type)) { alert('❌ Use JPG, PNG, or WebP only.'); return; }
+      if (file.size > 5 * 1024 * 1024) { alert('❌ File must be under 5 MB.'); return; }
+      const reader = new FileReader();
+      reader.onload = e => {
+        uploadedBlobUrl = e.target.result; // reuse same variable so hero preview also works
+        document.getElementById('s2Thumb').src = uploadedBlobUrl;
+        document.getElementById('s2FileName').textContent = file.name;
+        const sz = file.size > 1024*1024 ? (file.size/(1024*1024)).toFixed(2)+' MB' : (file.size/1024).toFixed(0)+' KB';
+        document.getElementById('s2FileMeta').textContent = sz + ' · ' + file.type.split('/')[1].toUpperCase();
+        document.getElementById('s2FileInfo').style.display = 'flex';
+        document.getElementById('s2PreviewBtn').style.display = 'block';
+        // Also sync to hero upload panel info
+        document.getElementById('upThumb').src = uploadedBlobUrl;
+        document.getElementById('upFileName').textContent = file.name;
+        document.getElementById('upFileMeta').textContent = sz + ' · ' + file.type.split('/')[1].toUpperCase();
+        document.getElementById('upFileInfo').classList.add('show');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function previewS2Banner() {
+      // User needs to go back to hero phase to see preview — store the URL and show a toast
+      if (!uploadedBlobUrl) return;
+      // Store for when they go back
+      const toast = document.createElement('div');
+      toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(201,168,76,0.95);color:#000;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;z-index:9999;transition:opacity .4s;';
+      toast.textContent = '✓ Banner saved. Return to hero screen via Back to preview it.';
+      document.body.appendChild(toast);
+      setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 3000);
+    }
+
+    function submitHeroStep() {
+      document.getElementById('hero-upload-wrap').classList.remove('visible');
+      document.body.classList.remove('hero-phase');
+      // Show mobile login/OTP FIRST before revealing the onboarding form
+      document.getElementById('loginTitle').textContent = 'Verify Your Mobile';
+      document.getElementById('loginSubtitle').textContent = 'Enter your mobile number to begin the vendor onboarding process';
+      document.getElementById('loginContextBanner').style.display = 'none';
+      // Reset OTP form to step 1 in case user navigated back
+      document.getElementById('otpStep').style.display = 'block';
+      document.getElementById('verifyStep').style.display = 'none';
+      document.getElementById('step1').classList.add('active');
+      document.getElementById('step2').classList.remove('active');
+      document.getElementById('loginScreen').classList.add('visible');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function backToBannerPreview() {
+      document.getElementById('onboarding').classList.remove('active');
+      document.getElementById('pageHeader').classList.remove('visible');
+      document.getElementById('tabNav').classList.remove('visible');
+      document.getElementById('hero-upload-wrap').classList.add('visible');
+      document.body.classList.add('hero-phase');
+      // Re-inject uploaded banner into hero without resetting panel state
+      if (uploadedBlobUrl) {
+        const hero = document.getElementById('ob-hero');
+        hero.querySelectorAll('.bg-scene').forEach(s => s.remove());
+        const sc = document.createElement('div');
+        sc.className = 'bg-scene active instant';
+        sc.style.backgroundImage = `url("${uploadedBlobUrl}")`;
+        hero.insertBefore(sc, hero.querySelector('.ob-overlay'));
+        document.getElementById('obDots').innerHTML = '';
+      }
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    // ── Onboarding Hero Slider ──
+    // Drop images as slide-1.jpg, slide-2.jpg, … into images/onboarding-hero/
+    function initObHero() {
+      const FOLDER = 'images/onboarding-hero/';
+      const MAX    = 20;
+      const hero   = document.getElementById('ob-hero');
+      const dots   = document.getElementById('obDots');
+      let scenes = [], current = 0, timer = null;
+
+      function buildSlider(urls) {
+        if (!urls.length) return; // keep hero visible with gradient fallback
+        urls.forEach((url, i) => {
+          const sc = document.createElement('div');
+          // First slide: no transition so image appears instantly
+          sc.className = 'bg-scene' + (i === 0 ? ' active instant' : '');
+          sc.style.backgroundImage = `url("${url}")`;
+          hero.insertBefore(sc, hero.querySelector('.ob-overlay'));
+          scenes.push(sc);
+          // Remove instant class after first paint
+          if (i === 0) requestAnimationFrame(() => requestAnimationFrame(() => sc.classList.remove('instant')));
+          const dot = document.createElement('div');
+          dot.className = 'ob-dot' + (i === 0 ? ' active' : '');
+          dot.addEventListener('click', () => goTo(i));
+          dots.appendChild(dot);
+        });
+        if (urls.length > 1) timer = setInterval(() => goTo((current + 1) % scenes.length), 4500);
+      }
+
+      function goTo(n) {
+        scenes[current].classList.remove('active');
+        dots.children[current].classList.remove('active');
+        current = n;
+        scenes[current].classList.add('active');
+        dots.children[current].classList.add('active');
+        if (timer) { clearInterval(timer); timer = setInterval(() => goTo((current + 1) % scenes.length), 4500); }
+      }
+
+      // Probe images sequentially; try .jpg, .jpeg, .png, .webp for each index
+      const EXTS = ['.jpg', '.jpeg', '.png', '.webp', '.JPG', '.JPEG', '.PNG'];
+      const urls = [];
+      let idx = 1;
+
+      function tryExt(base, exts, onFound, onNone) {
+        if (!exts.length) { onNone(); return; }
+        const img = new Image();
+        img.onload  = () => onFound(base + exts[0]);
+        img.onerror = () => tryExt(base, exts.slice(1), onFound, onNone);
+        img.src = base + exts[0];
+      }
+
+      function probe() {
+        if (idx > MAX) { buildSlider(urls); return; }
+        const base = FOLDER + 'slide-' + idx;
+        tryExt(base, EXTS,
+          (url) => { urls.push(url); idx++; probe(); },
+          ()    => buildSlider(urls)   // no file at this index — stop
+        );
+      }
+      probe();
+    }
+
+    // ── Google Sheets endpoint — paste your Apps Script URL here ──
+    // See customer_data/SETUP.md for instructions (one-time, 5 minutes)
+    const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwS9hXLcvJA3VWLVO5EmoJMmnEWdp-FvOOGY-DqHQpJVE4LUshAFcGBp21w4ACCkDrcHQ/exec';
 
     // OTP Login Flow
     let currentMobileNumber = '';
@@ -1993,13 +2432,14 @@
       errorEl.classList.remove('show');
       verifiedMobile = currentMobileNumber;
 
-      // Generate a reference number
-      const ref = 'GB-' + Math.random().toString(36).slice(2,6).toUpperCase() + '-' + Math.random().toString(36).slice(2,6).toUpperCase();
-      document.getElementById('pendingRef').textContent = ref;
+      // Save mobile → Vendor Signups sheet (OTP verified entry)
+      fetch(FORM_ENDPOINT+'?'+new URLSearchParams({sheet:'vendor', mobile:'91-'+verifiedMobile, status:'OTP Verified'}),{mode:'no-cors'}).catch(()=>{});
 
-      // Hide login, show pending review screen
-      document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('pendingScreen').style.display = 'flex';
+      // Hide login screen, proceed to onboarding form
+      document.getElementById('loginScreen').classList.remove('visible');
+      document.getElementById('pageHeader').classList.add('visible');
+      document.getElementById('onboarding').classList.add('active');
+      initializeForm();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -2012,161 +2452,118 @@
 
     // Form Management
     let currentStep = 1;
-    const totalSteps = 6;
+    const totalSteps = 3;
+    const stepLabels = ['Business & Location', 'Services Offered', 'Review & Submit'];
 
     function initializeForm() {
-      updateProgressBar();
+      currentStep = 1;
       showStep(1);
     }
 
-    function updateProgressBar() {
-      const bar = document.getElementById('progressBar');
-      let html = '';
-      for (let i = 1; i <= totalSteps; i++) {
-        const isActive = i <= currentStep;
-        html += `<div style="width: 32px; height: 32px; border-radius: 50%; background: ${isActive ? 'linear-gradient(135deg, #C9A84C, #E8C96A)' : 'rgba(201, 168, 76, 0.2)'}; display: flex; align-items: center; justify-content: center; font-weight: 700; color: ${isActive ? '#000' : 'rgba(255, 255, 255, 0.4)'}; flex-shrink: 0;">${i}</div>`;
-        if (i < totalSteps) {
-          html += `<div style="flex: 1; height: 2px; background: ${i < currentStep ? 'linear-gradient(90deg, #C9A84C, #E8C96A)' : 'rgba(201, 168, 76, 0.2)'};"></div>`;
+    function updateStepUI() {
+      // Update step circles
+      for (let i = 1; i <= 3; i++) {
+        const circle = document.getElementById(`sp${i}-circle`) || document.querySelector(`#sp-${i} div`);
+        if (!circle) continue;
+        if (i < currentStep) {
+          circle.style.background = 'linear-gradient(135deg,#C9A84C,#E8C96A)';
+          circle.style.color = '#000';
+          circle.style.border = 'none';
+          circle.textContent = '✓';
+        } else if (i === currentStep) {
+          circle.style.background = 'linear-gradient(135deg,#C9A84C,#E8C96A)';
+          circle.style.color = '#000';
+          circle.style.border = 'none';
+          circle.textContent = i;
+        } else {
+          circle.style.background = 'rgba(201,168,76,0.1)';
+          circle.style.color = 'rgba(255,255,255,0.35)';
+          circle.style.border = '2px solid rgba(201,168,76,0.25)';
+          circle.textContent = i;
         }
       }
-      bar.innerHTML = html;
-    }
-
-    function getStepLabel() {
-      const labels = [
-        'Business Information',
-        'Business Address',
-        'Services Offered',
-        'Branding Setup',
-        'Scheme Setup',
-        'Review & Submit'
-      ];
-      return `Step ${currentStep} of ${totalSteps}: ${labels[currentStep - 1]}`;
+      // Step 1 circle is the first div in sp-1 (no id)
+      const sp1circle = document.querySelector('#sp-1 div');
+      if (sp1circle) {
+        if (currentStep > 1) { sp1circle.style.background='linear-gradient(135deg,#C9A84C,#E8C96A)'; sp1circle.style.color='#000'; sp1circle.textContent='✓'; }
+        else { sp1circle.style.background='linear-gradient(135deg,#C9A84C,#E8C96A)'; sp1circle.style.color='#000'; sp1circle.textContent='1'; }
+      }
+      document.getElementById('stepLabel').textContent =
+        `Step ${currentStep} of ${totalSteps} — ${stepLabels[currentStep - 1]}`;
     }
 
     function showStep(step) {
-      // Hide all steps
-      for (let i = 1; i <= totalSteps; i++) {
+      for (let i = 1; i <= 3; i++) {
         const el = document.getElementById(`step-${i}`);
-        if (el) el.style.display = 'none';
+        if (el) el.style.display = i === step ? 'block' : 'none';
       }
-
-      // Show current step
-      const stepEl = document.getElementById(`step-${step}`);
-      if (stepEl) stepEl.style.display = 'block';
-
-      // Update label
-      document.getElementById('stepLabel').textContent = getStepLabel();
-
-      // Update buttons
+      updateStepUI();
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
-
-      if (step === 1) {
-        prevBtn.style.display = 'none';
-        nextBtn.textContent = 'Next →';
-      } else if (step === totalSteps) {
-        prevBtn.style.display = 'flex';
-        nextBtn.textContent = 'Submit →';
-      } else {
-        prevBtn.style.display = 'flex';
-        nextBtn.textContent = 'Next →';
-      }
-
-      // Scroll to top
-      window.scrollTo(0, document.getElementById('onboarding').offsetTop);
+      prevBtn.style.display = step === 1 ? 'none' : 'flex';
+      nextBtn.textContent = step === totalSteps ? '🚀 Submit Application' : 'Next →';
+      window.scrollTo({ top: document.getElementById('onboarding').offsetTop - 80, behavior: 'smooth' });
     }
 
     function validateStep(step) {
       const errors = {};
-
-      if (step === 1) {
-        const vendorMobile = document.getElementById('vendorMobile').value.trim().replace(/\D/g,'');
-        const businessName = document.getElementById('businessName').value.trim();
-        const ownerName = document.getElementById('ownerName').value.trim();
-        const gstNumber = document.getElementById('gstNumber').value.trim();
-        const category = document.getElementById('category').value;
-        const years = document.getElementById('years').value;
-
-        if (!vendorMobile || !/^[6-9]\d{9}$/.test(vendorMobile)) errors.vendorMobile = 'Enter a valid 10-digit mobile number';
-        if (!businessName || businessName.length < 3) errors.businessName = 'Enter a valid business name (min 3 characters)';
-        if (!ownerName || ownerName.length < 3) errors.ownerName = 'Enter a valid owner name (min 3 characters)';
-        if (!gstNumber || gstNumber.length < 10) errors.gstNumber = 'Enter a valid GST number (min 10 characters)';
-        if (!category) errors.category = 'Please select a business category';
-        if (!years && years !== '0') errors.years = 'Enter years in business (0 if new)';
-      } else if (step === 2) {
-        const address = document.getElementById('address').value.trim();
-        const city = document.getElementById('city').value.trim();
-        const state = document.getElementById('state').value.trim();
-        const pincode = document.getElementById('pincode').value.trim();
-
-        if (!address || address.length < 5) errors.address = 'Enter a valid address';
-        if (!city || city.length < 2) errors.city = 'Enter a valid city';
-        if (!state) errors.state = 'Enter state name';
-        if (!pincode || !/^\d{6}$/.test(pincode)) errors.pincode = 'Enter a valid 6-digit pincode';
-      } else if (step === 3) {
-        const services = document.querySelectorAll('input[name="services"]:checked');
-        if (services.length === 0) errors.services = 'Select at least one service';
-      // Step 5 (Scheme Setup) is optional — skip validation
-      }
-
-      // Display errors
       clearAllErrors();
-      for (const [field, message] of Object.entries(errors)) {
-        const errorEl = document.getElementById(`${field}Error`);
-        if (errorEl) {
-          errorEl.textContent = message;
-          errorEl.classList.add('show');
-        }
+      if (step === 1) {
+        const mobile = document.getElementById('vendorMobile').value.trim().replace(/\D/g,'');
+        const biz    = document.getElementById('businessName').value.trim();
+        const owner  = document.getElementById('ownerName').value.trim();
+        const cat    = document.getElementById('category').value;
+        const city   = document.getElementById('city').value.trim();
+        const state  = document.getElementById('state').value.trim();
+        const pin    = document.getElementById('pincode').value.trim();
+        if (!mobile || !/^[6-9]\d{9}$/.test(mobile)) errors.vendorMobile = 'Valid 10-digit mobile required';
+        if (!biz || biz.length < 3) errors.businessName = 'Business name required (min 3 chars)';
+        if (!owner || owner.length < 2) errors.ownerName = 'Owner name required';
+        if (!cat) errors.category = 'Select a category';
+        if (!city || city.length < 2) errors.city = 'City required';
+        if (!state) errors.state = 'State required';
+        if (!pin || !/^\d{6}$/.test(pin)) errors.pincode = 'Valid 6-digit pincode required';
+      } else if (step === 2) {
+        const svcs = document.querySelectorAll('input[name="services"]:checked');
+        if (svcs.length === 0) errors.services = 'Select at least one service';
       }
-
+      for (const [field, msg] of Object.entries(errors)) {
+        const el = document.getElementById(`${field}Error`);
+        if (el) { el.textContent = msg; el.classList.add('show'); }
+      }
       return Object.keys(errors).length === 0;
     }
 
     function clearAllErrors() {
-      document.querySelectorAll('.error-msg').forEach(el => {
-        el.classList.remove('show');
-        el.textContent = '';
-      });
+      document.querySelectorAll('.error-msg').forEach(el => { el.classList.remove('show'); el.textContent = ''; });
     }
 
     function handleNextStep(event) {
       event.preventDefault();
-
-      if (!validateStep(currentStep)) {
-        return;
-      }
-
-      if (currentStep === totalSteps) {
-        // Submit form
-        submitForm();
-      } else {
-        // Handle Step 6 (Review)
-        if (currentStep === 5) {
-          populateReview();
-        }
-        currentStep++;
-        updateProgressBar();
-        showStep(currentStep);
-      }
+      if (!validateStep(currentStep)) return;
+      if (currentStep === totalSteps) { submitForm(); return; }
+      if (currentStep === 2) populateReview();
+      currentStep++;
+      showStep(currentStep);
     }
 
     function previousStep() {
-      if (currentStep > 1) {
-        currentStep--;
-        updateProgressBar();
-        showStep(currentStep);
-      }
+      if (currentStep > 1) { currentStep--; showStep(currentStep); }
     }
 
     function populateReview() {
       const mob = document.getElementById('vendorMobile').value.trim().replace(/\D/g,'');
       document.getElementById('reviewMobile').textContent = mob ? `+91 ${mob.slice(0,5)} ${mob.slice(5)}` : '—';
-      document.getElementById('reviewBusiness').textContent = document.getElementById('businessName').value || '-';
-      document.getElementById('reviewOwner').textContent = document.getElementById('ownerName').value || '-';
-      const city = document.getElementById('city').value || '-';
-      const state = document.getElementById('state').value || '-';
-      document.getElementById('reviewLocation').textContent = `${city}, ${state}`;
+      document.getElementById('reviewBusiness').textContent = document.getElementById('businessName').value || '—';
+      document.getElementById('reviewOwner').textContent = document.getElementById('ownerName').value || '—';
+      const city = document.getElementById('city').value || '';
+      const state = document.getElementById('state').value || '';
+      const pin = document.getElementById('pincode').value || '';
+      document.getElementById('reviewLocation').textContent = [city, state, pin].filter(Boolean).join(', ') || '—';
+      const svcs = [...document.querySelectorAll('input[name="services"]:checked')]
+        .map(cb => cb.parentElement.querySelector('span').textContent.trim())
+        .join(', ');
+      document.getElementById('reviewServices').textContent = svcs || '—';
     }
 
     // Countdown timer handle
@@ -2175,25 +2572,35 @@
     function submitForm() {
       clearAllErrors();
 
-      // Capture business name for personalised welcome
-      const bizName = (document.getElementById('businessName')?.value || '').trim() || 'Your Business';
-      document.getElementById('successBizName').textContent = bizName;
+      // Collect full vendor details → POST to server → saved in Vendor Signups sheet
+      const bizName  = (document.getElementById('businessName')?.value || '').trim() || 'Your Business';
+      const ownerName= (document.getElementById('ownerName')?.value || '').trim();
+      const category = document.getElementById('category')?.value || '';
+      const city     = document.getElementById('city')?.value || '';
+      const state    = document.getElementById('state')?.value || '';
+      const pin      = document.getElementById('pincode')?.value || '';
+      const svcs     = [...(document.querySelectorAll('input[name="services"]:checked') || [])]
+                         .map(cb => cb.parentElement?.querySelector('span')?.textContent?.trim() || '')
+                         .join(', ');
 
-      // Hide onboarding & page header — show the full-screen celebration
+      // Save full vendor details → Vendor Signups sheet
+      fetch(FORM_ENDPOINT+'?'+new URLSearchParams({
+        sheet:'vendor', mobile:'91-'+verifiedMobile,
+        businessName:bizName, ownerName, category,
+        services:svcs, city, state, pincode:pin,
+        status:'Application Submitted'
+      }),{mode:'no-cors'}).catch(()=>{});
+
+      // Generate reference number
+      const ref = 'GB-' + Math.random().toString(36).slice(2,6).toUpperCase() + '-' + Date.now().toString(36).toUpperCase().slice(-4);
+      const refEl = document.getElementById('pendingRef');
+      if (refEl) refEl.textContent = ref;
+
+      // Hide onboarding & header — show "Application Under Review" confirmation
       document.getElementById('onboarding').classList.remove('active');
       document.getElementById('pageHeader').classList.remove('visible');
-      document.getElementById('successScreen').style.display = 'flex';
-
-      // Countdown 8 → 0 then auto-activate
-      let count = 8;
-      const countEl = document.getElementById('successCountdown');
-      if (countEl) countEl.textContent = count;
-      clearInterval(successTimer);
-      successTimer = setInterval(() => {
-        count--;
-        if (countEl) countEl.textContent = Math.max(count, 0);
-        if (count <= 0) { clearInterval(successTimer); activateAccount(); }
-      }, 1000);
+      document.getElementById('pendingScreen').style.display = 'flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function activateAccount() {
@@ -2214,7 +2621,9 @@
       const mobileInput = document.getElementById('mobile');
       if (mobileInput && mob) mobileInput.value = mob;
 
-      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('loginScreen').classList.add('visible');
+      document.getElementById('hero-upload-wrap').classList.remove('visible');
+      document.body.classList.remove('hero-phase');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -2352,229 +2761,195 @@
       id:'GB-2026-001185', name:'Deepa Nair', mobile:'+91 87654 32109', email:'deepa.nair@email.com',
       service:'Gold Loan', location:'Banashankari, Bangalore', area:'Banashankari',
       requirement:'Loan Amount: ₹1,50,000 | Gold Weight: 42g',
-      reqDetails:{'Loan Amount':'₹1,50,000','Gold Weight':'42g','Tenure':'3 months','Preferred Contact':'Evening'},
-      budget:'₹1,50,000', weight:'42g', contactTime:'Evening (5–8 PM)',
-      notes:'Did not show up for appointment. Follow-up calls unanswered.', otpVerified:true,
-      source:'GoldBazaar App', intent:'Medium Intent', status:'Closed', date:'03 Jun 2026',
-      timeline:['Lead Received','Lead Accepted','Customer Contacted']
+      reqDetails:{'Loan Amount':'₹1,50,000','Gold Weight':'42g','Tenure':'6 months','Purpose':'Medical expense'},
+      budget:'₹1,50,000', weight:'42g', contactTime:'Morning (9–12 AM)',
+      notes:'Urgent — medical emergency. Processed same-day.', otpVerified:true,
+      source:'GoldBazaar App', intent:'High Intent', status:'Converted', date:'05 Jun 2026',
+      timeline:['Lead Received','Lead Accepted','Customer Contacted','Appointment Scheduled','Store Visit','Conversion Updated']
     }
   ];
 
-  let currentLeadId = null;
-
-  // ── Helper: CSS classes ──
-  function svcClass(s) {
-    return {'Gold Loan':'svc-loan','Gold Sell':'svc-sell','Gold Exchange':'svc-exch',
-            'Jewellery Purchase':'svc-jewel','Gold Savings Scheme':'svc-saving','Digital Gold':'svc-digital'}[s]||'svc-loan';
-  }
-  function intentClass(i) {
-    return {'High Intent':'intent-high','Medium Intent':'intent-medium','General Enquiry':'intent-general'}[i]||'intent-general';
-  }
-  function intentIcon(i) { return {'High Intent':'🔥','Medium Intent':'⭐','General Enquiry':'🟢'}[i]||'🟢'; }
-  function statusClass(s) {
-    return {'New':'st-new','Accepted':'st-accepted','Contacted':'st-contacted',
-            'Appointment Scheduled':'st-appointed','Visited Store':'st-visited',
-            'Converted':'st-converted','Closed':'st-closed','Rejected':'st-rejected'}[s]||'st-new';
-  }
-  // Short labels for display in constrained table cells
-  const STATUS_DISPLAY = {
-    'Appointment Scheduled': 'Appt. Scheduled',
-    'Visited Store': 'Visited Store',
+  // ── Status colour map ──
+  const STATUS_COLORS = {
+    'New':'rgba(96,165,250,0.15)',
+    'Accepted':'rgba(201,168,76,0.15)',
+    'Contacted':'rgba(249,115,22,0.15)',
+    'Appointment Scheduled':'rgba(139,92,246,0.15)',
+    'Visited Store':'rgba(6,182,212,0.15)',
+    'Converted':'rgba(74,222,128,0.15)',
+    'Closed':'rgba(255,255,255,0.08)',
+    'Rejected':'rgba(239,68,68,0.12)'
   };
+  const STATUS_TEXT = {
+    'New':'#60a5fa','Accepted':'#C9A84C','Contacted':'#f97316',
+    'Appointment Scheduled':'#a78bfa','Visited Store':'#22d3ee',
+    'Converted':'#4ade80','Closed':'rgba(255,255,255,0.4)','Rejected':'#ef4444'
+  };
+  const INTENT_COLORS = {'High Intent':'#4ade80','Medium Intent':'#facc15','General Enquiry':'rgba(255,255,255,0.35)'};
 
-  // ── Toast ──
-  let toastTimer;
-  function showToast(msg, icon) {
-    const el = document.getElementById('leadToast');
-    document.getElementById('leadToastMsg').textContent = msg;
-    el.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
-  }
+  let currentDrawerLead = null;
 
-  // ── Summary bar active state ──
-  function filterByStatus(status, statId) {
-    document.querySelectorAll('.lead-stat').forEach(s => s.classList.remove('active'));
-    if (statId) document.getElementById(statId)?.classList.add('active');
-    document.getElementById('fltStatus').value = status;
-    renderLeads();
-  }
-
-  // ── Render leads table ──
   function renderLeads() {
-    const search = (document.getElementById('leadSearchInput')?.value||'').toLowerCase().trim();
-    const fltSvc = document.getElementById('fltService')?.value||'';
-    const fltSt  = document.getElementById('fltStatus')?.value||'';
-    const fltInt = document.getElementById('fltIntent')?.value||'';
-    const fltLoc = document.getElementById('fltLocation')?.value||'';
+    const q     = (document.getElementById('leadSearchInput')?.value || '').toLowerCase();
+    const svc   = document.getElementById('fltService')?.value || '';
+    const stat  = document.getElementById('fltStatus')?.value || '';
+    const intent= document.getElementById('fltIntent')?.value || '';
+    const loc   = document.getElementById('fltLocation')?.value || '';
 
-    let filtered = LEADS.filter(l => {
-      if (search && !l.name.toLowerCase().includes(search) &&
-          !l.id.toLowerCase().includes(search) &&
-          !l.mobile.replace(/\s/g,'').includes(search.replace(/\s/g,''))) return false;
-      if (fltSvc && l.service !== fltSvc) return false;
-      if (fltSt  && l.status !== fltSt)  return false;
-      if (fltInt && l.intent !== fltInt)  return false;
-      if (fltLoc && !l.location.includes(fltLoc)) return false;
+    const filtered = LEADS.filter(l => {
+      if (q && !l.name.toLowerCase().includes(q) && !l.mobile.includes(q) && !l.id.toLowerCase().includes(q)) return false;
+      if (svc   && l.service  !== svc)   return false;
+      if (stat  && l.status   !== stat)  return false;
+      if (intent&& l.intent   !== intent)return false;
+      if (loc   && !l.area.includes(loc))return false;
       return true;
     });
 
-    const tbody = document.getElementById('leadTableBody');
+    const body  = document.getElementById('leadTableBody');
     const empty = document.getElementById('leadEmpty');
-    if (!filtered.length) { tbody.innerHTML=''; empty.style.display='block'; return; }
-    empty.style.display = 'none';
+    if (!body) return;
 
-    tbody.innerHTML = filtered.map(l => {
-      const sc = svcClass(l.service), ic = intentClass(l.intent), stc = statusClass(l.status);
-      const dateShort = l.date.replace(' 2026','');
-      const dispStatus = STATUS_DISPLAY[l.status]||l.status;
-      const actionBtns = l.status==='New'
-        ? `<button class="la-btn la-accept" onclick="acceptLead('${l.id}')">Accept</button><button class="la-btn la-reject" onclick="rejectLead('${l.id}')">Reject</button>`
-        : '';
-      return `<div class="lead-row" onclick="openLeadDrawer('${l.id}')">
-        <div class="lead-cell" data-label="Lead ID"><span class="lead-id">${l.id}</span></div>
-        <div class="lead-cell" data-label="Customer"><div><div class="lead-cust-name">${l.name}</div><div class="lead-cust-sub">${l.mobile}</div></div></div>
-        <div class="lead-cell" data-label="Service"><span class="svc-badge ${sc}">${l.service}</span></div>
-        <div class="lead-cell" data-label="Location" style="font-size:12px;">${l.location}</div>
-        <div class="lead-cell" data-label="Requirement" style="font-size:12px;color:rgba(255,255,255,0.6);">${l.requirement}</div>
-        <div class="lead-cell" data-label="Intent"><span class="intent-badge ${ic}">${intentIcon(l.intent)} ${l.intent}</span></div>
-        <div class="lead-cell" data-label="Date" style="font-size:11px;color:rgba(255,255,255,0.45);line-height:1.4;">${dateShort}<br><span style="color:rgba(255,255,255,0.22);font-size:10px;">2026</span></div>
-        <div class="lead-cell" data-label="Status"><span class="status-pill ${stc}" title="${l.status}">${dispStatus}</span></div>
-        <div class="lead-cell lead-actions" data-label="Actions" onclick="event.stopPropagation()">
-          <button class="la-btn la-view" onclick="openLeadDrawer('${l.id}')">View</button>
-          ${actionBtns}
+    if (!filtered.length) { body.innerHTML=''; if(empty)empty.style.display='flex'; return; }
+    if(empty) empty.style.display='none';
+
+    body.innerHTML = filtered.map(l => `
+      <div class="lead-row" onclick="openLeadDrawer('${l.id}')" style="cursor:pointer">
+        <div class="lead-td"><span style="font-family:'Courier New',monospace;font-size:11px;color:var(--g);font-weight:700">${l.id}</span></div>
+        <div class="lead-td">
+          <div style="font-weight:600;color:#fff;font-size:13px">${l.name}</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px">${l.mobile}</div>
+          ${l.otpVerified ? '<div style="font-size:10px;color:#4ade80;margin-top:2px">✓ OTP Verified</div>' : ''}
         </div>
-      </div>`;
-    }).join('');
+        <div class="lead-td"><span style="font-size:12px;color:rgba(255,255,255,0.7)">${l.service}</span></div>
+        <div class="lead-td"><span style="font-size:12px;color:rgba(255,255,255,0.55)">${l.area}</span></div>
+        <div class="lead-td"><span style="font-size:11px;color:rgba(255,255,255,0.5);line-height:1.4">${l.requirement.slice(0,60)}${l.requirement.length>60?'…':''}</span></div>
+        <div class="lead-td"><span style="font-size:11px;font-weight:700;color:${INTENT_COLORS[l.intent]||'#fff'}">${l.intent}</span></div>
+        <div class="lead-td"><span style="font-size:11px;color:rgba(255,255,255,0.4)">${l.date}</span></div>
+        <div class="lead-td">
+          <span style="padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700;background:${STATUS_COLORS[l.status]||'rgba(255,255,255,0.08)'};color:${STATUS_TEXT[l.status]||'#fff'};letter-spacing:0.04em">${l.status}</span>
+        </div>
+        <div class="lead-td">
+          <button class="qa-btn" style="padding:6px 12px;font-size:11px" onclick="event.stopPropagation();openLeadDrawer('${l.id}')">View →</button>
+        </div>
+      </div>
+    `).join('');
   }
 
-  // ── Open drawer ──
   function openLeadDrawer(id) {
-    const l = LEADS.find(x=>x.id===id);
+    const l = LEADS.find(x => x.id === id);
     if (!l) return;
-    currentLeadId = id;
+    currentDrawerLead = l;
 
-    document.getElementById('drawerLeadId').textContent = l.id;
+    document.getElementById('drawerLeadId').textContent  = l.id;
     document.getElementById('drawerCustName').textContent = l.name;
-    document.getElementById('drawerBadges').innerHTML =
-      '<span class="svc-badge '+svcClass(l.service)+'">'+l.service+'</span> '+
-      '<span class="intent-badge '+intentClass(l.intent)+'">'+intentIcon(l.intent)+' '+l.intent+'</span> '+
-      '<span class="status-pill '+statusClass(l.status)+'" style="font-size:11px;">'+l.status+'</span>';
 
-    const rows = [
-      ['Mobile Number', l.mobile], ['Email Address', l.email],
-      ['Location', l.location], ['Preferred Area', l.area],
-      ['Service Required', l.service], ['Budget / Loan Amount', l.budget],
-      ['Gold Weight', l.weight], ['Preferred Contact Time', l.contactTime],
-      ['Additional Notes', l.notes],
-      ['OTP Verification', l.otpVerified ? '✅ Verified' : '⚠️ Not Verified'],
-      ['Lead Source', l.source], ['Date Submitted', l.date]
-    ];
-    document.getElementById('drawerCustInfo').innerHTML = rows.map(function(r){
-      return '<div class="info-row"><span class="info-label">'+r[0]+'</span><span class="info-value">'+r[1]+'</span></div>';
-    }).join('');
+    // Badges
+    const badges = document.getElementById('drawerBadges');
+    badges.innerHTML = `
+      <span style="padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;background:${STATUS_COLORS[l.status]||'rgba(255,255,255,0.08)'};color:${STATUS_TEXT[l.status]||'#fff'}">${l.status}</span>
+      <span style="padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(201,168,76,0.12);color:var(--g)">${l.service}</span>
+      <span style="padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;color:${INTENT_COLORS[l.intent]||'#fff'};background:rgba(255,255,255,0.06)">${l.intent}</span>
+      ${l.otpVerified ? '<span style="padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(74,222,128,0.12);color:#4ade80">✓ OTP Verified</span>' : ''}
+    `;
 
-    const reqItems = Object.entries(l.reqDetails).map(function(e){
-      return '<div class="req-item"><span>'+e[0]+'</span><span>'+e[1]+'</span></div>';
-    }).join('');
-    document.getElementById('drawerReqCard').innerHTML = '<h4>'+l.service+' Requirement</h4>'+reqItems;
+    // Customer info
+    document.getElementById('drawerCustInfo').innerHTML = `
+      <div style="display:grid;gap:10px">
+        ${[['📞 Mobile',l.mobile],['✉️ Email',l.email],['📍 Location',l.location],['🕐 Contact Time',l.contactTime],['📅 Received',l.date],['🔗 Source',l.source]].map(([k,v])=>`
+          <div style="display:flex;gap:10px;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid rgba(255,255,255,0.06)">
+            <span style="font-size:11px;color:rgba(255,255,255,0.35);width:110px;flex-shrink:0">${k}</span>
+            <span style="font-size:12px;color:rgba(255,255,255,0.8);font-weight:500">${v}</span>
+          </div>`).join('')}
+      </div>`;
 
-    document.getElementById('drawerStatusSelect').value = l.status;
-    document.getElementById('drawerAcceptBtn').style.opacity = l.status==='New' ? '1' : '0.45';
+    // Requirement card
+    const reqDetails = Object.entries(l.reqDetails||{}).map(([k,v])=>`
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+        <span style="font-size:12px;color:rgba(255,255,255,0.4)">${k}</span>
+        <span style="font-size:12px;font-weight:600;color:#fff">${v}</span>
+      </div>`).join('');
+    document.getElementById('drawerReqCard').innerHTML = reqDetails + (l.notes ? `<div style="margin-top:10px;padding:10px;background:rgba(201,168,76,0.06);border-radius:8px;font-size:12px;color:rgba(255,255,255,0.55);font-style:italic">📝 ${l.notes}</div>` : '');
 
-    const tlLabels = {
-      'Lead Received':'Auto-assigned by GoldBazaar',
-      'Lead Accepted':'You accepted this lead',
-      'Customer Contacted':'Marked as contacted',
-      'Appointment Scheduled':'Appointment created',
-      'Store Visit':'Customer visited store',
-      'Conversion Updated':'Deal closed — Converted'
-    };
-    document.getElementById('drawerTimeline').innerHTML = l.timeline.map(function(t){
-      return '<div class="tl-item"><div class="tl-dot done"></div><div class="tl-title">'+t+'</div><div class="tl-time">'+l.date+' · '+(tlLabels[t]||'')+'</div></div>';
-    }).join('');
+    // Set current status in dropdown
+    const sel = document.getElementById('drawerStatusSelect');
+    if (sel) sel.value = l.status;
+
+    // Show/hide accept button
+    const acceptBtn = document.getElementById('drawerAcceptBtn');
+    if (acceptBtn) acceptBtn.style.display = l.status === 'New' ? 'flex' : 'none';
+
+    // Timeline
+    const tl = document.getElementById('drawerTimeline');
+    if (tl) {
+      tl.innerHTML = (l.timeline||[]).map((step,i,arr) => `
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0">
+          <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;flex-shrink:0">${i+1}</div>
+          <div style="font-size:12px;color:${i===arr.length-1?'#fff':'rgba(255,255,255,0.5)'};padding-top:2px;font-weight:${i===arr.length-1?'600':'400'}">${step}</div>
+        </div>`).join('');
+    }
 
     document.getElementById('drawerOverlay').classList.add('open');
     document.getElementById('leadDrawer').classList.add('open');
-    document.body.style.overflow = 'hidden';
   }
 
   function closeLeadDrawer() {
     document.getElementById('drawerOverlay').classList.remove('open');
     document.getElementById('leadDrawer').classList.remove('open');
-    document.body.style.overflow = '';
-    currentLeadId = null;
+    currentDrawerLead = null;
   }
 
-  document.addEventListener('keydown', function(e){ if (e.key==='Escape') closeLeadDrawer(); });
-
-  function acceptLead(id) {
-    const l = LEADS.find(x=>x.id===id);
-    if (!l || l.status!=='New') return;
-    l.status = 'Accepted';
-    if (!l.timeline.includes('Lead Accepted')) l.timeline.push('Lead Accepted');
+  function drawerAccept() {
+    if (!currentDrawerLead) return;
+    currentDrawerLead.status = 'Accepted';
+    currentDrawerLead.timeline.push('Lead Accepted');
+    const sel = document.getElementById('drawerStatusSelect');
+    if (sel) sel.value = 'Accepted';
+    const acceptBtn = document.getElementById('drawerAcceptBtn');
+    if (acceptBtn) acceptBtn.style.display = 'none';
     renderLeads();
-    if (currentLeadId===id) openLeadDrawer(id);
-    showToast('✅ Lead accepted successfully!');
+    showToast('✓ Lead accepted — customer will be notified');
   }
 
-  function rejectLead(id) {
-    const l = LEADS.find(x=>x.id===id);
-    if (!l) return;
-    if (!confirm('Reject this lead? This cannot be undone.')) return;
-    l.status = 'Rejected';
+  function drawerReject() {
+    if (!currentDrawerLead) return;
+    currentDrawerLead.status = 'Rejected';
+    currentDrawerLead.timeline.push('Lead Rejected');
     renderLeads();
-    if (currentLeadId===id) closeLeadDrawer();
-    showToast('❌ Lead rejected');
+    closeLeadDrawer();
+    showToast('Lead marked as rejected');
   }
 
-  function drawerAccept() { if (currentLeadId) acceptLead(currentLeadId); }
-  function drawerReject() { if (currentLeadId) rejectLead(currentLeadId); }
-
-  function applyStatusUpdate() {
-    if (!currentLeadId) return;
-    const l = LEADS.find(x=>x.id===currentLeadId);
-    if (!l) return;
-    const newStatus = document.getElementById('drawerStatusSelect').value;
-    l.status = newStatus;
-    const tlMap = {
-      'Accepted':'Lead Accepted', 'Contacted':'Customer Contacted',
-      'Appointment Scheduled':'Appointment Scheduled',
-      'Visited Store':'Store Visit', 'Converted':'Conversion Updated'
-    };
-    if (tlMap[newStatus] && !l.timeline.includes(tlMap[newStatus]))
-      l.timeline.push(tlMap[newStatus]);
+  function updateLeadStatus() {
+    if (!currentDrawerLead) return;
+    const sel = document.getElementById('drawerStatusSelect');
+    if (!sel) return;
+    const newStatus = sel.value;
+    currentDrawerLead.status = newStatus;
+    if (!currentDrawerLead.timeline.includes(newStatus)) currentDrawerLead.timeline.push(newStatus);
     renderLeads();
-    openLeadDrawer(currentLeadId);
-    showToast('✅ Status updated to "' + newStatus + '"');
+    showToast('✓ Status updated to: ' + newStatus);
   }
 
   function scrollToAppt() {
-    document.getElementById('apptSection').scrollIntoView({behavior:'smooth', block:'start'});
+    const apptSec = document.getElementById('drawerApptSection');
+    if (apptSec) apptSec.scrollIntoView({behavior:'smooth', block:'center'});
   }
 
-  function saveAppointment() {
-    if (!currentLeadId) return;
-    const date   = document.getElementById('apptDate').value;
-    const time   = document.getElementById('apptTime').value;
-    const branch = document.getElementById('apptBranch').value.trim();
-    if (!date || !time || !branch) { showToast('⚠️ Please fill date, time and branch'); return; }
-    const l = LEADS.find(x=>x.id===currentLeadId);
-    if (l && ['New','Accepted','Contacted'].includes(l.status)) {
-      l.status = 'Appointment Scheduled';
-      if (!l.timeline.includes('Appointment Scheduled')) l.timeline.push('Appointment Scheduled');
-    }
-    renderLeads();
-    openLeadDrawer(currentLeadId);
-    document.getElementById('apptDate').value = '';
-    document.getElementById('apptTime').value = '';
-    document.getElementById('apptBranch').value = '';
-    document.getElementById('apptRemarks').value = '';
-    showToast('📅 Appointment confirmed at ' + branch);
+  function showToast(msg) {
+    const t = document.createElement('div');
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(201,168,76,0.95);color:#000;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;z-index:9999;transition:opacity .4s;white-space:nowrap';
+    document.body.appendChild(t);
+    setTimeout(()=>{ t.style.opacity='0'; setTimeout(()=>t.remove(),400); },3000);
   }
 
-  // ── Init ──
-  renderLeads();
+  // Render leads on page load when leads tab is active
+  document.addEventListener('DOMContentLoaded', () => {
+    const leadsDiv = document.getElementById('leads');
+    if (leadsDiv && leadsDiv.classList.contains('active')) renderLeads();
+  });
+
   </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </body>
 </html>
