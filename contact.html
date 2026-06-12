@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Contact Us — GoldBazaar</title>
+<meta name="description" content="Reach GoldBazaar by email, phone, or social media. We respond within 4 business hours."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#9B7B2E;border-radius:2px}
+:root{--g:#C9A84C;--gl:#E8C96A;--gd:#9B7B2E;--fd:'Playfair Display',Georgia,serif;--nav-h:68px}
+html[data-theme="dark"]{--bg:#000;--b1:#0A0A0A;--b2:#111;--b3:#161616;--text:#FFF;--text2:rgba(255,255,255,.7);--text3:rgba(255,255,255,.45)}
+html[data-theme="light"]{--bg:#FFF;--b1:#F8F8F8;--b2:#F2F2F2;--b3:#EBEBEB;--text:#1A1A1A;--text2:#444;--text3:#777}
+.wrap{max-width:1100px;margin:0 auto;padding:0 48px}
+@media(max-width:600px){.wrap{padding:0 20px}}
+.gold{background:linear-gradient(135deg,#C9A84C,#F5E6C0,#C9A84C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--g);display:inline-block}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 32px;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+#nav.scrolled{background:rgba(0,0,0,.94);backdrop-filter:blur(20px);border-color:rgba(201,168,76,.25)}
+.nav-logo img{height:56px}
+.nav-center{display:flex;align-items:center;gap:4px}
+.nav-center a{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);padding:7px 12px;border-radius:7px;transition:color .2s}
+.nav-center a:hover{color:var(--g)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-theme{padding:6px 10px;font-size:16px}
+.nav-login{padding:8px 16px;border:1px solid rgba(201,168,76,.35);border-radius:8px;font-size:13px;font-weight:500;color:var(--g)}
+.nav-vendor{padding:8px 16px;border:1px solid rgba(255,255,255,.18);border-radius:8px;font-size:13px;color:rgba(255,255,255,.75)}
+.nav-vendor:hover{border-color:var(--g);color:var(--g)}
+.nav-cta{padding:8px 20px;border-radius:8px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:13px;font-weight:700}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:4px}
+.hamburger span{width:21px;height:1.5px;background:#fff;display:block}
+#mob-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:999;background:rgba(0,0,0,.97);padding:20px 28px;flex-direction:column;gap:4px}
+#mob-nav.open{display:flex}
+#mob-nav a{font-size:15px;color:rgba(255,255,255,.72);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+@media(max-width:768px){.hamburger{display:flex}.nav-center{display:none}}
+
+/* HERO */
+.ct-hero{padding:120px 0 64px;text-align:center;background:linear-gradient(180deg,var(--b1),var(--bg));border-bottom:1px solid rgba(201,168,76,.2);position:relative;overflow:hidden}
+.ct-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(201,168,76,.07),transparent);pointer-events:none}
+.ct-hero h1{font-family:var(--fd);font-size:clamp(34px,5vw,60px);font-weight:700;margin-bottom:16px;letter-spacing:-.02em}
+.ct-hero p{font-size:15px;color:var(--text2);max-width:520px;margin:0 auto;line-height:1.75}
+
+/* BODY */
+.ct-body{padding:72px 0 96px}
+.ct-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:start}
+@media(max-width:860px){.ct-grid{grid-template-columns:1fr;gap:40px}}
+
+/* CONTACT CARDS */
+.ct-cards{display:flex;flex-direction:column;gap:14px}
+.ct-card{background:var(--b2);border:1.5px solid rgba(201,168,76,.2);border-radius:14px;padding:20px 22px;display:flex;align-items:center;gap:16px;transition:border-color .2s}
+.ct-card:hover{border-color:rgba(201,168,76,.5)}
+.ct-card-icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.05));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ct-card-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:4px}
+.ct-card-val{font-size:14px;color:var(--text);font-weight:500}
+.ct-card-val a{color:var(--g)}
+
+/* SOCIAL */
+.social-section{margin-top:32px}
+.social-title{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);margin-bottom:14px}
+.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.social-btn{display:flex;align-items:center;gap:10px;background:var(--b2);border:1.5px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 16px;transition:all .2s;cursor:pointer}
+.social-btn:hover{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.05)}
+.social-btn-icon{font-size:18px;width:28px;text-align:center}
+.social-btn-name{font-size:13px;font-weight:600}
+.social-btn-handle{font-size:11px;color:var(--text3)}
+
+/* QUICK LINKS */
+.quicklinks-section{margin-top:32px}
+.ql-title{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);margin-bottom:14px}
+.ql-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ql-item{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--b2);border:1.5px solid rgba(255,255,255,.06);border-radius:10px;font-size:13px;color:var(--text2);transition:all .2s}
+.ql-item:hover{border-color:rgba(201,168,76,.3);color:var(--g)}
+.ql-item span{font-size:15px}
+
+/* FORM */
+.ct-form-wrap{background:var(--b2);border:1.5px solid rgba(201,168,76,.2);border-radius:20px;padding:36px}
+.ct-form-wrap h3{font-family:var(--fd);font-size:22px;font-weight:700;margin-bottom:6px}
+.ct-form-wrap .sub{font-size:13px;color:var(--text3);margin-bottom:28px}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:500px){.cf-row{grid-template-columns:1fr}}
+.cf-field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.cf-field label{font-size:12px;font-weight:600;color:var(--text3);letter-spacing:.05em;text-transform:uppercase}
+.cf-field input,.cf-field select,.cf-field textarea{background:var(--b3);border:1.5px solid rgba(255,255,255,.08);border-radius:10px;padding:11px 14px;font-size:14px;color:var(--text);font-family:inherit;outline:none;transition:border-color .2s;width:100%}
+.cf-field input:focus,.cf-field select:focus,.cf-field textarea:focus{border-color:rgba(201,168,76,.5)}
+.cf-field textarea{resize:vertical;min-height:100px}
+.cf-submit{width:100%;padding:13px;border-radius:10px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:opacity .2s;margin-top:4px}
+.cf-submit:hover{opacity:.85}
+.cf-success{display:none;text-align:center;padding:20px;color:var(--g);font-weight:600}
+
+/* MAP PLACEHOLDER */
+.ct-map{background:var(--b2);border:1.5px solid rgba(201,168,76,.15);border-radius:16px;padding:32px;text-align:center;margin-top:48px}
+.ct-map h3{font-size:16px;font-weight:700;margin-bottom:8px}
+.ct-map p{font-size:13px;color:var(--text3)}
+.ct-map .map-box{background:var(--b3);border-radius:12px;padding:60px 20px;margin-top:16px;font-size:13px;color:var(--text3)}
+
+/* LIGHT */
+html[data-theme="light"] #nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 2px 16px rgba(0,0,0,.1)}
+html[data-theme="light"] .nav-center a{color:rgba(0,0,0,.6)}
+html[data-theme="light"] .nav-vendor{border-color:rgba(0,0,0,.18);color:rgba(0,0,0,.65)}
+html[data-theme="light"] .hamburger span{background:#1a1a1a}
+html[data-theme="light"] #mob-nav{background:rgba(255,255,255,.98)}
+html[data-theme="light"] .ct-hero{background:linear-gradient(180deg,#F8F8F8,#FFF)}
+html[data-theme="light"] .ct-card,.html[data-theme="light"] .ct-form-wrap,.html[data-theme="light"] .social-btn,.html[data-theme="light"] .ql-item{background:#fff}
+html[data-theme="light"] .cf-field input,.html[data-theme="light"] .cf-field select,.html[data-theme="light"] .cf-field textarea{background:#f5f5f5;border-color:rgba(0,0,0,.1);color:#1a1a1a}
+
+/* FOOTER */
+footer{background:var(--b1);border-top:1.5px solid rgba(201,168,76,.25)}
+.foot-inner{max-width:1200px;margin:0 auto;padding:48px 48px 24px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+@media(max-width:1100px){.foot-grid{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr}.foot-inner{padding:32px 20px 20px}}
+@media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
+.foot-logo img{height:56px;margin-bottom:14px}
+.foot-desc{font-size:13px;color:var(--text3);line-height:1.7;max-width:260px;margin-bottom:18px}
+.foot-socials{display:flex;gap:10px}
+.fsoc{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all .2s}
+.fsoc:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.3)}
+.foot-col h4{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.foot-col ul li a{font-size:13px;color:var(--text3);transition:color .2s}
+.foot-col ul li a:hover,.foot-col ul li a.cur{color:var(--g)}
+.foot-col ul li a.cur{font-weight:600}
+.foot-bottom{border-top:1px solid rgba(201,168,76,.1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.foot-bottom p{font-size:12px;color:rgba(255,255,255,.3)}
+.foot-badges{display:flex;gap:8px;flex-wrap:wrap}
+.f-badge{font-size:10px;font-weight:700;padding:4px 10px;border:1px solid rgba(201,168,76,.2);border-radius:20px;color:rgba(255,255,255,.35)}
+html[data-theme="light"] footer{background:#f5f5f0;border-top-color:rgba(201,168,76,.35)}
+html[data-theme="light"] .foot-col ul li a{color:rgba(0,0,0,.5)}
+html[data-theme="light"] .foot-col ul li a:hover{color:var(--g)}
+html[data-theme="light"] .foot-bottom p{color:rgba(0,0,0,.4)}
+html[data-theme="light"] .f-badge{color:rgba(0,0,0,.4);border-color:rgba(0,0,0,.15)}
+html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1)}
+html[data-theme="light"] .ct-card{background:#fff}
+html[data-theme="light"] .ct-form-wrap{background:#fff}
+html[data-theme="light"] .social-btn{background:#fff;border-color:rgba(0,0,0,.1)}
+html[data-theme="light"] .ql-item{background:#fff;border-color:rgba(0,0,0,.1)}
+html[data-theme="light"] .ct-map{background:#fff}
+html[data-theme="light"] .ct-map .map-box{background:#f0f0f0}
+html[data-theme="light"] .cf-field input,html[data-theme="light"] .cf-field select,html[data-theme="light"] .cf-field textarea{background:#f5f5f5;border-color:rgba(0,0,0,.1);color:#1a1a1a}
+
+.foot-disabled{opacity:.35;pointer-events:none;cursor:default;text-decoration:none}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
+  <div class="nav-center">
+    <a href="index.html#hero">Home</a><a href="index.html#services">Services</a>
+    <a href="index.html#gold-calculator">Calculator</a><a href="index.html#gold-news">Gold News</a>
+    <a href="about.html">About Us</a><a href="contact.html" style="color:var(--g)">Contact Us</a>
+  </div>
+  <div class="nav-right">
+    <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
+    <a href="login.html" class="nav-login">Login</a>
+    <a href="vendor-onboarding-complete.html" class="nav-vendor">Vendor Onboarding</a>
+    <a href="login.html" class="nav-cta">Get Started</a>
+  </div>
+  <button class="hamburger" onclick="mobToggle()"><span></span><span></span><span></span></button>
+</nav>
+<div id="mob-nav">
+  <a href="index.html">Home</a><a href="index.html#services">Services</a>
+  <a href="index.html#gold-calculator">Calculator</a><a href="about.html">About Us</a>
+  <a href="contact.html" style="color:var(--g)">Contact</a><a href="login.html" style="color:var(--g)">Login</a>
+</div>
+
+<div class="ct-hero">
+  <div class="wrap">
+    <div class="eyebrow">Get in Touch</div>
+    <h1>We're Here to <span class="gold">Help You</span></h1>
+    <p>Questions about gold services, vendor partnerships, or anything else — our team responds within 4 business hours.</p>
+  </div>
+</div>
+
+<div class="ct-body">
+  <div class="wrap">
+    <div class="ct-grid">
+
+      <!-- LEFT: Contact info + socials + quick links -->
+      <div>
+        <div class="eyebrow">Contact Details</div>
+        <div class="ct-cards">
+          <a href="mailto:goldbazaar.app@gmail.com" class="ct-card">
+            <div class="ct-card-icon">✉️</div>
+            <div><div class="ct-card-label">Email</div><div class="ct-card-val">goldbazaar.app@gmail.com</div></div>
+          </a>
+          <a href="tel:+917019609180" class="ct-card">
+            <div class="ct-card-icon">📞</div>
+            <div><div class="ct-card-label">Phone</div><div class="ct-card-val">+91 70196 09180</div></div>
+          </a>
+          <div class="ct-card">
+            <div class="ct-card-icon">🕐</div>
+            <div><div class="ct-card-label">Support Hours</div><div class="ct-card-val">Mon–Sun, 9:00 AM – 7:00 PM IST</div></div>
+          </div>
+          <div class="ct-card">
+            <div class="ct-card-icon">📍</div>
+            <div><div class="ct-card-label">Office</div><div class="ct-card-val">GoldBazaar Technologies Pvt. Ltd.<br>Bengaluru, Karnataka, India</div></div>
+          </div>
+          <div class="ct-card">
+            <div class="ct-card-icon">🌐</div>
+            <div><div class="ct-card-label">Website</div><div class="ct-card-val"><a href="index.html">www.goldbazaar.app</a></div></div>
+          </div>
+        </div>
+
+        <!-- SOCIAL MEDIA -->
+        <div class="social-section">
+          <div class="social-title">Follow Us</div>
+          <div class="social-grid">
+            <a href="#" class="social-btn">
+              <div class="social-btn-icon">in</div>
+              <div><div class="social-btn-name">LinkedIn</div><div class="social-btn-handle">@GoldBazaarApp</div></div>
+            </a>
+            <a href="#" class="social-btn">
+              <div class="social-btn-icon">𝕏</div>
+              <div><div class="social-btn-name">X (Twitter)</div><div class="social-btn-handle">@GoldBazaarApp</div></div>
+            </a>
+            <a href="#" class="social-btn">
+              <div class="social-btn-icon">📷</div>
+              <div><div class="social-btn-name">Instagram</div><div class="social-btn-handle">@GoldBazaarApp</div></div>
+            </a>
+            <a href="#" class="social-btn">
+              <div class="social-btn-icon">f</div>
+              <div><div class="social-btn-name">Facebook</div><div class="social-btn-handle">GoldBazaarApp</div></div>
+            </a>
+            <a href="#" class="social-btn">
+              <div class="social-btn-icon">▶️</div>
+              <div><div class="social-btn-name">YouTube</div><div class="social-btn-handle">GoldBazaar</div></div>
+            </a>
+            <a href="#" class="social-btn">
+              <div class="social-btn-icon">💬</div>
+              <div><div class="social-btn-name">WhatsApp</div><div class="social-btn-handle">Chat with Us</div></div>
+            </a>
+          </div>
+        </div>
+
+        <!-- QUICK LINKS -->
+        <div class="quicklinks-section">
+          <div class="ql-title">Quick Navigation</div>
+          <div class="ql-grid">
+            <a href="about.html" class="ql-item"><span>🏢</span> About Us</a>
+            <a href="gold-loan-providers.html" class="ql-item"><span>🏦</span> Gold Loans</a>
+            <a href="vendor-onboarding-complete.html" class="ql-item"><span>🏪</span> Vendor Signup</a>
+            <a href="careers.html" class="ql-item"><span>💼</span> Careers</a>
+            <a href="blog.html" class="ql-item"><span>📰</span> Blog</a>
+            <a href="grievance-policy.html" class="ql-item"><span>⚖️</span> Grievance</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Contact form -->
+      <div class="ct-form-wrap">
+        <h3>Send Us a <span class="gold">Message</span></h3>
+        <p class="sub">We'll get back to you within 4 business hours.</p>
+        <div class="cf-row">
+          <div class="cf-field"><label>Full Name</label><input type="text" id="cf-name" placeholder="Rajesh Kumar"/></div>
+          <div class="cf-field"><label>Mobile</label><input type="tel" id="cf-mobile" placeholder="+91 98765 43210"/></div>
+        </div>
+        <div class="cf-field"><label>I Am A</label>
+          <select id="cf-type">
+            <option>Customer seeking gold services</option>
+            <option>Jeweller / Gold dealer</option>
+            <option>Gold loan provider</option>
+            <option>Vendor wanting to list on GoldBazaar</option>
+            <option>Media / Press enquiry</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="cf-field"><label>City</label><input type="text" id="cf-city" placeholder="Bengaluru, Karnataka"/></div>
+        <div class="cf-field"><label>Message</label><textarea id="cf-message" rows="5" placeholder="Tell us how we can help..."></textarea></div>
+        <button class="cf-submit" onclick="submitForm()">Send Message →</button>
+        <div class="cf-success" id="cf-success">✓ Message sent! We'll respond within 4 hours.</div>
+      </div>
+    </div>
+
+    <!-- MAP -->
+    <div class="ct-map">
+      <h3>📍 Find Us</h3>
+      <p>GoldBazaar Technologies Pvt. Ltd. — Bengaluru, Karnataka, India</p>
+      <div class="map-box">🗺️ Bengaluru, Karnataka — India's Silicon Valley &amp; GoldBazaar's Home</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div><div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div><p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions.</p><div class="foot-socials"><a href="#" class="fsoc">in</a><a href="#" class="fsoc">f</a><a href="#" class="fsoc">📷</a><a href="#" class="fsoc">𝕏</a></div></div>
+      <div class="foot-col"><h4>Services</h4><ul><li><a href="gold-loan-providers.html">Gold Loan</a></li><li><a href="gold-buyers.html">Sell Gold</a></li><li><a href="gold-exchange.html" class="foot-disabled">Exchange</a></li><li><a href="jewellery-purchase.html" class="foot-disabled">Jewellery</a></li><li><a href="gold-savings-scheme.html" class="foot-disabled">Savings</a></li></ul></div><div class="foot-col"><h4>More</h4><ul><li><a href="digital-gold.html" class="foot-disabled">Digital Gold</a></li><li><a href="gold-insurance.html" class="foot-disabled">Insurance</a></li><li><a href="gold-investment.html" class="foot-disabled">Investment</a></li><li><a href="index.html#gold-calculator" class="foot-disabled">Calculator</a></li></ul></div>
+      <div class="foot-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html" class="cur">Contact</a></li><li><a href="careers.html">Careers</a></li><li><a href="blog.html">Blog</a></li></ul></div>
+      <div class="foot-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-conditions.html">Terms &amp; Conditions</a></li><li><a href="grievance-policy.html">Grievance Policy</a></li><li><a href="sitemap.html">Sitemap</a></li></ul></div>
+    </div>
+    <div class="foot-bottom"><p>© 2026 GoldBazaar.app — All rights reserved. GoldBazaar Technologies Pvt. Ltd.</p></div>
+  </div>
+</footer>
+
+<script>
+const ThemeManager={get(){return localStorage.getItem('gb-theme')||'dark'},set(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('gb-theme',t);document.getElementById('theme-toggle').textContent=t==='dark'?'🌙':'☀️'},toggle(){this.set(this.get()==='dark'?'light':'dark')},init(){this.set(this.get())}};
+ThemeManager.init();
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40),{passive:true});
+function mobToggle(){document.getElementById('mob-nav').classList.toggle('open')}
+const FORM_ENDPOINT='https://script.google.com/macros/s/AKfycbwS9hXLcvJA3VWLVO5EmoJMmnEWdp-FvOOGY-DqHQpJVE4LUshAFcGBp21w4ACCkDrcHQ/exec';
+async function submitForm(){
+  const name=document.getElementById('cf-name').value.trim();
+  const mobile=document.getElementById('cf-mobile').value.trim();
+  const type=document.getElementById('cf-type').value;
+  const city=document.getElementById('cf-city').value.trim();
+  const message=document.getElementById('cf-message').value.trim();
+  if(!name||!mobile){alert('Please enter your name and mobile number.');return}
+  const btn=document.querySelector('.cf-submit');btn.textContent='Sending…';btn.disabled=true;
+  try{
+    const params=new URLSearchParams({sheet:'contact',name,mobile,type,city,message});
+    await fetch(FORM_ENDPOINT+'?'+params,{mode:'no-cors'});
+  }catch(e){}
+  btn.style.display='none';
+  document.getElementById('cf-success').style.display='block';
+  ['cf-name','cf-mobile','cf-city','cf-message'].forEach(id=>document.getElementById(id).value='');
+}
+</script>
+</body>
+</html>

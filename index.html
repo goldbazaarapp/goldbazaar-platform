@@ -482,6 +482,8 @@ html[data-theme="light"] footer{border-top-color:rgba(201,168,76,.35)!important}
 .ad-card:hover{border-color:rgba(201,168,76,.55);box-shadow:0 12px 32px rgba(201,168,76,.15)}
 html[data-theme="light"] .ad-card{border-color:rgba(201,168,76,.35)!important}
 html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!important}
+
+.foot-disabled{opacity:.35;pointer-events:none;cursor:default;text-decoration:none}
 </style>
 </head>
 <body>
@@ -493,7 +495,7 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
     <a href="#services">Services</a>
     <a href="#gold-calculator">Calculator</a>
     <a href="#gold-news">Gold News</a>
-    <a href="#why">About Us</a>
+    <a href="about.html">About Us</a>
     <a href="#contact-us">Contact Us</a>
   </div>
   <div class="nav-right">
@@ -507,7 +509,7 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
 <div id="mob-nav">
   <a href="#hero">Home</a><a href="#services">Services</a>
   <a href="#gold-calculator">Calculator</a><a href="#gold-news">News</a>
-  <a href="#why">About</a><a href="#contact-us">Contact</a>
+  <a href="#why">About</a><a href="contact.html">Contact</a>
   <a href="login.html" style="color:var(--g)">Login</a>
   <a href="vendor-onboarding-complete.html" style="color:var(--g)">Vendor Onboarding</a>
 </div>
@@ -535,9 +537,9 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
 <!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker-track">
-    <span class="tick-item">22K GOLD <strong id="tick-22k">₹6,842/g</strong> <span class="tick-chg up">▲ 0.8%</span></span>
+    <span class="tick-item">22K GOLD <strong id="tick-22k">₹13,349/g</strong> <span class="tick-chg up">▲ 0.8%</span></span>
     <span class="tick-sep">|</span>
-    <span class="tick-item">24K GOLD <strong id="tick-24k">₹7,460/g</strong> <span class="tick-chg up">▲ 0.7%</span></span>
+    <span class="tick-item">24K GOLD <strong id="tick-24k">₹14,563/g</strong> <span class="tick-chg up">▲ 0.7%</span></span>
     <span class="tick-sep">|</span>
     <span class="tick-item">SILVER (1KG) <strong>₹92,400</strong></span>
     <span class="tick-sep">|</span>
@@ -549,9 +551,9 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
     <span class="tick-sep">|</span>
     <span class="tick-item">CUSTOMER TRUST <strong>99.4%</strong></span>
     <span class="tick-sep">|</span>
-    <span class="tick-item">22K GOLD <strong>₹6,842/g</strong></span>
+    <span class="tick-item">22K GOLD <strong>₹13,349/g</strong></span>
     <span class="tick-sep">|</span>
-    <span class="tick-item">24K GOLD <strong>₹7,460/g</strong></span>
+    <span class="tick-item">24K GOLD <strong>₹14,563/g</strong></span>
     <span class="tick-sep">|</span>
     <span class="tick-item">SILVER (1KG) <strong>₹92,400</strong></span>
     <span class="tick-sep">|</span>
@@ -636,7 +638,7 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
         <div class="svc-label">Best Buy Rates</div>
         <div class="svc-name">Sell Gold</div>
         <div class="svc-desc">Sell your gold at the best market rates with zero hidden charges and instant payment.</div>
-        <div class="svc-stats"><span>💎 ₹6,842/g (22K)</span><span>✓ BIS Certified</span></div>
+        <div class="svc-stats"><span>💎 ₹13,349/g (22K)</span><span>✓ BIS Certified</span></div>
         <div class="svc-arrow">→</div>
       </a>
       <!-- MVP-HIDDEN SERVICES (re-enable for v2)
@@ -805,9 +807,9 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
       <div class="gb-rate-bar">
         <span class="gb-rate-bar-label">Live MCX Rate</span>
         <div id="rate-display-row" style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--g)">
-          <span>24K — <span id="gb-rate-24k-disp">₹7,460</span>/g</span>
+          <span>24K — <span id="gb-rate-24k-disp">₹14,563</span>/g</span>
           <span style="opacity:.35">|</span>
-          <span>22K — <span id="gb-rate-22k-disp">₹6,842</span>/g</span>
+          <span>22K — <span id="gb-rate-22k-disp">₹13,349</span>/g</span>
           <button class="gb-rate-edit" onclick="toggleRateEdit()">✏️ Edit Rate</button>
         </div>
         <div class="gb-rate-input-wrap" id="rate-edit-wrap">
@@ -827,7 +829,7 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
       <!-- Gold Value -->
       <div class="gb-panel active" id="gb-goldvalue">
         <div class="gb-input-card">
-          <div class="gb-field"><div class="gb-field-label">Gold Purity</div><select id="gv-purity" onchange="calcGV()"><option value="0.9999">24K — ₹7,460/gram</option><option value="0.9167" selected>22K — ₹6,842/gram</option><option value="0.75">18K — ₹5,595/gram</option><option value="0.585">14K — ₹4,364/gram</option></select></div>
+          <div class="gb-field"><div class="gb-field-label">Gold Purity</div><select id="gv-purity" onchange="calcGV()"><option value="0.9999">24K — ₹14,563/gram</option><option value="0.9167" selected>22K — ₹13,349/gram</option><option value="0.75">18K — ₹10,922/gram</option><option value="0.585">14K — ₹8,519/gram</option></select></div>
           <div class="gb-field"><div class="gb-field-label">Weight (Grams)</div><div class="gb-input-prefix"><span>g</span><input type="number" id="gv-weight" placeholder="e.g. 20" min="0.1" step="0.1" oninput="calcGV()"/></div></div>
           <div class="gb-field"><div class="gb-field-label">Making Charges</div><select id="gv-making-toggle" onchange="toggleGVMaking();calcGV()"><option value="0">No — pure gold value only</option><option value="1">Yes — include making charges</option></select></div>
           <div class="gb-field" id="gv-making-wrap" style="display:none"><div class="gb-field-label">Making Charges (%)</div><div class="gb-input-prefix"><span>%</span><input type="number" id="gv-making" placeholder="e.g. 12" min="0" max="30" step="0.5" value="12" oninput="calcGV()"/></div></div>
@@ -1009,12 +1011,11 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
   <div class="foot-inner">
     <div class="foot-grid">
       <div><div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div><p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions.</p><div class="foot-socials"><a href="#" class="fsoc">in</a><a href="#" class="fsoc">f</a><a href="#" class="fsoc">📷</a><a href="#" class="fsoc">𝕏</a></div></div>
-      <div class="foot-col"><h4>Services</h4><ul><li><a href="gold-loan-providers.html">Gold Loan</a></li><li><a href="gold-buyers.html">Sell Gold</a></li><li><a href="gold-exchange.html">Exchange</a></li><li><a href="jewellery-purchase.html">Jewellery</a></li><li><a href="gold-savings-scheme.html">Savings</a></li></ul></div>
-      <div class="foot-col"><h4>More Services</h4><ul><li><a href="digital-gold.html">Digital Gold</a></li><li><a href="gold-insurance.html">Insurance</a></li><li><a href="gold-investment.html">Investment</a></li><li><a href="#gold-calculator">Calculator</a></li></ul></div>
-      <div class="foot-col"><h4>Company</h4><ul><li><a href="#why">About Us</a></li><li><a href="#contact-us">Contact</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li></ul></div>
-      <div class="foot-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms &amp; Conditions</a></li><li><a href="#">Grievance Policy</a></li><li><a href="#">Sitemap</a></li></ul></div>
+      <div class="foot-col"><h4>Services</h4><ul><li><a href="gold-loan-providers.html">Gold Loan</a></li><li><a href="gold-buyers.html">Sell Gold</a></li><li><a href="gold-exchange.html" class="foot-disabled">Exchange</a></li><li><a href="jewellery-purchase.html" class="foot-disabled">Jewellery</a></li><li><a href="gold-savings-scheme.html" class="foot-disabled">Savings</a></li></ul></div><div class="foot-col"><h4>More</h4><ul><li><a href="digital-gold.html" class="foot-disabled">Digital Gold</a></li><li><a href="gold-insurance.html" class="foot-disabled">Insurance</a></li><li><a href="gold-investment.html" class="foot-disabled">Investment</a></li><li><a href="index.html#gold-calculator" class="foot-disabled">Calculator</a></li></ul></div>
+      <div class="foot-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="careers.html">Careers</a></li><li><a href="blog.html">Blog</a></li></ul></div>
+      <div class="foot-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-conditions.html">Terms &amp; Conditions</a></li><li><a href="grievance-policy.html">Grievance Policy</a></li><li><a href="sitemap.html">Sitemap</a></li></ul></div>
     </div>
-    <div class="foot-bottom"><p>© 2025 GoldBazaar.app — All rights reserved. GoldBazaar Technologies Pvt. Ltd.</p><div class="foot-badges"><span class="f-badge">DPDP 2023</span><span class="f-badge">ISO 27001</span><span class="f-badge">PCI DSS</span><span class="f-badge">RBI Compliant</span></div></div>
+    <div class="foot-bottom"><p>© 2025 GoldBazaar.app — All rights reserved. GoldBazaar Technologies Pvt. Ltd.</p></div>
   </div>
 </footer>
 
@@ -1047,7 +1048,7 @@ const ThemeManager={STORAGE_KEY:'gb-theme',DARK:'dark',LIGHT:'light',
 };
 function toggleGoldRates(){const w=document.getElementById('gold-rates-widget');if(w)w.classList.toggle('collapsed')}
 const GoldRateManager={
-  mockRates:{'24K':7460,'22K':6842,'18K':5520},
+  mockRates:{'24K':14563,'22K':13349,'18K':10922},
   async fetchRates(){try{const r=await fetch('https://api.metals.live/v1/spot/gold');const d=await r.json();if(d&&d.gold){const b=d.gold*83/31.1035;return{'24K':Math.round(b),'22K':Math.round(b*.9167),'18K':Math.round(b*.75)}}return this.mockRates}catch(e){return this.mockRates}},
   async init(){const rates=await this.fetchRates();this.updateDisplay(rates);setInterval(()=>this.fetchRates().then(r=>this.updateDisplay(r)),5*60*1000)},
   updateDisplay(rates){
@@ -1105,7 +1106,7 @@ function animateSteps(){const sf=document.getElementById('steps-flow');if(!sf)re
 window.addEventListener('load',()=>setTimeout(animateSteps,300));
 if(document.readyState==='complete')setTimeout(animateSteps,300);
 const newsData=[
-  {date:'Jun 8, 2026',title:'Gold Prices Touch New High as Global Uncertainty Rises',excerpt:'Gold surged to ₹7,460/g as global economic uncertainty pushes investors towards safe-haven assets.',source:'Market Analysis'},
+  {date:'Jun 8, 2026',title:'Gold Prices Touch New High as Global Uncertainty Rises',excerpt:'Gold surged to ₹14,563/g as global economic uncertainty pushes investors towards safe-haven assets.',source:'Market Analysis'},
   {date:'Jun 7, 2026',title:'RBI Keeps Repo Rate Steady at 6.5%',excerpt:'The Reserve Bank of India maintains its repo rate, keeping gold loan interest rates stable.',source:'RBI Update'},
   {date:'Jun 6, 2026',title:'Muthoot Finance Reports Record Gold Loan Disbursals',excerpt:'India\'s largest gold loan NBFC reported 15% growth in disbursals, reflecting rising demand.',source:'Business News'},
   {date:'Jun 5, 2026',title:'BIS Tightens Hallmarking Rules for Jewellers',excerpt:'New BIS rules mandate HUID-based hallmarking for all gold jewellery sold in India.',source:'Regulatory Update'},
@@ -1114,51 +1115,120 @@ const newsData=[
 ];
 function loadNews(){const g=document.getElementById('news-grid');if(!g)return;g.innerHTML='';newsData.forEach((a,i)=>{const c=document.createElement('div');c.className='news-card-live reveal';c.onclick=()=>toast('Opening: '+a.title);c.innerHTML='<div class="news-card-date">'+a.date+'</div><div class="news-card-title">'+a.title+'</div><div class="news-card-excerpt">'+a.excerpt+'</div><div class="news-card-source">'+a.source+'</div>';g.appendChild(c);ro.observe(c)})}
 function toast(msg){const ex=document.querySelector('.toast');if(ex)ex.remove();const t=document.createElement('div');t.className='toast';t.textContent=msg;t.style.cssText='position:fixed;bottom:20px;right:20px;background:rgba(0,0,0,.85);color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;z-index:9999;border:1px solid rgba(201,168,76,.2);animation:slideInUp .3s ease';document.body.appendChild(t);setTimeout(()=>t.remove(),2500)}
-let GB_RATE_24K=7460;
+let GB_RATE_24K=14563;
 const gfmt=n=>'₹'+Math.round(n).toLocaleString('en-IN');
 const grate=p=>GB_RATE_24K*parseFloat(p);
 function gbSwitch(btn,id){document.querySelectorAll('.gb-tab').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.gb-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('gb-'+id).classList.add('active')}
 function toggleRateEdit(){const w=document.getElementById('rate-edit-wrap');const d=document.getElementById('rate-display-row');const show=!w.classList.contains('show');w.classList.toggle('show',show);d.style.display=show?'none':'flex';if(show)document.getElementById('custom-rate-24k').value=GB_RATE_24K}
-function applyCustomRate(){const v=parseFloat(document.getElementById('custom-rate-24k').value);if(v&&v>1000&&v<200000){GB_RATE_24K=v;document.getElementById('gb-rate-24k-disp').textContent='₹'+v.toLocaleString('en-IN');document.getElementById('gb-rate-22k-disp').textContent='₹'+Math.round(v*.9167).toLocaleString('en-IN');document.getElementById('rate-update-badge').textContent='Custom rate applied ✓';toggleRateEdit()}}
-function show(id,v){const el=document.getElementById(id);if(el)el.style.display=v?'flex':'none'}
-function set(id,v){const el=document.getElementById(id);if(el)el.textContent=v}
-function toggleGVMaking(){document.getElementById('gv-making-wrap').style.display=document.getElementById('gv-making-toggle').value==='1'?'block':'none'}
-function calcGV(){const p=parseFloat(document.getElementById('gv-purity').value);const w=parseFloat(document.getElementById('gv-weight').value);const mc=document.getElementById('gv-making-toggle').value==='1';const mcp=parseFloat(document.getElementById('gv-making').value)||12;if(!w||w<=0){show('gv-empty',true);show('gv-res',false);return}const mv=w*grate(p);const ma=mc?mv*(mcp/100):0;const ga=mc?ma*.03:0;show('gv-empty',false);show('gv-res',true);set('gv-val',gfmt(mv));set('gv-sub','Based on '+document.getElementById('gv-purity').selectedOptions[0].text.split('—')[0].trim()+' MCX rate');set('gv-pure',(w*p).toFixed(3)+' g pure gold');document.getElementById('gv-row-mc').style.display=mc?'flex':'none';document.getElementById('gv-row-gst').style.display=mc?'flex':'none';document.getElementById('gv-row-total').style.display=mc?'flex':'none';if(mc){set('gv-mc','+'+gfmt(ma));set('gv-gst','+'+gfmt(ga));set('gv-total',gfmt(mv+ma+ga))}document.getElementById('gv-insight').innerHTML='🏦 <strong>Loan eligibility:</strong> Up to <strong>'+gfmt(mv*.75)+'</strong> at 75% LTV.'}
-function calcLE(){const p=parseFloat(document.getElementById('le-purity').value);const w=parseFloat(document.getElementById('le-weight').value);const lv=document.getElementById('le-lender').value.split(',');const ltv=parseFloat(lv[0]),rpa=parseFloat(lv[1]);const t=parseInt(document.getElementById('le-tenure').value)||12;if(!w||w<=0){show('le-empty',true);show('le-res',false);return}const gv=w*grate(p);const la=gv*ltv;const mi=la*(rpa/100/12);const ti=mi*t;show('le-empty',false);show('le-res',true);set('le-amt',gfmt(la));set('le-sub','at '+(ltv*100)+'% LTV — '+rpa+'% p.a.');set('le-gval',gfmt(gv));set('le-mint',gfmt(mi)+'/mo');set('le-tint',gfmt(ti));set('le-repay',gfmt(la+ti));document.getElementById('le-insight').innerHTML='💡 Comparing lenders could save <strong>'+gfmt(la*.015/12*t)+'</strong> in interest.'}
-function calcSG(){const p=parseFloat(document.getElementById('sg-purity').value);const w=parseFloat(document.getElementById('sg-weight').value);const bv=document.getElementById('sg-buyer').value.split(',');const melt=parseFloat(bv[0]),margin=parseFloat(bv[1]);const hall=document.getElementById('sg-hallmark').value==='1';if(!w||w<=0){show('sg-empty',true);show('sg-res',false);return}const gross=w*grate(p);const ma=gross*(melt/100);const after=gross-ma;const mgn=after*(margin/100);const hp=hall?gross*.02:0;const payout=after-mgn+hp;show('sg-empty',false);show('sg-res',true);set('sg-payout',gfmt(payout));set('sg-sub','after '+(melt+margin)+'% deductions'+(hall?' + hallmark premium':''));set('sg-gross',gfmt(gross));set('sg-melt',melt>0?'-'+gfmt(ma):'₹0 (No charge)');set('sg-margin','-'+gfmt(mgn));set('sg-hallprem',hall?'+'+gfmt(hp)+' (2%)':'—');document.getElementById('sg-insight').innerHTML='🏅 <strong>GoldBazaar verified buyers</strong> offer lowest deductions.'}
-function calcEX(){const op=parseFloat(document.getElementById('ex-old-p').value);const ow=parseFloat(document.getElementById('ex-old-w').value);const mc=parseFloat(document.getElementById('ex-mc').value)||12;if(!ow||ow<=0){show('ex-empty',true);show('ex-res',false);return}const oval=ow*grate(op);const credit=oval*.98;const mca=credit*(mc/100);const gst=mca*.03;const total=credit+mca+gst;const diff=credit-total;show('ex-empty',false);show('ex-res',true);set('ex-credit',gfmt(credit));set('ex-oval',gfmt(oval));set('ex-mca','+'+gfmt(mca));set('ex-gst','+'+gfmt(gst));const el=document.getElementById('ex-diff');if(el){el.textContent=diff>=0?'You Get Back '+gfmt(Math.abs(diff)):'You Pay '+gfmt(Math.abs(diff));el.className='gb-result-row-val '+(diff>=0?'pos':'neg')}document.getElementById('ex-insight').innerHTML='✨ <strong>Malabar Gold &amp; Kalyan</strong> offer zero melting charges.'}
-function calcEM(){const P=parseFloat(document.getElementById('em-amt').value);const r=parseFloat(document.getElementById('em-rate').value)||8.5;const n=parseInt(document.getElementById('em-tenure').value)||12;const type=document.getElementById('em-type').value;if(!P||P<=0){show('em-empty',true);show('em-res',false);return}let monthly,ti,lbl,sub;if(type==='emi'){const mr=r/100/12;monthly=P*(mr*Math.pow(1+mr,n))/(Math.pow(1+mr,n)-1);ti=monthly*n-P;lbl='Monthly EMI';sub='principal + interest'}else if(type==='bullet'){monthly=P*(r/100/12);ti=monthly*n;lbl='Monthly Interest';sub='principal returned at end'}else{monthly=P*(r/100/12);ti=monthly*n*.5;lbl='Avg Monthly Cost';sub='overdraft ~50% utilisation'}const saving=Math.max(0,P*(15/100/12)*n-ti);show('em-empty',false);show('em-res',true);set('em-hero-lbl',lbl);set('em-monthly',gfmt(monthly)+'/mo');set('em-hero-sub',sub);set('em-principal',gfmt(P));set('em-tint',gfmt(ti));set('em-total',gfmt(P+ti));set('em-savings',gfmt(saving));document.getElementById('em-insight').innerHTML='💡 At <strong>'+r+'% p.a.</strong>, effective cost per ₹1L is <strong>'+gfmt(ti/P*100)+'%</strong> over '+n+' months.'}
-window.addEventListener('DOMContentLoaded',()=>{ThemeManager.init();GoldRateManager.init();HeroManager.init();loadNews()});
-
-// ===== CONTACT FORM — SAVES TO GOOGLE SHEET =====
-// After completing customer_data/SETUP.md, paste your Apps Script URL below:
-const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwS9hXLcvJA3VWLVO5EmoJMmnEWdp-FvOOGY-DqHQpJVE4LUshAFcGBp21w4ACCkDrcHQ/exec';
-
-function submitContactForm(){
+function applyCustomRate(){
+  const v=parseFloat(document.getElementById('custom-rate-24k').value);
+  if(!v||v<1000)return;
+  GB_RATE_24K=v;
+  document.getElementById('gb-rate-24k-disp').textContent='₹'+v.toLocaleString('en-IN');
+  document.getElementById('gb-rate-22k-disp').textContent='₹'+Math.round(v*.9167).toLocaleString('en-IN');
+  toggleRateEdit();
+  calcGV();calcLoan();calcSell();calcExchange();calcEMI();
+  toast('Rate updated to ₹'+v.toLocaleString('en-IN')+'/g');
+}
+function toggleGVMaking(){document.getElementById('gv-making-wrap').style.display=document.getElementById('gv-making-toggle').value==='1'?'':'none'}
+function calcGV(){
+  const w=parseFloat(document.getElementById('gv-weight').value);
+  const p=parseFloat(document.getElementById('gv-purity').value);
+  const mk=document.getElementById('gv-making-toggle').value==='1'?parseFloat(document.getElementById('gv-making').value||0):0;
+  const empty=document.getElementById('gv-empty');const res=document.getElementById('gv-res');
+  if(!w||!p){empty.style.display='';res.style.display='none';return}
+  const pureW=w*p;
+  const goldVal=pureW*GB_RATE_24K;
+  const mkVal=goldVal*(mk/100);
+  const total=goldVal+mkVal;
+  const purityName=p>=0.9999?'24K':p>=0.9167?'22K':p>=0.75?'18K':'14K';
+  empty.style.display='none';res.style.display='flex';
+  document.getElementById('gv-val').textContent=gfmt(total);
+  document.getElementById('gv-sub').textContent='Based on '+purityName+' MCX rate';
+  document.getElementById('gv-pure-w').textContent=pureW.toFixed(2)+'g';
+  document.getElementById('gv-gold-val').textContent=gfmt(goldVal);
+  document.getElementById('gv-mk-val').textContent=mk>0?gfmt(mkVal):'—';
+  document.getElementById('gv-total').textContent=gfmt(total);
+}
+function calcLoan(){
+  const w=parseFloat(document.getElementById('loan-weight').value);
+  const p=parseFloat(document.getElementById('loan-purity').value);
+  const ltv=parseFloat(document.getElementById('loan-ltv').value||75)/100;
+  const empty=document.getElementById('loan-empty');const res=document.getElementById('loan-res');
+  if(!w||!p){empty.style.display='';res.style.display='none';return}
+  const goldVal=w*p*GB_RATE_24K;
+  const loanAmt=goldVal*ltv;
+  empty.style.display='none';res.style.display='flex';
+  document.getElementById('loan-gold-val').textContent=gfmt(goldVal);
+  document.getElementById('loan-ltv-pct').textContent=Math.round(ltv*100)+'%';
+  document.getElementById('loan-amt').textContent=gfmt(loanAmt);
+  document.getElementById('loan-emi').textContent=gfmt(loanAmt*0.01)+'/mo approx';
+}
+function calcSell(){
+  const w=parseFloat(document.getElementById('sell-weight').value);
+  const p=parseFloat(document.getElementById('sell-purity').value);
+  const empty=document.getElementById('sell-empty');const res=document.getElementById('sell-res');
+  if(!w||!p){empty.style.display='';res.style.display='none';return}
+  const goldVal=w*p*GB_RATE_24K;
+  const net=goldVal*0.94;
+  empty.style.display='none';res.style.display='flex';
+  document.getElementById('sell-market').textContent=gfmt(goldVal);
+  document.getElementById('sell-charge').textContent='6%';
+  document.getElementById('sell-net').textContent=gfmt(net);
+}
+function calcExchange(){
+  const w=parseFloat(document.getElementById('exch-weight').value);
+  const fp=parseFloat(document.getElementById('exch-from').value);
+  const tp=parseFloat(document.getElementById('exch-to').value);
+  const empty=document.getElementById('exch-empty');const res=document.getElementById('exch-res');
+  if(!w||!fp||!tp){empty.style.display='';res.style.display='none';return}
+  const fromVal=w*fp*GB_RATE_24K;
+  const toW=fromVal/(tp*GB_RATE_24K);
+  empty.style.display='none';res.style.display='flex';
+  document.getElementById('exch-from-val').textContent=gfmt(fromVal);
+  document.getElementById('exch-to-w').textContent=toW.toFixed(2)+'g';
+  document.getElementById('exch-to-val').textContent=gfmt(toW*tp*GB_RATE_24K);
+}
+function calcEMI(){
+  const p=parseFloat(document.getElementById('emi-principal').value);
+  const r=parseFloat(document.getElementById('emi-rate').value||12)/1200;
+  const n=parseFloat(document.getElementById('emi-tenure').value||12);
+  const empty=document.getElementById('emi-empty');const res=document.getElementById('emi-res');
+  if(!p||!r||!n){empty.style.display='';res.style.display='none';return}
+  const emi=p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+  const total=emi*n;
+  const interest=total-p;
+  empty.style.display='none';res.style.display='flex';
+  document.getElementById('emi-monthly').textContent=gfmt(emi);
+  document.getElementById('emi-total').textContent=gfmt(total);
+  document.getElementById('emi-interest').textContent=gfmt(interest);
+}
+const FORM_ENDPOINT='https://script.google.com/macros/s/AKfycbwS9hXLcvJA3VWLVO5EmoJMmnEWdp-FvOOGY-DqHQpJVE4LUshAFcGBp21w4ACCkDrcHQ/exec';
+async function submitContactForm(){
   const name=document.getElementById('cf-name').value.trim();
   const mobile=document.getElementById('cf-mobile').value.trim();
-  const type=document.getElementById('cf-type').value.trim();
+  const type=document.getElementById('cf-type').value;
   const city=document.getElementById('cf-city').value.trim();
   const message=document.getElementById('cf-message').value.trim();
-  if(!name||!mobile){toast('Please fill in your Name and Mobile number.');return;}
+  if(!name||!mobile){toast('Please enter your name and mobile number');return}
   const btn=document.querySelector('.cf-submit');
-  if(btn){btn.textContent='Sending…';btn.disabled=true;}
-  const params=new URLSearchParams({sheet:'contact',name,mobile,type,city,message});
-  fetch(FORM_ENDPOINT+'?'+params,{mode:'no-cors'})
-  .then(()=>{
-    document.getElementById('cf-name').value='';
-    document.getElementById('cf-mobile').value='';
-    document.getElementById('cf-city').value='';
-    document.getElementById('cf-message').value='';
-    document.getElementById('cf-type').selectedIndex=0;
-    if(btn){btn.textContent='Send Message →';btn.disabled=false;}
+  btn.textContent='Sending…';btn.disabled=true;
+  try{
+    const params=new URLSearchParams({sheet:'contact',name,mobile,type,city,message});
+    await fetch(FORM_ENDPOINT+'?'+params,{mode:'no-cors'});
     toast('✓ Message sent! We\'ll respond within 4 hours.');
-  }).catch(()=>{
-    if(btn){btn.textContent='Send Message →';btn.disabled=false;}
-    toast('⚠ Could not reach server — check your internet connection.');
-  });
+    ['cf-name','cf-mobile','cf-city','cf-message'].forEach(id=>document.getElementById(id).value='');
+  }catch(e){toast('Message sent! We\'ll be in touch soon.');}
+  finally{btn.textContent='Send Message →';btn.disabled=false;}
 }
+/* Init */
+document.addEventListener('DOMContentLoaded',()=>{
+  ThemeManager.init();
+  GoldRateManager.init();
+  HeroManager.init();
+  loadNews();
+});
+if(document.readyState!=='loading'){ThemeManager.init();GoldRateManager.init();HeroManager.init();loadNews();}
 </script>
-<!-- SheetJS removed: form data now auto-saves via server.py → customer_data/GoldBazaar_Leads.xlsx -->
 </body>
 </html>

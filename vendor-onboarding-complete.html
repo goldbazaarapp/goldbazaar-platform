@@ -2184,9 +2184,14 @@
   <footer style="background:#0a0a0a; border-top:1px solid rgba(201,168,76,0.1); padding:18px 48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
     <p style="font-size:12px; color:rgba(255,255,255,0.3); margin:0;">© 2025 GoldBazaar Technologies Pvt. Ltd. All rights reserved.</p>
     <div style="display:flex; gap:24px; align-items:center;">
-      <a href="#" style="font-size:12px; color:rgba(255,255,255,0.35); text-decoration:none;">Privacy Policy</a>
-      <a href="#" style="font-size:12px; color:rgba(255,255,255,0.35); text-decoration:none;">Terms</a>
-      <a href="index.html#contact-us" style="font-size:12px; color:rgba(255,255,255,0.35); text-decoration:none;">Contact</a>
+      <a href="about.html" style="font-size:12px;color:rgba(255,255,255,.4);transition:color .2s">About</a>
+    <a href="contact.html" style="font-size:12px;color:rgba(255,255,255,.4);transition:color .2s">Contact</a>
+    <a href="careers.html" style="font-size:12px;color:rgba(255,255,255,.4);transition:color .2s">Careers</a>
+    <a href="blog.html" style="font-size:12px;color:rgba(255,255,255,.4);transition:color .2s">Blog</a>
+    <a href="privacy-policy.html" style="font-size:12px; color:rgba(255,255,255,0.35); text-decoration:none;">Privacy Policy</a>
+      <a href="terms-conditions.html" style="font-size:12px; color:rgba(255,255,255,0.35); text-decoration:none;">Terms &amp; Conditions</a>
+      <a href="grievance-policy.html" style="font-size:12px; color:rgba(255,255,255,0.35); text-decoration:none;">Grievance Policy</a>
+      <a href="sitemap.html" style="font-size:12px; color:rgba(255,255,255,0.35); text-decoration:none;">Sitemap</a>
       <a href="index.html" style="font-size:12px; color:rgba(201,168,76,0.7); text-decoration:none; font-weight:600;">← Back to Home</a>
     </div>
   </footer>
@@ -2949,25 +2954,4 @@
   }
 
   function scrollToAppt() {
-    const apptSec = document.getElementById('drawerApptSection');
-    if (apptSec) apptSec.scrollIntoView({behavior:'smooth', block:'center'});
-  }
-
-  function showToast(msg) {
-    const t = document.createElement('div');
-    t.textContent = msg;
-    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(201,168,76,0.95);color:#000;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;z-index:9999;transition:opacity .4s;white-space:nowrap';
-    document.body.appendChild(t);
-    setTimeout(()=>{ t.style.opacity='0'; setTimeout(()=>t.remove(),400); },3000);
-  }
-
-  // Render leads on page load when leads tab is active
-  document.addEventListener('DOMContentLoaded', () => {
-    const leadsDiv = document.getElementById('leads');
-    if (leadsDiv && leadsDiv.classList.contains('active')) renderLeads();
-  });
-
-  </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-</body>
-</html>
+    const apptSec = document.getElementById('drawerApp

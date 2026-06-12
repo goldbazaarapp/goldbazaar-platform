@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Privacy Policy — GoldBazaar</title>
+<meta name="description" content="GoldBazaar Privacy Policy — how we collect, use and protect your personal data."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg-primary);color:var(--text-primary);font-family:'Inter',-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+img{display:block;max-width:100%}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#9B7B2E;border-radius:2px}
+:root{--g:#C9A84C;--gl:#E8C96A;--gd:#9B7B2E;--fd:'Playfair Display',Georgia,serif;--nav-h:68px}
+html[data-theme="dark"]{--b0:#000;--b1:#0A0A0A;--b2:#111;--b3:#161616;--text-primary:#FFF;--text-secondary:rgba(255,255,255,.7);--text-tertiary:rgba(255,255,255,.5);--bg-primary:#000}
+html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--text-primary:#1A1A1A;--text-secondary:#333;--text-tertiary:#555;--bg-primary:#FFF}
+.wrap{max-width:1100px;margin:0 auto;padding:0 48px}
+@media(max-width:600px){.wrap{padding:0 20px}}
+.gold{background:linear-gradient(135deg,#C9A84C,#F5E6C0,#C9A84C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--g);display:inline-block}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 32px;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+#nav.scrolled{background:rgba(0,0,0,.94);backdrop-filter:blur(20px);border-color:rgba(201,168,76,.25)}
+.nav-logo img{height:56px;width:auto}
+.nav-center{display:flex;align-items:center;gap:4px}
+.nav-center a{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);padding:7px 12px;border-radius:7px;transition:color .2s}
+.nav-center a:hover{color:var(--g)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-theme{padding:6px 10px;font-size:16px}
+.nav-login{padding:8px 16px;border:1px solid rgba(201,168,76,.35);border-radius:8px;font-size:13px;font-weight:500;color:var(--g)}
+.nav-vendor{padding:8px 16px;border:1px solid rgba(255,255,255,.18);border-radius:8px;font-size:13px;color:rgba(255,255,255,.75)}
+.nav-vendor:hover{border-color:var(--g);color:var(--g)}
+.nav-cta{padding:8px 20px;border-radius:8px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:13px;font-weight:700}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:4px}
+.hamburger span{width:21px;height:1.5px;background:#fff;display:block}
+#mob-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:999;background:rgba(0,0,0,.97);border-bottom:1px solid rgba(201,168,76,.1);backdrop-filter:blur(18px);padding:20px 28px;flex-direction:column;gap:4px}
+#mob-nav.open{display:flex}
+#mob-nav a{font-size:15px;font-weight:500;color:rgba(255,255,255,.72);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+@media(max-width:768px){.hamburger{display:flex}.nav-center{display:none}}
+
+/* HERO */
+.pp-hero{background:linear-gradient(180deg,var(--b1) 0%,var(--b0) 100%);border-bottom:1px solid rgba(201,168,76,.22);padding:100px 0 56px;text-align:center;position:relative;overflow:hidden}
+.pp-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(201,168,76,.08),transparent);pointer-events:none}
+.pp-hero h1{font-family:var(--fd);font-size:clamp(30px,5vw,54px);font-weight:700;letter-spacing:-.03em;margin-bottom:14px}
+.pp-hero p{font-size:15px;color:var(--text-secondary);max-width:520px;margin:0 auto 24px;line-height:1.7}
+.pp-meta{display:inline-flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center;font-size:12px;color:var(--text-tertiary)}
+
+/* LAYOUT */
+.pp-body{padding:64px 0 96px;display:grid;grid-template-columns:220px 1fr;gap:56px;align-items:start}
+@media(max-width:860px){.pp-body{grid-template-columns:1fr;gap:36px}}
+
+/* TOC */
+.pp-toc{position:sticky;top:calc(var(--nav-h) + 24px);background:var(--b2);border:1.5px solid rgba(201,168,76,.22);border-radius:16px;padding:22px}
+.pp-toc h3{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.pp-toc ul{list-style:none;display:flex;flex-direction:column;gap:1px}
+.pp-toc a{display:block;font-size:12px;font-weight:500;color:var(--text-tertiary);padding:6px 10px;border-radius:7px;transition:all .2s;border-left:2px solid transparent}
+.pp-toc a:hover,.pp-toc a.active{color:var(--g);background:rgba(201,168,76,.07);border-left-color:var(--g)}
+@media(max-width:860px){.pp-toc{position:static}}
+
+/* Content */
+.pp-content{display:flex;flex-direction:column;gap:44px}
+.pp-section{scroll-margin-top:calc(var(--nav-h) + 28px)}
+.pp-section h2{font-family:var(--fd);font-size:21px;font-weight:700;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(201,168,76,.2);display:flex;align-items:center;gap:10px}
+.pp-section h2 .sn{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;color:var(--g);background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:20px;padding:3px 10px}
+.pp-section p{font-size:14px;line-height:1.85;color:var(--text-secondary);margin-bottom:12px}
+.pp-section p:last-child{margin-bottom:0}
+.pp-section ul{padding-left:20px;display:flex;flex-direction:column;gap:9px;margin-bottom:12px}
+.pp-section li{font-size:14px;line-height:1.75;color:var(--text-secondary)}
+.pp-section li strong{color:var(--text-primary);font-weight:600}
+.pp-section h3{font-size:14px;font-weight:700;color:var(--text-primary);margin:18px 0 8px}
+.pp-card{background:var(--b2);border:1.5px solid rgba(201,168,76,.2);border-radius:12px;padding:16px 20px;margin-bottom:12px}
+.pp-card-label{font-size:12px;font-weight:700;color:var(--g);margin-bottom:6px}
+.pp-highlight{background:rgba(201,168,76,.07);border:1.5px solid rgba(201,168,76,.25);border-radius:12px;padding:16px 20px;margin-bottom:12px}
+.pp-highlight p{color:var(--text-primary);font-weight:500;margin:0}
+.contact-box{background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.04));border:1.5px solid rgba(201,168,76,.35);border-radius:14px;padding:24px 28px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:540px){.contact-box{grid-template-columns:1fr}}
+.cb-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g);margin-bottom:3px}
+.cb-val{font-size:14px;color:var(--text-primary);font-weight:500}
+.cb-val a{color:var(--g)}
+
+/* LIGHT */
+html[data-theme="light"] #nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 2px 16px rgba(0,0,0,.1)}
+html[data-theme="light"] .nav-center a{color:rgba(0,0,0,.6)}
+html[data-theme="light"] .nav-vendor{border-color:rgba(0,0,0,.18);color:rgba(0,0,0,.65)}
+html[data-theme="light"] .hamburger span{background:#1a1a1a}
+html[data-theme="light"] #mob-nav{background:rgba(255,255,255,.98)}
+html[data-theme="light"] #mob-nav a{color:rgba(0,0,0,.65)}
+html[data-theme="light"] .pp-hero{background:linear-gradient(180deg,#F8F8F8,#FFF)}
+html[data-theme="light"] .pp-toc{background:#fff;border-color:rgba(201,168,76,.3)}
+html[data-theme="light"] .pp-card{background:#fff}
+
+/* FOOTER */
+footer{background:var(--b1);border-top:1.5px solid rgba(201,168,76,.25)}
+.foot-inner{max-width:1200px;margin:0 auto;padding:48px 48px 24px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+@media(max-width:1100px){.foot-grid{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr}.foot-inner{padding:32px 20px 20px}}
+@media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
+.foot-logo img{height:56px;margin-bottom:14px}
+.foot-desc{font-size:13px;color:var(--text-tertiary);line-height:1.7;max-width:260px;margin-bottom:18px}
+.foot-socials{display:flex;gap:10px}
+.fsoc{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all .2s}
+.fsoc:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.3)}
+.foot-col h4{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.foot-col ul li a{font-size:13px;color:var(--text-tertiary);transition:color .2s}
+.foot-col ul li a:hover{color:var(--g)}
+.foot-col ul li a.cur{color:var(--g);font-weight:600}
+.foot-bottom{border-top:1px solid rgba(201,168,76,.1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.foot-bottom p{font-size:12px;color:rgba(255,255,255,.3)}
+.foot-badges{display:flex;gap:8px;flex-wrap:wrap}
+.f-badge{font-size:10px;font-weight:700;padding:4px 10px;border:1px solid rgba(201,168,76,.2);border-radius:20px;color:rgba(255,255,255,.35)}
+html[data-theme="light"] footer{background:#f5f5f0;border-top-color:rgba(201,168,76,.35)}
+html[data-theme="light"] .foot-col ul li a{color:rgba(0,0,0,.5)}
+html[data-theme="light"] .foot-col ul li a:hover{color:var(--g)}
+html[data-theme="light"] .foot-bottom p{color:rgba(0,0,0,.4)}
+html[data-theme="light"] .f-badge{color:rgba(0,0,0,.4);border-color:rgba(0,0,0,.15)}
+html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1)}
+
+.foot-disabled{opacity:.35;pointer-events:none;cursor:default;text-decoration:none}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
+  <div class="nav-center">
+    <a href="index.html#hero">Home</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#gold-calculator">Calculator</a>
+    <a href="index.html#gold-news">Gold News</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact Us</a>
+  </div>
+  <div class="nav-right">
+    <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
+    <a href="login.html" class="nav-login">Login</a>
+    <a href="vendor-onboarding-complete.html" class="nav-vendor">Vendor Onboarding</a>
+    <a href="login.html" class="nav-cta">Get Started</a>
+  </div>
+  <button class="hamburger" onclick="mobToggle()"><span></span><span></span><span></span></button>
+</nav>
+<div id="mob-nav">
+  <a href="index.html#hero">Home</a><a href="index.html#services">Services</a>
+  <a href="index.html#gold-calculator">Calculator</a><a href="index.html#gold-news">News</a>
+  <a href="index.html#why">About</a><a href="contact.html">Contact</a>
+  <a href="login.html" style="color:var(--g)">Login</a>
+  <a href="vendor-onboarding-complete.html" style="color:var(--g)">Vendor Onboarding</a>
+</div>
+
+<div class="pp-hero">
+  <div class="wrap">
+    <div class="eyebrow">Legal</div>
+    <h1>Privacy <span class="gold">Policy</span></h1>
+    <p>How GoldBazaar collects, uses, and protects your personal information.</p>
+    <div class="pp-meta">
+      <span>📅 Effective Date: 1 June 2026</span>
+      <span>🔄 Last Updated: 1 June 2026</span>
+      <span>🏢 GoldBazaar Technologies Pvt. Ltd.</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="pp-body">
+    <aside class="pp-toc">
+      <h3>Contents</h3>
+      <ul>
+        <li><a href="#s1">1. Introduction</a></li>
+        <li><a href="#s2">2. Data We Collect</a></li>
+        <li><a href="#s3">3. How We Use It</a></li>
+        <li><a href="#s4">4. Sharing & Disclosure</a></li>
+        <li><a href="#s5">5. Data Security</a></li>
+        <li><a href="#s6">6. Data Retention</a></li>
+        <li><a href="#s7">7. Children's Privacy</a></li>
+        <li><a href="#s8">8. Contact Us</a></li>
+      </ul>
+    </aside>
+
+    <div class="pp-content">
+
+      <section class="pp-section" id="s1">
+        <h2><span class="sn">01</span> Introduction</h2>
+        <div class="pp-highlight">
+          <p>GoldBazaar Technologies Pvt. Ltd. ("GoldBazaar", "we", "us") is committed to protecting your privacy. This Policy explains how we handle personal data when you use our website and services.</p>
+        </div>
+        <p>By using our Platform, you agree to the practices described here. This Policy is governed by applicable Indian law, including the Information Technology Act, 2000 and the Digital Personal Data Protection Act, 2023.</p>
+      </section>
+
+      <section class="pp-section" id="s2">
+        <h2><span class="sn">02</span> Data We Collect</h2>
+        <h3>Information you provide</h3>
+        <ul>
+          <li><strong>Identity:</strong> Full name, date of birth, photograph for KYC</li>
+          <li><strong>Contact:</strong> Mobile number, email address, city</li>
+          <li><strong>Financial:</strong> Gold ownership details, loan requirements (shared only with your consent)</li>
+          <li><strong>Business (Vendors):</strong> Business name, category, GSTIN, address</li>
+          <li><strong>Enquiries:</strong> Messages submitted via contact or onboarding forms</li>
+        </ul>
+        <h3>Automatically collected</h3>
+        <ul>
+          <li><strong>Usage data:</strong> Pages visited, features used, search queries</li>
+          <li><strong>Device data:</strong> IP address, browser type, operating system</li>
+          <li><strong>Location:</strong> City-level location from IP (no GPS without explicit consent)</li>
+        </ul>
+      </section>
+
+      <section class="pp-section" id="s3">
+        <h2><span class="sn">03</span> How We Use It</h2>
+        <ul>
+          <li>Providing and personalising our services (gold loans, buy/sell, marketplace listings)</li>
+          <li>Sending transactional notifications — OTPs, booking confirmations, status updates</li>
+          <li>Responding to your enquiries and customer support requests</li>
+          <li>Verifying vendor identity and managing onboarding</li>
+          <li>Improving Platform performance and fixing issues</li>
+          <li>Complying with legal and regulatory requirements</li>
+          <li>Sending promotional offers — only where you have opted in</li>
+        </ul>
+        <p>We do <strong>not</strong> sell your personal data to third parties.</p>
+      </section>
+
+      <section class="pp-section" id="s4">
+        <h2><span class="sn">04</span> Sharing & Disclosure</h2>
+        <div class="pp-card">
+          <div class="pp-card-label">💎 Vendors & Lenders</div>
+          <p style="margin:0;font-size:14px;color:var(--text-secondary)">Your enquiry details are shared only with the specific vendor or lender you choose, to fulfil your request.</p>
+        </div>
+        <div class="pp-card">
+          <div class="pp-card-label">⚙️ Service Providers</div>
+          <p style="margin:0;font-size:14px;color:var(--text-secondary)">Technology vendors, cloud hosting, SMS/OTP gateways — bound by data processing agreements and permitted to process data only as instructed by us.</p>
+        </div>
+        <div class="pp-card">
+          <div class="pp-card-label">⚖️ Legal Requirements</div>
+          <p style="margin:0;font-size:14px;color:var(--text-secondary)">We may disclose data to courts, law enforcement, or regulators (RBI, SEBI) when required by applicable law.</p>
+        </div>
+      </section>
+
+      <section class="pp-section" id="s5">
+        <h2><span class="sn">05</span> Data Security</h2>
+        <p>We implement standard security measures to protect your data:</p>
+        <ul>
+          <li><strong>Encryption:</strong> Data in transit is encrypted via TLS. Sensitive data at rest is encrypted using AES-256.</li>
+          <li><strong>Access controls:</strong> Staff access is restricted on a need-to-know basis with multi-factor authentication.</li>
+          <li><strong>Payments:</strong> Card data is handled by PCI-DSS certified payment gateways — we do not store raw card numbers.</li>
+          <li><strong>Incidents:</strong> In the event of a data breach, we will notify affected users and relevant authorities as required by law.</li>
+        </ul>
+        <p>If you suspect unauthorised access to your account, contact us immediately at <a href="mailto:goldbazaar.app@gmail.com" style="color:var(--g)">goldbazaar.app@gmail.com</a>.</p>
+      </section>
+
+      <section class="pp-section" id="s6">
+        <h2><span class="sn">06</span> Data Retention</h2>
+        <p>We keep your data only as long as necessary for the purpose it was collected or as required by law. In general:</p>
+        <ul>
+          <li>Account data is retained for the duration of your account plus 3 years after closure.</li>
+          <li>KYC and transaction records are kept for 5–8 years as mandated by RBI and PMLA regulations.</li>
+          <li>Contact enquiries and support records are kept for 2 years.</li>
+          <li>Marketing consent records are retained until consent is withdrawn.</li>
+        </ul>
+        <p>Upon expiry of the retention period, your data is securely deleted or anonymised.</p>
+      </section>
+
+      <section class="pp-section" id="s7">
+        <h2><span class="sn">07</span> Children's Privacy</h2>
+        <p>Our Platform is intended for users <strong>18 years of age or older</strong>. We do not knowingly collect personal data from minors. If you believe a child has submitted data to us without parental consent, please contact us and we will delete it promptly.</p>
+      </section>
+
+      <section class="pp-section" id="s8">
+        <h2><span class="sn">08</span> Contact Us</h2>
+        <p>For any privacy-related questions, requests, or complaints, please reach out to us:</p>
+        <div class="contact-box">
+          <div>
+            <div class="cb-label">Organisation</div>
+            <div class="cb-val">GoldBazaar Technologies Pvt. Ltd.</div>
+          </div>
+          <div>
+            <div class="cb-label">Email</div>
+            <div class="cb-val"><a href="mailto:goldbazaar.app@gmail.com">goldbazaar.app@gmail.com</a></div>
+          </div>
+          <div>
+            <div class="cb-label">Phone</div>
+            <div class="cb-val"><a href="tel:+917019609180">+91 70196 09180</a></div>
+          </div>
+          <div>
+            <div class="cb-label">Address</div>
+            <div class="cb-val">GoldBazaar HQ, Bengaluru, Karnataka, India</div>
+          </div>
+        </div>
+        <p style="margin-top:16px">We will respond to all privacy requests within <strong>30 days</strong>. This Policy may be updated periodically — continued use of the Platform after changes constitutes acceptance.</p>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div><div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div><p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions.</p><div class="foot-socials"><a href="#" class="fsoc">in</a><a href="#" class="fsoc">f</a><a href="#" class="fsoc">📷</a><a href="#" class="fsoc">𝕏</a></div></div>
+      <div class="foot-col"><h4>Services</h4><ul><li><a href="gold-loan-providers.html">Gold Loan</a></li><li><a href="gold-buyers.html">Sell Gold</a></li><li><a href="gold-exchange.html" class="foot-disabled">Exchange</a></li><li><a href="jewellery-purchase.html" class="foot-disabled">Jewellery</a></li><li><a href="gold-savings-scheme.html" class="foot-disabled">Savings</a></li></ul></div><div class="foot-col"><h4>More</h4><ul><li><a href="digital-gold.html" class="foot-disabled">Digital Gold</a></li><li><a href="gold-insurance.html" class="foot-disabled">Insurance</a></li><li><a href="gold-investment.html" class="foot-disabled">Investment</a></li><li><a href="index.html#gold-calculator" class="foot-disabled">Calculator</a></li></ul></div>
+      <div class="foot-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="careers.html">Careers</a></li><li><a href="blog.html">Blog</a></li></ul></div>
+      <div class="foot-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html" class="cur">Privacy Policy</a></li><li><a href="terms-conditions.html">Terms &amp; Conditions</a></li><li><a href="grievance-policy.html">Grievance Policy</a></li><li><a href="sitemap.html">Sitemap</a></li></ul></div>
+    </div>
+    <div class="foot-bottom"><p>© 2026 GoldBazaar.app — All rights reserved. GoldBazaar Technologies Pvt. Ltd.</p></div>
+  </div>
+</footer>
+
+<script>
+const ThemeManager={get(){return localStorage.getItem('gb-theme')||'dark'},set(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('gb-theme',t);document.getElementById('theme-toggle').textContent=t==='dark'?'🌙':'☀️'},toggle(){this.set(this.get()==='dark'?'light':'dark')},init(){this.set(this.get())}};
+ThemeManager.init();
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40),{passive:true});
+function mobToggle(){document.getElementById('mob-nav').classList.toggle('open')}
+const tocLinks=document.querySelectorAll('.pp-toc a');
+const secs=document.querySelectorAll('.pp-section');
+new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){tocLinks.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.pp-toc a[href="#${x.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-30% 0px -65% 0px'}).observe||secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){tocLinks.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.pp-toc a[href="#${x.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-30% 0px -65% 0px'}).observe(s));
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){tocLinks.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.pp-toc a[href="#${x.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-30% 0px -65% 0px'});
+secs.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   

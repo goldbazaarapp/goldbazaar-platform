@@ -331,6 +331,8 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
 @media(max-width:480px){
   .gold-widget{display:none}
 }
+
+.foot-disabled{opacity:.35;pointer-events:none;cursor:default;text-decoration:none}
 </style>
 </head>
 <body>
@@ -709,26 +711,22 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
         <li><a href="index.html">Vendor Onboarding</a></li>
       </ul></div>
       <div class="foot-col"><h4>Company</h4><ul>
-        <li><a href="index.html#why">About Us</a></li>
-        <li><a href="index.html#contact-us">Contact Us</a></li>
-        <li><a href="#">Careers</a></li>
-        <li><a href="#">Press Kit</a></li>
-        <li><a href="index.html#gold-news">Blog</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="careers.html">Careers</a></li>
+        <li></li>
+        <li><a href="blog.html">Blog</a></li>
       </ul></div>
       <div class="foot-col"><h4>Legal</h4><ul>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Terms & Conditions</a></li>
-        <li><a href="#">Grievance Policy</a></li>
-        <li><a href="#">Refund Policy</a></li>
-        <li><a href="#">Sitemap</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        <li><a href="terms-conditions.html">Terms &amp; Conditions</a></li>
+        <li><a href="grievance-policy.html">Grievance Policy</a></li>
+        <li><a href="sitemap.html">Sitemap</a></li>
       </ul></div>
     </div>
     <div class="foot-bottom">
       <p>© 2025 GoldBazaar.app — All rights reserved. GoldBazaar Technologies Pvt. Ltd.</p>
-      <div class="foot-badges">
-        <span class="f-badge">DPDP 2023</span><span class="f-badge">ISO 27001</span>
-        <span class="f-badge">PCI DSS</span><span class="f-badge">BIS Partner</span><span class="f-badge">RBI Compliant</span>
-      </div>
+      
     </div>
   </div>
 </footer>
@@ -828,9 +826,9 @@ function initGoldRatesState() {
 
 const GoldRateManager = {
   mockRates: {
-    '24K': 7460,
-    '22K': 6842,
-    '18K': 5520,
+    '24K': 14563,
+    '22K': 13349,
+    '18K': 10922,
   },
   lastUpdate: new Date(),
   updateInterval: 5 * 60 * 1000, // 5 minutes

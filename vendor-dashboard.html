@@ -1032,11 +1032,18 @@ footer{
         <a href="#" onclick="navPanel('support');return false">Help Center</a>
       </div>
       <div class="ft-col">
+        <h4>Company</h4>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="careers.html">Careers</a>
+        <a href="blog.html">Blog</a>
+      </div>
+      <div class="ft-col">
         <h4>Legal</h4>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms &amp; Conditions</a>
-        <a href="#">Contact Us</a>
-        <a href="#" onclick="navPanel('support');return false">Support</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-conditions.html">Terms &amp; Conditions</a>
+        <a href="grievance-policy.html">Grievance Policy</a>
+        <a href="sitemap.html">Sitemap</a>
       </div>
     </div>
     <div class="ft-bot">
@@ -1127,31 +1134,3 @@ function navPanel(id){
 // Wire up sidebar items
 document.querySelectorAll('.sb-it[data-panel]').forEach(it=>{
   it.addEventListener('click',()=>navPanel(it.dataset.panel));
-});
-
-/* ── PROFILE DROPDOWN ── */
-function toggleDrop(){document.getElementById('pdrop').classList.toggle('open')}
-document.addEventListener('click',e=>{if(!e.target.closest('.pd-wrap'))document.getElementById('pdrop').classList.remove('open')});
-
-/* ── DATE ── */
-const wd=document.getElementById('wdate');
-if(wd){wd.textContent=new Date().toLocaleDateString('en-IN',{weekday:'short',month:'short',day:'numeric',year:'numeric'})}
-
-/* ── ANIMATE BARS ── */
-function animateBars(){
-  document.querySelectorAll('#p-dashboard .cr-fill').forEach(b=>{
-    b.style.width='0';
-    const w=b.dataset.w;
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{b.style.width=w+'%'}));
-  });
-}
-
-/* ── INIT ── */
-document.addEventListener('DOMContentLoaded',()=>{
-  TM.init();
-  applyVendor();
-  setTimeout(animateBars,400);
-});
-</script>
-</body>
-</html>

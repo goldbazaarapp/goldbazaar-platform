@@ -98,6 +98,8 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
 .ex-result-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:6px}
 .ex-result-val{font-size:28px;font-weight:800;color:var(--accent-l)}
 
+
+.foot-disabled{opacity:.35;pointer-events:none;cursor:default}
 </style>
 </head>
 <body>
@@ -193,16 +195,21 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
       <div class="foot-links">
         <a href="gold-loan-providers.html">Gold Loan</a>
         <a href="gold-buyers.html">Sell Gold</a>
-        <a href="gold-exchange.html">Exchange</a>
-        <a href="jewellery-purchase.html">Jewellery</a>
-        <a href="gold-savings-scheme.html">Savings</a>
-        <a href="digital-gold.html">Digital Gold</a>
-        <a href="gold-insurance.html">Insurance</a>
-        <a href="gold-investment.html">Investment</a>
+        <a href="gold-exchange.html" class="foot-disabled">Exchange</a>
+        <a href="jewellery-purchase.html" class="foot-disabled">Jewellery</a>
+        <a href="gold-savings-scheme.html" class="foot-disabled">Savings</a>
+        <a href="digital-gold.html" class="foot-disabled">Digital Gold</a>
+        <a href="gold-insurance.html" class="foot-disabled">Insurance</a>
+        <a href="gold-investment.html" class="foot-disabled">Investment</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="careers.html">Careers</a>
+        <a href="blog.html">Blog</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-conditions.html">Terms &amp; Conditions</a>
+        <a href="grievance-policy.html">Grievance Policy</a>
+        <a href="sitemap.html">Sitemap</a>
       </div>
-    </div>
-    <div class="foot-bottom">
-      <p>© 2025 GoldBazaar.app — All rights reserved.</p>
       <a href="index.html" class="back-to-home">← Back to GoldBazaar Home</a>
     </div>
   </div>
@@ -228,7 +235,7 @@ function calcEx(){
   const w=parseFloat(document.getElementById('ex-wt').value);
   const mc=parseFloat(document.getElementById('ex-mc').value)||10;
   if(!w||w<=0)return;
-  const rate=7460*p;const val=w*rate*0.98;
+  const rate=14563*p;const val=w*rate*0.98;
   const making=val*(mc/100);
   document.getElementById('ex-res').style.display='block';
   document.getElementById('ex-val').textContent='₹'+Math.round(val).toLocaleString('en-IN');

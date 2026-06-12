@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Why Every Indian Family Should Know the Real Value of Their Gold — GoldBazaar Blog</title>
+<meta name="description" content="India holds 25,000 tonnes of gold in private hands. Most families don't know its true value. Here's how to find out — and what to do with that knowledge."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#9B7B2E;border-radius:2px}
+:root{--g:#C9A84C;--gl:#E8C96A;--fd:'Playfair Display',Georgia,serif;--nav-h:68px}
+html[data-theme="dark"]{--bg:#000;--b1:#0A0A0A;--b2:#111;--b3:#161616;--text:#FFF;--text2:rgba(255,255,255,.75);--text3:rgba(255,255,255,.45)}
+html[data-theme="light"]{--bg:#FFF;--b1:#F8F8F8;--b2:#F2F2F2;--b3:#EBEBEB;--text:#1A1A1A;--text2:#3a3a3a;--text3:#666}
+.wrap{max-width:1100px;margin:0 auto;padding:0 48px}
+@media(max-width:600px){.wrap{padding:0 20px}}
+.gold{background:linear-gradient(135deg,#C9A84C,#F5E6C0,#C9A84C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 32px;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+#nav.scrolled{background:rgba(0,0,0,.94);backdrop-filter:blur(20px);border-color:rgba(201,168,76,.25)}
+.nav-logo img{height:56px}
+.nav-center{display:flex;align-items:center;gap:4px}
+.nav-center a{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);padding:7px 12px;border-radius:7px;transition:color .2s}
+.nav-center a:hover{color:var(--g)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-theme{padding:6px 10px;font-size:16px}
+.nav-login{padding:8px 16px;border:1px solid rgba(201,168,76,.35);border-radius:8px;font-size:13px;font-weight:500;color:var(--g)}
+.nav-vendor{padding:8px 16px;border:1px solid rgba(255,255,255,.18);border-radius:8px;font-size:13px;color:rgba(255,255,255,.75)}
+.nav-cta{padding:8px 20px;border-radius:8px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:13px;font-weight:700}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:4px}
+.hamburger span{width:21px;height:1.5px;background:#fff;display:block}
+#mob-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:999;background:rgba(0,0,0,.97);padding:20px 28px;flex-direction:column;gap:4px}
+#mob-nav.open{display:flex}
+#mob-nav a{font-size:15px;color:rgba(255,255,255,.72);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+@media(max-width:768px){.hamburger{display:flex}.nav-center{display:none}}
+
+/* ARTICLE HERO */
+.art-hero{padding:110px 0 56px;background:linear-gradient(180deg,var(--b1),var(--bg));border-bottom:1px solid rgba(201,168,76,.2)}
+.art-breadcrumb{font-size:12px;color:var(--text3);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.art-breadcrumb a{color:var(--g)}
+.art-breadcrumb span{opacity:.4}
+.art-cat{display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g);margin-bottom:18px}
+.art-title{font-family:var(--fd);font-size:clamp(26px,4.5vw,50px);font-weight:700;line-height:1.2;margin-bottom:18px;max-width:800px}
+.art-subtitle{font-size:16px;color:var(--text2);line-height:1.7;max-width:640px;margin-bottom:24px}
+.art-meta{display:flex;align-items:center;gap:20px;font-size:13px;color:var(--text3);flex-wrap:wrap}
+.art-author{display:flex;align-items:center;gap:8px}
+.art-author-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gl));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#000}
+
+/* ARTICLE LAYOUT */
+.art-layout{display:grid;grid-template-columns:1fr 280px;gap:56px;padding:56px 0 96px;align-items:start}
+@media(max-width:860px){.art-layout{grid-template-columns:1fr;gap:40px}}
+
+/* ARTICLE BODY */
+.art-body{max-width:680px}
+.art-body h2{font-family:var(--fd);font-size:22px;font-weight:700;margin:36px 0 14px;color:var(--text)}
+.art-body h3{font-size:16px;font-weight:700;margin:28px 0 10px;color:var(--text)}
+.art-body p{font-size:15px;line-height:1.85;color:var(--text2);margin-bottom:18px}
+.art-body ul,.art-body ol{padding-left:22px;margin-bottom:18px;display:flex;flex-direction:column;gap:8px}
+.art-body li{font-size:15px;line-height:1.75;color:var(--text2)}
+.art-body strong{color:var(--text);font-weight:600}
+.art-body a{color:var(--g);text-decoration:underline;text-underline-offset:3px}
+.art-highlight{background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03));border-left:3px solid var(--g);border-radius:0 12px 12px 0;padding:20px 24px;margin:24px 0}
+.art-highlight p{margin:0;font-size:15px;font-style:italic;color:var(--text)}
+.art-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px}
+.art-table th{background:rgba(201,168,76,.15);color:var(--g);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:10px 14px;text-align:left}
+.art-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.06);color:var(--text2)}
+.art-table tr:last-child td{border-bottom:none}
+.art-cta-box{background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(201,168,76,.04));border:1.5px solid rgba(201,168,76,.3);border-radius:16px;padding:28px;margin:32px 0;text-align:center}
+.art-cta-box h4{font-family:var(--fd);font-size:18px;font-weight:700;margin-bottom:8px}
+.art-cta-box p{font-size:13px;color:var(--text2);margin-bottom:18px}
+.art-cta-box a{display:inline-block;padding:11px 24px;border-radius:10px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:14px;font-weight:700}
+.art-share{margin-top:40px;padding-top:32px;border-top:1px solid rgba(201,168,76,.15)}
+.art-share h4{font-size:13px;font-weight:700;color:var(--text3);margin-bottom:12px;letter-spacing:.05em;text-transform:uppercase}
+.share-btns{display:flex;gap:10px;flex-wrap:wrap}
+.share-btn{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;border:1.5px solid rgba(255,255,255,.1);color:var(--text2);transition:all .2s;cursor:pointer}
+.share-btn:hover{border-color:var(--g);color:var(--g)}
+
+/* SIDEBAR */
+.art-sidebar{position:sticky;top:calc(var(--nav-h)+24px)}
+@media(max-width:860px){.art-sidebar{position:static}}
+.sidebar-card{background:var(--b2);border:1.5px solid rgba(201,168,76,.18);border-radius:16px;padding:22px;margin-bottom:20px}
+.sidebar-card h4{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc-list a{display:block;font-size:13px;color:var(--text3);padding:6px 10px;border-radius:7px;border-left:2px solid transparent;transition:all .2s}
+.toc-list a:hover,.toc-list a.active{color:var(--g);background:rgba(201,168,76,.07);border-left-color:var(--g)}
+.related-post{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.related-post:last-child{border-bottom:none;padding-bottom:0}
+.related-icon{font-size:22px;flex-shrink:0}
+.related-title{font-size:13px;font-weight:600;line-height:1.4;color:var(--text2)}
+.related-title:hover{color:var(--g)}
+
+/* LIGHT */
+html[data-theme="light"] #nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 2px 16px rgba(0,0,0,.1)}
+html[data-theme="light"] .nav-center a{color:rgba(0,0,0,.6)}
+html[data-theme="light"] .nav-vendor{border-color:rgba(0,0,0,.18);color:rgba(0,0,0,.65)}
+html[data-theme="light"] .hamburger span{background:#1a1a1a}
+html[data-theme="light"] #mob-nav{background:rgba(255,255,255,.98)}
+html[data-theme="light"] .art-hero{background:linear-gradient(180deg,#F8F8F8,#FFF)}
+html[data-theme="light"] .art-table td{border-bottom-color:rgba(0,0,0,.08)}
+html[data-theme="light"] .sidebar-card{background:#fff}
+html[data-theme="light"] .share-btn{border-color:rgba(0,0,0,.12);color:#444}
+
+/* FOOTER */
+footer{background:var(--b1);border-top:1.5px solid rgba(201,168,76,.25)}
+.foot-inner{max-width:1200px;margin:0 auto;padding:48px 48px 24px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+@media(max-width:1100px){.foot-grid{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr}.foot-inner{padding:32px 20px 20px}}
+@media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
+.foot-logo img{height:56px;margin-bottom:14px}
+.foot-desc{font-size:13px;color:var(--text3);line-height:1.7;max-width:260px;margin-bottom:18px}
+.foot-socials{display:flex;gap:10px}
+.fsoc{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all .2s}
+.fsoc:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.3)}
+.foot-col h4{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.foot-col ul li a{font-size:13px;color:var(--text3);transition:color .2s}
+.foot-col ul li a:hover{color:var(--g)}
+.foot-bottom{border-top:1px solid rgba(201,168,76,.1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.foot-bottom p{font-size:12px;color:rgba(255,255,255,.3)}
+.foot-badges{display:flex;gap:8px;flex-wrap:wrap}
+.f-badge{font-size:10px;font-weight:700;padding:4px 10px;border:1px solid rgba(201,168,76,.2);border-radius:20px;color:rgba(255,255,255,.35)}
+html[data-theme="light"] footer{background:#f5f5f0}
+html[data-theme="light"] .foot-col ul li a{color:rgba(0,0,0,.5)}
+html[data-theme="light"] .foot-col ul li a:hover{color:var(--g)}
+html[data-theme="light"] .foot-bottom p{color:rgba(0,0,0,.4)}
+html[data-theme="light"] .f-badge{color:rgba(0,0,0,.4);border-color:rgba(0,0,0,.15)}
+html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1)}
+
+.foot-disabled{opacity:.35;pointer-events:none;cursor:default;text-decoration:none}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
+  <div class="nav-center">
+    <a href="index.html#hero">Home</a><a href="index.html#services">Services</a>
+    <a href="index.html#gold-calculator">Calculator</a><a href="index.html#gold-news">Gold News</a>
+    <a href="about.html">About Us</a><a href="contact.html">Contact Us</a>
+  </div>
+  <div class="nav-right">
+    <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
+    <a href="login.html" class="nav-login">Login</a>
+    <a href="vendor-onboarding-complete.html" class="nav-vendor">Vendor Onboarding</a>
+    <a href="login.html" class="nav-cta">Get Started</a>
+  </div>
+  <button class="hamburger" onclick="mobToggle()"><span></span><span></span><span></span></button>
+</nav>
+<div id="mob-nav">
+  <a href="index.html">Home</a><a href="index.html#services">Services</a>
+  <a href="about.html">About Us</a><a href="contact.html">Contact</a>
+  <a href="blog.html" style="color:var(--g)">Blog</a><a href="login.html" style="color:var(--g)">Login</a>
+</div>
+
+<!-- ARTICLE HERO -->
+<div class="art-hero">
+  <div class="wrap">
+    <div class="art-breadcrumb">
+      <a href="index.html">Home</a><span>/</span>
+      <a href="blog.html">Blog</a><span>/</span>
+      <span>Gold Education</span>
+    </div>
+    <div class="art-cat">📂 Gold Education</div>
+    <h1 class="art-title">Why Every Indian Family Should Know the Real Value of Their Gold</h1>
+    <p class="art-subtitle">India holds an estimated 25,000 tonnes of gold in private hands. Yet most families have no idea what their gold is truly worth — or how to make the most of it.</p>
+    <div class="art-meta">
+      <div class="art-author"><div class="art-author-avatar">GB</div><span>GoldBazaar Editorial Team</span></div>
+      <span>📅 June 10, 2026</span>
+      <span>🕐 5 min read</span>
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLE LAYOUT -->
+<div class="wrap">
+  <div class="art-layout">
+
+    <!-- MAIN CONTENT -->
+    <article class="art-body">
+
+      <h2 id="s1">India's Hidden Gold Mountain</h2>
+      <p>India is the world's second-largest consumer of gold and holds more gold in private hands than any central bank on Earth. The World Gold Council estimates Indian households collectively hold over <strong>25,000 tonnes</strong> of gold — worth roughly ₹175 lakh crore at current prices.</p>
+      <p>Yet here's the paradox: the vast majority of Indian families who own this gold have little idea of its actual market value. Grandmothers' bangles, inherited necklaces, old coins buried in lockers — this wealth sits idle, underutilised, and often undervalued.</p>
+      <div class="art-highlight"><p>"Gold is not just jewellery in India. It is savings, security, and identity passed down through generations. But savings you don't understand are savings you can't protect."</p></div>
+
+      <h2 id="s2">Why Most Families Don't Know Their Gold's Value</h2>
+      <p>There are three common reasons families remain unaware of their gold's true worth:</p>
+      <ol>
+        <li><strong>Purchased at retail price, valued at market price:</strong> When you buy jewellery, you pay the gold value plus making charges (typically 8–20%). When you sell or take a loan, only the pure gold value counts — making charges are non-recoverable.</li>
+        <li><strong>Purity confusion:</strong> Most Indian households own 22K or 18K gold jewellery, not 24K. The purity directly determines value — 22K gold is worth 91.67% of the 24K rate, not 100%.</li>
+        <li><strong>No reliable reference point:</strong> Gold prices change daily with the MCX (Multi Commodity Exchange) rate. Many families use old purchase rates or hearsay, which can be significantly off.</li>
+      </ol>
+
+      <h2 id="s3">Understanding Gold Purity</h2>
+      <p>The karat system measures how much pure gold is in a piece of jewellery:</p>
+      <table class="art-table">
+        <thead><tr><th>Purity</th><th>Pure Gold %</th><th>Typical Use</th><th>Rate (approx)</th></tr></thead>
+        <tbody>
+          <tr><td>24K</td><td>99.99%</td><td>Coins, bars, digital gold</td><td>₹7,460/g</td></tr>
+          <tr><td>22K</td><td>91.67%</td><td>Jewellery (most common in India)</td><td>₹13,349/g</td></tr>
+          <tr><td>18K</td><td>75.00%</td><td>Diamond jewellery settings</td><td>₹10,922/g</td></tr>
+          <tr><td>14K</td><td>58.50%</td><td>Fashion jewellery</td><td>₹8,519/g</td></tr>
+        </tbody>
+      </table>
+      <p>A 20-gram 22K gold chain, for example, is worth approximately <strong>₹2,66,980</strong> at current MCX rates — regardless of what you paid for it years ago.</p>
+
+      <h2 id="s4">How to Find Out What Your Gold Is Worth</h2>
+      <p>Here's a simple three-step process any family can follow:</p>
+      <h3>Step 1: Check the hallmark</h3>
+      <p>BIS (Bureau of Indian Standards) hallmarking is now mandatory in India. Look for a small hallmark stamp on your jewellery — it will show the karat (22K, 18K, etc.) and a unique HUID (Hallmark Unique Identification) number. This confirms the purity officially.</p>
+      <h3>Step 2: Weigh your gold</h3>
+      <p>Use a precision kitchen scale (accurate to 0.1g) or visit any jeweller for a free weighing. Note that the total weight includes any embedded stones (diamonds, rubies) — these don't count toward gold value and are typically subtracted.</p>
+      <h3>Step 3: Apply the live MCX rate</h3>
+      <p>The formula is simple: <strong>Value = Weight (grams) × Purity Factor × Today's 24K Rate</strong>. You can use the <a href="index.html#gold-calculator">GoldBazaar Gold Calculator</a> to do this instantly with live MCX rates — no registration required.</p>
+
+      <div class="art-cta-box">
+        <h4>📊 Try the GoldBazaar Gold Calculator</h4>
+        <p>Enter your gold's weight and purity to get its exact market value — using live MCX rates, updated every 5 minutes.</p>
+        <a href="index.html#gold-calculator">Calculate My Gold Value →</a>
+      </div>
+
+      <h2 id="s5">What Can You Do With This Knowledge?</h2>
+      <p>Once you know your gold's value, several options open up:</p>
+      <ul>
+        <li><strong>Gold Loan:</strong> Get up to 75% of your gold's value as an instant loan without selling it. Ideal for short-term cash needs. Interest rates start at 7% p.a. Compare lenders on <a href="gold-loan-providers.html">GoldBazaar Gold Loans</a>.</li>
+        <li><strong>Sell at the best price:</strong> If you have unused gold, sell it to a verified buyer on GoldBazaar. Compare offers from multiple buyers before deciding — never accept the first offer.</li>
+        <li><strong>Exchange for newer jewellery:</strong> Many jewellers offer exchange programmes where old jewellery can be traded in for new designs at fair market value.</li>
+        <li><strong>Insure it properly:</strong> If your gold is stored at home, check that your insurance adequately covers its current market value — not the purchase price from years ago.</li>
+        <li><strong>Add to your financial planning:</strong> Gold is a proven hedge against inflation. Understanding your gold holdings helps you plan your overall financial portfolio more accurately.</li>
+      </ul>
+
+      <h2 id="s6">Red Flags to Watch Out For</h2>
+      <p>When dealing with gold buyers, loan providers, or jewellers, be cautious of:</p>
+      <ul>
+        <li>Rates quoted significantly below MCX — always verify the current MCX rate independently.</li>
+        <li>Purity disputes without a proper acid test or XRF spectrometer test at the buyer's end.</li>
+        <li>Unofficial buyers who don't provide a proper receipt or valuation certificate.</li>
+        <li>Gold loan providers who don't show you the LTV calculation clearly in writing.</li>
+      </ul>
+      <div class="art-highlight"><p>Always use <strong>BIS-hallmarked gold</strong> and deal only with <strong>verified vendors</strong>. GoldBazaar lists only RBI-regulated and BIS-certified partners.</p></div>
+
+      <h2 id="s7">The GoldBazaar Difference</h2>
+      <p>GoldBazaar was built specifically to solve the information gap in India's gold market. Our platform gives you:</p>
+      <ul>
+        <li><strong>Live MCX gold rates</strong> — updated every 5 minutes, no broker markup.</li>
+        <li><strong>Free Gold Calculator</strong> — know your gold's value instantly, in seconds.</li>
+        <li><strong>Verified vendors only</strong> — every lender, buyer, and jeweller has been checked for RBI/BIS compliance.</li>
+        <li><strong>Transparent comparisons</strong> — compare loan rates, LTV ratios, and buyback offers side by side.</li>
+      </ul>
+      <p>Knowledge is the most powerful financial tool. Start by knowing what your gold is worth — and let GoldBazaar help you make the most of it.</p>
+
+      <!-- SHARE -->
+      <div class="art-share">
+        <h4>Share this article</h4>
+        <div class="share-btns">
+          <button class="share-btn" onclick="share('whatsapp')">💬 WhatsApp</button>
+          <button class="share-btn" onclick="share('twitter')">𝕏 Twitter</button>
+          <button class="share-btn" onclick="share('linkedin')">in LinkedIn</button>
+          <button class="share-btn" onclick="copyLink()">🔗 Copy Link</button>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- SIDEBAR -->
+    <aside class="art-sidebar">
+      <div class="sidebar-card">
+        <h4>In This Article</h4>
+        <ul class="toc-list">
+          <li><a href="#s1">India's Hidden Gold Mountain</a></li>
+          <li><a href="#s2">Why Families Don't Know</a></li>
+          <li><a href="#s3">Understanding Purity</a></li>
+          <li><a href="#s4">Find Your Gold's Value</a></li>
+          <li><a href="#s5">What You Can Do</a></li>
+          <li><a href="#s6">Red Flags to Watch</a></li>
+          <li><a href="#s7">The GoldBazaar Difference</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-card">
+        <h4>Related Articles</h4>
+        <div class="related-post"><div class="related-icon">🏦</div><a href="gold-loan-providers.html" class="related-title">How to Get the Best Gold Loan Rate in Your City</a></div>
+        <div class="related-post"><div class="related-icon">💸</div><a href="gold-buyers.html" class="related-title">Where to Sell Gold at the Highest Price</a></div>
+        <div class="related-post"><div class="related-icon">📱</div><a href="digital-gold.html" class="related-title">Digital Gold — The Smarter Way to Invest</a></div>
+      </div>
+      <div class="sidebar-card" style="background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(201,168,76,.04));border-color:rgba(201,168,76,.3)">
+        <h4>Try the Calculator</h4>
+        <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Find out what your gold is worth in 30 seconds using live MCX rates.</p>
+        <a href="index.html#gold-calculator" style="display:block;text-align:center;padding:10px;border-radius:9px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:13px;font-weight:700">Calculate Now →</a>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div><div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div><p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions.</p><div class="foot-socials"><a href="#" class="fsoc">in</a><a href="#" class="fsoc">f</a><a href="#" class="fsoc">📷</a><a href="#" class="fsoc">𝕏</a></div></div>
+      <div class="foot-col"><h4>Services</h4><ul><li><a href="gold-loan-providers.html">Gold Loan</a></li><li><a href="gold-buyers.html">Sell Gold</a></li><li><a href="gold-exchange.html" class="foot-disabled">Exchange</a></li><li><a href="jewellery-purchase.html" class="foot-disabled">Jewellery</a></li><li><a href="gold-savings-scheme.html" class="foot-disabled">Savings</a></li></ul></div><div class="foot-col"><h4>More</h4><ul><li><a href="digital-gold.html" class="foot-disabled">Digital Gold</a></li><li><a href="gold-insurance.html" class="foot-disabled">Insurance</a></li><li><a href="gold-investment.html" class="foot-disabled">Investment</a></li><li><a href="index.html#gold-calculator" class="foot-disabled">Calculator</a></li></ul></div>
+      <div class="foot-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="careers.html">Careers</a></li><li><a href="blog.html">Blog</a></li></ul></div>
+      <div class="foot-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-conditions.html">Terms &amp; Conditions</a></li><li><a href="grievance-policy.html">Grievance Policy</a></li><li><a href="sitemap.html">Sitemap</a></li></ul></div>
+    </div>
+    <div class="foot-bottom"><p>© 2026 GoldBazaar.app — All rights reserved. GoldBazaar Technologies Pvt. Ltd.</p></div>
+  </div>
+</footer>
+
+<script>
+const ThemeManager={get(){return localStorage.getItem('gb-theme')||'dark'},set(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('gb-theme',t);document.getElementById('theme-toggle').textContent=t==='dark'?'🌙':'☀️'},toggle(){this.set(this.get()==='dark'?'light':'dark')},init(){this.set(this.get())}};
+ThemeManager.init();
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40),{passive:true});
+function mobToggle(){document.getElementById('mob-nav').classList.toggle('open')}
+/* TOC scroll spy */
+const tocLinks=document.querySelectorAll('.toc-list a');
+const sections=document.querySelectorAll('.art-body h2[id]');
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){tocLinks.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.toc-list a[href="#${x.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-30% 0px -65% 0px'});
+sections.forEach(s=>obs.observe(s));
+function share(platform){
+  const url=encodeURIComponent(location.href);
+  const title=encodeURIComponent(document.title);
+  const urls={whatsapp:`https://wa.me/?text=${title}%20${url}`,twitter:`https://twitter.com/intent/tweet?text=${title}&url=${url}`,linkedin:`https://www.linkedin.com/sharing/share-offsite/?url=${url}`};
+  if(urls[platform])window.open(urls[platform],'_blank');
+}
+function copyLink(){navigator.clipboard.writeText(location.href).then(()=>{const btn=document.querySelector('[onclick="copyLink()"]');const orig=btn.textContent;btn.textContent='✓ Copied!';setTimeout(()=>btn.textContent=orig,2000)})}
+</script>
+</body>
+</html>

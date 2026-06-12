@@ -267,6 +267,58 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
 .mkt-card-img{display:flex;align-items:center;justify-content:center}
 .mkt-card-img .jeweler-logo{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
 .mkt-card-img .jeweler-logo-fallback{font-size:40px;display:none}
+/* ── LIGHT THEME OVERRIDES ── */
+html[data-theme="light"] #nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 2px 16px rgba(0,0,0,.1)}
+html[data-theme="light"] .hamburger span{background:#1a1a1a}
+html[data-theme="light"] #mob-nav{background:rgba(255,255,255,.98)}
+html[data-theme="light"] #mob-nav a{color:rgba(0,0,0,.65)}
+html[data-theme="light"] .nav-back[style]{color:rgba(0,0,0,.5)!important}
+/* Hero — use warm light gold gradient instead of dark */
+html[data-theme="light"] .page-hero{background:linear-gradient(135deg,#FBF7EE 0%,#F5EDD4 50%,#FBF7EE 100%);border-bottom:1px solid rgba(201,168,76,.3)}
+html[data-theme="light"] .page-hero::before{background-image:radial-gradient(circle at 70% 50%,rgba(201,168,76,.18) 0%,transparent 60%),linear-gradient(rgba(201,168,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.05) 1px,transparent 1px);background-size:auto,64px 64px,64px 64px}
+html[data-theme="light"] .page-hero p{color:rgba(0,0,0,.55)}
+html[data-theme="light"] .ph-stat-lbl{color:rgba(0,0,0,.45)}
+/* Process cards */
+html[data-theme="light"] .process-card{background:#fff;border-color:rgba(201,168,76,.25)}
+html[data-theme="light"] .process-title{color:#1a1a1a}
+html[data-theme="light"] .process-desc{color:#555}
+/* Filter bar */
+html[data-theme="light"] .filter-bar{background:#fff;border-color:rgba(201,168,76,.2)}
+html[data-theme="light"] .filter-group label{color:rgba(0,0,0,.5)}
+html[data-theme="light"] .filter-group input,html[data-theme="light"] .filter-group select{background:#F8F8F8;border-color:rgba(201,168,76,.25);color:#1a1a1a}
+html[data-theme="light"] .filter-group input::placeholder{color:rgba(0,0,0,.35)}
+html[data-theme="light"] .filter-group select option{background:#fff;color:#1a1a1a}
+/* List view grid */
+html[data-theme="light"] .mkt-grid.list-view{background:#fff;border-color:rgba(201,168,76,.25)}
+html[data-theme="light"] .mkt-grid.list-view .mkt-card{border-bottom-color:rgba(0,0,0,.07)}
+html[data-theme="light"] .mkt-grid.list-view .mkt-card:hover{background:rgba(201,168,76,.04)}
+html[data-theme="light"] .mkt-grid.list-view .mkt-card-name{color:#1a1a1a}
+html[data-theme="light"] .mkt-grid.list-view .mkt-card-loc{color:#666}
+html[data-theme="light"] .mkt-grid.list-view .meta-chip{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.08);color:#555}
+html[data-theme="light"] .mkt-grid.list-view .trust-badge{color:#666}
+/* Tile view */
+html[data-theme="light"] .mkt-card-loc{color:#666}
+html[data-theme="light"] .mkt-card-rate-lbl{color:#888}
+html[data-theme="light"] .meta-chip{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.08);color:#555}
+html[data-theme="light"] .mkt-card-footer{border-top-color:rgba(0,0,0,.08)}
+html[data-theme="light"] .mkt-card-img{background:linear-gradient(135deg,#F5EDD4,#FBF7EE)}
+/* Pagination */
+html[data-theme="light"] .page-num{background:#fff;border-color:rgba(201,168,76,.3);color:#555}
+html[data-theme="light"] .page-num:hover{color:var(--g);background:rgba(201,168,76,.06)}
+html[data-theme="light"] .page-info{color:#888}
+/* Footer */
+html[data-theme="light"] footer{background:#f5f5f0;border-top-color:rgba(201,168,76,.35)}
+html[data-theme="light"] .foot-bottom p{color:rgba(0,0,0,.4)}
+html[data-theme="light"] .foot-links a{color:rgba(0,0,0,.55)}
+html[data-theme="light"] .foot-links a:hover{color:var(--g)}
+/* Section alt bg */
+html[data-theme="light"] .alt{background:#F5F5F0}
+
+
+html[data-theme="light"] .nav-back-dim{border-color:rgba(0,0,0,.15)!important;color:rgba(0,0,0,.5)!important}
+html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!important;color:rgba(255,255,255,.6)!important}
+
+.foot-disabled{opacity:.35;pointer-events:none;cursor:default}
 </style>
 </head>
 <body>
@@ -277,7 +329,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
   <div class="nav-right">
     <a href="index.html" class="nav-back">← Back to Home</a>
-    <a href="index.html#services" class="nav-back" style="border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.6)">All Services</a>
+    <a href="index.html#services" class="nav-back" class="nav-back-dim">All Services</a>
     <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
     <a href="index.html#contact-us" class="nav-cta">Get Started</a>
   </div>
@@ -285,15 +337,8 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
 </nav>
 <div id="mob-nav">
   <a href="index.html">← Home</a>
-  <a href="index.html#services">All Services</a>
   <a href="gold-loan-providers.html">Gold Loan</a>
   <a href="gold-buyers.html">Sell Gold</a>
-  <a href="gold-exchange.html">Gold Exchange</a>
-  <a href="jewellery-purchase.html">Jewellery</a>
-  <a href="gold-savings-scheme.html">Savings Scheme</a>
-  <a href="digital-gold.html">Digital Gold</a>
-  <a href="gold-insurance.html">Gold Insurance</a>
-  <a href="gold-investment.html">Gold Investment</a>
 </div>
 
 <!-- ═══════════════════ PAGE HERO ═══════════════════ -->
@@ -730,16 +775,21 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
       <div class="foot-links">
         <a href="gold-loan-providers.html">Gold Loan</a>
         <a href="gold-buyers.html">Sell Gold</a>
-        <a href="gold-exchange.html">Exchange</a>
-        <a href="jewellery-purchase.html">Jewellery</a>
-        <a href="gold-savings-scheme.html">Savings</a>
-        <a href="digital-gold.html">Digital Gold</a>
-        <a href="gold-insurance.html">Insurance</a>
-        <a href="gold-investment.html">Investment</a>
+        <a href="gold-exchange.html" class="foot-disabled">Exchange</a>
+        <a href="jewellery-purchase.html" class="foot-disabled">Jewellery</a>
+        <a href="gold-savings-scheme.html" class="foot-disabled">Savings</a>
+        <a href="digital-gold.html" class="foot-disabled">Digital Gold</a>
+        <a href="gold-insurance.html" class="foot-disabled">Insurance</a>
+        <a href="gold-investment.html" class="foot-disabled">Investment</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="careers.html">Careers</a>
+        <a href="blog.html">Blog</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-conditions.html">Terms &amp; Conditions</a>
+        <a href="grievance-policy.html">Grievance Policy</a>
+        <a href="sitemap.html">Sitemap</a>
       </div>
-    </div>
-    <div class="foot-bottom">
-      <p>© 2025 GoldBazaar.app — All rights reserved.</p>
       <a href="index.html" class="back-to-home">← Back to GoldBazaar Home</a>
     </div>
   </div>

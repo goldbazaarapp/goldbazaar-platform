@@ -128,6 +128,74 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
 .back-to-home{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--g);font-weight:600}
 @media(max-width:768px){.hamburger{display:flex}.mkt-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.mkt-grid{grid-template-columns:1fr}}
+/* ── LIGHT THEME OVERRIDES ── */
+html[data-theme="light"] #nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 2px 16px rgba(0,0,0,.1)}
+html[data-theme="light"] .hamburger span{background:#1a1a1a}
+html[data-theme="light"] #mob-nav{background:rgba(255,255,255,.98)}
+html[data-theme="light"] #mob-nav a{color:rgba(0,0,0,.65)}
+html[data-theme="light"] .nav-back[style]{color:rgba(0,0,0,.5)!important}
+/* Hero — use warm light gold gradient instead of dark */
+html[data-theme="light"] .page-hero{background:linear-gradient(135deg,#FBF7EE 0%,#F5EDD4 50%,#FBF7EE 100%);border-bottom:1px solid rgba(201,168,76,.3)}
+html[data-theme="light"] .page-hero::before{background-image:radial-gradient(circle at 70% 50%,rgba(201,168,76,.18) 0%,transparent 60%),linear-gradient(rgba(201,168,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.05) 1px,transparent 1px);background-size:auto,64px 64px,64px 64px}
+html[data-theme="light"] .page-hero p{color:rgba(0,0,0,.55)}
+html[data-theme="light"] .ph-stat-lbl{color:rgba(0,0,0,.45)}
+/* Process cards */
+html[data-theme="light"] .process-card{background:#fff;border-color:rgba(201,168,76,.25)}
+html[data-theme="light"] .process-title{color:#1a1a1a}
+html[data-theme="light"] .process-desc{color:#555}
+/* Filter bar */
+html[data-theme="light"] .filter-bar{background:#fff;border-color:rgba(201,168,76,.2)}
+html[data-theme="light"] .filter-group label{color:rgba(0,0,0,.5)}
+html[data-theme="light"] .filter-group input,html[data-theme="light"] .filter-group select{background:#F8F8F8;border-color:rgba(201,168,76,.25);color:#1a1a1a}
+html[data-theme="light"] .filter-group input::placeholder{color:rgba(0,0,0,.35)}
+html[data-theme="light"] .filter-group select option{background:#fff;color:#1a1a1a}
+/* List view grid */
+html[data-theme="light"] .mkt-grid.list-view{background:#fff;border-color:rgba(201,168,76,.25)}
+html[data-theme="light"] .mkt-grid.list-view .mkt-card{border-bottom-color:rgba(0,0,0,.07)}
+html[data-theme="light"] .mkt-grid.list-view .mkt-card:hover{background:rgba(201,168,76,.04)}
+html[data-theme="light"] .mkt-grid.list-view .mkt-card-name{color:#1a1a1a}
+html[data-theme="light"] .mkt-grid.list-view .mkt-card-loc{color:#666}
+html[data-theme="light"] .mkt-grid.list-view .meta-chip{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.08);color:#555}
+html[data-theme="light"] .mkt-grid.list-view .trust-badge{color:#666}
+/* Tile view */
+html[data-theme="light"] .mkt-card-loc{color:#666}
+html[data-theme="light"] .mkt-card-rate-lbl{color:#888}
+html[data-theme="light"] .meta-chip{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.08);color:#555}
+html[data-theme="light"] .mkt-card-footer{border-top-color:rgba(0,0,0,.08)}
+html[data-theme="light"] .mkt-card-img{background:linear-gradient(135deg,#F5EDD4,#FBF7EE)}
+/* Pagination */
+html[data-theme="light"] .page-num{background:#fff;border-color:rgba(201,168,76,.3);color:#555}
+html[data-theme="light"] .page-num:hover{color:var(--g);background:rgba(201,168,76,.06)}
+html[data-theme="light"] .page-info{color:#888}
+/* Footer */
+html[data-theme="light"] footer{background:#f5f5f0;border-top-color:rgba(201,168,76,.35)}
+html[data-theme="light"] .foot-bottom p{color:rgba(0,0,0,.4)}
+html[data-theme="light"] .foot-links a{color:rgba(0,0,0,.55)}
+html[data-theme="light"] .foot-links a:hover{color:var(--g)}
+/* Section alt bg */
+html[data-theme="light"] .alt{background:#F5F5F0}
+
+
+/* gold-buyers specific light overrides */
+html[data-theme="light"] .page-hero{background:linear-gradient(135deg,#F0FBF4 0%,#D8F3E3 50%,#F0FBF4 100%);border-bottom:1px solid rgba(34,197,94,.25)}
+html[data-theme="light"] .page-hero::before{background:radial-gradient(circle at 70% 50%,rgba(34,197,94,.15) 0%,transparent 60%),linear-gradient(rgba(34,197,94,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(34,197,94,.04) 1px,transparent 1px);background-size:auto,64px 64px,64px 64px}
+html[data-theme="light"] .filter-bar{background:#fff;border-color:rgba(34,197,94,.2)}
+html[data-theme="light"] .filter-group label{color:rgba(0,0,0,.5)}
+html[data-theme="light"] .filter-group input,html[data-theme="light"] .filter-group select{background:#F8F8F8;border-color:rgba(34,197,94,.2);color:#1a1a1a}
+html[data-theme="light"] .filter-group input::placeholder{color:rgba(0,0,0,.35)}
+html[data-theme="light"] .mkt-grid.list-view{background:#fff;border-color:rgba(34,197,94,.2)}
+html[data-theme="light"] .mkt-card-rate-lbl{color:#888}
+html[data-theme="light"] .meta-chip{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.1);color:#555}
+html[data-theme="light"] .trust-badge{color:#666}
+html[data-theme="light"] .page-num{background:#fff;border-color:rgba(34,197,94,.25);color:#555}
+html[data-theme="light"] .page-info{color:#888}
+html[data-theme="light"] .mkt-table-header{background:linear-gradient(90deg,rgba(34,197,94,.15),rgba(34,197,94,.06));border-bottom-color:rgba(34,197,94,.25)}
+
+
+html[data-theme="light"] .nav-back-dim{border-color:rgba(0,0,0,.15)!important;color:rgba(0,0,0,.5)!important}
+html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!important;color:rgba(255,255,255,.6)!important}
+
+.foot-disabled{opacity:.35;pointer-events:none;cursor:default}
 </style>
 </head>
 <body>
@@ -136,7 +204,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
   <div class="nav-right">
     <a href="index.html" class="nav-back">← Back to Home</a>
-    <a href="index.html#services" class="nav-back" style="border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.6)">All Services</a>
+    <a href="index.html#services" class="nav-back" class="nav-back-dim">All Services</a>
     <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
     <a href="index.html#contact-us" class="nav-cta">Get Started</a>
   </div>
@@ -144,15 +212,8 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
 </nav>
 <div id="mob-nav">
   <a href="index.html">← Home</a>
-  <a href="index.html#services">All Services</a>
   <a href="gold-loan-providers.html">Gold Loan</a>
   <a href="gold-buyers.html">Sell Gold</a>
-  <a href="gold-exchange.html">Gold Exchange</a>
-  <a href="jewellery-purchase.html">Jewellery</a>
-  <a href="gold-savings-scheme.html">Savings Scheme</a>
-  <a href="digital-gold.html">Digital Gold</a>
-  <a href="gold-insurance.html">Gold Insurance</a>
-  <a href="gold-investment.html">Gold Investment</a>
 </div>
 
 <div class="page-hero">
@@ -162,7 +223,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
       <h1>Sell Gold at <span style="color:var(--accent-l)">Best Rates</span></h1>
       <p>Compare verified gold buyers offering the highest rates across India. BIS-certified buyers, instant payment, zero hidden charges.</p>
       <div class="page-hero-stats">
-        <div class="ph-stat"><div class="ph-stat-val" style="color:var(--accent-l)">₹6,842/g</div><div class="ph-stat-lbl">22K Buy Rate Today</div></div>
+        <div class="ph-stat"><div class="ph-stat-val" style="color:var(--accent-l)">₹13,349/g</div><div class="ph-stat-lbl">22K Buy Rate Today</div></div>
         <div class="ph-stat"><div class="ph-stat-val" style="color:var(--accent-l)">200+</div><div class="ph-stat-lbl">Verified Buyers</div></div>
         <div class="ph-stat"><div class="ph-stat-val" style="color:var(--accent-l)">Instant</div><div class="ph-stat-lbl">Payment</div></div>
         <div class="ph-stat"><div class="ph-stat-val" style="color:var(--accent-l)">₹0</div><div class="ph-stat-lbl">Hidden Charges</div></div>
@@ -176,7 +237,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
     <!-- Filter -->
     <div class="filter-bar reveal">
       <div class="filter-group"><label>City</label><input type="text" id="filter-city" placeholder="e.g. Mumbai"/></div>
-      <div class="filter-group"><label>Min Buy Rate (₹/g)</label><input type="number" id="filter-rate" placeholder="e.g. 6800" min="0"/></div>
+      <div class="filter-group"><label>Min Buy Rate (₹/g)</label><input type="number" id="filter-rate" placeholder="e.g. 13000" min="0"/></div>
       <div class="filter-group"><label>Purity</label>
         <select id="filter-purity">
           <option value="">All Purities</option>
@@ -195,14 +256,14 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
     <!-- Grid -->
     <div class="mkt-grid list-view" id="buyers-grid">
       <div class="mkt-table-header"><div>Logo</div><div>Buyer</div><div>Location</div><div>Buy Rate</div><div>Features</div><div>Rating</div><div>Action</div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/kalyan-jewellers.png" class="jeweler-logo" alt="Kalyan" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💎</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Kalyan Jewellers</div><div class="mkt-card-loc">📍 50+ Branches Pan India</div><div class="mkt-card-rate">₹6,850/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ All Purities</div><div class="meta-chip">⚡ Instant Payment</div><div class="meta-chip">📄 No Hidden Charges</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ BIS Hallmark</div></div><button class="action-btn">Sell Now</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/malabar-gold.png" class="jeweler-logo" alt="Malabar" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">👑</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Malabar Gold &amp; Diamonds</div><div class="mkt-card-loc">📍 80+ Stores Nationwide</div><div class="mkt-card-rate">₹6,820/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ 22K &amp; 24K</div><div class="meta-chip">🏪 Store Visit</div><div class="meta-chip">⭐ Best Price</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/pc-jeweller.png" class="jeweler-logo" alt="PC Jeweller" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💍</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">PC Jeweller</div><div class="mkt-card-loc">📍 100+ Locations</div><div class="mkt-card-rate">₹6,880/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ All Grades</div><div class="meta-chip">💰 Online Quote</div><div class="meta-chip">📱 Mobile Service</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/tanishq.png" class="jeweler-logo" alt="Tanishq" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">✨</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Tanishq</div><div class="mkt-card-loc">📍 150+ Showrooms</div><div class="mkt-card-rate">₹6,800/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ Premium Gold</div><div class="meta-chip">🏢 Official Store</div><div class="meta-chip">🎯 Fair Valuation</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ Brand Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/joyalukkas.png" class="jeweler-logo" alt="Joyalukkas" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💍</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Joyalukkas</div><div class="mkt-card-loc">📍 70+ Locations South India</div><div class="mkt-card-rate">₹6,855/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ Exchange Service</div><div class="meta-chip">⏱️ Quick Settlement</div><div class="meta-chip">📋 Transparent</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ Hallmarked</div></div><button class="action-btn">Sell Now</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/senco-gold.png" class="jeweler-logo" alt="Senco Gold" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏅</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Senco Gold</div><div class="mkt-card-loc">📍 60+ Locations East India</div><div class="mkt-card-rate">₹6,840/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ Old &amp; New Gold</div><div class="meta-chip">⚡ Same Day Payout</div><div class="meta-chip">📊 Live Rate</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
+      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/kalyan-jewellers.png" class="jeweler-logo" alt="Kalyan" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💎</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Kalyan Jewellers</div><div class="mkt-card-loc">📍 50+ Branches Pan India</div><div class="mkt-card-rate">₹13,380/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ All Purities</div><div class="meta-chip">⚡ Instant Payment</div><div class="meta-chip">📄 No Hidden Charges</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ BIS Hallmark</div></div><button class="action-btn">Sell Now</button></div></div></div>
+      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/malabar-gold.png" class="jeweler-logo" alt="Malabar" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">👑</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Malabar Gold &amp; Diamonds</div><div class="mkt-card-loc">📍 80+ Stores Nationwide</div><div class="mkt-card-rate">₹13,320/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ 22K &amp; 24K</div><div class="meta-chip">🏪 Store Visit</div><div class="meta-chip">⭐ Best Price</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
+      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/pc-jeweller.png" class="jeweler-logo" alt="PC Jeweller" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💍</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">PC Jeweller</div><div class="mkt-card-loc">📍 100+ Locations</div><div class="mkt-card-rate">₹13,420/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ All Grades</div><div class="meta-chip">💰 Online Quote</div><div class="meta-chip">📱 Mobile Service</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
+      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/tanishq.png" class="jeweler-logo" alt="Tanishq" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">✨</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Tanishq</div><div class="mkt-card-loc">📍 150+ Showrooms</div><div class="mkt-card-rate">₹13,300/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ Premium Gold</div><div class="meta-chip">🏢 Official Store</div><div class="meta-chip">🎯 Fair Valuation</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ Brand Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
+      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/joyalukkas.png" class="jeweler-logo" alt="Joyalukkas" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💍</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Joyalukkas</div><div class="mkt-card-loc">📍 70+ Locations South India</div><div class="mkt-card-rate">₹13,390/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ Exchange Service</div><div class="meta-chip">⏱️ Quick Settlement</div><div class="meta-chip">📋 Transparent</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ Hallmarked</div></div><button class="action-btn">Sell Now</button></div></div></div>
+      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/senco-gold.png" class="jeweler-logo" alt="Senco Gold" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏅</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Senco Gold</div><div class="mkt-card-loc">📍 60+ Locations East India</div><div class="mkt-card-rate">₹13,360/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ Old &amp; New Gold</div><div class="meta-chip">⚡ Same Day Payout</div><div class="meta-chip">📊 Live Rate</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
       <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/augmont.png" class="jeweler-logo" alt="Augmont" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🪙</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Augmont Digital Gold</div><div class="mkt-card-loc">📍 Online + 10 Cities</div><div class="mkt-card-rate">₹6,900/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (24K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ Digital Platform</div><div class="meta-chip">🌐 Pan India</div><div class="meta-chip">⚡ Instant</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ IIBX Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/reliance-jewels.png" class="jeweler-logo" alt="Reliance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🌟</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Reliance Jewels</div><div class="mkt-card-loc">📍 200+ Locations</div><div class="mkt-card-rate">₹6,825/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ All Gold Types</div><div class="meta-chip">🏪 Nationwide</div><div class="meta-chip">🔐 Secure</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Retail Giant</div></div><button class="action-btn">Sell Now</button></div></div></div>
+      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/reliance-jewels.png" class="jeweler-logo" alt="Reliance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🌟</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Reliance Jewels</div><div class="mkt-card-loc">📍 200+ Locations</div><div class="mkt-card-rate">₹13,340/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ All Gold Types</div><div class="meta-chip">🏪 Nationwide</div><div class="meta-chip">🔐 Secure</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Retail Giant</div></div><button class="action-btn">Sell Now</button></div></div></div>
     </div>
     <div class="pagination reveal">
       <button class="page-num active">1</button>
@@ -224,19 +285,19 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
     </div>
     <div style="background:var(--b3);border:1px solid rgba(34,197,94,.15);border-radius:20px;padding:32px;max-width:600px;margin:0 auto" class="reveal">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
-        <div><label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);display:block;margin-bottom:6px">Gold Purity</label>
-          <select id="q-purity" onchange="calcQuote()" style="width:100%;padding:11px 14px;background:rgba(0,0,0,.3);border:1px solid rgba(34,197,94,.15);border-radius:10px;color:#fff;font-size:14px;font-family:inherit;outline:none">
+        <div><label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-tertiary);display:block;margin-bottom:6px">Gold Purity</label>
+          <select id="q-purity" onchange="calcQuote()" style="width:100%;padding:11px 14px;background:var(--b3);border:1px solid rgba(34,197,94,.15);border-radius:10px;color:var(--text-primary);font-size:14px;font-family:inherit;outline:none">
             <option value="0.9999">24K (99.99%)</option><option value="0.9167" selected>22K (91.67%)</option><option value="0.75">18K (75%)</option><option value="0.585">14K (58.5%)</option>
           </select>
         </div>
-        <div><label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);display:block;margin-bottom:6px">Weight (grams)</label>
-          <input type="number" id="q-weight" placeholder="e.g. 10" oninput="calcQuote()" style="width:100%;padding:11px 14px;background:rgba(0,0,0,.3);border:1px solid rgba(34,197,94,.15);border-radius:10px;color:#fff;font-size:14px;font-family:inherit;outline:none"/>
+        <div><label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-tertiary);display:block;margin-bottom:6px">Weight (grams)</label>
+          <input type="number" id="q-weight" placeholder="e.g. 10" oninput="calcQuote()" style="width:100%;padding:11px 14px;background:var(--b3);border:1px solid rgba(34,197,94,.15);border-radius:10px;color:var(--text-primary);font-size:14px;font-family:inherit;outline:none"/>
         </div>
       </div>
       <div id="q-result" style="display:none;background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(34,197,94,.04));border:1px solid rgba(34,197,94,.25);border-radius:12px;padding:20px;text-align:center;margin-top:8px">
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:8px">Estimated Value</div>
-        <div style="font-size:36px;font-weight:800;color:var(--accent-l)" id="q-val">—</div>
-        <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:8px" id="q-note">at current 22K MCX rate</div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-tertiary);margin-bottom:8px">Estimated Value</div>
+        <div style="font-size:36px;font-weight:800;color:var(--accent)" id="q-val">—</div>
+        <div style="font-size:12px;color:var(--text-tertiary);margin-top:8px" id="q-note">at current 22K MCX rate</div>
       </div>
       <div style="text-align:center;margin-top:20px"><a href="index.html#gold-calculator" class="btn-gold" style="background:linear-gradient(135deg,var(--accent),var(--accent-l));color:#000">Full Calculator →</a></div>
     </div>
@@ -249,17 +310,22 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
       <a href="index.html" class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
       <div class="foot-links">
         <a href="gold-loan-providers.html">Gold Loan</a>
-        <a href="gold-buyers.html" style="color:var(--accent-l)">Sell Gold</a>
-        <a href="gold-exchange.html">Exchange</a>
-        <a href="jewellery-purchase.html">Jewellery</a>
-        <a href="gold-savings-scheme.html">Savings</a>
-        <a href="digital-gold.html">Digital Gold</a>
-        <a href="gold-insurance.html">Insurance</a>
-        <a href="gold-investment.html">Investment</a>
+        <a href="gold-buyers.html">Sell Gold</a>
+        <a href="gold-exchange.html" class="foot-disabled">Exchange</a>
+        <a href="jewellery-purchase.html" class="foot-disabled">Jewellery</a>
+        <a href="gold-savings-scheme.html" class="foot-disabled">Savings</a>
+        <a href="digital-gold.html" class="foot-disabled">Digital Gold</a>
+        <a href="gold-insurance.html" class="foot-disabled">Insurance</a>
+        <a href="gold-investment.html" class="foot-disabled">Investment</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="careers.html">Careers</a>
+        <a href="blog.html">Blog</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-conditions.html">Terms &amp; Conditions</a>
+        <a href="grievance-policy.html">Grievance Policy</a>
+        <a href="sitemap.html">Sitemap</a>
       </div>
-    </div>
-    <div class="foot-bottom">
-      <p>© 2025 GoldBazaar.app — All rights reserved.</p>
       <a href="index.html" class="back-to-home">← Back to GoldBazaar Home</a>
     </div>
   </div>
@@ -281,7 +347,7 @@ const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 function toggleView(btn,view){document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('buyers-grid').classList.toggle('list-view',view==='list')}
 function resetFilters(){['filter-city','filter-rate','filter-purity'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''})}
-function calcQuote(){const p=parseFloat(document.getElementById('q-purity').value);const w=parseFloat(document.getElementById('q-weight').value);if(!w||w<=0){document.getElementById('q-result').style.display='none';return}const rate=7460*p*0.97;const val=Math.round(w*rate);document.getElementById('q-result').style.display='block';document.getElementById('q-val').textContent='₹'+val.toLocaleString('en-IN');document.getElementById('q-note').textContent='at current MCX rate (after ~3% buyer deduction)'}
+function calcQuote(){const p=parseFloat(document.getElementById('q-purity').value);const w=parseFloat(document.getElementById('q-weight').value);if(!w||w<=0){document.getElementById('q-result').style.display='none';return}const rate=14563*p*0.97;const val=Math.round(w*rate);document.getElementById('q-result').style.display='block';document.getElementById('q-val').textContent='₹'+val.toLocaleString('en-IN');document.getElementById('q-note').textContent='at current MCX rate (after ~3% buyer deduction)'}
 function toast(msg){const t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;bottom:20px;right:20px;background:rgba(0,0,0,.85);color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;z-index:9999;border:1px solid rgba(34,197,94,.2);animation:slideInUp .3s ease';document.body.appendChild(t);setTimeout(()=>t.remove(),2500)}
 window.addEventListener('DOMContentLoaded',()=>ThemeManager.init());
 </script>

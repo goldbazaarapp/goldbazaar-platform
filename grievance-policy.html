@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Grievance Policy — GoldBazaar</title>
+<meta name="description" content="GoldBazaar Grievance Policy — how to raise a complaint and our resolution process."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg-primary);color:var(--text-primary);font-family:'Inter',-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#9B7B2E;border-radius:2px}
+:root{--g:#C9A84C;--gl:#E8C96A;--gd:#9B7B2E;--fd:'Playfair Display',Georgia,serif;--nav-h:68px}
+html[data-theme="dark"]{--b0:#000;--b1:#0A0A0A;--b2:#111;--b3:#161616;--text-primary:#FFF;--text-secondary:rgba(255,255,255,.7);--text-tertiary:rgba(255,255,255,.5);--bg-primary:#000}
+html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--text-primary:#1A1A1A;--text-secondary:#333;--text-tertiary:#555;--bg-primary:#FFF}
+.wrap{max-width:1100px;margin:0 auto;padding:0 48px}
+@media(max-width:600px){.wrap{padding:0 20px}}
+.gold{background:linear-gradient(135deg,#C9A84C,#F5E6C0,#C9A84C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--g);display:inline-block}
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 32px;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+#nav.scrolled{background:rgba(0,0,0,.94);backdrop-filter:blur(20px);border-color:rgba(201,168,76,.25)}
+.nav-logo img{height:56px;width:auto}
+.nav-center{display:flex;align-items:center;gap:4px}
+.nav-center a{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);padding:7px 12px;border-radius:7px;transition:color .2s}
+.nav-center a:hover{color:var(--g)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-theme{padding:6px 10px;font-size:16px}
+.nav-login{padding:8px 16px;border:1px solid rgba(201,168,76,.35);border-radius:8px;font-size:13px;font-weight:500;color:var(--g)}
+.nav-vendor{padding:8px 16px;border:1px solid rgba(255,255,255,.18);border-radius:8px;font-size:13px;color:rgba(255,255,255,.75)}
+.nav-vendor:hover{border-color:var(--g);color:var(--g)}
+.nav-cta{padding:8px 20px;border-radius:8px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:13px;font-weight:700}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:4px}
+.hamburger span{width:21px;height:1.5px;background:#fff;display:block}
+#mob-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:999;background:rgba(0,0,0,.97);border-bottom:1px solid rgba(201,168,76,.1);backdrop-filter:blur(18px);padding:20px 28px;flex-direction:column;gap:4px}
+#mob-nav.open{display:flex}
+#mob-nav a{font-size:15px;font-weight:500;color:rgba(255,255,255,.72);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+@media(max-width:768px){.hamburger{display:flex}.nav-center{display:none}}
+.pp-hero{background:linear-gradient(180deg,var(--b1) 0%,var(--b0) 100%);border-bottom:1px solid rgba(201,168,76,.22);padding:100px 0 56px;text-align:center;position:relative;overflow:hidden}
+.pp-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(201,168,76,.08),transparent);pointer-events:none}
+.pp-hero h1{font-family:var(--fd);font-size:clamp(30px,5vw,54px);font-weight:700;letter-spacing:-.03em;margin-bottom:14px}
+.pp-hero p{font-size:15px;color:var(--text-secondary);max-width:520px;margin:0 auto 24px;line-height:1.7}
+.pp-meta{display:inline-flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center;font-size:12px;color:var(--text-tertiary)}
+.pp-body{padding:64px 0 96px;display:grid;grid-template-columns:220px 1fr;gap:56px;align-items:start}
+@media(max-width:860px){.pp-body{grid-template-columns:1fr;gap:36px}}
+.pp-toc{position:sticky;top:calc(var(--nav-h) + 24px);background:var(--b2);border:1.5px solid rgba(201,168,76,.22);border-radius:16px;padding:22px}
+.pp-toc h3{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.pp-toc ul{list-style:none;display:flex;flex-direction:column;gap:1px}
+.pp-toc a{display:block;font-size:12px;font-weight:500;color:var(--text-tertiary);padding:6px 10px;border-radius:7px;transition:all .2s;border-left:2px solid transparent}
+.pp-toc a:hover,.pp-toc a.active{color:var(--g);background:rgba(201,168,76,.07);border-left-color:var(--g)}
+@media(max-width:860px){.pp-toc{position:static}}
+.pp-content{display:flex;flex-direction:column;gap:44px}
+.pp-section{scroll-margin-top:calc(var(--nav-h) + 28px)}
+.pp-section h2{font-family:var(--fd);font-size:21px;font-weight:700;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(201,168,76,.2);display:flex;align-items:center;gap:10px}
+.pp-section h2 .sn{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;color:var(--g);background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:20px;padding:3px 10px}
+.pp-section p{font-size:14px;line-height:1.85;color:var(--text-secondary);margin-bottom:12px}
+.pp-section p:last-child{margin-bottom:0}
+.pp-section ul{padding-left:20px;display:flex;flex-direction:column;gap:9px;margin-bottom:12px}
+.pp-section li{font-size:14px;line-height:1.75;color:var(--text-secondary)}
+.pp-section li strong{color:var(--text-primary);font-weight:600}
+.pp-section h3{font-size:14px;font-weight:700;color:var(--text-primary);margin:18px 0 8px}
+.pp-highlight{background:rgba(201,168,76,.07);border:1.5px solid rgba(201,168,76,.25);border-radius:12px;padding:16px 20px;margin-bottom:12px}
+.pp-highlight p{color:var(--text-primary);font-weight:500;margin:0}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:12px}
+.step-card{background:var(--b2);border:1.5px solid rgba(201,168,76,.2);border-radius:14px;padding:20px;text-align:center}
+.step-num{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.step-title{font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:6px}
+.step-desc{font-size:12px;color:var(--text-tertiary);line-height:1.6}
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:20px;padding-bottom:24px;border-left:2px solid rgba(201,168,76,.25);padding-left:24px;position:relative}
+.tl-item::before{content:'';width:10px;height:10px;border-radius:50%;background:var(--g);position:absolute;left:-6px;top:4px}
+.tl-item:last-child{border-left-color:transparent;padding-bottom:0}
+.tl-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g);margin-bottom:4px}
+.tl-text{font-size:13px;color:var(--text-secondary);line-height:1.6}
+.contact-box{background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.04));border:1.5px solid rgba(201,168,76,.35);border-radius:14px;padding:24px 28px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:540px){.contact-box{grid-template-columns:1fr}}
+.cb-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g);margin-bottom:3px}
+.cb-val{font-size:14px;color:var(--text-primary);font-weight:500}
+.cb-val a{color:var(--g)}
+html[data-theme="light"] #nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 2px 16px rgba(0,0,0,.1)}
+html[data-theme="light"] .nav-center a{color:rgba(0,0,0,.6)}
+html[data-theme="light"] .nav-vendor{border-color:rgba(0,0,0,.18);color:rgba(0,0,0,.65)}
+html[data-theme="light"] .hamburger span{background:#1a1a1a}
+html[data-theme="light"] #mob-nav{background:rgba(255,255,255,.98)}
+html[data-theme="light"] #mob-nav a{color:rgba(0,0,0,.65)}
+html[data-theme="light"] .pp-hero{background:linear-gradient(180deg,#F8F8F8,#FFF)}
+html[data-theme="light"] .pp-toc{background:#fff;border-color:rgba(201,168,76,.3)}
+html[data-theme="light"] .step-card{background:#fff}
+footer{background:var(--b1);border-top:1.5px solid rgba(201,168,76,.25)}
+.foot-inner{max-width:1200px;margin:0 auto;padding:48px 48px 24px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+@media(max-width:1100px){.foot-grid{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr}.foot-inner{padding:32px 20px 20px}}
+@media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
+.foot-logo img{height:56px;margin-bottom:14px}
+.foot-desc{font-size:13px;color:var(--text-tertiary);line-height:1.7;max-width:260px;margin-bottom:18px}
+.foot-socials{display:flex;gap:10px}
+.fsoc{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all .2s}
+.fsoc:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.3)}
+.foot-col h4{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.foot-col ul li a{font-size:13px;color:var(--text-tertiary);transition:color .2s}
+.foot-col ul li a:hover{color:var(--g)}
+.foot-col ul li a.cur{color:var(--g);font-weight:600}
+.foot-bottom{border-top:1px solid rgba(201,168,76,.1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.foot-bottom p{font-size:12px;color:rgba(255,255,255,.3)}
+.foot-badges{display:flex;gap:8px;flex-wrap:wrap}
+.f-badge{font-size:10px;font-weight:700;padding:4px 10px;border:1px solid rgba(201,168,76,.2);border-radius:20px;color:rgba(255,255,255,.35)}
+html[data-theme="light"] footer{background:#f5f5f0;border-top-color:rgba(201,168,76,.35)}
+html[data-theme="light"] .foot-col ul li a{color:rgba(0,0,0,.5)}
+html[data-theme="light"] .foot-col ul li a:hover{color:var(--g)}
+html[data-theme="light"] .foot-bottom p{color:rgba(0,0,0,.4)}
+html[data-theme="light"] .f-badge{color:rgba(0,0,0,.4);border-color:rgba(0,0,0,.15)}
+html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1)}
+
+.foot-disabled{opacity:.35;pointer-events:none;cursor:default;text-decoration:none}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
+  <div class="nav-center">
+    <a href="index.html#hero">Home</a><a href="index.html#services">Services</a>
+    <a href="index.html#gold-calculator">Calculator</a><a href="index.html#gold-news">Gold News</a>
+    <a href="about.html">About Us</a><a href="contact.html">Contact Us</a>
+  </div>
+  <div class="nav-right">
+    <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
+    <a href="login.html" class="nav-login">Login</a>
+    <a href="vendor-onboarding-complete.html" class="nav-vendor">Vendor Onboarding</a>
+    <a href="login.html" class="nav-cta">Get Started</a>
+  </div>
+  <button class="hamburger" onclick="mobToggle()"><span></span><span></span><span></span></button>
+</nav>
+<div id="mob-nav">
+  <a href="index.html#hero">Home</a><a href="index.html#services">Services</a>
+  <a href="index.html#gold-calculator">Calculator</a><a href="index.html#gold-news">News</a>
+  <a href="index.html#why">About</a><a href="contact.html">Contact</a>
+  <a href="login.html" style="color:var(--g)">Login</a>
+  <a href="vendor-onboarding-complete.html" style="color:var(--g)">Vendor Onboarding</a>
+</div>
+
+<div class="pp-hero">
+  <div class="wrap">
+    <div class="eyebrow">Legal</div>
+    <h1>Grievance <span class="gold">Policy</span></h1>
+    <p>We're committed to resolving your complaints fairly and promptly. Here's how to reach us.</p>
+    <div class="pp-meta">
+      <span>📅 Effective Date: 1 June 2026</span>
+      <span>🔄 Last Updated: 1 June 2026</span>
+      <span>🏢 GoldBazaar Technologies Pvt. Ltd.</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="pp-body">
+    <aside class="pp-toc">
+      <h3>Contents</h3>
+      <ul>
+        <li><a href="#g1">1. Overview</a></li>
+        <li><a href="#g2">2. Types of Complaints</a></li>
+        <li><a href="#g3">3. How to Complain</a></li>
+        <li><a href="#g4">4. Resolution Timeline</a></li>
+        <li><a href="#g6">5. Grievance Officer</a></li>
+      </ul>
+    </aside>
+
+    <div class="pp-content">
+
+      <section class="pp-section" id="g1">
+        <h2><span class="sn">01</span> Overview</h2>
+        <div class="pp-highlight">
+          <p>GoldBazaar is committed to providing a fair, transparent, and effective mechanism for addressing user and vendor complaints. Your feedback helps us improve our services.</p>
+        </div>
+        <p>This policy applies to all registered users, customers, and vendors on the GoldBazaar platform. Complaints are handled in accordance with applicable Indian consumer protection laws and the IT Act, 2000.</p>
+      </section>
+
+      <section class="pp-section" id="g2">
+        <h2><span class="sn">02</span> Types of Complaints</h2>
+        <p>We accept grievances related to:</p>
+        <ul>
+          <li><strong>Service quality:</strong> Poor experience with a vendor listed on GoldBazaar</li>
+          <li><strong>Transaction disputes:</strong> Payment issues, overcharging, or unfulfilled commitments</li>
+          <li><strong>Platform issues:</strong> Technical problems, errors, or account-related issues</li>
+          <li><strong>Data & privacy:</strong> Concerns about how your personal data is handled</li>
+          <li><strong>Vendor conduct:</strong> Fraud, misrepresentation, or harassment by a listed vendor</li>
+          <li><strong>Content concerns:</strong> Misleading listings or inaccurate information on the platform</li>
+        </ul>
+      </section>
+
+      <section class="pp-section" id="g3">
+        <h2><span class="sn">03</span> How to Submit a Complaint</h2>
+        <p>You may raise a grievance through any of the following channels:</p>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-title">Email Us</div>
+            <div class="step-desc">Send details to <a href="mailto:goldbazaar.app@gmail.com" style="color:var(--g)">goldbazaar.app@gmail.com</a> with subject "Grievance: [Your Issue]"</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-title">Call Us</div>
+            <div class="step-desc">Speak to our support team at <a href="tel:+917019609180" style="color:var(--g)">+91 70196 09180</a> (Mon–Sat, 9 AM–6 PM)</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-title">Contact Form</div>
+            <div class="step-desc">Use the Contact Us form on our <a href="index.html#contact-us" style="color:var(--g)">homepage</a> and select "Grievance" as type</div>
+          </div>
+        </div>
+        <h3>Information to include</h3>
+        <ul>
+          <li>Your full name and registered mobile number</li>
+          <li>Description of the issue with relevant dates</li>
+          <li>Order or transaction reference (if applicable)</li>
+          <li>Name of vendor involved (if applicable)</li>
+          <li>Supporting evidence (screenshots, receipts)</li>
+        </ul>
+      </section>
+
+      <section class="pp-section" id="g4">
+        <h2><span class="sn">04</span> Resolution Timeline</h2>
+        <div class="timeline">
+          <div class="tl-item">
+            <div>
+              <div class="tl-label">Day 1 — Acknowledgement</div>
+              <div class="tl-text">We acknowledge receipt of your complaint within 1 business day and issue a reference number.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div>
+              <div class="tl-label">Day 3 — Initial Review</div>
+              <div class="tl-text">Our support team reviews your complaint and may contact you for additional information.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div>
+              <div class="tl-label">Day 7 — Resolution or Update</div>
+              <div class="tl-text">We aim to resolve most complaints within 7 business days. Complex cases receive a detailed status update.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div>
+              <div class="tl-label">Day 30 — Final Resolution</div>
+              <div class="tl-text">All complaints are resolved or formally closed with a written outcome within 30 days.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="pp-section" id="g6">
+        <h2><span class="sn">05</span> Grievance Officer</h2>
+        <p>In compliance with the Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021, GoldBazaar has appointed a Grievance Officer:</p>
+        <div class="contact-box">
+          <div><div class="cb-label">Name</div><div class="cb-val">Grievance Officer, GoldBazaar</div></div>
+          <div><div class="cb-label">Email</div><div class="cb-val"><a href="mailto:goldbazaar.app@gmail.com">goldbazaar.app@gmail.com</a></div></div>
+          <div><div class="cb-label">Phone</div><div class="cb-val"><a href="tel:+917019609180">+91 70196 09180</a></div></div>
+          <div><div class="cb-label">Office Hours</div><div class="cb-val">Monday–Saturday, 9 AM–6 PM IST</div></div>
+          <div><div class="cb-label">Address</div><div class="cb-val">GoldBazaar Technologies Pvt. Ltd., Bengaluru, Karnataka, India</div></div>
+          <div><div class="cb-label">Response Time</div><div class="cb-val">Within 15 days of escalation</div></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div><div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div><p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions.</p><div class="foot-socials"><a href="#" class="fsoc">in</a><a href="#" class="fsoc">f</a><a href="#" class="fsoc">📷</a><a href="#" class="fsoc">𝕏</a></div></div>
+      <div class="foot-col"><h4>Services</h4><ul><li><a href="gold-loan-providers.html">Gold Loan</a></li><li><a href="gold-buyers.html">Sell Gold</a></li><li><a href="gold-exchange.html" class="foot-disabled">Exchange</a></li><li><a href="jewellery-purchase.html" class="foot-disabled">Jewellery</a></li><li><a href="gold-savings-scheme.html" class="foot-disabled">Savings</a></li></ul></div><div class="foot-col"><h4>More</h4><ul><li><a href="digital-gold.html" class="foot-disabled">Digital Gold</a></li><li><a href="gold-insurance.html" class="foot-disabled">Insurance</a></li><li><a href="gold-investment.html" class="foot-disabled">Investment</a></li><li><a href="index.html#gold-calculator" class="foot-disabled">Calculator</a></li></ul></div>
+      <div class="foot-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="careers.html">Careers</a></li><li><a href="blog.html">Blog</a></li></ul></div>
+      <div class="foot-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-conditions.html">Terms &amp; Conditions</a></li><li><a href="grievance-policy.html" class="cur">Grievance Policy</a></li><li><a href="sitemap.html">Sitemap</a></li></ul></div>
+    </div>
+    <div class="foot-bottom"><p>© 2026 GoldBazaar.app — All rights reserved. GoldBazaar Technologies Pvt. Ltd.</p></div>
+  </div>
+</footer>
+
+<script>
+const ThemeManager={get(){return localStorage.getItem('gb-theme')||'dark'},set(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('gb-theme',t);document.getElementById('theme-toggle').textContent=t==='dark'?'🌙':'☀️'},toggle(){this.set(this.get()==='dark'?'light':'dark')},init(){this.set(this.get())}};
+ThemeManager.init();
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40),{passive:true});
+function mobToggle(){document.getElementById('mob-nav').classList.toggle('open')}
+const tocLinks=document.querySelectorAll('.pp-toc a');
+const secs=document.querySelectorAll('.pp-section');
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){tocLinks.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`.pp-toc a[href="#${x.target.id}"]`);if(a)a.classList.add('active')}})},{rootMargin:'-30% 0px -65% 0px'});
+secs.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
