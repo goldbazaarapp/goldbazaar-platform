@@ -495,7 +495,6 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
     <a href="#services">Services</a>
     <a href="#gold-calculator">Calculator</a>
     <a href="#gold-news">Gold News</a>
-    <a href="about.html">About Us</a>
     <a href="#contact-us">Contact Us</a>
   </div>
   <div class="nav-right">
@@ -509,14 +508,14 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
 <div id="mob-nav">
   <a href="#hero">Home</a><a href="#services">Services</a>
   <a href="#gold-calculator">Calculator</a><a href="#gold-news">News</a>
-  <a href="#why">About</a><a href="contact.html">Contact</a>
+  <a href="#contact-us">Contact</a>
   <a href="login.html" style="color:var(--g)">Login</a>
   <a href="vendor-onboarding-complete.html" style="color:var(--g)">Vendor Onboarding</a>
 </div>
 
 <div class="gold-widget collapsed" id="gold-rates-widget">
   <div class="gold-widget-header" onclick="toggleGoldRates()">
-    <span class="gold-widget-title">💰 Gold</span>
+    <span class="gold-widget-title">💰 Gold Rate</span>
     <span class="gold-widget-toggle">▼</span>
   </div>
   <div class="gold-widget-body">
@@ -542,14 +541,14 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
     <span class="tick-item">24K GOLD <strong id="tick-24k">₹14,563/g</strong> <span class="tick-chg up">▲ 0.7%</span></span>
     <span class="tick-sep">|</span>
     <span class="tick-item">SILVER (1KG) <strong>₹92,400</strong></span>
-    <span class="tick-sep">|</span>
+  <!--  <span class="tick-sep">|</span>
     <span class="tick-item">ACTIVE USERS <strong>10,000+</strong></span>
     <span class="tick-sep">|</span>
     <span class="tick-item">CITIES <strong>500+</strong></span>
-    <span class="tick-sep">|</span>
+    <span class="tick-sep">|</span> 
     <span class="tick-item">VERIFIED JEWELLERS <strong>8,500+</strong></span>
-    <span class="tick-sep">|</span>
-    <span class="tick-item">CUSTOMER TRUST <strong>99.4%</strong></span>
+    <span class="tick-sep">|</span> ---!>
+    <span class="tick-item">CUSTOMER TRUST <strong>100%</strong></span>
     <span class="tick-sep">|</span>
     <span class="tick-item">22K GOLD <strong>₹13,349/g</strong></span>
     <span class="tick-sep">|</span>
@@ -560,58 +559,94 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
   </div>
 </div>
 
-<!-- AD BANNER -->
+<!-- AD BANNER — GoldBazaar Services -->
 <div class="ad-banner">
-  <div class="ad-track">
+  <div class="ad-track" id="ad-track">
+    <!-- Set 1 -->
     <div class="ad-card" onclick="location.href='gold-loan-providers.html'">
-      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/jeweler-logos/muthoot-finance.png" class="jeweler-logo" alt="Muthoot" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏦</span></div><div><div class="ad-card-brand">Muthoot Finance</div><div class="ad-card-title">Classic Gold Loan</div></div></div>
-      <div class="ad-card-scheme">Gold Loan Scheme</div>
-      <div class="ad-card-details"><span class="ad-card-detail-item">💰 8.5% p.a.</span><span class="ad-card-detail-item">⚡ 30 min</span><span class="ad-card-detail-item">📊 Up to ₹50L</span></div>
-      <div class="ad-card-offer">Zero Processing Fee this Month</div>
-      <div class="ad-card-footer"><div class="ad-card-tag">FEATURED</div><button class="ad-card-cta">Apply Now →</button></div>
-    </div>
-    <div class="ad-card" onclick="location.href='gold-loan-providers.html'">
-      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/jeweler-logos/manappuram-finance.png" class="jeweler-logo" alt="Manappuram" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏛️</span></div><div><div class="ad-card-brand">Manappuram Finance</div><div class="ad-card-title">Quick Gold Loan</div></div></div>
-      <div class="ad-card-scheme">Same-Day Disbursal</div>
-      <div class="ad-card-details"><span class="ad-card-detail-item">💰 9.0% p.a.</span><span class="ad-card-detail-item">🏢 LTV 80%</span><span class="ad-card-detail-item">📊 Up to ₹1 Cr</span></div>
-      <div class="ad-card-offer">Same-Day Fund Transfer Guaranteed</div>
-      <div class="ad-card-footer"><div class="ad-card-tag">LOAN</div><button class="ad-card-cta">Get Loan →</button></div>
-    </div>
-    <div class="ad-card" onclick="location.href='gold-loan-providers.html'">
-      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/jeweler-logos/iifl-finance.png" class="jeweler-logo" alt="IIFL" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏦</span></div><div><div class="ad-card-brand">IIFL Finance</div><div class="ad-card-title">Instant Gold Loan</div></div></div>
-      <div class="ad-card-scheme">Quick Approval Program</div>
-      <div class="ad-card-details"><span class="ad-card-detail-item">⚡ 30 min approval</span><span class="ad-card-detail-item">🚗 Doorstep</span><span class="ad-card-detail-item">💻 Online</span></div>
-      <div class="ad-card-offer">Instant Approval &amp; Fund Transfer</div>
-      <div class="ad-card-footer"><div class="ad-card-tag">FAST</div><button class="ad-card-cta">Apply Now →</button></div>
+      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">🏦</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Gold Loan</div></div></div>
+      <div class="ad-card-scheme">Instant Loans Against Gold</div>
+      <div class="ad-card-details"><span class="ad-card-detail-item">💰 From 7.5% p.a.</span><span class="ad-card-detail-item">⚡ 30-min disbursal</span><span class="ad-card-detail-item">📊 LTV up to 80%</span></div>
+      <div class="ad-card-offer">500+ RBI-Licensed Lenders on One Platform</div>
+      <div class="ad-card-tag" style="align-self:flex-start">LOAN</div>
     </div>
     <div class="ad-card" onclick="location.href='gold-buyers.html'">
-      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/jeweler-logos/malabar-gold.png" class="jeweler-logo" alt="Malabar" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💍</span></div><div><div class="ad-card-brand">Malabar Gold</div><div class="ad-card-title">Exchange Offer</div></div></div>
-      <div class="ad-card-scheme">Exchange Center</div>
-      <div class="ad-card-details"><span class="ad-card-detail-item">✓ Full gold value</span><span class="ad-card-detail-item">🔥 Zero melt</span><span class="ad-card-detail-item">✨ New designs</span></div>
-      <div class="ad-card-offer">Best Value for Old Gold</div>
-      <div class="ad-card-footer"><div class="ad-card-tag">EXCHANGE</div><button class="ad-card-cta">Exchange Now →</button></div>
+      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">💰</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Sell Gold</div></div></div>
+      <div class="ad-card-scheme">Best Buy Rates — Instant Payment</div>
+      <div class="ad-card-details"><span class="ad-card-detail-item">💎 ₹13,349/g (22K)</span><span class="ad-card-detail-item">✓ BIS Certified</span><span class="ad-card-detail-item">🔒 Zero Hidden Charges</span></div>
+      <div class="ad-card-offer">Get the Best Market Rate Today</div>
+      <div class="ad-card-tag" style="align-self:flex-start">SELL</div>
     </div>
-    <div class="ad-card" onclick="location.href='gold-loan-providers.html'">
-      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/jeweler-logos/bajaj-finserv.png" class="jeweler-logo" alt="Bajaj" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💳</span></div><div><div class="ad-card-brand">Bajaj Finserv</div><div class="ad-card-title">Flexi Gold Loan</div></div></div>
-      <div class="ad-card-scheme">Flexible Repayment</div>
-      <div class="ad-card-details"><span class="ad-card-detail-item">💰 9.5% p.a.</span><span class="ad-card-detail-item">🔄 Flexi EMI</span><span class="ad-card-detail-item">📱 Digital</span></div>
-      <div class="ad-card-offer">No Prepayment Charges</div>
-      <div class="ad-card-footer"><div class="ad-card-tag">FLEXI</div><button class="ad-card-cta">Apply Now →</button></div>
+    <div class="ad-card" onclick="location.href='hallmark.html'">
+      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">🏅</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Hallmarking</div></div></div>
+      <div class="ad-card-scheme">BIS Hallmark Verification</div>
+      <div class="ad-card-details"><span class="ad-card-detail-item">🏅 BIS Certified</span><span class="ad-card-detail-item">📍 500+ Cities</span><span class="ad-card-detail-item">⚡ Express Service</span></div>
+      <div class="ad-card-offer">Verify Purity at Nearest Hallmark Centre</div>
+      <div class="ad-card-tag" style="align-self:flex-start">VERIFY</div>
     </div>
-    <!-- duplicate for loop -->
-    <div class="ad-card" onclick="location.href='gold-loan-providers.html'">
-      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/jeweler-logos/muthoot-finance.png" class="jeweler-logo" alt="Muthoot" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏦</span></div><div><div class="ad-card-brand">Muthoot Finance</div><div class="ad-card-title">Classic Gold Loan</div></div></div>
-      <div class="ad-card-scheme">Gold Loan Scheme</div>
-      <div class="ad-card-details"><span class="ad-card-detail-item">💰 8.5% p.a.</span><span class="ad-card-detail-item">⚡ 30 min</span><span class="ad-card-detail-item">📊 Up to ₹50L</span></div>
-      <div class="ad-card-offer">Zero Processing Fee this Month</div>
-      <div class="ad-card-footer"><div class="ad-card-tag">FEATURED</div><button class="ad-card-cta">Apply Now →</button></div>
+    <div class="ad-card" onclick="location.href='vendors.html'">
+      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">💍</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Find Jewellers</div></div></div>
+      <div class="ad-card-scheme">8,500+ Verified Jewellers</div>
+      <div class="ad-card-details"><span class="ad-card-detail-item">🗺️ Near You</span><span class="ad-card-detail-item">⭐ Rated & Reviewed</span><span class="ad-card-detail-item">🛡️ Trust Verified</span></div>
+      <div class="ad-card-offer">Compare Before You Visit</div>
+      <div class="ad-card-tag" style="align-self:flex-start">DISCOVER</div>
     </div>
+    <div class="ad-card" onclick="location.href='gold-insurance.html'">
+      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">🛡️</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Gold Insurance</div></div></div>
+      <div class="ad-card-scheme">Protect Your Gold Assets</div>
+      <div class="ad-card-details"><span class="ad-card-detail-item">🏛️ RBI Approved</span><span class="ad-card-detail-item">⚡ Instant Claims</span><span class="ad-card-detail-item">🔒 Theft & Loss Cover</span></div>
+      <div class="ad-card-offer">Comprehensive Gold Protection Plans</div>
+      <div class="ad-card-tag" style="align-self:flex-start">INSURE</div>
+    </div>
+    <div class="ad-card" onclick="location.href='gold-calculator.html'">
+      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">📊</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Gold Calculator</div></div></div>
+      <div class="ad-card-scheme">Know Your Gold's True Value</div>
+      <div class="ad-card-details"><span class="ad-card-detail-item">📈 Live Rates</span><span class="ad-card-detail-item">🧮 Loan Eligibility</span><span class="ad-card-detail-item">🔄 Exchange Value</span></div>
+      <div class="ad-card-offer">Calculate Gold Value, Loan & Exchange Rates</div>
+      <div class="ad-card-tag" style="align-self:flex-start">CALCULATE</div>
+    </div>
+    <!-- duplicate set for seamless loop -->
     <div class="ad-card" onclick="location.href='gold-loan-providers.html'">
-      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/jeweler-logos/manappuram-finance.png" class="jeweler-logo" alt="Manappuram" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏛️</span></div><div><div class="ad-card-brand">Manappuram Finance</div><div class="ad-card-title">Quick Gold Loan</div></div></div>
-      <div class="ad-card-scheme">Same-Day Disbursal</div>
-      <div class="ad-card-details"><span class="ad-card-detail-item">💰 9.0% p.a.</span><span class="ad-card-detail-item">🏢 LTV 80%</span></div>
-      <div class="ad-card-offer">Same-Day Fund Transfer</div>
-      <div class="ad-card-footer"><div class="ad-card-tag">LOAN</div><button class="ad-card-cta">Get Loan →</button></div>
+      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">🏦</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Gold Loan</div></div></div>
+      <div class="ad-card-scheme">Instant Loans Against Gold</div>
+      <div class="ad-card-details"><span class="ad-card-detail-item">💰 From 7.5% p.a.</span><span class="ad-card-detail-item">⚡ 30-min disbursal</span><span class="ad-card-detail-item">📊 LTV up to 80%</span></div>
+      <div class="ad-card-offer">500+ RBI-Licensed Lenders on One Platform</div>
+      <div class="ad-card-tag" style="align-self:flex-start">LOAN</div>
+    </div>
+    <div class="ad-card" onclick="location.href='gold-buyers.html'">
+      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">💰</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Sell Gold</div></div></div>
+      <div class="ad-card-scheme">Best Buy Rates — Instant Payment</div>
+      <div class="ad-card-details"><span class="ad-card-detail-item">💎 ₹13,349/g (22K)</span><span class="ad-card-detail-item">✓ BIS Certified</span><span class="ad-card-detail-item">🔒 Zero Hidden Charges</span></div>
+      <div class="ad-card-offer">Get the Best Market Rate Today</div>
+      <div class="ad-card-tag" style="align-self:flex-start">SELL</div>
+    </div>
+    <div class="ad-card" onclick="location.href='hallmark.html'">
+      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">🏅</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Hallmarking</div></div></div>
+      <div class="ad-card-scheme">BIS Hallmark Verification</div>
+      <div class="ad-card-details"><span class="ad-card-detail-item">🏅 BIS Certified</span><span class="ad-card-detail-item">📍 500+ Cities</span><span class="ad-card-detail-item">⚡ Express Service</span></div>
+      <div class="ad-card-offer">Verify Purity at Nearest Hallmark Centre</div>
+      <div class="ad-card-tag" style="align-self:flex-start">VERIFY</div>
+    </div>
+    <div class="ad-card" onclick="location.href='vendors.html'">
+      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">💍</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Find Jewellers</div></div></div>
+      <div class="ad-card-scheme">8,500+ Verified Jewellers</div>
+      <div class="ad-card-details"><span class="ad-card-detail-item">🗺️ Near You</span><span class="ad-card-detail-item">⭐ Rated & Reviewed</span><span class="ad-card-detail-item">🛡️ Trust Verified</span></div>
+      <div class="ad-card-offer">Compare Before You Visit</div>
+      <div class="ad-card-tag" style="align-self:flex-start">DISCOVER</div>
+    </div>
+    <div class="ad-card" onclick="location.href='gold-insurance.html'">
+      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">🛡️</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Gold Insurance</div></div></div>
+      <div class="ad-card-scheme">Protect Your Gold Assets</div>
+      <div class="ad-card-details"><span class="ad-card-detail-item">🏛️ RBI Approved</span><span class="ad-card-detail-item">⚡ Instant Claims</span><span class="ad-card-detail-item">🔒 Theft & Loss Cover</span></div>
+      <div class="ad-card-offer">Comprehensive Gold Protection Plans</div>
+      <div class="ad-card-tag" style="align-self:flex-start">INSURE</div>
+    </div>
+    <div class="ad-card" onclick="location.href='gold-calculator.html'">
+      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">📊</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Gold Calculator</div></div></div>
+      <div class="ad-card-scheme">Know Your Gold's True Value</div>
+      <div class="ad-card-details"><span class="ad-card-detail-item">📈 Live Rates</span><span class="ad-card-detail-item">🧮 Loan Eligibility</span><span class="ad-card-detail-item">🔄 Exchange Value</span></div>
+      <div class="ad-card-offer">Calculate Gold Value, Loan & Exchange Rates</div>
+      <div class="ad-card-tag" style="align-self:flex-start">CALCULATE</div>
     </div>
   </div>
 </div>
@@ -759,10 +794,11 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
         </div>
       </div>
     </div>
-    <div class="cs-notify-row reveal">
+  <!---  <div class="cs-notify-row reveal">
       <p>Want early access to these features?</p>
       <a href="#contact-us" class="btn-gold">Register for Early Access →</a>
     </div>
+	----!>
   </div>
 </section>
 
@@ -780,20 +816,6 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
   </div>
 </section>
 
-<!-- TRUSTED PARTNERS -->
-<div class="wrap"><div class="trusted-vendors-banner reveal">
-  <div class="trusted-title">Trusted by 500+ Partners Nationwide</div>
-  <div class="vendor-logos-grid">
-    <div class="vendor-logo-item"><img src="images/jeweler-logos/muthoot-finance.png" class="jeweler-logo" alt="Muthoot" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏦</span></div>
-    <div class="vendor-logo-item"><img src="images/jeweler-logos/manappuram-finance.png" class="jeweler-logo" alt="Manappuram" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏛️</span></div>
-    <div class="vendor-logo-item"><img src="images/jeweler-logos/iifl-finance.png" class="jeweler-logo" alt="IIFL" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏦</span></div>
-    <div class="vendor-logo-item"><img src="images/jeweler-logos/kalyan-jewellers.png" class="jeweler-logo" alt="Kalyan" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💎</span></div>
-    <div class="vendor-logo-item"><img src="images/jeweler-logos/tanishq.png" class="jeweler-logo" alt="Tanishq" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">✨</span></div>
-    <div class="vendor-logo-item"><img src="images/jeweler-logos/malabar-gold.png" class="jeweler-logo" alt="Malabar" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">👑</span></div>
-    <div class="vendor-logo-item"><img src="images/jeweler-logos/bajaj-finserv.png" class="jeweler-logo" alt="Bajaj" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💳</span></div>
-    <div class="vendor-logo-item"><img src="images/jeweler-logos/joyalukkas.png" class="jeweler-logo" alt="Joyalukkas" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💍</span></div>
-  </div>
-</div></div>
 
 <!-- CALCULATOR -->
 <section id="gold-calculator" class="section" style="background:linear-gradient(180deg,var(--b1) 0%,var(--b0) 100%)">
@@ -973,10 +995,13 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
         <p>Whether you're a customer seeking gold services or a business ready to grow — reach out and our team will respond within 4 business hours.</p>
         <div class="contact-info-list">
           <div class="contact-info-item"><div class="contact-info-icon">✉️</div><span class="contact-info-text">goldbazaar.app@gmail.com</span></div>
-          <div class="contact-info-item"><div class="contact-info-icon">📞</div><span class="contact-info-text">+91 70196 09180</span></div>
-          <div class="contact-info-item"><div class="contact-info-icon">🌐</div><span class="contact-info-text">www.goldbazaar.app</span></div>
           <div class="contact-info-item"><div class="contact-info-icon">📍</div><span class="contact-info-text">GoldBazaar HQ, Bengaluru, India</span></div>
-          <div class="contact-info-item"><div class="contact-info-icon">🕐</div><span class="contact-info-text">Mon–Sun, 9:00 AM – 7:00 PM IST</span></div>
+        </div>
+        <div class="foot-socials" style="margin-top:28px">
+          <a href="https://linkedin.com" target="_blank" class="fsoc" title="LinkedIn">in</a>
+          <a href="https://facebook.com" target="_blank" class="fsoc" title="Facebook">f</a>
+          <a href="https://instagram.com" target="_blank" class="fsoc" title="Instagram">📷</a>
+          <a href="https://twitter.com" target="_blank" class="fsoc" title="Twitter / X">𝕏</a>
         </div>
       </div>
       <div class="contact-right">
@@ -996,18 +1021,6 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
 
 <!-- FOOTER -->
 <footer>
-  <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.08)">
-    <div class="footer-partners-label">Our Partners &amp; Vendors</div>
-    <div class="footer-logos-row">
-      <div class="footer-logo"><img src="images/jeweler-logos/muthoot-finance.png" class="jeweler-logo" alt="Muthoot" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏦</span></div>
-      <div class="footer-logo"><img src="images/jeweler-logos/manappuram-finance.png" class="jeweler-logo" alt="Manappuram" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏛️</span></div>
-      <div class="footer-logo"><img src="images/jeweler-logos/iifl-finance.png" class="jeweler-logo" alt="IIFL" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏦</span></div>
-      <div class="footer-logo"><img src="images/jeweler-logos/kalyan-jewellers.png" class="jeweler-logo" alt="Kalyan" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💎</span></div>
-      <div class="footer-logo"><img src="images/jeweler-logos/tanishq.png" class="jeweler-logo" alt="Tanishq" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">✨</span></div>
-      <div class="footer-logo"><img src="images/jeweler-logos/malabar-gold.png" class="jeweler-logo" alt="Malabar" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">👑</span></div>
-      <div class="footer-logo"><img src="images/jeweler-logos/bajaj-finserv.png" class="jeweler-logo" alt="Bajaj" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💳</span></div>
-    </div>
-  </div>
   <div class="foot-inner">
     <div class="foot-grid">
       <div><div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div><p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions.</p><div class="foot-socials"><a href="#" class="fsoc">in</a><a href="#" class="fsoc">f</a><a href="#" class="fsoc">📷</a><a href="#" class="fsoc">𝕏</a></div></div>
