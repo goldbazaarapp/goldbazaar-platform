@@ -18,6 +18,8 @@
   .wrap{max-width:1600px}
   #nav{padding:0 64px}
   .sec-title{font-size:clamp(36px,2.4vw,56px)}
+  /* Cap hero at 1080px on very wide screens so it doesn't go taller than that */
+  #hero,#hero-upload-wrap{max-height:1080px}
 }
 
 /* ═══════════════════════════════════════════
@@ -43,25 +45,9 @@
 }
 
 /* ═══════════════════════════════════════════
-   TABLET HERO FIX  (≤ 1024px)
-   Reduce from 90vh so full image is visible
-═══════════════════════════════════════════ */
-@media(max-width:1024px){
-  #hero{height:60vh!important;height:60svh!important;min-height:320px}
-}
-
-/* ═══════════════════════════════════════════
    MOBILE LARGE  (≤ 768px)
 ═══════════════════════════════════════════ */
 @media(max-width:768px){
-  /* Hero — 56.25vw = perfect 16:9 ratio (fills width, no cropping)
-     svh = "small viewport height" excludes browser address bar on iOS/Android
-     Works like Joyalukkas / BhimaGold — full image visible without scrolling */
-  #hero{
-    height:56.25vw!important;
-    min-height:240px;
-    max-height:480px
-  }
 
   /* Layout */
   .section{padding:44px 0}
@@ -127,13 +113,6 @@
    MOBILE SMALL  (≤ 480px)
 ═══════════════════════════════════════════ */
 @media(max-width:480px){
-  /* Portrait phones: 56.25vw keeps 16:9 ratio, full image visible */
-  #hero{
-    height:56.25vw!important;
-    min-height:210px;
-    max-height:360px
-  }
-
   /* Layout */
   .section{padding:32px 0}
   .wrap{padding:0 16px}
@@ -201,5 +180,9 @@
    Prevents horizontal scroll on any device
 ═══════════════════════════════════════════ */
 html,body{max-width:100%;overflow-x:hidden}
-img,video,iframe{max-width:100%;height:auto}
+img,video,iframe{max-width:100%}
+/* Hero img/video must always fill container — override above */
+#hero img,#hero video,#hero-upload-wrap img,#hero-upload-wrap video{
+  width:100%;height:100%;object-fit:cover
+}
 table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}

@@ -354,7 +354,7 @@
       display: none;
       flex-direction: row;
       margin-top: 68px;
-      height: calc(100vh - 124px);
+      height: calc(100vh - 124px); height: calc(100svh - 124px);
       border-bottom: 1px solid rgba(201,168,76,0.18);
     }
     #hero-upload-wrap.visible { display: flex; }
@@ -725,6 +725,18 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
 .bp-label{margin-top:16px;font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase}
 </style>
 <link rel="stylesheet" href="responsive.css"/>
+<script>
+/* Fix 100vh on mobile browsers where address bar shrinks viewport */
+(function(){
+  function setVh(){
+    var vh=window.innerHeight*0.01;
+    document.documentElement.style.setProperty('--real-vh',vh+'px');
+  }
+  setVh();
+  window.addEventListener('resize',setVh);
+  window.addEventListener('orientationchange',function(){setTimeout(setVh,200)});
+})();
+</script>
 </head>
 <body>
   <!-- ═══════════════════ NAVIGATION ═══════════════════ -->
