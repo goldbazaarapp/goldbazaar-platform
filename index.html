@@ -66,7 +66,7 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 .gold-widget-footer{padding:9px 16px;font-size:10px;color:rgba(255,255,255,.45);text-align:center;border-top:1px solid rgba(201,168,76,.1);background:rgba(0,0,0,.15)}
 @media(max-width:768px){.gold-widget{display:none}.hamburger{display:flex}.nav-center{display:none}}
 /* HERO */
-#hero{width:100%;margin-top:var(--nav-h);height:90vh;position:relative;overflow:hidden;background:#000;display:flex;align-items:center;justify-content:center}
+#hero{width:100%;margin-top:var(--nav-h);height:90vh;height:90svh;min-height:400px;position:relative;overflow:hidden;background:#000;display:flex;align-items:center;justify-content:center}
 .hero-bg{position:absolute;inset:0;z-index:0}
 .hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease}
 .hero-scene.active{opacity:1}
@@ -486,6 +486,18 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
 .foot-disabled{opacity:.35;pointer-events:none;cursor:default;text-decoration:none}
 </style>
 <link rel="stylesheet" href="responsive.css"/>
+<script>
+/* Fix 100vh on mobile browsers where address bar shrinks viewport */
+(function(){
+  function setVh(){
+    var vh=window.innerHeight*0.01;
+    document.documentElement.style.setProperty('--real-vh',vh+'px');
+  }
+  setVh();
+  window.addEventListener('resize',setVh);
+  window.addEventListener('orientationchange',function(){setTimeout(setVh,200)});
+})();
+</script>
 </head>
 <body>
 

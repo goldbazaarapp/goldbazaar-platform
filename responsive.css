@@ -43,9 +43,26 @@
 }
 
 /* ═══════════════════════════════════════════
+   TABLET HERO FIX  (≤ 1024px)
+   Reduce from 90vh so full image is visible
+═══════════════════════════════════════════ */
+@media(max-width:1024px){
+  #hero{height:60vh!important;height:60svh!important;min-height:320px}
+}
+
+/* ═══════════════════════════════════════════
    MOBILE LARGE  (≤ 768px)
 ═══════════════════════════════════════════ */
 @media(max-width:768px){
+  /* Hero — 56.25vw = perfect 16:9 ratio (fills width, no cropping)
+     svh = "small viewport height" excludes browser address bar on iOS/Android
+     Works like Joyalukkas / BhimaGold — full image visible without scrolling */
+  #hero{
+    height:56.25vw!important;
+    min-height:240px;
+    max-height:480px
+  }
+
   /* Layout */
   .section{padding:44px 0}
   .wrap{padding:0 20px}
@@ -110,6 +127,13 @@
    MOBILE SMALL  (≤ 480px)
 ═══════════════════════════════════════════ */
 @media(max-width:480px){
+  /* Portrait phones: 56.25vw keeps 16:9 ratio, full image visible */
+  #hero{
+    height:56.25vw!important;
+    min-height:210px;
+    max-height:360px
+  }
+
   /* Layout */
   .section{padding:32px 0}
   .wrap{padding:0 16px}

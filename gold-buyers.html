@@ -186,7 +186,7 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 @media(max-width:768px){.nav-center{display:none}.hamburger{display:flex}}
 
 /* ── HERO SLIDER ─────────────────────────────────── */
-#hero{width:100%;margin-top:var(--nav-h);height:90vh;position:relative;overflow:hidden}
+#hero{width:100%;margin-top:var(--nav-h);height:90vh;height:90svh;min-height:400px;position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0}
 .hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;background-size:cover;background-position:center}
 .hero-scene.active{opacity:1}
@@ -206,6 +206,18 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 
 </style>
 <link rel="stylesheet" href="responsive.css"/>
+<script>
+/* Fix 100vh on mobile browsers where address bar shrinks viewport */
+(function(){
+  function setVh(){
+    var vh=window.innerHeight*0.01;
+    document.documentElement.style.setProperty('--real-vh',vh+'px');
+  }
+  setVh();
+  window.addEventListener('resize',setVh);
+  window.addEventListener('orientationchange',function(){setTimeout(setVh,200)});
+})();
+</script>
 </head>
 <body>
 
