@@ -664,6 +664,13 @@
         display: none;
       }
 
+      /* Hero: switch from fixed vh height to 16:9 ratio on mobile */
+      #hero-upload-wrap {
+        aspect-ratio: 16/9 !important;
+        height: auto !important;
+        margin-top: 60px;
+      }
+
       .tab-nav {
         padding: 0 16px;
         overflow-x: auto;
@@ -678,15 +685,52 @@
       .login-container {
         padding: 32px;
       }
+
+      /* Table grid → scrollable on mobile */
+      .leads-table-wrap, .table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* 3-col stats → 2-col */
+      .lead-summary-bar {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+
+      /* Quick actions → 2-col */
+      .quick-actions {
+        grid-template-columns: repeat(2,1fr) !important;
+      }
     }
 
     @media (max-width: 480px) {
+      #hero-upload-wrap {
+        aspect-ratio: 16/9 !important;
+        height: auto !important;
+        margin-top: 56px;
+      }
+
       .login-container {
-        padding: 24px;
+        padding: 20px;
       }
 
       .login-header h1 {
-        font-size: 24px;
+        font-size: 22px;
+      }
+
+      /* Quick actions → 1-col */
+      .quick-actions {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Appointment grid → 1-col */
+      .appt-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Stat bar → 1-col */
+      .lead-summary-bar {
+        grid-template-columns: 1fr !important;
       }
     }
   
@@ -1187,7 +1231,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
   <div id="dashboard" class="tab-content">
     <div style="max-width: 1400px; margin: 0 auto;">
       <!-- KPI Cards -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 32px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px,100%), 1fr)); gap: 16px; margin-bottom: 32px;">
         <div style="background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.05)); border: 1px solid rgba(201, 168, 76, 0.25); border-radius: 12px; padding: 24px;">
           <div style="font-size: 12px; color: rgba(255, 255, 255, 0.6); margin-bottom: 8px;">📍 Profile Reach</div>
           <div style="font-size: 32px; font-weight: 700; color: var(--g); margin-bottom: 4px;">1,248</div>
@@ -1214,7 +1258,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
       </div>
 
       <!-- Analytics Section -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px,100%), 1fr)); gap: 24px;">
         <!-- Lead Funnel -->
         <div style="background: rgba(22, 22, 22, 0.8); border: 1px solid rgba(201, 168, 76, 0.12); border-radius: 16px; padding: 24px;">
           <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 20px; color: var(--g);">📈 Lead Funnel</h3>
@@ -1385,6 +1429,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
     .lead-table-header {
       display: grid;
       grid-template-columns: 108px 1.3fr 122px 0.95fr 1.5fr 118px 84px 142px minmax(130px,0.85fr);
+      min-width: 900px;
       padding: 0 12px;
       background: rgba(0,0,0,0.5);
       border-bottom: 1px solid rgba(201,168,76,0.1);
@@ -1397,6 +1442,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
     .lead-row {
       display: grid;
       grid-template-columns: 108px 1.3fr 122px 0.95fr 1.5fr 118px 84px 142px minmax(130px,0.85fr);
+      min-width: 900px;
       padding: 0 12px;
       border-bottom: 1px solid rgba(255,255,255,0.04);
       align-items: center;

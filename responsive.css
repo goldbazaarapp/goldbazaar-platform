@@ -181,8 +181,24 @@
 ═══════════════════════════════════════════ */
 html,body{max-width:100%;overflow-x:hidden}
 img,video,iframe{max-width:100%}
-/* Hero img/video must always fill container — override above */
-#hero img,#hero video,#hero-upload-wrap img,#hero-upload-wrap video{
-  width:100%;height:100%;object-fit:cover
+
+/* Hero img/video must always fill container */
+#hero img,#hero video,
+#hero-upload-wrap img,#hero-upload-wrap video,
+#ob-hero img,#ob-hero video{
+  width:100%;height:100%;object-fit:cover;position:absolute;inset:0
 }
-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* Any overflow table/grid → horizontal scroll, never break layout */
+table,
+.mkt-grid.list-view,
+[style*="grid-template-columns: 108px"],
+[style*="grid-template-columns:108px"]{
+  display:block;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch
+}
+
+/* Prevent any single child from pushing page wider than viewport */
+.wrap > *{max-width:100%}
+section > .wrap > *{max-width:100%}
