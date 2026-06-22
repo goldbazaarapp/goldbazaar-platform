@@ -1,0 +1,181 @@
+/*
+ * GoldBazaar — Global Responsive Stylesheet
+ * Inject into every page via <link rel="stylesheet" href="responsive.css">
+ *
+ * Breakpoints:
+ *   TV / Ultra-wide : ≥ 1920px
+ *   Large desktop   : ≥ 1400px
+ *   Desktop         : 1024px – 1399px
+ *   Tablet          : 768px  – 1023px
+ *   Mobile L        : 480px  – 767px
+ *   Mobile S        : < 480px
+ */
+
+/* ═══════════════════════════════════════════
+   TV / ULTRA-WIDE  (≥ 1920px)
+═══════════════════════════════════════════ */
+@media(min-width:1920px){
+  .wrap{max-width:1600px}
+  #nav{padding:0 64px}
+  .sec-title{font-size:clamp(36px,2.4vw,56px)}
+}
+
+/* ═══════════════════════════════════════════
+   LARGE DESKTOP  (≥ 1400px)
+═══════════════════════════════════════════ */
+@media(min-width:1400px){
+  .wrap{max-width:1320px}
+}
+
+/* ═══════════════════════════════════════════
+   TABLET  (≤ 1024px)
+═══════════════════════════════════════════ */
+@media(max-width:1024px){
+  .section{padding:60px 0}
+  .wrap{padding:0 32px}
+  .svc-grid{grid-template-columns:repeat(3,1fr)!important}
+  .steps-flow{grid-template-columns:repeat(3,1fr)!important}
+  .foot-grid{grid-template-columns:repeat(2,1fr)!important}
+  .why-grid{grid-template-columns:repeat(2,1fr)!important}
+  .mkt-grid{grid-template-columns:repeat(2,1fr)!important}
+  .process-grid{grid-template-columns:repeat(3,1fr)!important}
+  .cs-grid{grid-template-columns:repeat(3,1fr)!important}
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE LARGE  (≤ 768px)
+═══════════════════════════════════════════ */
+@media(max-width:768px){
+  /* Layout */
+  .section{padding:44px 0}
+  .wrap{padding:0 20px}
+
+  /* Nav */
+  #nav{padding:0 20px}
+  .nav-center{display:none!important}
+  .hamburger{display:flex!important}
+  .nav-cta{display:none!important}
+
+  /* Section headings */
+  .sec-title{font-size:clamp(22px,6vw,34px)!important}
+  .sec-body{font-size:14px}
+
+  /* Grids → 2-col or 1-col */
+  .svc-grid{grid-template-columns:repeat(2,1fr)!important;gap:14px!important}
+  .steps-flow{grid-template-columns:repeat(2,1fr)!important;gap:14px!important}
+  .why-grid{grid-template-columns:repeat(2,1fr)!important;gap:16px!important}
+  .mkt-grid{grid-template-columns:repeat(2,1fr)!important;gap:12px!important}
+  .process-grid{grid-template-columns:repeat(2,1fr)!important;gap:14px!important}
+  .cs-grid{grid-template-columns:repeat(2,1fr)!important;gap:12px!important}
+  .news-grid-live{grid-template-columns:1fr!important}
+  .contact-wrap{grid-template-columns:1fr!important;gap:32px!important}
+  .gb-panel.active{grid-template-columns:1fr!important}
+  .foot-grid{grid-template-columns:1fr 1fr!important}
+
+  /* List-view table: force back to tile mode on mobile */
+  .mkt-grid.list-view{display:grid!important;grid-template-columns:1fr!important}
+  .mkt-grid.list-view .mkt-table-header{display:none!important}
+  .mkt-grid.list-view .mkt-card{display:flex!important;flex-wrap:wrap;padding:16px!important;gap:12px!important}
+  .mkt-grid.list-view .mkt-card-body{display:flex!important;flex-direction:column;gap:7px;flex:1}
+  .mkt-grid.list-view .mkt-card-footer{display:flex!important;width:100%}
+  .mkt-grid.list-view .mkt-card-tag{display:inline-flex!important}
+  .mkt-grid.list-view .mkt-card-rate-lbl{display:block!important}
+
+  /* Filter bar → stack vertically */
+  .filter-bar{flex-direction:column!important;gap:10px!important;padding:14px 16px!important}
+  .filter-group{width:100%!important;min-width:unset!important}
+  .filter-reset{width:100%}
+
+  /* View toggle → wrap */
+  .view-toggle{flex-wrap:wrap;gap:6px}
+
+  /* Ticker / ad strip — reduce padding */
+  .ad-card{min-width:280px!important;padding:16px 18px!important}
+
+  /* Gold rate bar */
+  .gb-rate-bar{flex-direction:column;border-radius:14px;padding:12px 16px;gap:8px}
+  .gb-tabs{flex-wrap:wrap;border-radius:12px;padding:4px}
+
+  /* Calculator panel */
+  .gb-input-card,.gb-result-card{padding:20px!important}
+
+  /* Footer single-line style (login, vendor-onboarding, etc.) */
+  footer[style]{padding:14px 20px!important}
+  .foot-inner{padding:0 20px!important}
+  .foot-row{flex-direction:column!important;align-items:flex-start!important;gap:14px!important}
+  .foot-links{gap:12px!important;flex-wrap:wrap}
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE SMALL  (≤ 480px)
+═══════════════════════════════════════════ */
+@media(max-width:480px){
+  /* Layout */
+  .section{padding:32px 0}
+  .wrap{padding:0 16px}
+
+  /* Nav */
+  #nav{padding:0 16px}
+  .nav-right{gap:4px}
+  .nav-logo img{height:44px!important}
+
+  /* Headings */
+  .sec-title{font-size:clamp(20px,7vw,28px)!important}
+
+  /* All grids → single column */
+  .svc-grid{grid-template-columns:1fr!important}
+  .steps-flow{grid-template-columns:1fr!important}
+  .why-grid{grid-template-columns:1fr!important}
+  .mkt-grid{grid-template-columns:1fr!important}
+  .process-grid{grid-template-columns:1fr!important}
+  .news-grid-live{grid-template-columns:1fr!important}
+  .cs-grid{grid-template-columns:1fr 1fr!important}
+  .foot-grid{grid-template-columns:1fr!important}
+  .contact-form-row{grid-template-columns:1fr!important}
+
+  /* Trusted vendor logos → smaller */
+  .vendor-logo-item{width:80px!important;height:80px!important}
+
+  /* OTP digit inputs → shrink to fit */
+  .otp-grid{gap:6px!important}
+  .otp-grid input{font-size:18px!important;padding:8px 4px!important}
+
+  /* Buttons */
+  .btn-gold,.btn-outline,.btn-ghost{font-size:13px;padding:11px 18px}
+
+  /* Hero dots */
+  .hero-dot{width:6px!important;height:6px!important}
+  .hero-dot.active{width:18px!important}
+
+  /* Cards */
+  .ad-card{min-width:260px!important}
+
+  /* Footer grid full-width */
+  .foot-inner{padding:0 16px!important}
+  footer[style]{padding:12px 16px!important}
+
+  /* Trusted banner */
+  .trusted-vendors-banner{padding:28px 16px!important}
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE EXTRA SMALL  (≤ 360px)
+   Covers very small Android phones
+═══════════════════════════════════════════ */
+@media(max-width:360px){
+  .wrap{padding:0 12px}
+  #nav{padding:0 12px}
+  .nav-logo img{height:38px!important}
+  .sec-title{font-size:20px!important}
+  .otp-grid{gap:4px!important}
+  .otp-grid input{font-size:16px!important}
+  .btn-gold,.btn-outline{padding:10px 14px;font-size:12px}
+}
+
+/* ═══════════════════════════════════════════
+   GENERAL — overflow prevention (all sizes)
+   Prevents horizontal scroll on any device
+═══════════════════════════════════════════ */
+html,body{max-width:100%;overflow-x:hidden}
+img,video,iframe{max-width:100%;height:auto}
+table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}

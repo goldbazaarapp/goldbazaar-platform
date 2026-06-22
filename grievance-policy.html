@@ -27,7 +27,7 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--text
 .nav-logo img{height:56px;width:auto}
 .nav-center{display:flex;align-items:center;gap:4px}
 .nav-center a{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);padding:7px 12px;border-radius:7px;transition:color .2s}
-.nav-center a:hover{color:var(--g)}
+.nav-center a:hover,.nav-center a.active{color:var(--g);font-weight:600}
 .nav-right{display:flex;align-items:center;gap:8px}
 .nav-theme{padding:6px 10px;font-size:16px}
 .nav-login{padding:8px 16px;border:1px solid rgba(201,168,76,.35);border-radius:8px;font-size:13px;font-weight:500;color:var(--g)}
@@ -119,15 +119,15 @@ html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,
 
 .foot-disabled{opacity:.35;pointer-events:none;cursor:default;text-decoration:none}
 </style>
+<link rel="stylesheet" href="responsive.css"/>
 </head>
 <body>
 
 <nav id="nav">
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
   <div class="nav-center">
-    <a href="index.html#hero">Home</a><a href="index.html#services">Services</a>
-    <a href="index.html#gold-calculator">Calculator</a><a href="index.html#gold-news">Gold News</a>
-    <a href="about.html">About Us</a><a href="contact.html">Contact Us</a>
+    <a href="index.html">Home</a>
+    <a href="grievance-policy.html" class="active">Grievance Policy</a>
   </div>
   <div class="nav-right">
     <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
@@ -138,11 +138,8 @@ html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,
   <button class="hamburger" onclick="mobToggle()"><span></span><span></span><span></span></button>
 </nav>
 <div id="mob-nav">
-  <a href="index.html#hero">Home</a><a href="index.html#services">Services</a>
-  <a href="index.html#gold-calculator">Calculator</a><a href="index.html#gold-news">News</a>
-  <a href="index.html#why">About</a><a href="contact.html">Contact</a>
-  <a href="login.html" style="color:var(--g)">Login</a>
-  <a href="vendor-onboarding-complete.html" style="color:var(--g)">Vendor Onboarding</a>
+  <a href="index.html">Home</a>
+  <a href="grievance-policy.html" style="color:var(--g)">Grievance Policy</a>
 </div>
 
 <div class="pp-hero">
@@ -153,7 +150,7 @@ html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,
     <div class="pp-meta">
       <span>📅 Effective Date: 1 June 2026</span>
       <span>🔄 Last Updated: 1 June 2026</span>
-      <span>🏢 GoldBazaar Technologies Pvt. Ltd.</span>
+      <span>🏢 <a href="https://www.imprimis.in/" target="_blank" rel="noopener" style="color:var(--g);opacity:.7;transition:opacity .2s;font-weight:600">Imprimis Innovations Pvt. Ltd</a></span>
     </div>
   </div>
 </div>
@@ -201,12 +198,12 @@ html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,
           <div class="step-card">
             <div class="step-num">1</div>
             <div class="step-title">Email Us</div>
-            <div class="step-desc">Send details to <a href="mailto:goldbazaar.app@gmail.com" style="color:var(--g)">goldbazaar.app@gmail.com</a> with subject "Grievance: [Your Issue]"</div>
+            <div class="step-desc">Send details to <a href="mailto:hello@goldbazaar.app" style="color:var(--g)">hello@goldbazaar.app</a> with subject "Grievance: [Your Issue]"</div>
           </div>
           <div class="step-card">
             <div class="step-num">2</div>
             <div class="step-title">Call Us</div>
-            <div class="step-desc">Speak to our support team at <a href="tel:+917019609180" style="color:var(--g)">+91 70196 09180</a> (Mon–Sat, 9 AM–6 PM)</div>
+            <div class="step-desc">Speak to our support team at  (Mon–Sat, 9 AM–6 PM)</div>
           </div>
           <div class="step-card">
             <div class="step-num">3</div>
@@ -259,10 +256,10 @@ html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,
         <p>In compliance with the Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021, GoldBazaar has appointed a Grievance Officer:</p>
         <div class="contact-box">
           <div><div class="cb-label">Name</div><div class="cb-val">Grievance Officer, GoldBazaar</div></div>
-          <div><div class="cb-label">Email</div><div class="cb-val"><a href="mailto:goldbazaar.app@gmail.com">goldbazaar.app@gmail.com</a></div></div>
-          <div><div class="cb-label">Phone</div><div class="cb-val"><a href="tel:+917019609180">+91 70196 09180</a></div></div>
+          <div><div class="cb-label">Email</div><div class="cb-val"><a href="mailto:hello@goldbazaar.app">hello@goldbazaar.app</a></div></div>
+          <div><div class="cb-label">Phone</div><div class="cb-val"></div></div>
           <div><div class="cb-label">Office Hours</div><div class="cb-val">Monday–Saturday, 9 AM–6 PM IST</div></div>
-          <div><div class="cb-label">Address</div><div class="cb-val">GoldBazaar Technologies Pvt. Ltd., Bengaluru, Karnataka, India</div></div>
+          <div><div class="cb-label">Address</div><div class="cb-val"><a href="https://www.imprimis.in/" target="_blank" rel="noopener" style="color:var(--g);opacity:.7;transition:opacity .2s;font-weight:600">Imprimis Innovations Pvt. Ltd</a>, Bengaluru, Karnataka, India</div></div>
           <div><div class="cb-label">Response Time</div><div class="cb-val">Within 15 days of escalation</div></div>
         </div>
       </section>
@@ -279,7 +276,7 @@ html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,
       <div class="foot-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="careers.html">Careers</a></li><li><a href="blog.html">Blog</a></li></ul></div>
       <div class="foot-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-conditions.html">Terms &amp; Conditions</a></li><li><a href="grievance-policy.html" class="cur">Grievance Policy</a></li><li><a href="sitemap.html">Sitemap</a></li></ul></div>
     </div>
-    <div class="foot-bottom"><p>© 2026 GoldBazaar.app — All rights reserved. GoldBazaar Technologies Pvt. Ltd.</p></div>
+    <div class="foot-bottom"><p>© 2026 GoldBazaar.app — All rights reserved. <a href="https://www.imprimis.in/" target="_blank" rel="noopener" style="color:var(--g);opacity:.7;transition:opacity .2s;font-weight:600">Imprimis Innovations Pvt. Ltd</a></p></div>
   </div>
 </footer>
 

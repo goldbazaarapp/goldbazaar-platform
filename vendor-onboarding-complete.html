@@ -344,8 +344,8 @@
     }
 
     /* No scroll during hero-upload phase */
-    /* Lock scroll during hero phase, but keep footer visible */
-    body.hero-phase { overflow: hidden; }
+    /* Hero phase: lock only the hero wrapper, footer stays accessible */
+    body.hero-phase { overflow: auto; }
 
     /* Main Content */
     /* ── Hero + Upload Wrap ── */
@@ -359,26 +359,18 @@
     }
     #hero-upload-wrap.visible { display: flex; }
 
-    /* ── Left: Hero Slider (70%) ── */
+    /* ── Hero Slider (full width) ── */
     #ob-hero {
-      flex: 0 0 70%;
+      flex: 1;
       position: relative;
       height: 100%;
       overflow: hidden;
       background: linear-gradient(135deg, #1a1005 0%, #0d0a04 50%, #1a1005 100%);
     }
 
-    /* ── Right: Upload Panel (30%) ── */
+    /* ── Upload Panel (hidden — now a modal) ── */
     #upload-panel {
-      flex: 0 0 30%;
-      height: 100%;
-      background: #080806;
-      border-left: 1px solid rgba(201,168,76,0.18);
-      display: flex;
-      flex-direction: column;
-      padding: 16px 18px 14px;
-      overflow-y: hidden;
-      gap: 10px;
+      display: none;
     }
     #upload-panel h3 {
       font-family: var(--fd);
@@ -639,124 +631,7 @@
       to { opacity: 1; }
     }
 
-    /* Footer — minimal strip */
-    footer {
-      background: #0a0a0a !important;
-      border-top: 1px solid rgba(201,168,76,0.15) !important;
-      padding: 18px 48px !important;
-      margin-top: 0 !important;
-    }
-
-    .foot-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 48px;
-    }
-
-    .foot-grid {
-      display: grid;
-      grid-template-columns: 2.2fr 1fr 1fr 1fr 1fr;
-      gap: 40px;
-      margin-bottom: 48px;
-    }
-
-    .foot-logo img {
-      height: 60px;
-      width: auto;
-      margin-bottom: 14px;
-    }
-
-    .foot-desc {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.4);
-      line-height: 1.75;
-      max-width: 220px;
-      margin-bottom: 18px;
-    }
-
-    .foot-socials {
-      display: flex;
-      gap: 7px;
-    }
-
-    .fsoc {
-      width: 32px;
-      height: 32px;
-      background: var(--b3);
-      border: 1px solid var(--b4);
-      border-radius: 7px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.5);
-      transition: all 0.2s;
-      text-decoration: none;
-    }
-
-    .fsoc:hover {
-      background: rgba(201, 168, 76, 0.1);
-      border-color: var(--g);
-      color: var(--g);
-    }
-
-    .foot-col h4 {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.28);
-      margin-bottom: 14px;
-    }
-
-    .foot-col ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .foot-col a {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.48);
-      transition: color 0.2s;
-    }
-
-    .foot-col a:hover {
-      color: var(--g);
-    }
-
-    .foot-bottom {
-      border-top: 1px solid var(--b4);
-      padding-top: 22px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .foot-bottom p {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.24);
-    }
-
-    .foot-badges {
-      display: flex;
-      gap: 7px;
-      flex-wrap: wrap;
-    }
-
-    .f-badge {
-      padding: 4px 9px;
-      background: var(--b3);
-      border: 1px solid var(--b4);
-      border-radius: 5px;
-      font-size: 10px;
-      font-weight: 700;
-      color: rgba(255, 255, 255, 0.3);
-      letter-spacing: 0.05em;
-    }
+    /* Footer styles defined at end of stylesheet */
 
     /* Responsive */
     @media (max-width: 1024px) {
@@ -780,20 +655,10 @@
         padding: 0 20px;
       }
 
-      .foot-grid {
-        grid-template-columns: 1fr 1fr 1fr;
-      }
-
-      .foot-inner {
-        padding: 0 20px;
-      }
+      .foot-inner { padding: 0 20px; }
     }
 
     @media (max-width: 768px) {
-      .foot-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
       .nav-center,
       .nav-right {
         display: none;
@@ -816,15 +681,6 @@
     }
 
     @media (max-width: 480px) {
-      .foot-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .foot-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
       .login-container {
         padding: 24px;
       }
@@ -833,7 +689,42 @@
         font-size: 24px;
       }
     }
-  </style>
+  
+/* ── Footer ── */
+footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48px 0 28px;margin-top:0;position:relative;z-index:1}
+.foot-inner{max-width:1200px;margin:0 auto;padding:0 48px}
+.foot-row{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px;flex-wrap:wrap}
+.foot-logo img{height:52px;width:auto}
+.foot-links{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.foot-links a{font-size:13px;color:rgba(255,255,255,.45);transition:color .2s;white-space:nowrap}
+.foot-links a:hover{color:var(--g)}
+.foot-bottom{border-top:1px solid rgba(201,168,76,.1);padding-top:18px;margin-top:4px;display:flex;align-items:center;justify-content:center}
+.foot-bottom p{font-size:12px;color:rgba(255,255,255,.3);text-align:center}
+.foot-disabled{opacity:.35;pointer-events:none;cursor:default}
+@media(max-width:768px){.foot-inner{padding:0 24px}.foot-row{flex-direction:column;align-items:flex-start;gap:16px}.foot-links{gap:12px}}
+
+/* ── Upload Modal ── */
+#uploadModal{display:none;position:fixed;inset:0;z-index:2000;align-items:center;justify-content:center;padding:20px}
+#uploadModal.open{display:flex}
+.um-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px)}
+.um-box{position:relative;z-index:1;background:rgba(10,9,6,.92);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:32px;width:100%;max-width:480px;box-shadow:0 24px 64px rgba(0,0,0,.6)}
+.um-close{position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,.4);font-size:20px;cursor:pointer;line-height:1}
+.um-close:hover{color:var(--g)}
+.um-title{font-family:var(--fd);font-size:20px;font-weight:600;color:var(--gl);margin-bottom:6px}
+.um-sub{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:20px;line-height:1.5}
+/* Nav upload btn */
+.nav-upload-btn{background:rgba(201,168,76,.12);border:1.5px solid rgba(201,168,76,.35);color:var(--g);font-size:13px;font-weight:600;padding:7px 16px;border-radius:8px;cursor:pointer;transition:all .2s}
+.nav-upload-btn:hover{background:rgba(201,168,76,.2);border-color:var(--g)}
+
+/* ── Banner Preview Overlay ── */
+#bannerPreviewOverlay{display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.92);align-items:center;justify-content:center;flex-direction:column}
+#bannerPreviewOverlay.open{display:flex}
+#bannerPreviewOverlay img{max-width:92vw;max-height:82vh;border-radius:12px;box-shadow:0 24px 80px rgba(0,0,0,.8);object-fit:contain}
+.bp-close{position:absolute;top:20px;right:24px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:18px;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:1}
+.bp-close:hover{background:rgba(201,168,76,.2);border-color:var(--g);color:var(--g)}
+.bp-label{margin-top:16px;font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase}
+</style>
+<link rel="stylesheet" href="responsive.css"/>
 </head>
 <body>
   <!-- ═══════════════════ NAVIGATION ═══════════════════ -->
@@ -844,6 +735,7 @@
 
     <div class="nav-right">
       <a href="index.html" class="nav-vendor">← Back to Home</a>
+      <button onclick="openUploadModal()" class="nav-upload-btn" id="navUploadBtn" style="display:none">📤 Upload Banner</button>
       <a href="index.html#contact-us" class="nav-cta">Contact Us</a>
     </div>
 
@@ -861,22 +753,7 @@
   <div id="loginScreen" class="login-screen">
     <div class="login-container">
 
-      <!-- DEMO BADGE -->
-      <div style="
-        text-align:center;margin-bottom:20px;
-        display:flex;align-items:center;justify-content:center;gap:8px;">
-        <div style="
-          display:inline-flex;align-items:center;gap:8px;
-          background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.06));
-          border:1.5px solid rgba(201,168,76,.45);
-          border-radius:50px;padding:6px 18px;
-          font-size:11px;font-weight:800;letter-spacing:.15em;
-          text-transform:uppercase;color:var(--gl);">
-          <span style="width:7px;height:7px;border-radius:50%;background:#C9A84C;display:inline-block;animation:demoPulse 1.4s ease-in-out infinite"></span>
-          Demo Mode
-        </div>
-      </div>
-      <style>@keyframes demoPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.85)}}</style>
+
 
       <!-- Welcome context banner (shown after form submission) -->
       <div id="loginContextBanner" style="display:none; background:linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.04)); border:1px solid rgba(201,168,76,0.25); border-radius:12px; padding:14px 18px; margin-bottom:24px; text-align:center;">
@@ -914,10 +791,7 @@
           <button type="submit" class="login-btn">Send OTP</button>
         </form>
 
-        <div style="margin-top:16px;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:10px 14px;text-align:center;">
-          <p style="font-size:11px;color:rgba(201,168,76,.8);font-weight:600;margin-bottom:3px;">⚡ Demo Mode — Use any mobile number</p>
-          <p style="font-size:11px;color:rgba(255,255,255,.45);">Any 6-digit OTP code will work for this demo</p>
-        </div>
+        
       </div>
 
       <!-- Step 2: OTP Verification -->
@@ -2181,23 +2055,94 @@
   </div>
 
   <!-- ═══════════════════ FOOTER ═══════════════════ -->
-  <footer style="background:#0a0a0a; border-top:1px solid rgba(201,168,76,0.1); padding:18px 48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
-    <p style="font-size:12px; color:rgba(255,255,255,0.3); margin:0;">© 2025 GoldBazaar Technologies Pvt. Ltd. All rights reserved.</p>
-    <div style="display:flex; gap:24px; align-items:center;">
-      <a href="about.html" style="font-size:12px;color:rgba(255,255,255,.4);transition:color .2s">About</a>
-    <a href="contact.html" style="font-size:12px;color:rgba(255,255,255,.4);transition:color .2s">Contact</a>
-    <a href="careers.html" style="font-size:12px;color:rgba(255,255,255,.4);transition:color .2s">Careers</a>
-    <a href="blog.html" style="font-size:12px;color:rgba(255,255,255,.4);transition:color .2s">Blog</a>
-    <a href="privacy-policy.html" style="font-size:12px; color:rgba(255,255,255,0.35); text-decoration:none;">Privacy Policy</a>
-      <a href="terms-conditions.html" style="font-size:12px; color:rgba(255,255,255,0.35); text-decoration:none;">Terms &amp; Conditions</a>
-      <a href="grievance-policy.html" style="font-size:12px; color:rgba(255,255,255,0.35); text-decoration:none;">Grievance Policy</a>
-      <a href="sitemap.html" style="font-size:12px; color:rgba(255,255,255,0.35); text-decoration:none;">Sitemap</a>
-      <a href="index.html" style="font-size:12px; color:rgba(201,168,76,0.7); text-decoration:none; font-weight:600;">← Back to Home</a>
+  <footer style="background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:14px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;position:relative;z-index:10">
+    <div style="display:flex;align-items:center;gap:14px">
+      <a href="index.html"><img src="images/logo.png" alt="GoldBazaar" style="height:36px;width:auto"/></a>
+      <p style="font-size:12px;color:rgba(255,255,255,.3);margin:0">© 2026 GoldBazaar.app — All rights reserved.</p>
+    </div>
+    <div style="display:flex;gap:20px;align-items:center">
+      <a href="privacy-policy.html" style="font-size:12px;color:rgba(255,255,255,.4);text-decoration:none">Privacy Policy</a>
+      <a href="terms-conditions.html" style="font-size:12px;color:rgba(255,255,255,.4);text-decoration:none">Terms</a>
+      <a href="contact.html" style="font-size:12px;color:rgba(255,255,255,.4);text-decoration:none">Contact</a>
+      <a href="sitemap.html" style="font-size:12px;color:rgba(255,255,255,.4);text-decoration:none">Sitemap</a>
     </div>
   </footer>
 
+
+
+<!-- ═══════════════════ BANNER PREVIEW OVERLAY ═══════════════════ -->
+<div id="bannerPreviewOverlay">
+  <button class="bp-close" onclick="closeBannerPreview()" title="Close preview">✕</button>
+  <img id="bannerPreviewImg" src="" alt="Banner Preview"/>
+  <p class="bp-label">Banner Preview — click ✕ to close</p>
+</div>
+
+<!-- ═══════════════════ UPLOAD MODAL ═══════════════════ -->
+<div id="uploadModal">
+  <div class="um-backdrop" onclick="closeUploadModal()"></div>
+  <div class="um-box">
+    <button class="um-close" onclick="closeUploadModal()">✕</button>
+    <div class="um-title">Showcase Your Brand Identity</div>
+    <p class="um-sub">Upload a banner to see how your brand will appear across the GoldBazaar platform before going live.</p>
+    <div class="up-specs" style="margin-bottom:16px">
+      <div class="up-spec-item"><span class="up-spec-label">Recommended</span><span class="up-spec-val">1920 × 1080 px</span></div>
+      <div class="up-spec-item"><span class="up-spec-label">Minimum</span><span class="up-spec-val">1280 × 720 px</span></div>
+      <div class="up-spec-item"><span class="up-spec-label">Formats</span><span class="up-spec-val">JPG, PNG, WebP</span></div>
+      <div class="up-spec-item"><span class="up-spec-label">Max File Size</span><span class="up-spec-val">5 MB</span></div>
+      <div class="up-spec-item"><span class="up-spec-label">Aspect Ratio</span><span class="up-spec-val">16 : 9 (Full HD)</span></div>
+      <div class="up-spec-item"><span class="up-spec-label">Save As</span><span class="up-spec-val">slide-1.jpg</span></div>
+    </div>
+    <div class="up-dropzone" id="upDropzoneModal" onclick="document.getElementById('up-file-input-modal').click()">
+      <div class="up-icon">🖼️</div>
+      <p>Drag &amp; drop your banner here<br>or <strong>click to browse</strong></p>
+      <input type="file" id="up-file-input-modal" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="handleBannerUploadModal(event)">
+    </div>
+    <div class="up-file-info" id="upFileInfoModal" style="display:none;margin-top:12px">
+      <img id="upThumbModal" class="up-file-thumb" src="" alt="preview"/>
+      <div class="up-file-details">
+        <div class="up-file-name" id="upFileNameModal">—</div>
+        <div class="up-file-meta" id="upFileMetaModal">—</div>
+      </div>
+      <span class="up-file-ok">✓</span>
+    </div>
+    <div class="up-actions" style="margin-top:20px">
+      <button class="up-btn up-btn-preview" id="umPreviewBtn" onclick="previewBannerModal()" style="display:block">Visualise Banner</button>
+      <button class="up-btn up-btn-submit" id="umContinueBtn" onclick="continueToOnboardingFromModal()">Continue to Onboarding →</button>
+    </div>
+  </div>
+</div>
+
   <script>
     // ── Mobile nav toggle ──
+
+    function openUploadModal(){ document.getElementById('uploadModal').classList.add('open'); }
+    function closeUploadModal(){ document.getElementById('uploadModal').classList.remove('open'); }
+    function handleBannerUploadModal(event){
+      const file = event.target.files[0];
+      if(!file) return;
+      const url = URL.createObjectURL(file);
+      uploadedBlobUrl = url;
+      document.getElementById('upThumbModal').src = url;
+      document.getElementById('upFileNameModal').textContent = file.name;
+      document.getElementById('upFileMetaModal').textContent = (file.size/1024/1024).toFixed(2)+' MB';
+      document.getElementById('upFileInfoModal').style.display = 'flex';
+      document.getElementById('upDropzoneModal').style.borderColor = 'var(--g)';
+      document.getElementById('umPreviewBtn').classList.add('show');
+      document.getElementById('umContinueBtn').classList.add('show');
+    }
+    function previewBannerModal(){
+      if(!uploadedBlobUrl){ showToast('Please upload a banner first.'); return; }
+      document.getElementById('bannerPreviewImg').src = uploadedBlobUrl;
+      document.getElementById('bannerPreviewOverlay').classList.add('open');
+    }
+    function closeBannerPreview(){
+      document.getElementById('bannerPreviewOverlay').classList.remove('open');
+    }
+    function continueToOnboardingFromModal(){
+      closeUploadModal();
+      submitHeroStep();
+    }
+
     function mobToggle() {
       document.getElementById('mob-nav').classList.toggle('open');
     }
@@ -2212,6 +2157,7 @@
       document.getElementById('loginScreen').classList.remove('visible');
       document.getElementById('hero-upload-wrap').classList.add('visible');
       document.body.classList.add('hero-phase');
+      document.getElementById('navUploadBtn').style.display='inline-flex';
       initObHero();
     });
 
@@ -2314,6 +2260,7 @@
     function submitHeroStep() {
       document.getElementById('hero-upload-wrap').classList.remove('visible');
       document.body.classList.remove('hero-phase');
+      document.getElementById('navUploadBtn').style.display='none';
       // Show mobile login/OTP FIRST before revealing the onboarding form
       document.getElementById('loginTitle').textContent = 'Verify Your Mobile';
       document.getElementById('loginSubtitle').textContent = 'Enter your mobile number to begin the vendor onboarding process';
@@ -2419,51 +2366,97 @@
       event.preventDefault();
       const mobile = document.getElementById('mobile').value.trim();
       const errorEl = document.getElementById('mobileError');
+      const btn = event.target.querySelector('button[type=submit]');
 
-      // Validate mobile number
       const mobileRegex = /^[6-9]\d{9}$/;
       const cleanMobile = mobile.replace(/\D/g, '');
 
       if (!cleanMobile || !mobileRegex.test(cleanMobile)) {
-        errorEl.textContent = 'Please enter a valid 10-digit mobile number';
+        errorEl.textContent = 'Please enter a valid 10-digit Indian mobile number';
         errorEl.classList.add('show');
         return;
       }
-
       errorEl.classList.remove('show');
       currentMobileNumber = cleanMobile;
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
 
-      // Show OTP verification step
-      document.getElementById('otpStep').style.display = 'none';
-      document.getElementById('verifyStep').style.display = 'block';
-      document.getElementById('mobileDisplay').textContent = `+91 ${cleanMobile.slice(0, 5)} ${cleanMobile.slice(5)}`;
-      document.getElementById('step1').classList.remove('active');
-      document.getElementById('step2').classList.add('active');
+      // ╔══════════════════════════════════════════╗
+      // ║  AUTHKEY.IO CONFIG — REPLACE THESE       ║
+      // ╚══════════════════════════════════════════╝
+      const AUTHKEY   = '5e288fd35b854bd5';   // from console.authkey.io
+      const SENDER_ID = 'YOUR_SID_HERE';       // OTP template SID
+
+      const url = `https://api.authkey.io/request?authkey=${AUTHKEY}&mobile=${cleanMobile}&country_code=91&sid=${SENDER_ID}`;
+
+      fetch(url)
+        .then(r => r.json())
+        .then(data => {
+          if (data && (data.message === 'Sent' || data.logid)) {
+            window._authkeyLogId = data.logid; // save for verification
+            // Show OTP step
+            document.getElementById('otpStep').style.display = 'none';
+            document.getElementById('verifyStep').style.display = 'block';
+            document.getElementById('mobileDisplay').textContent = '+91 ' + cleanMobile.slice(0,5) + ' ' + cleanMobile.slice(5);
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            showToast('OTP sent to +91 ' + cleanMobile);
+          } else {
+            throw new Error(data.message || 'Failed to send OTP');
+          }
+        })
+        .catch(err => {
+          btn.textContent = 'Send OTP';
+          btn.disabled = false;
+          errorEl.textContent = err.message || 'Failed to send OTP. Please try again.';
+          errorEl.classList.add('show');
+        });
     }
 
     function handleOtpVerify(event) {
       event.preventDefault();
       const otp = document.getElementById('otp').value.trim();
       const errorEl = document.getElementById('otpError');
+      const btn = event.target.querySelector('button[type=submit]');
 
       if (!otp || otp.length !== 6 || !/^\d{6}$/.test(otp)) {
         errorEl.textContent = 'Please enter a valid 6-digit OTP';
         errorEl.classList.add('show');
         return;
       }
-
       errorEl.classList.remove('show');
-      verifiedMobile = currentMobileNumber;
+      btn.textContent = 'Verifying...';
+      btn.disabled = true;
 
-      // Save mobile → Vendor Signups sheet (OTP verified entry)
-      fetch(FORM_ENDPOINT+'?'+new URLSearchParams({sheet:'vendor', mobile:'91-'+verifiedMobile, status:'OTP Verified'}),{mode:'no-cors'}).catch(()=>{});
+      const AUTHKEY = '5e288fd35b854bd5'; // same key as above
+      const logid   = window._authkeyLogId || '';
 
-      // Hide login screen, proceed to onboarding form
-      document.getElementById('loginScreen').classList.remove('visible');
-      document.getElementById('pageHeader').classList.add('visible');
-      document.getElementById('onboarding').classList.add('active');
-      initializeForm();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const url = `https://console.authkey.io/api/2fa_verify.php?authkey=${AUTHKEY}&channel=SMS&otp=${otp}&logid=${logid}`;
+
+      fetch(url)
+        .then(r => r.json())
+        .then(data => {
+          if (data && data.message === 'Valid OTP') {
+            verifiedMobile = currentMobileNumber;
+            fetch(FORM_ENDPOINT+'?'+new URLSearchParams({sheet:'vendor', mobile:'91-'+verifiedMobile, status:'OTP Verified'}),{mode:'no-cors'}).catch(()=>{});
+            document.getElementById('loginScreen').classList.remove('visible');
+            document.getElementById('pageHeader').classList.add('visible');
+            document.getElementById('onboarding').classList.add('active');
+            initializeForm();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            showToast('✅ Mobile verified! Welcome to GoldBazaar.');
+          } else {
+            throw new Error(data.message || 'Invalid OTP');
+          }
+        })
+        .catch(err => {
+          btn.textContent = 'Verify & Continue';
+          btn.disabled = false;
+          let msg = err.message || 'Invalid OTP. Please try again.';
+          if (msg.includes('expired')) msg = 'OTP expired. Please request a new one.';
+          errorEl.textContent = msg;
+          errorEl.classList.add('show');
+        });
     }
 
     function resendOtp() {
@@ -2647,6 +2640,7 @@
       document.getElementById('loginScreen').classList.add('visible');
       document.getElementById('hero-upload-wrap').classList.remove('visible');
       document.body.classList.remove('hero-phase');
+      document.getElementById('navUploadBtn').style.display='none';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 

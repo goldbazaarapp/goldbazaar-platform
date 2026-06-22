@@ -27,7 +27,7 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--text
 .nav-logo img{height:56px;width:auto}
 .nav-center{display:flex;align-items:center;gap:4px}
 .nav-center a{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);padding:7px 12px;border-radius:7px;transition:color .2s}
-.nav-center a:hover{color:var(--g)}
+.nav-center a:hover,.nav-center a.active{color:var(--g);font-weight:600}
 .nav-right{display:flex;align-items:center;gap:8px}
 .nav-theme{padding:6px 10px;font-size:16px}
 .nav-login{padding:8px 16px;border:1px solid rgba(201,168,76,.35);border-radius:8px;font-size:13px;font-weight:500;color:var(--g)}
@@ -107,15 +107,15 @@ html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,
 
 .foot-disabled{opacity:.35;pointer-events:none;cursor:default;text-decoration:none}
 </style>
+<link rel="stylesheet" href="responsive.css"/>
 </head>
 <body>
 
 <nav id="nav">
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
   <div class="nav-center">
-    <a href="index.html#hero">Home</a><a href="index.html#services">Services</a>
-    <a href="index.html#gold-calculator">Calculator</a><a href="index.html#gold-news">Gold News</a>
-    <a href="about.html">About Us</a><a href="contact.html">Contact Us</a>
+    <a href="index.html">Home</a>
+    <a href="terms-conditions.html" class="active">Terms & Conditions</a>
   </div>
   <div class="nav-right">
     <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
@@ -126,11 +126,8 @@ html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,
   <button class="hamburger" onclick="mobToggle()"><span></span><span></span><span></span></button>
 </nav>
 <div id="mob-nav">
-  <a href="index.html#hero">Home</a><a href="index.html#services">Services</a>
-  <a href="index.html#gold-calculator">Calculator</a><a href="index.html#gold-news">News</a>
-  <a href="index.html#why">About</a><a href="contact.html">Contact</a>
-  <a href="login.html" style="color:var(--g)">Login</a>
-  <a href="vendor-onboarding-complete.html" style="color:var(--g)">Vendor Onboarding</a>
+  <a href="index.html">Home</a>
+  <a href="terms-conditions.html" style="color:var(--g)">Terms & Conditions</a>
 </div>
 
 <div class="pp-hero">
@@ -141,7 +138,7 @@ html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,
     <div class="pp-meta">
       <span>📅 Effective Date: 1 June 2026</span>
       <span>🔄 Last Updated: 1 June 2026</span>
-      <span>🏢 GoldBazaar Technologies Pvt. Ltd.</span>
+      <span>🏢 <a href="https://www.imprimis.in/" target="_blank" rel="noopener" style="color:var(--g);opacity:.7;transition:opacity .2s;font-weight:600">Imprimis Innovations Pvt. Ltd</a></span>
     </div>
   </div>
 </div>
@@ -170,7 +167,7 @@ html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,
         <div class="pp-highlight">
           <p>By accessing or using GoldBazaar ("Platform"), you agree to be bound by these Terms &amp; Conditions. If you do not agree, please do not use our Platform.</p>
         </div>
-        <p>These Terms apply to all visitors, registered users, and vendors using the Platform. GoldBazaar Technologies Pvt. Ltd. reserves the right to update these Terms at any time; continued use after changes constitutes acceptance.</p>
+        <p>These Terms apply to all visitors, registered users, and vendors using the Platform. <a href="https://www.imprimis.in/" target="_blank" rel="noopener" style="color:var(--g);opacity:.7;transition:opacity .2s;font-weight:600">Imprimis Innovations Pvt. Ltd</a> reserves the right to update these Terms at any time; continued use after changes constitutes acceptance.</p>
       </section>
 
       <section class="pp-section" id="t2">
@@ -241,7 +238,7 @@ html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,
 
       <section class="pp-section" id="t7">
         <h2><span class="sn">07</span> Limitation of Liability</h2>
-        <p>To the maximum extent permitted by applicable law, GoldBazaar Technologies Pvt. Ltd. shall not be liable for:</p>
+        <p>To the maximum extent permitted by applicable law, <a href="https://www.imprimis.in/" target="_blank" rel="noopener" style="color:var(--g);opacity:.7;transition:opacity .2s;font-weight:600">Imprimis Innovations Pvt. Ltd</a> shall not be liable for:</p>
         <ul>
           <li>Any indirect, incidental, or consequential loss arising from Platform use</li>
           <li>Loss of profit, data, or business opportunity</li>
@@ -261,9 +258,9 @@ html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,
       <section class="pp-section" id="t9">
         <h2><span class="sn">09</span> Contact Us</h2>
         <div class="contact-box">
-          <div><div class="cb-label">Organisation</div><div class="cb-val">GoldBazaar Technologies Pvt. Ltd.</div></div>
-          <div><div class="cb-label">Email</div><div class="cb-val"><a href="mailto:goldbazaar.app@gmail.com">goldbazaar.app@gmail.com</a></div></div>
-          <div><div class="cb-label">Phone</div><div class="cb-val"><a href="tel:+917019609180">+91 70196 09180</a></div></div>
+          <div><div class="cb-label">Organisation</div><div class="cb-val"><a href="https://www.imprimis.in/" target="_blank" rel="noopener" style="color:var(--g);opacity:.7;transition:opacity .2s;font-weight:600">Imprimis Innovations Pvt. Ltd</a></div></div>
+          <div><div class="cb-label">Email</div><div class="cb-val"><a href="mailto:hello@goldbazaar.app">hello@goldbazaar.app</a></div></div>
+          <div><div class="cb-label">Phone</div><div class="cb-val"></div></div>
           <div><div class="cb-label">Address</div><div class="cb-val">GoldBazaar HQ, Bengaluru, Karnataka, India</div></div>
         </div>
       </section>
@@ -280,7 +277,7 @@ html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,
       <div class="foot-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="careers.html">Careers</a></li><li><a href="blog.html">Blog</a></li></ul></div>
       <div class="foot-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-conditions.html" class="cur">Terms &amp; Conditions</a></li><li><a href="grievance-policy.html">Grievance Policy</a></li><li><a href="sitemap.html">Sitemap</a></li></ul></div>
     </div>
-    <div class="foot-bottom"><p>© 2026 GoldBazaar.app — All rights reserved. GoldBazaar Technologies Pvt. Ltd.</p></div>
+    <div class="foot-bottom"><p>© 2026 GoldBazaar.app — All rights reserved. <a href="https://www.imprimis.in/" target="_blank" rel="noopener" style="color:var(--g);opacity:.7;transition:opacity .2s;font-weight:600">Imprimis Innovations Pvt. Ltd</a></p></div>
   </div>
 </footer>
 

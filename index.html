@@ -70,7 +70,7 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 .hero-bg{position:absolute;inset:0;z-index:0}
 .hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease}
 .hero-scene.active{opacity:1}
-.hero-scene img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.hero-scene img,.hero-scene video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
 .hero-overlay{position:absolute;inset:0;z-index:2;background:rgba(0,0,0,.2);pointer-events:none}
 .hero-overlay::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(0deg,rgba(0,0,0,.9),transparent)}
 .hero-dots{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:10;display:flex;gap:8px}
@@ -485,6 +485,7 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
 
 .foot-disabled{opacity:.35;pointer-events:none;cursor:default;text-decoration:none}
 </style>
+<link rel="stylesheet" href="responsive.css"/>
 </head>
 <body>
 
@@ -547,9 +548,9 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
     <span class="tick-item">CITIES <strong>500+</strong></span>
     <span class="tick-sep">|</span> 
     <span class="tick-item">VERIFIED JEWELLERS <strong>8,500+</strong></span>
-    <span class="tick-sep">|</span> ---!>
+    <span class="tick-sep">|</span> 
     <span class="tick-item">CUSTOMER TRUST <strong>100%</strong></span>
-    <span class="tick-sep">|</span>
+    <span class="tick-sep">|</span>---!>
     <span class="tick-item">22K GOLD <strong>₹13,349/g</strong></span>
     <span class="tick-sep">|</span>
     <span class="tick-item">24K GOLD <strong>₹14,563/g</strong></span>
@@ -994,7 +995,7 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
         <h2>We're Here<br><span>to Help You</span></h2>
         <p>Whether you're a customer seeking gold services or a business ready to grow — reach out and our team will respond within 4 business hours.</p>
         <div class="contact-info-list">
-          <div class="contact-info-item"><div class="contact-info-icon">✉️</div><span class="contact-info-text">goldbazaar.app@gmail.com</span></div>
+          <div class="contact-info-item"><div class="contact-info-icon">✉️</div><span class="contact-info-text">hello@goldbazaar.app</span></div>
           <div class="contact-info-item"><div class="contact-info-icon">📍</div><span class="contact-info-text">GoldBazaar HQ, Bengaluru, India</span></div>
         </div>
         <div class="foot-socials" style="margin-top:28px">
@@ -1028,7 +1029,7 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
       <div class="foot-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="careers.html">Careers</a></li><li><a href="blog.html">Blog</a></li></ul></div>
       <div class="foot-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-conditions.html">Terms &amp; Conditions</a></li><li><a href="grievance-policy.html">Grievance Policy</a></li><li><a href="sitemap.html">Sitemap</a></li></ul></div>
     </div>
-    <div class="foot-bottom"><p>© 2025 GoldBazaar.app — All rights reserved. GoldBazaar Technologies Pvt. Ltd.</p></div>
+    <div class="foot-bottom"><p>© 2026 GoldBazaar.app — All rights reserved.</p></div>
   </div>
 </footer>
 
@@ -1076,23 +1077,62 @@ const GoldRateManager={
     if(t22)t22.textContent='₹'+rates['22K'].toLocaleString('en-IN')+'/g';
   }
 };
+/* ── HERO MODE CONFIG ───────────────────────────────────────────────────
+   Change HERO_MODE to switch between video and image slider.
+   'video' → loads videos/GB_1.mp4, GB_2.mp4 …
+   'image' → loads images/hero-1.png, hero-2.png …
+   ─────────────────────────────────────────────────────────────────── */
+const HERO_MODE='image'; // 'video' | 'image'
+const HERO_CFG={
+  video:{folder:'videos/',prefix:'GB_',ext:'.mp4',max:20},
+  image:{folder:'images/',prefix:'hero-',ext:'.png',max:10}
+};
 const HeroManager={
-  images:[],current:0,
+  items:[],current:0,
   async init(){
-    const bg=document.getElementById('hero-bg');const dotsEl=document.getElementById('hero-dots');if(!bg)return;
+    const bg=document.getElementById('hero-bg');
+    const dotsEl=document.getElementById('hero-dots');
+    if(!bg)return;
+    const cfg=HERO_CFG[HERO_MODE];
     const found=[];
-    for(let i=1;i<=10;i++){const src='images/hero-'+i+'.png';const ok=await new Promise(r=>{const img=new Image();img.onload=()=>r(true);img.onerror=()=>r(false);img.src=src});if(ok)found.push(src);else break}
-    this.images=found;
-    if(!this.images.length){bg.style.background='linear-gradient(135deg,#0A0700,#1A1200)';return}
-    this.images.forEach((src,i)=>{
+    for(let i=1;i<=cfg.max;i++){
+      const src=cfg.folder+cfg.prefix+i+cfg.ext;
+      const ok=await new Promise(r=>{
+        if(HERO_MODE==='video'){const v=document.createElement('video');v.onloadedmetadata=()=>r(true);v.onerror=()=>r(false);v.src=src;}
+        else{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src=src;}
+      });
+      if(ok)found.push(src);else break;
+    }
+    if(!found.length){bg.style.background='linear-gradient(135deg,#0A0700,#1A1200)';if(dotsEl)dotsEl.style.display='none';return;}
+    this.items=found;
+    found.forEach((src,i)=>{
       const sc=document.createElement('div');sc.className='hero-scene'+(i===0?' active':'');
-      const img=document.createElement('img');img.src=src;img.alt='GoldBazaar';sc.appendChild(img);bg.appendChild(sc);
-      if(dotsEl){const d=document.createElement('button');d.className='hero-dot'+(i===0?' active':'');d.onclick=()=>this.go(i);dotsEl.appendChild(d)}
+      if(HERO_MODE==='video'){
+        const v=document.createElement('video');
+        v.src=src;v.muted=true;v.playsInline=true;v.preload='auto';
+        if(i===0)v.autoplay=true;
+        v.addEventListener('ended',()=>{if(found.length>1)HeroManager.next();else v.play();});
+        sc.appendChild(v);
+      }else{
+        const im=document.createElement('img');im.src=src;im.alt='GoldBazaar';sc.appendChild(im);
+      }
+      bg.appendChild(sc);
+      if(dotsEl){const d=document.createElement('button');d.className='hero-dot'+(i===0?' active':'');d.onclick=()=>HeroManager.go(i);dotsEl.appendChild(d);}
     });
-    if(this.images.length>1)setInterval(()=>this.next(),5000);
+    if(HERO_MODE==='image'&&found.length>1)setInterval(()=>HeroManager.next(),5000);
   },
-  go(n){document.querySelectorAll('.hero-scene').forEach((s,i)=>s.classList.toggle('active',i===n));document.querySelectorAll('.hero-dot').forEach((d,i)=>d.classList.toggle('active',i===n));this.current=n},
-  next(){this.go((this.current+1)%this.images.length)}
+  go(n){
+    const scenes=document.querySelectorAll('.hero-scene');
+    const dots=document.querySelectorAll('.hero-dot');
+    if(HERO_MODE==='video'){const ov=scenes[this.current]?.querySelector('video');if(ov){ov.pause();ov.currentTime=0;}}
+    scenes[this.current]?.classList.remove('active');
+    dots[this.current]?.classList.remove('active');
+    this.current=n;
+    scenes[n]?.classList.add('active');
+    dots[n]?.classList.add('active');
+    if(HERO_MODE==='video'){const nv=scenes[n]?.querySelector('video');if(nv)nv.play();}
+  },
+  next(){this.go((this.current+1)%this.items.length);}
 };
 function scrollCarousel(d){const t=document.getElementById('carousel-track');if(!t)return;const max=t.scrollWidth-t.clientWidth;t.scrollLeft=Math.max(0,Math.min(max,t.scrollLeft+d))}
 setInterval(()=>{const t=document.getElementById('carousel-track');if(t){const max=t.scrollWidth-t.clientWidth;if(t.scrollLeft>=max-10)t.scrollLeft=0;else t.scrollBy({left:316,behavior:'smooth'})}},3500);
@@ -1244,4 +1284,4 @@ document.addEventListener('DOMContentLoaded',()=>{
 if(document.readyState!=='loading'){ThemeManager.init();GoldRateManager.init();HeroManager.init();loadNews();}
 </script>
 </body>
-</html>
+</html>    

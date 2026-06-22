@@ -49,19 +49,8 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 #mob-nav.open{display:flex}
 #mob-nav a{font-size:15px;font-weight:500;color:rgba(255,255,255,.72);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
 /* PAGE HERO */
-.page-hero{width:100%;margin-top:var(--nav-h);padding:72px 0;position:relative;overflow:hidden}
-.page-hero-content{position:relative;z-index:2}
-.page-hero h1{font-family:var(--fd);font-size:clamp(34px,5vw,58px);font-weight:700;letter-spacing:-.03em;line-height:1.12;margin-bottom:16px}
-.page-hero p{font-size:16px;color:rgba(255,255,255,.6);max-width:580px;line-height:1.72;margin-bottom:32px}
-.page-hero-stats{display:flex;gap:32px;flex-wrap:wrap;margin-top:8px}
-.ph-stat{display:flex;flex-direction:column;gap:3px}
-.ph-stat-val{font-size:24px;font-weight:800}
-.ph-stat-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4)}
 /* PAGE ACCENT */
 :root{--accent:#22c55e;--accent-l:#4ade80;--accent-rgb:34,197,94}
-.page-hero{background:linear-gradient(135deg,#001a08 0%,#002d10 50%,#001a08 100%);border-bottom:1px solid rgba(34,197,94,.2);width:100%;margin-top:var(--nav-h);padding:72px 0;position:relative;overflow:hidden}
-.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 50%,rgba(34,197,94,.12) 0%,transparent 60%),linear-gradient(rgba(34,197,94,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(34,197,94,.03) 1px,transparent 1px);background-size:auto,64px 64px,64px 64px;pointer-events:none}
-.page-hero-content{position:relative;z-index:2}
 /* VIEW TOGGLE */
 .view-toggle{display:flex;gap:8px;justify-content:center;margin-bottom:28px}
 .view-btn{padding:8px 20px;border:1.5px solid rgba(34,197,94,.25);border-radius:8px;background:none;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;font-family:inherit}
@@ -135,9 +124,6 @@ html[data-theme="light"] #mob-nav{background:rgba(255,255,255,.98)}
 html[data-theme="light"] #mob-nav a{color:rgba(0,0,0,.65)}
 html[data-theme="light"] .nav-back[style]{color:rgba(0,0,0,.5)!important}
 /* Hero — use warm light gold gradient instead of dark */
-html[data-theme="light"] .page-hero{background:linear-gradient(135deg,#FBF7EE 0%,#F5EDD4 50%,#FBF7EE 100%);border-bottom:1px solid rgba(201,168,76,.3)}
-html[data-theme="light"] .page-hero::before{background-image:radial-gradient(circle at 70% 50%,rgba(201,168,76,.18) 0%,transparent 60%),linear-gradient(rgba(201,168,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.05) 1px,transparent 1px);background-size:auto,64px 64px,64px 64px}
-html[data-theme="light"] .page-hero p{color:rgba(0,0,0,.55)}
 html[data-theme="light"] .ph-stat-lbl{color:rgba(0,0,0,.45)}
 /* Process cards */
 html[data-theme="light"] .process-card{background:#fff;border-color:rgba(201,168,76,.25)}
@@ -177,8 +163,6 @@ html[data-theme="light"] .alt{background:#F5F5F0}
 
 
 /* gold-buyers specific light overrides */
-html[data-theme="light"] .page-hero{background:linear-gradient(135deg,#F0FBF4 0%,#D8F3E3 50%,#F0FBF4 100%);border-bottom:1px solid rgba(34,197,94,.25)}
-html[data-theme="light"] .page-hero::before{background:radial-gradient(circle at 70% 50%,rgba(34,197,94,.15) 0%,transparent 60%),linear-gradient(rgba(34,197,94,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(34,197,94,.04) 1px,transparent 1px);background-size:auto,64px 64px,64px 64px}
 html[data-theme="light"] .filter-bar{background:#fff;border-color:rgba(34,197,94,.2)}
 html[data-theme="light"] .filter-group label{color:rgba(0,0,0,.5)}
 html[data-theme="light"] .filter-group input,html[data-theme="light"] .filter-group select{background:#F8F8F8;border-color:rgba(34,197,94,.2);color:#1a1a1a}
@@ -196,41 +180,58 @@ html[data-theme="light"] .nav-back-dim{border-color:rgba(0,0,0,.15)!important;co
 html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!important;color:rgba(255,255,255,.6)!important}
 
 .foot-disabled{opacity:.35;pointer-events:none;cursor:default}
+.nav-center{display:flex;align-items:center;gap:4px}
+.nav-center a{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);padding:7px 12px;border-radius:7px;white-space:nowrap;transition:color .2s}
+.nav-center a:hover,.nav-center a.active{color:var(--g);font-weight:600}
+@media(max-width:768px){.nav-center{display:none}.hamburger{display:flex}}
+
+/* ── HERO SLIDER ─────────────────────────────────── */
+#hero{width:100%;margin-top:var(--nav-h);height:90vh;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0}
+.hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;background-size:cover;background-position:center}
+.hero-scene.active{opacity:1}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.38) 0%,rgba(0,0,0,.22) 50%,rgba(0,0,0,.72) 100%);z-index:2}
+.hero-content{position:absolute;inset:0;z-index:3;display:flex;align-items:center}
+.hero-content .wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 48px}
+.hero-content h1{font-family:var(--fd);font-size:clamp(36px,5.5vw,66px);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:18px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.5)}
+.hero-content p{font-size:17px;color:rgba(255,255,255,.82);max-width:580px;line-height:1.72;margin-bottom:32px;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+.hero-dots{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:4}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s;border:none}
+.hero-dot.active{background:#fff;width:24px;border-radius:4px}
+.ph-stat{display:flex;flex-direction:column;gap:3px}
+.ph-stat-val{font-size:24px;font-weight:800;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+.ph-stat-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.55)}
+.page-hero-stats{display:flex;gap:32px;flex-wrap:wrap;margin-top:8px}
+@media(max-width:600px){.hero-content .wrap{padding:0 20px}.hero-content h1{font-size:clamp(28px,8vw,42px)}.page-hero-stats{gap:20px}}
+
 </style>
+<link rel="stylesheet" href="responsive.css"/>
 </head>
 <body>
 
 <nav id="nav">
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
+  <div class="nav-center">
+    <a href="index.html">Home</a>
+    <a href="gold-buyers.html" class="active">Sell Gold</a>
+  </div>
   <div class="nav-right">
-    <a href="index.html" class="nav-back">← Back to Home</a>
-    <a href="index.html#services" class="nav-back" class="nav-back-dim">All Services</a>
     <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
     <a href="index.html#contact-us" class="nav-cta">Get Started</a>
   </div>
   <button class="hamburger" onclick="mobToggle()"><span></span><span></span><span></span></button>
 </nav>
 <div id="mob-nav">
-  <a href="index.html">← Home</a>
-  <a href="gold-loan-providers.html">Gold Loan</a>
-  <a href="gold-buyers.html">Sell Gold</a>
+  <a href="index.html">Home</a>
+  <a href="gold-buyers.html" style="color:var(--g)">Sell Gold</a>
 </div>
 
-<div class="page-hero">
-  <div class="wrap">
-    <div class="page-hero-content">
-      <div class="eyebrow" style="color:var(--accent-l)">Best Buy Rates</div>
-      <h1>Sell Gold at <span style="color:var(--accent-l)">Best Rates</span></h1>
-      <p>Compare verified gold buyers offering the highest rates across India. BIS-certified buyers, instant payment, zero hidden charges.</p>
-      <div class="page-hero-stats">
-        <div class="ph-stat"><div class="ph-stat-val" style="color:var(--accent-l)">₹13,349/g</div><div class="ph-stat-lbl">22K Buy Rate Today</div></div>
-        <div class="ph-stat"><div class="ph-stat-val" style="color:var(--accent-l)">200+</div><div class="ph-stat-lbl">Verified Buyers</div></div>
-        <div class="ph-stat"><div class="ph-stat-val" style="color:var(--accent-l)">Instant</div><div class="ph-stat-lbl">Payment</div></div>
-        <div class="ph-stat"><div class="ph-stat-val" style="color:var(--accent-l)">₹0</div><div class="ph-stat-lbl">Hidden Charges</div></div>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- ═══════════════════ PAGE HERO ═══════════════════ -->
+<section id="hero">
+  <div id="hero-bg" class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div id="hero-dots" class="hero-dots"></div>
+</section>
 
 <section class="section">
   <div class="wrap">
@@ -326,8 +327,9 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
         <a href="grievance-policy.html">Grievance Policy</a>
         <a href="sitemap.html">Sitemap</a>
       </div>
-      <a href="index.html" class="back-to-home">← Back to GoldBazaar Home</a>
+      
     </div>
+    <div class="foot-bottom" style="border-top:1px solid rgba(201,168,76,.08);padding-top:16px;margin-top:20px"><p>© 2026 GoldBazaar.app — All rights reserved.</p></div>
   </div>
 </footer>
 
@@ -351,5 +353,54 @@ function calcQuote(){const p=parseFloat(document.getElementById('q-purity').valu
 function toast(msg){const t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;bottom:20px;right:20px;background:rgba(0,0,0,.85);color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;z-index:9999;border:1px solid rgba(34,197,94,.2);animation:slideInUp .3s ease';document.body.appendChild(t);setTimeout(()=>t.remove(),2500)}
 window.addEventListener('DOMContentLoaded',()=>ThemeManager.init());
 </script>
+
+<script>
+const HeroManager={
+  images:[],current:0,timer:null,
+  async init(){
+    const bg=document.getElementById('hero-bg');
+    const dotsEl=document.getElementById('hero-dots');
+    if(!bg)return;
+    const found=[];
+    for(let i=1;i<=10;i++){
+      const src='images/gold-buyers/hero-'+i+'.png';
+      const ok=await new Promise(r=>{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src=src});
+      if(ok)found.push(src);else break;
+    }
+    if(!found.length){
+      // No images yet — show gradient fallback, hide dots
+      bg.style.background='linear-gradient(135deg,#1a1000 0%,#2d1f00 50%,#1a1000 100%)';
+      if(dotsEl)dotsEl.style.display='none';
+      return;
+    }
+    this.images=found;
+    found.forEach((src,i)=>{
+      const sc=document.createElement('div');
+      sc.className='hero-scene'+(i===0?' active':'');
+      sc.style.backgroundImage='url('+src+')';
+      bg.appendChild(sc);
+      if(dotsEl){
+        const d=document.createElement('button');
+        d.className='hero-dot'+(i===0?' active':'');
+        d.onclick=()=>this.go(i);
+        dotsEl.appendChild(d);
+      }
+    });
+    if(found.length>1)this.timer=setInterval(()=>this.next(),5000);
+  },
+  go(n){
+    const scenes=document.querySelectorAll('.hero-scene');
+    const dots=document.querySelectorAll('.hero-dot');
+    scenes[this.current]?.classList.remove('active');
+    dots[this.current]?.classList.remove('active');
+    this.current=n;
+    scenes[n]?.classList.add('active');
+    dots[n]?.classList.add('active');
+  },
+  next(){this.go((this.current+1)%this.images.length)}
+};
+document.addEventListener('DOMContentLoaded',()=>HeroManager.init());
+</script>
+
 </body>
 </html>

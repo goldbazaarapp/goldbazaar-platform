@@ -101,30 +101,29 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
 
 
 .foot-disabled{opacity:.35;pointer-events:none;cursor:default}
+.nav-center{display:flex;align-items:center;gap:4px}
+.nav-center a{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);padding:7px 12px;border-radius:7px;white-space:nowrap;transition:color .2s}
+.nav-center a:hover,.nav-center a.active{color:var(--g);font-weight:600}
+@media(max-width:768px){.nav-center{display:none}.hamburger{display:flex}}
 </style>
+<link rel="stylesheet" href="responsive.css"/>
 </head>
 <body>
 <nav id="nav">
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
+  <div class="nav-center">
+    <a href="index.html">Home</a>
+    <a href="gold-savings-scheme.html" class="active">Gold Savings</a>
+  </div>
   <div class="nav-right">
-    <a href="index.html" class="nav-back">← Back to Home</a>
-    <a href="index.html#services" class="nav-back" style="border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.6)">All Services</a>
     <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
     <a href="index.html#contact-us" class="nav-cta">Get Started</a>
   </div>
   <button class="hamburger" onclick="mobToggle()"><span></span><span></span><span></span></button>
 </nav>
 <div id="mob-nav">
-  <a href="index.html">← Home</a>
-  <a href="index.html#services">All Services</a>
-  <a href="gold-loan-providers.html">Gold Loan</a>
-  <a href="gold-buyers.html">Sell Gold</a>
-  <a href="gold-exchange.html">Gold Exchange</a>
-  <a href="jewellery-purchase.html">Jewellery</a>
-  <a href="gold-savings-scheme.html">Savings Scheme</a>
-  <a href="digital-gold.html">Digital Gold</a>
-  <a href="gold-insurance.html">Gold Insurance</a>
-  <a href="gold-investment.html">Gold Investment</a>
+  <a href="index.html">Home</a>
+  <a href="gold-savings-scheme.html" style="color:var(--g)">Gold Savings</a>
 </div>
 
 <div class="page-hero">
@@ -228,8 +227,9 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
         <a href="grievance-policy.html">Grievance Policy</a>
         <a href="sitemap.html">Sitemap</a>
       </div>
-      <a href="index.html" class="back-to-home">← Back to GoldBazaar Home</a>
+      
     </div>
+    <div class="foot-bottom" style="border-top:1px solid rgba(201,168,76,.08);padding-top:16px;margin-top:20px"><p>© 2026 GoldBazaar.app — All rights reserved.</p></div>
   </div>
 </footer>
 <script>

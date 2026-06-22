@@ -27,7 +27,7 @@ html[data-theme="light"]{--bg:#FFF;--b1:#F8F8F8;--b2:#F2F2F2;--b3:#EBEBEB;--text
 .nav-logo img{height:56px}
 .nav-center{display:flex;align-items:center;gap:4px}
 .nav-center a{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);padding:7px 12px;border-radius:7px;transition:color .2s}
-.nav-center a:hover{color:var(--g)}
+.nav-center a:hover,.nav-center a.active{color:var(--g);font-weight:600}
 .nav-right{display:flex;align-items:center;gap:8px}
 .nav-theme{padding:6px 10px;font-size:16px}
 .nav-login{padding:8px 16px;border:1px solid rgba(201,168,76,.35);border-radius:8px;font-size:13px;font-weight:500;color:var(--g)}
@@ -126,15 +126,15 @@ html[data-theme="light"] .role-tag{background:#fff}
 
 .foot-disabled{opacity:.35;pointer-events:none;cursor:default;text-decoration:none}
 </style>
+<link rel="stylesheet" href="responsive.css"/>
 </head>
 <body>
 
 <nav id="nav">
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
   <div class="nav-center">
-    <a href="index.html#hero">Home</a><a href="index.html#services">Services</a>
-    <a href="index.html#gold-calculator">Calculator</a><a href="index.html#gold-news">Gold News</a>
-    <a href="about.html">About Us</a><a href="contact.html">Contact Us</a>
+    <a href="index.html">Home</a>
+    <a href="careers.html" class="active">Careers</a>
   </div>
   <div class="nav-right">
     <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
@@ -145,9 +145,8 @@ html[data-theme="light"] .role-tag{background:#fff}
   <button class="hamburger" onclick="mobToggle()"><span></span><span></span><span></span></button>
 </nav>
 <div id="mob-nav">
-  <a href="index.html">Home</a><a href="index.html#services">Services</a>
-  <a href="about.html">About Us</a><a href="contact.html">Contact</a>
-  <a href="careers.html" style="color:var(--g)">Careers</a><a href="login.html" style="color:var(--g)">Login</a>
+  <a href="index.html">Home</a>
+  <a href="careers.html" style="color:var(--g)">Careers</a>
 </div>
 
 <!-- HERO -->
@@ -222,7 +221,7 @@ html[data-theme="light"] .role-tag{background:#fff}
       <div class="foot-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="careers.html" class="cur">Careers</a></li><li><a href="blog.html">Blog</a></li></ul></div>
       <div class="foot-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-conditions.html">Terms &amp; Conditions</a></li><li><a href="grievance-policy.html">Grievance Policy</a></li><li><a href="sitemap.html">Sitemap</a></li></ul></div>
     </div>
-    <div class="foot-bottom"><p>© 2026 GoldBazaar.app — All rights reserved. GoldBazaar Technologies Pvt. Ltd.</p></div>
+    <div class="foot-bottom"><p>© 2026 GoldBazaar.app — All rights reserved.</p></div>
   </div>
 </footer>
 
