@@ -68,8 +68,8 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 /* HERO */
 #hero{width:100%;margin-top:var(--nav-h);aspect-ratio:16/9;width:100%;position:relative;overflow:hidden;background:#000}
 .hero-bg{position:absolute;inset:0;z-index:0}
-.hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease}
-.hero-scene.active{opacity:1}
+.hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;cursor:pointer;pointer-events:none}
+.hero-scene.active{opacity:1;pointer-events:auto}
 .hero-scene img,.hero-scene video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
 .hero-overlay{position:absolute;inset:0;z-index:2;background:rgba(0,0,0,.2);pointer-events:none}
 .hero-overlay::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(0deg,rgba(0,0,0,.9),transparent)}
@@ -498,6 +498,7 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
   window.addEventListener('orientationchange',function(){setTimeout(setVh,200)});
 })();
 </script>
+<script src="hero-links.js"></script>
 </head>
 <body>
 
@@ -1099,39 +1100,72 @@ const HERO_CFG={
   video:{folder:'videos/',prefix:'GB_',ext:'.mp4',max:20},
   image:{folder:'images/',prefix:'hero-',ext:'.png',max:10}
 };
+
+/* ── Read admin-approved vendor banners from localStorage ── */
+function getApprovedVendorBanners(){
+  try{return(JSON.parse(localStorage.getItem('gb_vendor_banners')||'[]')).filter(v=>v.status==='approved'&&v.bannerDataUrl);}
+  catch(e){return[];}
+}
+
 const HeroManager={
   items:[],current:0,
   async init(){
     const bg=document.getElementById('hero-bg');
     const dotsEl=document.getElementById('hero-dots');
     if(!bg)return;
+    const slides=[];
+
+    // 1. Approved vendor banners go first
+    getApprovedVendorBanners().forEach(v=>{
+      slides.push({src:v.bannerDataUrl,link:v.websiteUrl||'index.html',type:'image',label:v.bizName});
+    });
+
+    // 2. Default GoldBazaar media
     const cfg=HERO_CFG[HERO_MODE];
-    const found=[];
     for(let i=1;i<=cfg.max;i++){
       const src=cfg.folder+cfg.prefix+i+cfg.ext;
       const ok=await new Promise(r=>{
         if(HERO_MODE==='video'){const v=document.createElement('video');v.onloadedmetadata=()=>r(true);v.onerror=()=>r(false);v.src=src;}
         else{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src=src;}
       });
-      if(ok)found.push(src);else break;
+      const hl=getHeroLink('landing',i);if(ok)slides.push({src,link:hl||'index.html',type:HERO_MODE,label:'GoldBazaar',external:hl.startsWith('http')});else break;
     }
-    if(!found.length){bg.style.background='linear-gradient(135deg,#0A0700,#1A1200)';if(dotsEl)dotsEl.style.display='none';return;}
-    this.items=found;
-    found.forEach((src,i)=>{
-      const sc=document.createElement('div');sc.className='hero-scene'+(i===0?' active':'');
-      if(HERO_MODE==='video'){
+
+    if(!slides.length){bg.style.background='linear-gradient(135deg,#0A0700,#1A1200)';if(dotsEl)dotsEl.style.display='none';return;}
+    this.items=slides;
+
+    slides.forEach((slide,i)=>{
+      const sc=document.createElement('div');
+      sc.className='hero-scene'+(i===0?' active':'');
+      sc.style.cursor='pointer';
+      sc.title=slide.label||'';
+      sc.addEventListener('click',()=>{
+        const lnk=slide.link||'index.html';
+        if(lnk.startsWith('http'))window.open(lnk,'_blank','noopener,noreferrer');
+        else window.location.href=lnk;
+      });
+
+      if(slide.type==='video'){
         const v=document.createElement('video');
-        v.src=src;v.muted=true;v.playsInline=true;v.preload='auto';
+        v.src=slide.src;v.muted=true;v.playsInline=true;v.preload='auto';
         if(i===0)v.autoplay=true;
-        v.addEventListener('ended',()=>{if(found.length>1)HeroManager.next();else v.play();});
+        v.style.pointerEvents='none';
+        v.addEventListener('ended',()=>{if(slides.length>1)HeroManager.next();else v.play();});
         sc.appendChild(v);
       }else{
-        const im=document.createElement('img');im.src=src;im.alt='GoldBazaar';sc.appendChild(im);
+        const im=document.createElement('img');im.src=slide.src;im.alt=slide.label||'GoldBazaar';
+        im.style.pointerEvents='none';
+        sc.appendChild(im);
       }
       bg.appendChild(sc);
-      if(dotsEl){const d=document.createElement('button');d.className='hero-dot'+(i===0?' active':'');d.onclick=()=>HeroManager.go(i);dotsEl.appendChild(d);}
+      if(dotsEl){
+        const d=document.createElement('button');
+        d.className='hero-dot'+(i===0?' active':'');
+        d.onclick=(e)=>{e.stopPropagation();HeroManager.go(i);};
+        dotsEl.appendChild(d);
+      }
     });
-    if(HERO_MODE==='image'&&found.length>1)setInterval(()=>HeroManager.next(),5000);
+    if(HERO_MODE==='image'&&slides.length>1)setInterval(()=>HeroManager.next(),5000);
   },
   go(n){
     const scenes=document.querySelectorAll('.hero-scene');
@@ -1268,32 +1302,39 @@ function calcEMI(){
   document.getElementById('emi-total').textContent=gfmt(total);
   document.getElementById('emi-interest').textContent=gfmt(interest);
 }
-const FORM_ENDPOINT='https://script.google.com/macros/s/AKfycbwS9hXLcvJA3VWLVO5EmoJMmnEWdp-FvOOGY-DqHQpJVE4LUshAFcGBp21w4ACCkDrcHQ/exec';
+const FORM_ENDPOINT='https://script.google.com/macros/s/AKfycbyfojYeuv0YaKWAyz_mdLka4fwG30p5E8H-OTMB-khcJvq-8Ds9ys2S1hPkp6iBaYaAuw/exec';
 async function submitContactForm(){
   const name=document.getElementById('cf-name').value.trim();
   const mobile=document.getElementById('cf-mobile').value.trim();
   const type=document.getElementById('cf-type').value;
   const city=document.getElementById('cf-city').value.trim();
-  const message=document.getElementById('cf-message').value.trim();
-  if(!name||!mobile){toast('Please enter your name and mobile number');return}
+  const msg=document.getElementById('cf-msg').value.trim();
+  if(!name||!mobile){alert('Please fill in your name and mobile number.');return;}
   const btn=document.querySelector('.cf-submit');
-  btn.textContent='Sending…';btn.disabled=true;
-  try{
-    const params=new URLSearchParams({sheet:'contact',name,mobile,type,city,message});
-    await fetch(FORM_ENDPOINT+'?'+params,{mode:'no-cors'});
-    toast('✓ Message sent! We\'ll respond within 4 hours.');
-    ['cf-name','cf-mobile','cf-city','cf-message'].forEach(id=>document.getElementById(id).value='');
-  }catch(e){toast('Message sent! We\'ll be in touch soon.');}
-  finally{btn.textContent='Send Message →';btn.disabled=false;}
+  if(btn){btn.disabled=true;btn.textContent='Sending...';}
+  fetch(FORM_ENDPOINT+'?'+new URLSearchParams({sheet:'contact',name,mobile,type,city,message:msg}),{mode:'no-cors'})
+    .finally(()=>{
+      if(btn){btn.disabled=false;btn.textContent='Send Message →';}
+      alert('Message sent! We will get back to you within 24 hours.');
+    });
 }
-/* Init */
-document.addEventListener('DOMContentLoaded',()=>{
-  ThemeManager.init();
-  GoldRateManager.init();
-  HeroManager.init();
-  loadNews();
-});
-if(document.readyState!=='loading'){ThemeManager.init();GoldRateManager.init();HeroManager.init();loadNews();}
+/* ── Vendor ad injection ── */
+(function injectVendorAds(){
+  try{
+    const track=document.getElementById('ad-track');
+    if(!track)return;
+    const approved=(JSON.parse(localStorage.getItem('gb_vendor_banners')||'[]')).filter(v=>v.status==='approved');
+    if(!approved.length)return;
+    approved.forEach(v=>{
+      const card=document.createElement('div');
+      card.className='ad-card';card.style.cursor='pointer';
+      card.onclick=()=>{const u=v.websiteUrl||'index.html';if(u.startsWith('http'))window.open(u,'_blank','noopener,noreferrer');else window.location.href=u;};
+      card.innerHTML=`<div class="ad-card-header"><div class="ad-card-icon">${v.bannerDataUrl?`<img src="${v.bannerDataUrl}" class="jeweler-logo" alt="${v.bizName}" style="width:100%;height:100%;object-fit:cover;border-radius:8px"/>`:'<span class="jeweler-logo-fallback">🏪</span>'}</div><div><div class="ad-card-brand">GoldBazaar Partner</div><div class="ad-card-title">${v.bizName||'Verified Vendor'}</div></div></div><div class="ad-card-scheme">${v.category||'Gold Services'} · ${v.city||''}</div>${v.websiteUrl?`<div class="ad-card-offer">🔗 ${v.websiteUrl}</div>`:''}<div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px"><span class="ad-card-tag">PARTNER</span><button class="ad-card-cta">Visit →</button></div>`;
+      track.appendChild(card);
+    });
+  }catch(e){console.warn('vendor ad inject',e);}
+})();
+document.addEventListener('DOMContentLoaded',()=>{HeroManager.init();GoldRateManager.init();});
 </script>
 </body>
-</html>    
+</html>

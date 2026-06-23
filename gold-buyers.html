@@ -188,9 +188,9 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 /* ── HERO SLIDER ─────────────────────────────────── */
 #hero{width:100%;margin-top:var(--nav-h);aspect-ratio:16/9;width:100%;position:relative;overflow:hidden;background:#000}
 .hero-bg{position:absolute;inset:0}
-.hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;background-size:cover;background-position:center}
-.hero-scene.active{opacity:1}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.38) 0%,rgba(0,0,0,.22) 50%,rgba(0,0,0,.72) 100%);z-index:2}
+.hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;background-size:cover;background-position:center;pointer-events:none}
+.hero-scene.active{opacity:1;pointer-events:auto;cursor:pointer}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.38) 0%,rgba(0,0,0,.22) 50%,rgba(0,0,0,.72) 100%);z-index:2;pointer-events:none}
 .hero-content{position:absolute;inset:0;z-index:3;display:flex;align-items:center}
 .hero-content .wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 48px}
 .hero-content h1{font-family:var(--fd);font-size:clamp(36px,5.5vw,66px);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:18px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.5)}
@@ -218,6 +218,7 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
   window.addEventListener('orientationchange',function(){setTimeout(setVh,200)});
 })();
 </script>
+<script src="hero-links.js"></script>
 </head>
 <body>
 
@@ -368,7 +369,7 @@ window.addEventListener('DOMContentLoaded',()=>ThemeManager.init());
 
 <script>
 const HeroManager={
-  images:[],current:0,timer:null,
+  items:[],current:0,timer:null,
   async init(){
     const bg=document.getElementById('hero-bg');
     const dotsEl=document.getElementById('hero-dots');
@@ -377,24 +378,32 @@ const HeroManager={
     for(let i=1;i<=10;i++){
       const src='images/gold-buyers/hero-'+i+'.png';
       const ok=await new Promise(r=>{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src=src});
-      if(ok)found.push(src);else break;
+      if(ok)found.push({src,index:i});else break;
     }
     if(!found.length){
-      // No images yet — show gradient fallback, hide dots
       bg.style.background='linear-gradient(135deg,#1a1000 0%,#2d1f00 50%,#1a1000 100%)';
       if(dotsEl)dotsEl.style.display='none';
       return;
     }
-    this.images=found;
-    found.forEach((src,i)=>{
+    this.items=found;
+    found.forEach((item,i)=>{
+      const link=getHeroLink('sell-gold',item.index);
       const sc=document.createElement('div');
       sc.className='hero-scene'+(i===0?' active':'');
-      sc.style.backgroundImage='url('+src+')';
+      sc.style.backgroundImage='url('+item.src+')';
+      if(link){
+        sc.style.cursor='pointer';
+        sc.title='Click to visit';
+        sc.addEventListener('click',()=>{
+          if(link.startsWith('http'))window.open(link,'_blank','noopener,noreferrer');
+          else window.location.href=link;
+        });
+      }
       bg.appendChild(sc);
       if(dotsEl){
         const d=document.createElement('button');
         d.className='hero-dot'+(i===0?' active':'');
-        d.onclick=()=>this.go(i);
+        d.onclick=(e)=>{e.stopPropagation();this.go(i);};
         dotsEl.appendChild(d);
       }
     });
@@ -409,7 +418,7 @@ const HeroManager={
     scenes[n]?.classList.add('active');
     dots[n]?.classList.add('active');
   },
-  next(){this.go((this.current+1)%this.images.length)}
+  next(){this.go((this.current+1)%this.items.length)}
 };
 document.addEventListener('DOMContentLoaded',()=>HeroManager.init());
 </script>

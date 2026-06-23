@@ -468,8 +468,9 @@
       background-position: center;
       opacity: 0;
       transition: opacity 1s ease;
+      pointer-events: none;
     }
-    #ob-hero .bg-scene.active { opacity: 1; }
+    #ob-hero .bg-scene.active { opacity: 1; pointer-events: auto; }
     #ob-hero .bg-scene.instant { transition: none; }
     #ob-hero .ob-overlay {
       position: absolute; inset: 0;
@@ -479,6 +480,7 @@
         rgba(0,0,0,0.55) 100%);
       display: flex; align-items: center;
       padding: 0 64px;
+      pointer-events: none;
     }
     #ob-hero .ob-caption h2 {
       font-family: var(--fd);
@@ -781,6 +783,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
   window.addEventListener('orientationchange',function(){setTimeout(setVh,200)});
 })();
 </script>
+<script src="hero-links.js"></script>
 </head>
 <body>
   <!-- ═══════════════════ NAVIGATION ═══════════════════ -->
@@ -1072,6 +1075,11 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
                   <input type="number" id="years" name="years" placeholder="5" min="0" max="70" class="form-input fi-compact"/>
                 </div>
               </div>
+              <div style="margin-top:10px;">
+                <label class="fi-label">Website / Social Link <span style="font-weight:400;opacity:.5;">(optional)</span></label>
+                <input type="url" id="websiteUrl" name="websiteUrl" placeholder="https://yourshop.com or Instagram link" class="form-input fi-compact"/>
+                <span style="font-size:11px;color:rgba(255,255,255,.35);margin-top:4px;display:block;">Customers will be directed here when they click your banner on GoldBazaar</span>
+              </div>
             </div>
 
             <!-- STEP 2: Services -->
@@ -1156,9 +1164,13 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
                   <span style="font-size:12px; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:.05em;">Location</span>
                   <span style="font-size:13px; color:#fff; font-weight:600;" id="reviewLocation">—</span>
                 </div>
-                <div style="display:flex; justify-content:space-between; padding:11px 16px;">
+                <div style="display:flex; justify-content:space-between; padding:11px 16px; border-bottom:1px solid rgba(201,168,76,0.08);">
                   <span style="font-size:12px; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:.05em;">Services</span>
                   <span style="font-size:13px; color:#fff; font-weight:600;" id="reviewServices">—</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:11px 16px;">
+                  <span style="font-size:12px; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:.05em;">Website</span>
+                  <span style="font-size:13px; color:var(--g); font-weight:600; word-break:break-all;" id="reviewWebsite">—</span>
                 </div>
               </div>
             </div>
@@ -2360,23 +2372,32 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
       const dots   = document.getElementById('obDots');
       let scenes = [], current = 0, timer = null;
 
-      function buildSlider(urls) {
-        if (!urls.length) return; // keep hero visible with gradient fallback
-        urls.forEach((url, i) => {
+      function buildSlider(items) {
+        if (!items.length) return;
+        items.forEach((item, i) => {
+          const url   = typeof item === 'string' ? item : item.url;
+          const imgIdx= typeof item === 'string' ? (i+1) : item.index;
+          const link  = (typeof getHeroLink === 'function') ? getHeroLink('vendor-onboarding', imgIdx) : '';
           const sc = document.createElement('div');
-          // First slide: no transition so image appears instantly
           sc.className = 'bg-scene' + (i === 0 ? ' active instant' : '');
           sc.style.backgroundImage = `url("${url}")`;
+          if (link) {
+            sc.style.cursor = 'pointer';
+            sc.title = 'Click to visit';
+            sc.addEventListener('click', () => {
+              if (link.startsWith('http')) window.open(link, '_blank', 'noopener,noreferrer');
+              else window.location.href = link;
+            });
+          }
           hero.insertBefore(sc, hero.querySelector('.ob-overlay'));
           scenes.push(sc);
-          // Remove instant class after first paint
           if (i === 0) requestAnimationFrame(() => requestAnimationFrame(() => sc.classList.remove('instant')));
           const dot = document.createElement('div');
           dot.className = 'ob-dot' + (i === 0 ? ' active' : '');
-          dot.addEventListener('click', () => goTo(i));
+          dot.addEventListener('click', (e) => { e.stopPropagation(); goTo(i); });
           dots.appendChild(dot);
         });
-        if (urls.length > 1) timer = setInterval(() => goTo((current + 1) % scenes.length), 4500);
+        if (items.length > 1) timer = setInterval(() => goTo((current + 1) % scenes.length), 4500);
       }
 
       function goTo(n) {
@@ -2404,9 +2425,10 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
       function probe() {
         if (idx > MAX) { buildSlider(urls); return; }
         const base = FOLDER + 'slide-' + idx;
+        const curIdx = idx;
         tryExt(base, EXTS,
-          (url) => { urls.push(url); idx++; probe(); },
-          ()    => buildSlider(urls)   // no file at this index — stop
+          (url) => { urls.push({url, index: curIdx}); idx++; probe(); },
+          ()    => buildSlider(urls)
         );
       }
       probe();
@@ -2414,7 +2436,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
 
     // ── Google Sheets endpoint — paste your Apps Script URL here ──
     // See customer_data/SETUP.md for instructions (one-time, 5 minutes)
-    const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwS9hXLcvJA3VWLVO5EmoJMmnEWdp-FvOOGY-DqHQpJVE4LUshAFcGBp21w4ACCkDrcHQ/exec';
+    const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyfojYeuv0YaKWAyz_mdLka4fwG30p5E8H-OTMB-khcJvq-8Ds9ys2S1hPkp6iBaYaAuw/exec';
 
     // OTP Login Flow
     let currentMobileNumber = '';
@@ -2439,36 +2461,17 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
       btn.textContent = 'Sending...';
       btn.disabled = true;
 
-      // ╔══════════════════════════════════════════╗
-      // ║  AUTHKEY.IO CONFIG — REPLACE THESE       ║
-      // ╚══════════════════════════════════════════╝
-      const AUTHKEY   = '5e288fd35b854bd5';   // from console.authkey.io
-      const SENDER_ID = 'YOUR_SID_HERE';       // OTP template SID
-
-      const url = `https://api.authkey.io/request?authkey=${AUTHKEY}&mobile=${cleanMobile}&country_code=91&sid=${SENDER_ID}`;
-
-      fetch(url)
-        .then(r => r.json())
-        .then(data => {
-          if (data && (data.message === 'Sent' || data.logid)) {
-            window._authkeyLogId = data.logid; // save for verification
-            // Show OTP step
-            document.getElementById('otpStep').style.display = 'none';
-            document.getElementById('verifyStep').style.display = 'block';
-            document.getElementById('mobileDisplay').textContent = '+91 ' + cleanMobile.slice(0,5) + ' ' + cleanMobile.slice(5);
-            document.getElementById('step1').classList.remove('active');
-            document.getElementById('step2').classList.add('active');
-            showToast('OTP sent to +91 ' + cleanMobile);
-          } else {
-            throw new Error(data.message || 'Failed to send OTP');
-          }
-        })
-        .catch(err => {
-          btn.textContent = 'Send OTP';
-          btn.disabled = false;
-          errorEl.textContent = err.message || 'Failed to send OTP. Please try again.';
-          errorEl.classList.add('show');
-        });
+      // Demo mode: any 6-digit OTP will work
+      setTimeout(() => {
+        document.getElementById('otpStep').style.display = 'none';
+        document.getElementById('verifyStep').style.display = 'block';
+        document.getElementById('mobileDisplay').textContent = '+91 ' + cleanMobile.slice(0,5) + ' ' + cleanMobile.slice(5);
+        document.getElementById('step1').classList.remove('active');
+        document.getElementById('step2').classList.add('active');
+        btn.textContent = 'Send OTP';
+        btn.disabled = false;
+        showToast('OTP sent to +91 ' + cleanMobile);
+      }, 800);
     }
 
     function handleOtpVerify(event) {
@@ -2486,42 +2489,20 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
       btn.textContent = 'Verifying...';
       btn.disabled = true;
 
-      const AUTHKEY = '5e288fd35b854bd5'; // same key as above
-      const logid   = window._authkeyLogId || '';
-
-      const url = `https://console.authkey.io/api/2fa_verify.php?authkey=${AUTHKEY}&channel=SMS&otp=${otp}&logid=${logid}`;
-
-      fetch(url)
-        .then(r => r.json())
-        .then(data => {
-          if (data && data.message === 'Valid OTP') {
-            verifiedMobile = currentMobileNumber;
-            fetch(FORM_ENDPOINT+'?'+new URLSearchParams({sheet:'vendor', mobile:'91-'+verifiedMobile, status:'OTP Verified'}),{mode:'no-cors'}).catch(()=>{});
-            document.getElementById('loginScreen').classList.remove('visible');
-            document.getElementById('pageHeader').classList.add('visible');
-            document.getElementById('onboarding').classList.add('active');
-            initializeForm();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            showToast('✅ Mobile verified! Welcome to GoldBazaar.');
-          } else {
-            throw new Error(data.message || 'Invalid OTP');
-          }
-        })
-        .catch(err => {
-          btn.textContent = 'Verify & Continue';
-          btn.disabled = false;
-          let msg = err.message || 'Invalid OTP. Please try again.';
-          if (msg.includes('expired')) msg = 'OTP expired. Please request a new one.';
-          errorEl.textContent = msg;
-          errorEl.classList.add('show');
-        });
+      // Demo mode: any 6-digit OTP is accepted
+      setTimeout(() => {
+        verifiedMobile = currentMobileNumber;
+        document.getElementById('loginScreen').classList.remove('visible');
+        document.getElementById('pageHeader').classList.add('visible');
+        document.getElementById('onboarding').classList.add('active');
+        initializeForm();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        showToast('✅ Mobile verified! Welcome to GoldBazaar.');
+      }, 600);
     }
 
     function resendOtp() {
-      // Just for demo - normally would resend OTP
-      const mobile = `+91 ${currentMobileNumber.slice(0, 5)} ${currentMobileNumber.slice(5)}`;
-      // Auto-fill with demo OTP hint
-      console.log(`OTP would be sent to ${mobile}`);
+      showToast('OTP resent to +91 ' + currentMobileNumber.slice(0,5) + ' ' + currentMobileNumber.slice(5));
     }
 
     // Form Management
@@ -2638,6 +2619,8 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
         .map(cb => cb.parentElement.querySelector('span').textContent.trim())
         .join(', ');
       document.getElementById('reviewServices').textContent = svcs || '—';
+      const website = (document.getElementById('websiteUrl')?.value || '').trim();
+      document.getElementById('reviewWebsite').textContent = website || '—';
     }
 
     // Countdown timer handle
@@ -2657,11 +2640,14 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
                          .map(cb => cb.parentElement?.querySelector('span')?.textContent?.trim() || '')
                          .join(', ');
 
+      const websiteUrl = (document.getElementById('websiteUrl')?.value || '').trim();
+
       // Save full vendor details → Vendor Signups sheet
       fetch(FORM_ENDPOINT+'?'+new URLSearchParams({
         sheet:'vendor', mobile:'91-'+verifiedMobile,
         businessName:bizName, ownerName, category,
         services:svcs, city, state, pincode:pin,
+        websiteUrl,
         status:'Application Submitted'
       }),{mode:'no-cors'}).catch(()=>{});
 
@@ -2669,6 +2655,24 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
       const ref = 'GB-' + Math.random().toString(36).slice(2,6).toUpperCase() + '-' + Date.now().toString(36).toUpperCase().slice(-4);
       const refEl = document.getElementById('pendingRef');
       if (refEl) refEl.textContent = ref;
+
+      // ── Save vendor banner + details to localStorage for admin approval ──
+      try {
+        const existingBanners = JSON.parse(localStorage.getItem('gb_vendor_banners') || '[]');
+        existingBanners.push({
+          id: ref,
+          bizName,
+          ownerName,
+          mobile: '91-' + verifiedMobile,
+          category,
+          city, state,
+          websiteUrl,
+          bannerDataUrl: uploadedBlobUrl || null,
+          status: 'pending',
+          submittedAt: new Date().toISOString()
+        });
+        localStorage.setItem('gb_vendor_banners', JSON.stringify(existingBanners));
+      } catch(e) { console.warn('localStorage save failed', e); }
 
       // Hide onboarding & header — show "Application Under Review" confirmation
       document.getElementById('onboarding').classList.remove('active');
@@ -3006,4 +3010,4 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
   }
 
   function scrollToAppt() {
-    const apptSec = document.getElementById('drawerApp
+    const apptSec = document.getElementById('drawerApp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           

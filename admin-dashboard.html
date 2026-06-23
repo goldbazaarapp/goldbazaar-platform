@@ -534,6 +534,17 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.1);padding:38p
       </table>
     </div>
 
+    <!-- ── HERO BANNER APPROVAL PANEL ── -->
+    <div style="margin-top:32px" id="bannerApprovalSection">
+      <div class="sh">
+        <div class="sh-t">🖼️ Hero Banner Approvals</div>
+        <span style="font-size:12px;color:var(--t3)" id="bannerPendingCount">Loading...</span>
+      </div>
+      <div id="bannerApprovalList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-top:12px">
+        <p style="color:var(--t3);font-size:13px;grid-column:1/-1" id="bannerEmptyMsg">Loading banner submissions...</p>
+      </div>
+    </div>
+
     <!-- Admin create vendor form -->
     <div style="margin-top:28px">
       <div class="sh"><div class="sh-t">Direct Vendor Onboarding</div></div>
@@ -948,6 +959,7 @@ function navPanel(id){
   if(window.innerWidth<=900)document.getElementById('sidebar').classList.remove('open');
   window.scrollTo({top:0,behavior:'smooth'});
   setTimeout(animateBars,200);
+  if(id==='approvals') setTimeout(loadBannerApprovals,150);
 }
 
 /* ── Wire sidebar items ── */
@@ -967,26 +979,81 @@ if(wd){wd.textContent=new Date().toLocaleDateString('en-IN',{weekday:'short',mon
 function animateBars(){
   const active=document.querySelector('.panel.active');
   if(!active)return;
-  active.querySelectorAll('.cr-fill').forEach(b=>{
-    const w=b.dataset.w;
-    if(!w)return;
-    b.style.width='0';
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{b.style.width=w+'%'}));
-  });
-  // Also health bars in welcome
-  document.querySelectorAll('#p-dashboard .wh-bg .cr-fill').forEach(b=>{
-    const w=b.dataset.w;
-    if(!w)return;
-    b.style.width='0';
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{b.style.width=w+'%'}));
+  active.querySelector
+
+
+/* ══════════════════════════════════════════
+   HERO BANNER APPROVAL — reads localStorage
+══════════════════════════════════════════ */
+function loadBannerApprovals(){
+  const list = document.getElementById('bannerApprovalList');
+  const emptyMsg = document.getElementById('bannerEmptyMsg');
+  const countEl = document.getElementById('bannerPendingCount');
+  if(!list) return;
+
+  let banners = [];
+  try{ banners = JSON.parse(localStorage.getItem('gb_vendor_banners')||'[]'); }catch(e){}
+
+  const pending = banners.filter(b=>b.status==='pending');
+  const approved = banners.filter(b=>b.status==='approved');
+  const rejected = banners.filter(b=>b.status==='rejected');
+
+  if(countEl) countEl.textContent = pending.length + ' pending · ' + approved.length + ' approved · ' + rejected.length + ' rejected';
+
+  list.innerHTML = '';
+
+  if(!banners.length){
+    list.innerHTML = '<p style="color:var(--t3);font-size:13px;grid-column:1/-1">No banner submissions yet. Vendors submit banners during onboarding.</p>';
+    return;
+  }
+
+  banners.forEach(b=>{
+    const statusColor = b.status==='approved'?'#22c55e': b.status==='rejected'?'#ef4444':'#C9A84C';
+    const statusLabel = b.status==='approved'?'✅ Approved': b.status==='rejected'?'❌ Rejected':'⏳ Pending';
+    const card = document.createElement('div');
+    card.style.cssText = 'background:var(--b3);border:1px solid rgba(201,168,76,.15);border-radius:14px;overflow:hidden;display:flex;flex-direction:column';
+    card.innerHTML = `
+      <div style="position:relative;aspect-ratio:16/9;background:#111;overflow:hidden">
+        ${b.bannerDataUrl
+          ? `<img src="${b.bannerDataUrl}" style="width:100%;height:100%;object-fit:cover" alt="${b.bizName}"/>`
+          : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3);font-size:13px">No banner uploaded</div>`}
+        <span style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,.75);color:${statusColor};font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid ${statusColor}">${statusLabel}</span>
+      </div>
+      <div style="padding:14px 16px;flex:1;display:flex;flex-direction:column;gap:6px">
+        <div style="font-weight:700;font-size:15px;color:#fff">${b.bizName||'—'}</div>
+        <div style="font-size:12px;color:var(--t3)">${b.category||''} · ${b.city||''}, ${b.state||''}</div>
+        <div style="font-size:12px;color:var(--t3)">Mobile: ${b.mobile||'—'}</div>
+        ${b.websiteUrl ? `<a href="${b.websiteUrl}" target="_blank" rel="noopener" style="font-size:12px;color:var(--g);word-break:break-all">🔗 ${b.websiteUrl}</a>` : '<span style="font-size:12px;color:var(--t3)">No website provided</span>'}
+        <div style="font-size:11px;color:var(--t3);margin-top:2px">Submitted: ${b.submittedAt ? new Date(b.submittedAt).toLocaleString('en-IN') : '—'} · Ref: ${b.id||'—'}</div>
+      </div>
+      <div style="padding:12px 16px;border-top:1px solid rgba(255,255,255,.06);display:flex;gap:8px">
+        ${b.status!=='approved' ? `<button onclick="updateBannerStatus('${b.id}','approved')" style="flex:1;padding:8px;background:linear-gradient(135deg,#22c55e,#4ade80);color:#000;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">✅ Approve & Go Live</button>` : ''}
+        ${b.status!=='rejected' ? `<button onclick="updateBannerStatus('${b.id}','rejected')" style="flex:1;padding:8px;background:rgba(239,68,68,.15);color:#ef4444;border:1px solid rgba(239,68,68,.3);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">❌ Reject</button>` : ''}
+        ${b.status==='rejected' ? `<button onclick="updateBannerStatus('${b.id}','pending')" style="flex:1;padding:8px;background:rgba(201,168,76,.1);color:var(--g);border:1px solid rgba(201,168,76,.3);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">↩ Reset to Pending</button>` : ''}
+      </div>`;
+    list.appendChild(card);
   });
 }
 
-/* ── Init ── */
-document.addEventListener('DOMContentLoaded',()=>{
-  TM.init();
-  setTimeout(animateBars,400);
+function updateBannerStatus(id, status){
+  try{
+    let banners = JSON.parse(localStorage.getItem('gb_vendor_banners')||'[]');
+    banners = banners.map(b => b.id===id ? {...b, status, reviewedAt: new Date().toISOString()} : b);
+    localStorage.setItem('gb_vendor_banners', JSON.stringify(banners));
+    loadBannerApprovals();
+    const label = status==='approved'?'approved & live!':status==='rejected'?'rejected':'reset to pending';
+    alert('Banner ' + label + ' — changes reflect on landing page immediately.');
+  }catch(e){ alert('Error updating status: '+e.message); }
+}
+
+// Load banners when approvals panel is opened
+document.querySelectorAll('.sb-it[data-panel]').forEach(it=>{
+  it.addEventListener('click',()=>{
+    if(it.dataset.panel==='approvals') setTimeout(loadBannerApprovals, 100);
+  });
 });
-</script>
-</body>
-</html>
+// Also load if approvals panel is the default active
+document.addEventListener('DOMContentLoaded',()=>{
+  if(document.getElementById('p-approvals')?.classList.contains('active')) loadBannerApprovals();
+});
+
