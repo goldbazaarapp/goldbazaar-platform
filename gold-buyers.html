@@ -179,7 +179,7 @@ html[data-theme="light"] .mkt-table-header{background:linear-gradient(90deg,rgba
 html[data-theme="light"] .nav-back-dim{border-color:rgba(0,0,0,.15)!important;color:rgba(0,0,0,.5)!important}
 html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!important;color:rgba(255,255,255,.6)!important}
 
-.foot-disabled{opacity:.35;pointer-events:none;cursor:default}
+.foot-disabled{display:none}
 .nav-center{display:flex;align-items:center;gap:4px}
 .nav-center a{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);padding:7px 12px;border-radius:7px;white-space:nowrap;transition:color .2s}
 .nav-center a:hover,.nav-center a.active{color:var(--g);font-weight:600}
@@ -204,6 +204,102 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 .page-hero-stats{display:flex;gap:32px;flex-wrap:wrap;margin-top:8px}
 @media(max-width:600px){.hero-content .wrap{padding:0 20px}.hero-content h1{font-size:clamp(28px,8vw,42px)}.page-hero-stats{gap:20px}}
 
+
+/* ── Vendor Rolling Banner (Gold Buyers) ── */
+.vb-wrap{position:relative;background:var(--b1);overflow:hidden}
+.vb-header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px 14px;border-bottom:1px solid rgba(34,197,94,.12)}
+.vb-header-left{display:flex;align-items:center;gap:12px}
+.vb-header-icon{width:36px;height:36px;background:linear-gradient(135deg,#22c55e,#4ade80);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.vb-header-title{font-size:15px;font-weight:700;color:#fff;letter-spacing:.02em}
+.vb-header-sub{font-size:11px;color:rgba(255,255,255,.35);margin-top:1px}
+.vb-header-count{font-size:11px;color:rgba(34,197,94,.7);background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);padding:4px 12px;border-radius:20px}
+.vb-track-outer{overflow:hidden;padding:20px 0 24px;position:relative}
+.vb-track-outer::before,.vb-track-outer::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.vb-track-outer::before{left:0;background:linear-gradient(90deg,var(--b1),transparent)}
+.vb-track-outer::after{right:0;background:linear-gradient(-90deg,var(--b1),transparent)}
+.vb-track{display:flex;gap:16px;width:max-content;animation:vbScroll 60s linear infinite;padding:0 8px}
+.vb-track:hover{animation-play-state:paused}
+@keyframes vbScroll{0%{transform:translateX(0)}100%{transform:translateX(calc(-50% - 8px))}}
+.vb-card{position:relative;width:200px;border-radius:16px;overflow:hidden;cursor:pointer;flex-shrink:0;background:linear-gradient(145deg,#021a08,#032e0f);border:1px solid rgba(34,197,94,.18);transition:transform .3s ease,box-shadow .3s ease,border-color .3s}
+.vb-card:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 12px 40px rgba(34,197,94,.18);border-color:rgba(34,197,94,.5)}
+.vb-card-logo-wrap{height:110px;display:flex;align-items:center;justify-content:center;padding:20px;background:#fff;position:relative;overflow:hidden}
+.vb-card-logo-wrap img{width:100%;height:100%;object-fit:contain;transition:transform .3s ease}
+.vb-card:hover .vb-card-logo-wrap img{transform:scale(1.06)}
+.vb-card-body{padding:14px 14px 16px}
+.vb-card-name{font-size:11px;font-weight:700;color:rgba(255,255,255,.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:6px}
+.vb-card-rate-row{display:flex;align-items:baseline;gap:4px}
+.vb-card-rate{font-size:20px;font-weight:900;color:var(--accent);line-height:1}
+.vb-card-rate-unit{font-size:10px;color:rgba(255,255,255,.35)}
+.vb-card-divider{height:1px;background:rgba(34,197,94,.12);margin:8px 0}
+.vb-card-chips{display:flex;gap:4px;flex-wrap:wrap}
+.vb-chip{font-size:9px;padding:3px 7px;border-radius:20px;background:rgba(34,197,94,.08);color:rgba(255,255,255,.55);border:1px solid rgba(34,197,94,.15);white-space:nowrap}
+.vb-card-badge{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);color:var(--accent);font-size:8px;font-weight:700;padding:3px 8px;border-radius:20px;border:1px solid rgba(34,197,94,.3);letter-spacing:.06em}
+
+/* ── Expand Panel ── */
+.provider-expand{display:none;grid-column:1/-1;background:linear-gradient(135deg,#021a08,#032e0f);border:1px solid rgba(34,197,94,.2);border-radius:14px;margin:4px 0 8px;overflow:hidden}
+.provider-expand.open{display:block;animation:peSlideIn .3s ease}
+@keyframes peSlideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.pe-inner{display:grid;grid-template-columns:200px 1fr;gap:24px;padding:24px 28px}
+.pe-left{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;border-right:1px solid rgba(34,197,94,.12);padding-right:24px}
+.pe-logo{width:140px;height:70px;object-fit:contain;background:#fff;border-radius:10px;padding:10px}
+.pe-name{font-size:15px;font-weight:700;color:#fff}
+.pe-type{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.pe-stars{font-size:13px;color:var(--accent);margin-top:4px}
+.pe-badge{font-size:10px;color:rgba(255,255,255,.5);margin-left:6px}
+.pe-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pe-item{display:flex;flex-direction:column;gap:3px;background:rgba(34,197,94,.04);border-radius:8px;padding:10px 12px;border:1px solid rgba(34,197,94,.08)}
+.pe-lbl{font-size:10px;color:rgba(255,255,255,.4);font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.pe-val{font-size:13px;color:rgba(255,255,255,.85);line-height:1.5}
+.view-btn{font-size:11px;font-weight:700;color:var(--accent-l);background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:8px;padding:8px 16px;cursor:pointer;transition:all .2s}
+.view-btn:hover{background:rgba(34,197,94,.2)}
+.toggle-arrow{font-size:11px;color:var(--accent);transition:transform .3s}
+
+/* ── Footer Grid ── */
+.foot-grid-full{display:grid;grid-template-columns:200px 1fr 1fr 1fr;gap:32px;padding:40px 0 28px}
+.foot-col-brand img{height:48px;margin-bottom:12px}
+.foot-col-brand p{font-size:12px;color:rgba(255,255,255,.35);line-height:1.7;max-width:180px}
+.foot-col h5{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.7);margin-bottom:12px}
+.foot-col a{display:block;font-size:12px;color:rgba(255,255,255,.45);text-decoration:none;margin-bottom:7px;transition:color .2s}
+.foot-col a:hover{color:var(--g)}
+.foot-col a.foot-disabled{display:none}
+.foot-divider{border:none;border-top:1px solid rgba(201,168,76,.08);margin:0 0 16px}
+.foot-bottom-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding-bottom:20px}
+.foot-bottom-row p{font-size:11px;color:rgba(255,255,255,.25)}
+.foot-socials-row{display:flex;gap:10px}
+.fsoc-sm{width:30px;height:30px;border-radius:50%;border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:all .2s}
+.fsoc-sm:hover{border-color:var(--g);color:var(--g)}
+@media(max-width:768px){
+  .pe-inner{grid-template-columns:1fr;padding:16px}
+  .pe-left{border-right:none;border-bottom:1px solid rgba(34,197,94,.12);padding-right:0;padding-bottom:16px}
+  .pe-grid{grid-template-columns:1fr}
+  .foot-grid-full{grid-template-columns:1fr 1fr;gap:20px;padding:28px 0 16px}
+}
+@media(max-width:480px){.foot-grid-full{grid-template-columns:1fr}}
+
+/* ── Provider Card List ── */
+.provider-list{display:flex;flex-direction:column;gap:4px;margin-top:12px}
+.provider-card{display:grid;grid-template-columns:90px 1fr auto 50px;align-items:center;gap:16px;background:linear-gradient(135deg,#021a08,#032e0f);border:1px solid rgba(34,197,94,.15);border-radius:14px;padding:16px 20px;cursor:pointer;transition:border-color .25s,box-shadow .25s}
+.provider-card:hover{border-color:rgba(34,197,94,.4);box-shadow:0 4px 24px rgba(34,197,94,.1)}
+.pc-left{display:flex;align-items:center;gap:10px}
+.pc-rank{font-size:11px;font-weight:800;color:rgba(255,255,255,.18);letter-spacing:.06em;min-width:22px}
+.pc-logo-box{width:60px;height:36px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:4px}
+.pc-logo-box img{width:100%;height:100%;object-fit:contain}
+.pc-mid{flex:1}
+.pc-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
+.pc-type{font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.pc-stars{font-size:11px;color:var(--accent);margin-bottom:4px}
+.pc-loc{font-size:11px;color:rgba(255,255,255,.4)}
+.pc-right{text-align:right}
+.pc-rate{font-size:20px;font-weight:900;color:var(--accent)}
+.pc-rate-lbl{font-size:10px;color:rgba(255,255,255,.35);margin-bottom:6px}
+.pc-chips{display:flex;gap:4px;justify-content:flex-end;flex-wrap:wrap}
+.pc-chip{font-size:9px;padding:3px 8px;border-radius:20px;background:rgba(34,197,94,.08);color:rgba(255,255,255,.5);border:1px solid rgba(34,197,94,.15)}
+.pc-expand-btn{width:36px;height:36px;border-radius:50%;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:var(--accent);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.pc-expand-btn:hover{background:rgba(34,197,94,.18)}
+@media(max-width:600px){
+  .provider-card{grid-template-columns:60px 1fr 50px;gap:10px}
+  .pc-right{display:none}
+}
 </style>
 <link rel="stylesheet" href="responsive.css"/>
 <script>
@@ -246,47 +342,53 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
   <div id="hero-dots" class="hero-dots"></div>
 </section>
 
+<!-- ═══════════════════ VENDOR ROLLING BANNER ═══════════════════ -->
+<div class="vb-wrap">
+  <div class="vb-header">
+    <div class="vb-header-left">
+      <div class="vb-header-icon">💰</div>
+      <div>
+        <div class="vb-header-title">Top Gold Buyers in India</div>
+        <div class="vb-header-sub">Hover to pause · Click to view details</div>
+      </div>
+    </div>
+    <div class="vb-header-count">10 Verified Buyers</div>
+  </div>
+  <div class="vb-track-outer">
+    <div class="vb-track" id="vb-track"></div>
+  </div>
+</div>
+
 <section class="section">
   <div class="wrap">
     <!-- Filter -->
     <div class="filter-bar reveal">
-      <div class="filter-group"><label>City</label><input type="text" id="filter-city" placeholder="e.g. Mumbai"/></div>
-      <div class="filter-group"><label>Min Buy Rate (₹/g)</label><input type="number" id="filter-rate" placeholder="e.g. 13000" min="0"/></div>
-      <div class="filter-group"><label>Purity</label>
-        <select id="filter-purity">
+      <div class="filter-group">
+        <label for="filter-name">Buyer Name</label>
+        <input type="text" id="filter-name" placeholder="e.g. Tanishq, Malabar..." oninput="applyFilters()"/>
+      </div>
+      <div class="filter-group">
+        <label for="filter-rate">Min Buy Rate (₹/g)</label>
+        <input type="number" id="filter-rate" placeholder="e.g. 7000" oninput="applyFilters()"/>
+      </div>
+      <div class="filter-group">
+        <label for="filter-purity">Purity Accepted</label>
+        <select id="filter-purity" onchange="applyFilters()">
           <option value="">All Purities</option>
           <option value="24k">24K</option>
           <option value="22k">22K</option>
           <option value="18k">18K</option>
         </select>
       </div>
-      <button class="filter-reset" onclick="resetFilters()">Reset</button>
-      <!-- View Toggle (inline in filter bar) -->
+      <button class="filter-reset" onclick="resetFilters()">Reset Filters</button>
       <div class="view-toggle" style="display:flex;gap:6px;margin-left:auto">
         <button class="view-btn" onclick="toggleView(this,'tiles')">⊞ Tiles</button>
         <button class="view-btn active" onclick="toggleView(this,'list')">☰ List</button>
       </div>
     </div>
     <!-- Grid -->
-    <div class="mkt-grid list-view" id="buyers-grid">
-      <div class="mkt-table-header"><div>Logo</div><div>Buyer</div><div>Location</div><div>Buy Rate</div><div>Features</div><div>Rating</div><div>Action</div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/kalyan-jewellers.png" class="jeweler-logo" alt="Kalyan" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💎</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Kalyan Jewellers</div><div class="mkt-card-loc">📍 50+ Branches Pan India</div><div class="mkt-card-rate">₹13,380/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ All Purities</div><div class="meta-chip">⚡ Instant Payment</div><div class="meta-chip">📄 No Hidden Charges</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ BIS Hallmark</div></div><button class="action-btn">Sell Now</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/malabar-gold.png" class="jeweler-logo" alt="Malabar" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">👑</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Malabar Gold &amp; Diamonds</div><div class="mkt-card-loc">📍 80+ Stores Nationwide</div><div class="mkt-card-rate">₹13,320/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ 22K &amp; 24K</div><div class="meta-chip">🏪 Store Visit</div><div class="meta-chip">⭐ Best Price</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/pc-jeweller.png" class="jeweler-logo" alt="PC Jeweller" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💍</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">PC Jeweller</div><div class="mkt-card-loc">📍 100+ Locations</div><div class="mkt-card-rate">₹13,420/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ All Grades</div><div class="meta-chip">💰 Online Quote</div><div class="meta-chip">📱 Mobile Service</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/tanishq.png" class="jeweler-logo" alt="Tanishq" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">✨</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Tanishq</div><div class="mkt-card-loc">📍 150+ Showrooms</div><div class="mkt-card-rate">₹13,300/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ Premium Gold</div><div class="meta-chip">🏢 Official Store</div><div class="meta-chip">🎯 Fair Valuation</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ Brand Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/joyalukkas.png" class="jeweler-logo" alt="Joyalukkas" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💍</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Joyalukkas</div><div class="mkt-card-loc">📍 70+ Locations South India</div><div class="mkt-card-rate">₹13,390/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ Exchange Service</div><div class="meta-chip">⏱️ Quick Settlement</div><div class="meta-chip">📋 Transparent</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ Hallmarked</div></div><button class="action-btn">Sell Now</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/senco-gold.png" class="jeweler-logo" alt="Senco Gold" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏅</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Senco Gold</div><div class="mkt-card-loc">📍 60+ Locations East India</div><div class="mkt-card-rate">₹13,360/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ Old &amp; New Gold</div><div class="meta-chip">⚡ Same Day Payout</div><div class="meta-chip">📊 Live Rate</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/augmont.png" class="jeweler-logo" alt="Augmont" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🪙</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Augmont Digital Gold</div><div class="mkt-card-loc">📍 Online + 10 Cities</div><div class="mkt-card-rate">₹6,900/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (24K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ Digital Platform</div><div class="meta-chip">🌐 Pan India</div><div class="meta-chip">⚡ Instant</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★★</div><div class="trust-badge">✓ IIBX Certified</div></div><button class="action-btn">Sell Now</button></div></div></div>
-      <div class="mkt-card"><div class="mkt-card-img"><img src="images/jeweler-logos/reliance-jewels.png" class="jeweler-logo" alt="Reliance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🌟</span></div><div class="mkt-card-body"><div class="mkt-card-tag">Gold Buyer</div><div class="mkt-card-name">Reliance Jewels</div><div class="mkt-card-loc">📍 200+ Locations</div><div class="mkt-card-rate">₹13,340/g</div><div class="mkt-card-rate-lbl">Current Buy Rate (22K)</div><div class="mkt-card-meta"><div class="meta-chip">✓ All Gold Types</div><div class="meta-chip">🏪 Nationwide</div><div class="meta-chip">🔐 Secure</div></div><div class="mkt-card-footer"><div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Retail Giant</div></div><button class="action-btn">Sell Now</button></div></div></div>
-    </div>
-    <div class="pagination reveal">
-      <button class="page-num active">1</button>
-      <button class="page-num">2</button>
-      <button class="page-num">3</button>
-      <button class="page-num">...</button>
-      <button class="page-num">20</button>
-      <span class="page-info">Showing 1–8 of 200+ buyers</span>
-    </div>
+    <div id="no-results" style="display:none;text-align:center;padding:40px 0;color:rgba(255,255,255,.4);font-size:15px">No buyers match your filters. <button onclick="resetFilters()" style="color:var(--accent);background:none;border:none;cursor:pointer;font-size:15px">Reset</button></div>
+    <div class="provider-list" id="buyers-grid"></div>
   </div>
 </section>
 
@@ -320,29 +422,50 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 
 <footer>
   <div class="foot-inner">
-    <div class="foot-row">
-      <a href="index.html" class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
-      <div class="foot-links">
+    <div class="foot-grid-full">
+      <div class="foot-col-brand">
+        <a href="index.html"><img src="images/logo.png" alt="GoldBazaar"/></a>
+        <p>India's unified gold marketplace — loans, sales, exchange & investment in one place.</p>
+        <div class="foot-socials-row" style="margin-top:14px">
+          <a href="#" class="fsoc-sm">𝕏</a>
+          <a href="#" class="fsoc-sm">in</a>
+          <a href="#" class="fsoc-sm">f</a>
+          <a href="#" class="fsoc-sm">▶</a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Gold Services</h5>
         <a href="gold-loan-providers.html">Gold Loan</a>
         <a href="gold-buyers.html">Sell Gold</a>
-        <a href="gold-exchange.html" class="foot-disabled">Exchange</a>
-        <a href="jewellery-purchase.html" class="foot-disabled">Jewellery</a>
-        <a href="gold-savings-scheme.html" class="foot-disabled">Savings</a>
-        <a href="digital-gold.html" class="foot-disabled">Digital Gold</a>
-        <a href="gold-insurance.html" class="foot-disabled">Insurance</a>
-        <a href="gold-investment.html" class="foot-disabled">Investment</a>
-        <a href="about.html">About</a>
+        <!-- <a href="gold-exchange.html" class="foot-disabled">Gold Exchange</a> -->
+        <!-- <a href="jewellery-purchase.html" class="foot-disabled">Buy Jewellery</a> -->
+        <!-- <a href="gold-savings-scheme.html" class="foot-disabled">Savings Scheme</a> -->
+        <!-- <a href="digital-gold.html" class="foot-disabled">Digital Gold</a> -->
+        <!-- <a href="gold-insurance.html" class="foot-disabled">Gold Insurance</a> -->
+        <!-- <a href="gold-investment.html" class="foot-disabled">Investment</a> -->
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="about.html">About Us</a>
         <a href="contact.html">Contact</a>
         <a href="careers.html">Careers</a>
         <a href="blog.html">Blog</a>
+        <a href="vendor-onboarding-complete.html">Partner With Us</a>
+        <!-- <a href="admin-dashboard.html">Admin</a> -->
+      </div>
+      <div class="foot-col">
+        <h5>Legal</h5>
         <a href="privacy-policy.html">Privacy Policy</a>
         <a href="terms-conditions.html">Terms &amp; Conditions</a>
         <a href="grievance-policy.html">Grievance Policy</a>
         <a href="sitemap.html">Sitemap</a>
       </div>
-      
     </div>
-    <div class="foot-bottom" style="border-top:1px solid rgba(201,168,76,.08);padding-top:16px;margin-top:20px"><p>© 2026 GoldBazaar.app — All rights reserved.</p></div>
+    <hr class="foot-divider"/>
+    <div class="foot-bottom-row">
+      <p>© 2026 GoldBazaar.app — All rights reserved.</p>
+      <p>Made with ❤️ for India's gold community</p>
+    </div>
   </div>
 </footer>
 
@@ -360,11 +483,152 @@ const ThemeManager={STORAGE_KEY:'gb-theme',DARK:'dark',LIGHT:'light',
 window.addEventListener('DOMContentLoaded',()=>ThemeManager.init());
 const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')})},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
-function toggleView(btn,view){document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('buyers-grid').classList.toggle('list-view',view==='list')}
-function resetFilters(){['filter-city','filter-rate','filter-purity'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''})}
+/* ── Buyer Data ── */
+const BUYER_DATA=[
+  {id:0,name:'Kalyan Jewellers',logo:'images/jeweler-logos/kalyan-jewellers.png',type:'Jewellery Chain',stars:'★★★★★',loc:'50+ Branches Pan India',rate:'₹13,380/g',rateVal:13380,purity:'22K',minGrams:'1g',payment:'Instant',processing:'Same Day',purityAccepted:'18K, 22K, 24K',docs:'ID Proof, Gold Receipt',url:'https://www.kalyanjewellers.net'},
+  {id:1,name:'Malabar Gold & Diamonds',logo:'images/jeweler-logos/malabar-gold.png',type:'Jewellery Chain',stars:'★★★★★',loc:'80+ Stores Nationwide',rate:'₹13,320/g',rateVal:13320,purity:'22K',minGrams:'2g',payment:'Instant',processing:'30 Mins',purityAccepted:'22K, 24K',docs:'Aadhaar, PAN',url:'https://www.malabargoldanddiamonds.com'},
+  {id:2,name:'PC Jeweller',logo:'images/jeweler-logos/pc-jeweller.png',type:'Jewellery Chain',stars:'★★★★☆',loc:'100+ Locations',rate:'₹13,420/g',rateVal:13420,purity:'22K',minGrams:'1g',payment:'Same Day',processing:'1-2 Hours',purityAccepted:'All Grades',docs:'ID Proof',url:'https://www.pcjeweller.com'},
+  {id:3,name:'Tanishq',logo:'images/jeweler-logos/tanishq.png',type:'Premium Retailer',stars:'★★★★★',loc:'150+ Showrooms',rate:'₹13,300/g',rateVal:13300,purity:'22K',minGrams:'5g',payment:'Instant',processing:'1 Hour',purityAccepted:'18K, 22K, 24K',docs:'Aadhaar, Receipt',url:'https://www.tanishq.co.in'},
+  {id:4,name:'Joyalukkas',logo:'images/jeweler-logos/joyalukkas.png',type:'Jewellery Chain',stars:'★★★★★',loc:'70+ Locations South India',rate:'₹13,390/g',rateVal:13390,purity:'22K',minGrams:'2g',payment:'Instant',processing:'45 Mins',purityAccepted:'22K, 24K',docs:'ID Proof',url:'https://www.joyalukkas.com'},
+  {id:5,name:'Senco Gold',logo:'images/jeweler-logos/senco-gold.png',type:'Jewellery Chain',stars:'★★★★☆',loc:'60+ Locations East India',rate:'₹13,360/g',rateVal:13360,purity:'22K',minGrams:'2g',payment:'Same Day',processing:'2 Hours',purityAccepted:'18K, 22K',docs:'Aadhaar, PAN',url:'https://www.sencogoldanddiamonds.com'},
+  {id:6,name:'Augmont Digital Gold',logo:'images/jeweler-logos/augmont.png',type:'Digital Platform',stars:'★★★★★',loc:'Online + 10 Cities',rate:'₹6,900/g',rateVal:6900,purity:'24K',minGrams:'0.1g',payment:'Instant',processing:'Instant',purityAccepted:'24K Only',docs:'KYC Online',url:'https://www.augmont.com'},
+  {id:7,name:'Reliance Jewels',logo:'images/jeweler-logos/reliance-jewels.png',type:'Retail Chain',stars:'★★★★☆',loc:'200+ Locations',rate:'₹13,340/g',rateVal:13340,purity:'22K',minGrams:'2g',payment:'Instant',processing:'1 Hour',purityAccepted:'18K, 22K, 24K',docs:'ID Proof, Receipt',url:'https://www.reliancejewels.com'},
+  {id:8,name:'MMTC-PAMP',logo:'images/jeweler-logos/mmtc-pamp.png',type:'Government Refinery',stars:'★★★★★',loc:'Pan India + Online',rate:'₹7,010/g',rateVal:7010,purity:'24K',minGrams:'1g',payment:'1-2 Days',processing:'1-2 Days',purityAccepted:'24K Certified',docs:'Aadhaar, PAN, KYC',url:'https://www.mmtcpamp.com'},
+  {id:9,name:'Muthoot Gold',logo:'images/jeweler-logos/muthoot-gold.png',type:'NBFC / Gold Specialist',stars:'★★★★★',loc:'4000+ Branches Pan India',rate:'₹13,250/g',rateVal:13250,purity:'22K',minGrams:'1g',payment:'Instant',processing:'30 Mins',purityAccepted:'18K, 22K, 24K',docs:'Aadhaar, PAN',url:'https://www.muthootfinance.com'}
+];
+let openIdx=-1;
+
+function renderBuyers(data){
+  const grid=document.getElementById('buyers-grid');
+  if(!grid)return;
+  grid.innerHTML='';
+  data.forEach((b,i)=>{
+    const card=document.createElement('div');
+    card.className='provider-card reveal';
+    card.dataset.idx=b.id;
+    card.onclick=()=>toggleBuyer(b.id);
+    card.style.cursor='pointer';
+    card.innerHTML=`
+      <div class="pc-left">
+        <div class="pc-rank">${String(b.id+1).padStart(2,'0')}</div>
+        <div class="pc-logo-box"><img src="${b.logo}" alt="${b.name}" onerror="this.src='images/logo.png'"></div>
+      </div>
+      <div class="pc-mid">
+        <div class="pc-name">${b.name}</div>
+        <div class="pc-type">${b.type}</div>
+        <div class="pc-stars">${b.stars}</div>
+        <div class="pc-loc">📍 ${b.loc}</div>
+      </div>
+      <div class="pc-right">
+        <div class="pc-rate">${b.rate}</div>
+        <div class="pc-rate-lbl">Buy Rate (${b.purity})</div>
+        <div class="pc-chips">
+          <span class="pc-chip">⚡ ${b.payment}</span>
+          <span class="pc-chip">✓ ${b.purityAccepted.split(',')[0]}</span>
+        </div>
+      </div>
+      <div class="pc-expand-btn">
+        <span class="toggle-arrow" id="ta-${b.id}">▼</span>
+      </div>`;
+    grid.appendChild(card);
+    // Expand panel
+    const ep=document.createElement('div');
+    ep.className='provider-expand';
+    ep.id='pe-'+b.id;
+    ep.innerHTML=`
+      <div class="pe-inner">
+        <div class="pe-left">
+          <img src="${b.logo}" class="pe-logo" alt="${b.name}" onerror="this.src='images/logo.png'">
+          <div class="pe-name">${b.name}</div>
+          <div class="pe-type">${b.type}</div>
+          <div class="pe-stars">${b.stars}</div>
+          <button class="view-btn" onclick="window.open('${b.url}','_blank','noopener')">Visit Website ↗</button>
+        </div>
+        <div class="pe-grid">
+          <div class="pe-item"><div class="pe-lbl">Buy Rate</div><div class="pe-val">${b.rate} (${b.purity})</div></div>
+          <div class="pe-item"><div class="pe-lbl">Min Weight</div><div class="pe-val">${b.minGrams}</div></div>
+          <div class="pe-item"><div class="pe-lbl">Payment</div><div class="pe-val">${b.payment}</div></div>
+          <div class="pe-item"><div class="pe-lbl">Processing</div><div class="pe-val">${b.processing}</div></div>
+          <div class="pe-item"><div class="pe-lbl">Purity Accepted</div><div class="pe-val">${b.purityAccepted}</div></div>
+          <div class="pe-item"><div class="pe-lbl">Documents</div><div class="pe-val">${b.docs}</div></div>
+          <div class="pe-item"><div class="pe-lbl">Locations</div><div class="pe-val">${b.loc}</div></div>
+          <div class="pe-item"><div class="pe-lbl">Buyer Type</div><div class="pe-val">${b.type}</div></div>
+        </div>
+      </div>`;
+    grid.appendChild(ep);
+  });
+  document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+}
+
+function toggleBuyer(idx){
+  if(openIdx===idx){
+    document.getElementById('pe-'+idx).classList.remove('open');
+    document.getElementById('ta-'+idx).style.transform='';
+    openIdx=-1;return;
+  }
+  if(openIdx!==-1){
+    document.getElementById('pe-'+openIdx).classList.remove('open');
+    document.getElementById('ta-'+openIdx).style.transform='';
+  }
+  document.getElementById('pe-'+idx).classList.add('open');
+  document.getElementById('ta-'+idx).style.transform='rotate(180deg)';
+  openIdx=idx;
+  setTimeout(()=>document.getElementById('pe-'+idx).scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+}
+
+function applyFilters(){
+  const nm=(document.getElementById('filter-name')||{}).value||'';
+  const rt=parseFloat((document.getElementById('filter-rate')||{}).value)||0;
+  const pu=((document.getElementById('filter-purity')||{}).value||'').toLowerCase();
+  const filtered=BUYER_DATA.filter(b=>{
+    if(nm&&!b.name.toLowerCase().includes(nm.toLowerCase()))return false;
+    if(rt&&b.rateVal<rt)return false;
+    if(pu&&!b.purityAccepted.toLowerCase().includes(pu))return false;
+    return true;
+  });
+  renderBuyers(filtered);
+  document.getElementById('no-results').style.display=filtered.length?'none':'block';
+  if(openIdx!==-1)openIdx=-1;
+}
+
+function resetFilters(){
+  ['filter-name','filter-rate','filter-purity'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  applyFilters();
+}
+
+function toggleView(btn,view){
+  document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+/* ── Rolling Banner ── */
+function buildVBanner(){
+  const track=document.getElementById('vb-track');
+  if(!track)return;
+  const items=[...BUYER_DATA,...BUYER_DATA];
+  track.innerHTML=items.map(b=>`
+    <div class="vb-card" onclick="scrollToBuyer(${b.id})">
+      <div class="vb-card-badge">TOP BUYER</div>
+      <div class="vb-card-logo-wrap"><img src="${b.logo}" alt="${b.name}" onerror="this.src='images/logo.png'"></div>
+      <div class="vb-card-body">
+        <div class="vb-card-name">${b.name}</div>
+        <div class="vb-card-rate-row"><span class="vb-card-rate">${b.rate.replace('/g','')}</span><span class="vb-card-rate-unit">/g</span></div>
+        <div class="vb-card-divider"></div>
+        <div class="vb-card-chips"><span class="vb-chip">${b.purity}</span><span class="vb-chip">${b.payment}</span></div>
+      </div>
+    </div>`).join('');
+}
+
+function scrollToBuyer(idx){
+  const grid=document.getElementById('buyers-grid');
+  if(!grid)return;
+  grid.scrollIntoView({behavior:'smooth',block:'start'});
+  setTimeout(()=>toggleBuyer(idx),500);
+}
+
 function calcQuote(){const p=parseFloat(document.getElementById('q-purity').value);const w=parseFloat(document.getElementById('q-weight').value);if(!w||w<=0){document.getElementById('q-result').style.display='none';return}const rate=14563*p*0.97;const val=Math.round(w*rate);document.getElementById('q-result').style.display='block';document.getElementById('q-val').textContent='₹'+val.toLocaleString('en-IN');document.getElementById('q-note').textContent='at current MCX rate (after ~3% buyer deduction)'}
 function toast(msg){const t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;bottom:20px;right:20px;background:rgba(0,0,0,.85);color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;z-index:9999;border:1px solid rgba(34,197,94,.2);animation:slideInUp .3s ease';document.body.appendChild(t);setTimeout(()=>t.remove(),2500)}
-window.addEventListener('DOMContentLoaded',()=>ThemeManager.init());
+window.addEventListener('DOMContentLoaded',()=>{ThemeManager.init();renderBuyers(BUYER_DATA);buildVBanner();});
 </script>
 
 <script>
@@ -425,3 +689,4 @@ document.addEventListener('DOMContentLoaded',()=>HeroManager.init());
 
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           

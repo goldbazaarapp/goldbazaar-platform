@@ -307,7 +307,7 @@ html[data-theme="light"] .alt{background:#F5F5F0}
 html[data-theme="light"] .nav-back-dim{border-color:rgba(0,0,0,.15)!important;color:rgba(0,0,0,.5)!important}
 html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!important;color:rgba(255,255,255,.6)!important}
 
-.foot-disabled{opacity:.35;pointer-events:none;cursor:default}
+.foot-disabled{display:none}
 .nav-center{display:flex;align-items:center;gap:4px}
 .nav-center a{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);padding:7px 12px;border-radius:7px;white-space:nowrap;transition:color .2s}
 .nav-center a:hover,.nav-center a.active{color:var(--g);font-weight:600}
@@ -332,6 +332,94 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 .page-hero-stats{display:flex;gap:32px;flex-wrap:wrap;margin-top:8px}
 @media(max-width:600px){.hero-content .wrap{padding:0 20px}.hero-content h1{font-size:clamp(28px,8vw,42px)}.page-hero-stats{gap:20px}}
 
+
+/* ── Vendor Rolling Banner ── */
+.vb-wrap{position:relative;background:#07050100;overflow:hidden}
+.vb-header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px 14px;border-bottom:1px solid rgba(201,168,76,.12)}
+.vb-header-left{display:flex;align-items:center;gap:12px}
+.vb-header-icon{width:36px;height:36px;background:linear-gradient(135deg,#C9A84C,#f0c96e);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.vb-header-title{font-size:15px;font-weight:700;color:#fff;letter-spacing:.02em}
+.vb-header-sub{font-size:11px;color:rgba(255,255,255,.35);margin-top:1px}
+.vb-header-count{font-size:11px;color:rgba(201,168,76,.6);background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);padding:4px 12px;border-radius:20px}
+.vb-track-outer{overflow:hidden;padding:20px 0 24px;position:relative}
+.vb-track-outer::before,.vb-track-outer::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.vb-track-outer::before{left:0;background:linear-gradient(90deg,var(--b0),transparent)}
+.vb-track-outer::after{right:0;background:linear-gradient(-90deg,var(--b0),transparent)}
+.vb-track{display:flex;gap:16px;width:max-content;animation:vbScroll 60s linear infinite;padding:0 8px}
+.vb-track:hover{animation-play-state:paused}
+@keyframes vbScroll{0%{transform:translateX(0)}100%{transform:translateX(calc(-50% - 8px))}}
+.vb-card{
+  position:relative;width:200px;border-radius:16px;overflow:hidden;cursor:default;flex-shrink:0;
+  background:linear-gradient(145deg,#141008,#1e1500);
+  border:1px solid rgba(201,168,76,.18);
+  transition:transform .3s ease,box-shadow .3s ease,border-color .3s;
+}
+.vb-card:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 12px 40px rgba(201,168,76,.2);border-color:rgba(201,168,76,.5)}
+.vb-card-logo-wrap{
+  height:110px;display:flex;align-items:center;justify-content:center;
+  padding:20px;background:#fff;
+  position:relative;overflow:hidden
+}
+.vb-card-logo-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.08) 100%)
+}
+.vb-card-logo-wrap img{
+  width:100%;height:100%;object-fit:contain;
+  transition:transform .3s ease
+}
+.vb-card:hover .vb-card-logo-wrap img{transform:scale(1.06)}
+.vb-card-body{padding:14px 14px 16px}
+.vb-card-name{font-size:11px;font-weight:700;color:rgba(255,255,255,.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:6px}
+.vb-card-rate-row{display:flex;align-items:baseline;gap:4px}
+.vb-card-rate{font-size:22px;font-weight:900;color:var(--g);line-height:1;font-family:var(--fd)}
+.vb-card-rate-unit{font-size:10px;color:rgba(255,255,255,.35)}
+.vb-card-divider{height:1px;background:rgba(201,168,76,.1);margin:8px 0}
+.vb-card-chips{display:flex;gap:4px;flex-wrap:wrap}
+.vb-chip{font-size:9px;padding:3px 7px;border-radius:20px;background:rgba(201,168,76,.08);color:rgba(255,255,255,.55);border:1px solid rgba(201,168,76,.15);white-space:nowrap}
+.vb-card-badge{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);color:var(--g);font-size:8px;font-weight:700;padding:3px 8px;border-radius:20px;border:1px solid rgba(201,168,76,.3);letter-spacing:.06em}
+
+/* ── Provider Expand Panel ── */
+.provider-expand{display:none;grid-column:1/-1;background:linear-gradient(135deg,#0e0b04,#1a1200);border:1px solid rgba(201,168,76,.25);border-radius:14px;margin:4px 0 8px;overflow:hidden;transition:all .3s ease}
+.provider-expand.open{display:block;animation:peSlideIn .3s ease}
+@keyframes peSlideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.pe-inner{display:grid;grid-template-columns:200px 1fr;gap:24px;padding:24px 28px}
+.pe-left{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;border-right:1px solid rgba(201,168,76,.12);padding-right:24px}
+.pe-logo{width:140px;height:70px;object-fit:contain;background:rgba(255,255,255,.06);border-radius:10px;padding:10px}
+.pe-name{font-size:15px;font-weight:700;color:#fff}
+.pe-type{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.pe-stars{font-size:13px;color:#C9A84C;margin-top:4px}
+.pe-badge{font-size:10px;color:rgba(255,255,255,.5);margin-left:6px}
+.pe-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pe-item{display:flex;flex-direction:column;gap:3px;background:rgba(255,255,255,.03);border-radius:8px;padding:10px 12px}
+.pe-lbl{font-size:10px;color:rgba(255,255,255,.4);font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.pe-val{font-size:13px;color:rgba(255,255,255,.85);line-height:1.5}
+.provider-toggle .toggle-arrow.open{transform:rotate(180deg)}
+
+/* ── Footer Grid ── */
+.foot-grid-full{display:grid;grid-template-columns:200px 1fr 1fr 1fr;gap:32px;padding:40px 0 28px}
+.foot-col-brand img{height:48px;margin-bottom:12px}
+.foot-col-brand p{font-size:12px;color:rgba(255,255,255,.35);line-height:1.7;max-width:180px}
+.foot-col h5{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.7);margin-bottom:12px}
+.foot-col a{display:block;font-size:12px;color:rgba(255,255,255,.45);text-decoration:none;margin-bottom:7px;transition:color .2s}
+.foot-col a:hover{color:var(--g)}
+.foot-col a.foot-disabled{display:none}
+.foot-divider{border:none;border-top:1px solid rgba(201,168,76,.08);margin:0 0 16px}
+.foot-bottom-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding-bottom:20px}
+.foot-bottom-row p{font-size:11px;color:rgba(255,255,255,.25)}
+.foot-socials-row{display:flex;gap:10px}
+.fsoc-sm{width:30px;height:30px;border-radius:50%;border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:all .2s}
+.fsoc-sm:hover{border-color:var(--g);color:var(--g)}
+@media(max-width:768px){
+  .pe-inner{grid-template-columns:1fr;padding:16px}
+  .pe-left{border-right:none;border-bottom:1px solid rgba(201,168,76,.12);padding-right:0;padding-bottom:16px}
+  .pe-grid{grid-template-columns:1fr}
+  .foot-grid-full{grid-template-columns:1fr 1fr;gap:20px;padding:28px 0 16px}
+  .vb-label{display:none}
+}
+@media(max-width:480px){
+  .foot-grid-full{grid-template-columns:1fr}
+}
 </style>
 <link rel="stylesheet" href="responsive.css"/>
 <script>
@@ -376,42 +464,25 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
   <div id="hero-dots" class="hero-dots"></div>
 </section>
 
-<!-- ═══════════════════ SIMPLE PROCESS SECTION ═══════════════════ -->
-<section class="section" style="padding-bottom:40px">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow" style="color:var(--g)">Quick & Easy</div>
-      <h2 class="sec-title">Get <span style="color:var(--g)">Gold Loan in 5 Steps</span></h2>
+
+<!-- ═══════════════════ VENDOR ROLLING BANNER ═══════════════════ -->
+<div class="vb-wrap">
+  <div class="vb-header">
+    <div class="vb-header-left">
+      <div class="vb-header-icon">🏆</div>
+      <div>
+        <div class="vb-header-title">Top Gold Loan Providers</div>
+        <div class="vb-header-sub">Hover to pause · Click provider to view details</div>
+      </div>
     </div>
-    <div class="process-grid">
-      <div class="process-card reveal-step" style="--step-delay:0">
-        <div class="process-num">1</div>
-        <div class="process-title">Submit Details</div>
-        <div class="process-desc">Fill your personal and gold details in 2 minutes</div>
-      </div>
-      <div class="process-card reveal-step" style="--step-delay:1">
-        <div class="process-num">2</div>
-        <div class="process-title">Get Quote</div>
-        <div class="process-desc">Instant loan amount and interest rate quoted</div>
-      </div>
-      <div class="process-card reveal-step" style="--step-delay:2">
-        <div class="process-num">3</div>
-        <div class="process-title">Gold Verification</div>
-        <div class="process-desc">Expert karigars verify purity and weight</div>
-      </div>
-      <div class="process-card reveal-step" style="--step-delay:3">
-        <div class="process-num">4</div>
-        <div class="process-title">Loan Approval</div>
-        <div class="process-desc">Get instant approval from our lender partners</div>
-      </div>
-      <div class="process-card reveal-step" style="--step-delay:4">
-        <div class="process-num">5</div>
-        <div class="process-title">Get Cash</div>
-        <div class="process-desc">Receive funds directly in your bank account</div>
-      </div>
+    <div class="vb-header-count">10 Verified Lenders</div>
+  </div>
+  <div class="vb-track-outer">
+    <div class="vb-track" id="vb-track">
+      <!-- Vendor cards injected by JS -->
     </div>
   </div>
-</section>
+</div>
 
 <!-- ═══════════════════ MAIN SECTION ═══════════════════ -->
 <section class="section" style="padding-top:40px">
@@ -420,21 +491,21 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
     <!-- Filter Bar -->
     <div class="filter-bar reveal">
       <div class="filter-group">
-        <label for="filter-city">City</label>
-        <input type="text" id="filter-city" placeholder="Enter city name..."/>
+        <label for="filter-name">Provider Name</label>
+        <input type="text" id="filter-name" placeholder="e.g. Muthoot, Axis..." oninput="applyFilters()"/>
       </div>
       <div class="filter-group">
         <label for="filter-rate">Max Interest Rate (%)</label>
-        <input type="number" id="filter-rate" placeholder="e.g., 10" min="0" max="20" step="0.5"/>
+        <input type="number" id="filter-rate" placeholder="e.g., 9" min="0" max="20" step="0.5" oninput="applyFilters()"/>
       </div>
       <div class="filter-group">
         <label for="filter-loan">Min Loan Amount</label>
-        <select id="filter-loan">
+        <select id="filter-loan" onchange="applyFilters()">
           <option value="">Any</option>
+          <option value="500">₹500+</option>
           <option value="10000">₹10,000+</option>
           <option value="50000">₹50,000+</option>
           <option value="100000">₹1,00,000+</option>
-          <option value="500000">₹5,00,000+</option>
         </select>
       </div>
       <button class="filter-reset" onclick="resetFilters()">Reset Filters</button>
@@ -457,360 +528,508 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
       </div>
 
       <!-- Card 1 -->
-      <div class="mkt-card">
-        <div class="mkt-card-img"><img src="images/jeweler-logos/muthoot-finance.png" class="jeweler-logo" alt="Muthoot Finance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏦</span></div>
+      <div class="mkt-card" id="card-0">
+        <div class="mkt-card-img"><img src="images/jeweler-logos/muthoot-finance.png" class="jeweler-logo" alt="Muthoot Finance" onerror="this.src='images/logo.png'"/></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
-          <div class="mkt-card-name">Muthoot Finance</div>
-          <div class="mkt-card-loc">📍 Multiple Branches · Pan India</div>
+          <div class="mkt-card-name provider-toggle" onclick="toggleProvider(0)" style="cursor:pointer;display:flex;align-items:center;gap:8px">
+            Muthoot Finance <span class="toggle-arrow" id="arrow-0" style="font-size:11px;color:var(--g);transition:transform .3s">▼</span>
+          </div>
+          <div class="mkt-card-loc">📍 Pan India · 5,000+ branches</div>
           <div class="mkt-card-rate">8.5% p.a.</div>
           <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
-          <div class="mkt-card-meta">
-            <div class="meta-chip">⚖️ LTV 75%</div>
-            <div class="meta-chip">⚡ 30 min</div>
-            <div class="meta-chip">💰 ₹1K–₹50L</div>
-          </div>
+          <div class="mkt-card-meta"><div class="meta-chip">⚖️ LTV 75%</div><div class="meta-chip">⚡ 30 min</div><div class="meta-chip">💰 ₹1K–₹50L</div></div>
           <div class="mkt-card-footer">
             <div><div class="stars">★★★★★</div><div class="trust-badge">✓ RBI Licensed</div></div>
-            <button class="view-btn" onclick="location.href='provider-detail.html'">View Details</button>
+            <button class="view-btn" onclick="toggleProvider(0)">View Details</button>
+          </div>
+        </div>
+      </div>
+      <!-- Expand 1 -->
+      <div class="provider-expand" id="expand-0">
+        <div class="pe-inner">
+          <div class="pe-left">
+            <img src="images/jeweler-logos/muthoot-finance.png" alt="Muthoot Finance" class="pe-logo" onerror="this.src='images/logo.png'"/>
+            <div class="pe-name">Muthoot Finance</div>
+            <div class="pe-type">RBI Licensed NBFC</div>
+            <div class="pe-stars">★★★★★ <span class="pe-badge">✓ RBI Licensed</span></div>
+          </div>
+          <div class="pe-right">
+            <div class="pe-grid">
+              <div class="pe-item"><span class="pe-lbl">📍 Location</span><span class="pe-val">Pan India · 5,000+ branches</span></div>
+              <div class="pe-item"><span class="pe-lbl">📊 Interest Rate</span><span class="pe-val" style="color:#C9A84C;font-weight:700">8.5% p.a.</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚖️ LTV Ratio</span><span class="pe-val">75%</span></div>
+              <div class="pe-item"><span class="pe-lbl">💰 Loan Range</span><span class="pe-val">₹1,000 – ₹50 Lakh</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚡ Processing</span><span class="pe-val">30 minutes</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">✅ Eligibility</span><span class="pe-val">Any gold jewellery 18K–22K · Age 18–70 · No income proof needed</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">📄 Documents</span><span class="pe-val">Aadhaar / PAN · Passport photo · Gold jewellery</span></div>
+            </div>
+            <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+              <a href="https://www.muthootfinance.com" target="_blank" rel="noopener noreferrer" class="view-btn" style="text-decoration:none">Visit Website ↗</a>
+              <button class="view-btn" style="background:transparent;border:1px solid rgba(201,168,76,.35);color:var(--g)" onclick="toggleProvider(0)">✕ Close</button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Card 2 -->
-      <div class="mkt-card">
-        <div class="mkt-card-img"><img src="images/jeweler-logos/manappuram-finance.png" class="jeweler-logo" alt="Manappuram Finance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏛️</span></div>
+      <div class="mkt-card" id="card-1">
+        <div class="mkt-card-img"><img src="images/jeweler-logos/manappuram-finance.png" class="jeweler-logo" alt="Manappuram Finance" onerror="this.src='images/logo.png'"/></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
-          <div class="mkt-card-name">Manappuram Finance</div>
-          <div class="mkt-card-loc">📍 3+ Branches · South India</div>
+          <div class="mkt-card-name provider-toggle" onclick="toggleProvider(1)" style="cursor:pointer;display:flex;align-items:center;gap:8px">
+            Manappuram Finance <span class="toggle-arrow" id="arrow-1" style="font-size:11px;color:var(--g);transition:transform .3s">▼</span>
+          </div>
+          <div class="mkt-card-loc">📍 South India · 3,000+ branches</div>
           <div class="mkt-card-rate">9.0% p.a.</div>
           <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
-          <div class="mkt-card-meta">
-            <div class="meta-chip">⚖️ LTV 80%</div>
-            <div class="meta-chip">⚡ Same day</div>
-            <div class="meta-chip">💰 ₹500–₹1Cr</div>
-          </div>
+          <div class="mkt-card-meta"><div class="meta-chip">⚖️ LTV 80%</div><div class="meta-chip">⚡ Same day</div><div class="meta-chip">💰 ₹500–₹1Cr</div></div>
           <div class="mkt-card-footer">
             <div><div class="stars">★★★★☆</div><div class="trust-badge">✓ RBI Licensed</div></div>
-            <button class="view-btn">View Details</button>
+            <button class="view-btn" onclick="toggleProvider(1)">View Details</button>
+          </div>
+        </div>
+      </div>
+      <!-- Expand 2 -->
+      <div class="provider-expand" id="expand-1">
+        <div class="pe-inner">
+          <div class="pe-left">
+            <img src="images/jeweler-logos/manappuram-finance.png" alt="Manappuram Finance" class="pe-logo" onerror="this.src='images/logo.png'"/>
+            <div class="pe-name">Manappuram Finance</div>
+            <div class="pe-type">RBI Licensed NBFC</div>
+            <div class="pe-stars">★★★★☆ <span class="pe-badge">✓ RBI Licensed</span></div>
+          </div>
+          <div class="pe-right">
+            <div class="pe-grid">
+              <div class="pe-item"><span class="pe-lbl">📍 Location</span><span class="pe-val">South India · 3,000+ branches</span></div>
+              <div class="pe-item"><span class="pe-lbl">📊 Interest Rate</span><span class="pe-val" style="color:#C9A84C;font-weight:700">9.0% p.a.</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚖️ LTV Ratio</span><span class="pe-val">80%</span></div>
+              <div class="pe-item"><span class="pe-lbl">💰 Loan Range</span><span class="pe-val">₹500 – ₹1 Crore</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚡ Processing</span><span class="pe-val">Same day</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">✅ Eligibility</span><span class="pe-val">Gold ornaments 18K–24K · Age 18+ · Minimal documentation</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">📄 Documents</span><span class="pe-val">Aadhaar / Voter ID · Passport photo · Gold</span></div>
+            </div>
+            <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+              <a href="https://www.manappuram.com" target="_blank" rel="noopener noreferrer" class="view-btn" style="text-decoration:none">Visit Website ↗</a>
+              <button class="view-btn" style="background:transparent;border:1px solid rgba(201,168,76,.35);color:var(--g)" onclick="toggleProvider(1)">✕ Close</button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Card 3 -->
-      <div class="mkt-card">
-        <div class="mkt-card-img"><img src="images/jeweler-logos/iifl-finance.png" class="jeweler-logo" alt="IIFL Finance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏦</span></div>
+      <div class="mkt-card" id="card-2">
+        <div class="mkt-card-img"><img src="images/jeweler-logos/iifl-finance.png" class="jeweler-logo" alt="IIFL Finance" onerror="this.src='images/logo.png'"/></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
-          <div class="mkt-card-name">IIFL Finance</div>
-          <div class="mkt-card-loc">📍 All Major Cities</div>
+          <div class="mkt-card-name provider-toggle" onclick="toggleProvider(2)" style="cursor:pointer;display:flex;align-items:center;gap:8px">
+            IIFL Finance <span class="toggle-arrow" id="arrow-2" style="font-size:11px;color:var(--g);transition:transform .3s">▼</span>
+          </div>
+          <div class="mkt-card-loc">📍 All Major Cities · 2,500+ branches</div>
           <div class="mkt-card-rate">7.8% p.a.</div>
           <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
-          <div class="mkt-card-meta">
-            <div class="meta-chip">⚖️ LTV 75%</div>
-            <div class="meta-chip">🚗 Doorstep</div>
-            <div class="meta-chip">💰 Up to ₹50L</div>
-          </div>
+          <div class="mkt-card-meta"><div class="meta-chip">⚖️ LTV 75%</div><div class="meta-chip">🚗 Doorstep</div><div class="meta-chip">💰 Up to ₹50L</div></div>
           <div class="mkt-card-footer">
             <div><div class="stars">★★★★★</div><div class="trust-badge">✓ RBI Licensed</div></div>
-            <button class="view-btn">View Details</button>
+            <button class="view-btn" onclick="toggleProvider(2)">View Details</button>
+          </div>
+        </div>
+      </div>
+      <!-- Expand 3 -->
+      <div class="provider-expand" id="expand-2">
+        <div class="pe-inner">
+          <div class="pe-left">
+            <img src="images/jeweler-logos/iifl-finance.png" alt="IIFL Finance" class="pe-logo" onerror="this.src='images/logo.png'"/>
+            <div class="pe-name">IIFL Finance</div>
+            <div class="pe-type">RBI Licensed NBFC</div>
+            <div class="pe-stars">★★★★★ <span class="pe-badge">✓ RBI Licensed</span></div>
+          </div>
+          <div class="pe-right">
+            <div class="pe-grid">
+              <div class="pe-item"><span class="pe-lbl">📍 Location</span><span class="pe-val">All Major Cities · 2,500+ branches</span></div>
+              <div class="pe-item"><span class="pe-lbl">📊 Interest Rate</span><span class="pe-val" style="color:#C9A84C;font-weight:700">7.8% p.a.</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚖️ LTV Ratio</span><span class="pe-val">75%</span></div>
+              <div class="pe-item"><span class="pe-lbl">💰 Loan Range</span><span class="pe-val">Up to ₹50 Lakh</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚡ Processing</span><span class="pe-val">Doorstep (same day)</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">✅ Eligibility</span><span class="pe-val">Gold jewellery · Age 18–70 · No CIBIL score required</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">📄 Documents</span><span class="pe-val">Aadhaar + PAN · Address proof · Gold ornaments</span></div>
+            </div>
+            <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+              <a href="https://www.iifl.com" target="_blank" rel="noopener noreferrer" class="view-btn" style="text-decoration:none">Visit Website ↗</a>
+              <button class="view-btn" style="background:transparent;border:1px solid rgba(201,168,76,.35);color:var(--g)" onclick="toggleProvider(2)">✕ Close</button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Card 4 -->
-      <div class="mkt-card">
-        <div class="mkt-card-img"><img src="images/jeweler-logos/indusind-bank.png" class="jeweler-logo" alt="IndusInd Bank" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💳</span></div>
+      <div class="mkt-card" id="card-3">
+        <div class="mkt-card-img"><img src="images/jeweler-logos/indusind-bank.png" class="jeweler-logo" alt="IndusInd Bank" onerror="this.src='images/logo.png'"/></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
-          <div class="mkt-card-name">IndusInd Bank</div>
-          <div class="mkt-card-loc">📍 Urban Centers</div>
+          <div class="mkt-card-name provider-toggle" onclick="toggleProvider(3)" style="cursor:pointer;display:flex;align-items:center;gap:8px">
+            IndusInd Bank <span class="toggle-arrow" id="arrow-3" style="font-size:11px;color:var(--g);transition:transform .3s">▼</span>
+          </div>
+          <div class="mkt-card-loc">📍 Urban Centers · 2,000+ branches</div>
           <div class="mkt-card-rate">8.2% p.a.</div>
           <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
-          <div class="mkt-card-meta">
-            <div class="meta-chip">⚖️ LTV 72%</div>
-            <div class="meta-chip">⚡ 2 hours</div>
-            <div class="meta-chip">💰 ₹10K–₹25L</div>
-          </div>
+          <div class="mkt-card-meta"><div class="meta-chip">⚖️ LTV 72%</div><div class="meta-chip">⚡ 2 hours</div><div class="meta-chip">💰 ₹10K–₹25L</div></div>
           <div class="mkt-card-footer">
             <div><div class="stars">★★★★★</div><div class="trust-badge">✓ Bank</div></div>
-            <button class="view-btn">View Details</button>
+            <button class="view-btn" onclick="toggleProvider(3)">View Details</button>
+          </div>
+        </div>
+      </div>
+      <!-- Expand 4 -->
+      <div class="provider-expand" id="expand-3">
+        <div class="pe-inner">
+          <div class="pe-left">
+            <img src="images/jeweler-logos/indusind-bank.png" alt="IndusInd Bank" class="pe-logo" onerror="this.src='images/logo.png'"/>
+            <div class="pe-name">IndusInd Bank</div>
+            <div class="pe-type">Scheduled Commercial Bank</div>
+            <div class="pe-stars">★★★★★ <span class="pe-badge">✓ Bank</span></div>
+          </div>
+          <div class="pe-right">
+            <div class="pe-grid">
+              <div class="pe-item"><span class="pe-lbl">📍 Location</span><span class="pe-val">Urban Centers · 2,000+ branches</span></div>
+              <div class="pe-item"><span class="pe-lbl">📊 Interest Rate</span><span class="pe-val" style="color:#C9A84C;font-weight:700">8.2% p.a.</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚖️ LTV Ratio</span><span class="pe-val">72%</span></div>
+              <div class="pe-item"><span class="pe-lbl">💰 Loan Range</span><span class="pe-val">₹10,000 – ₹25 Lakh</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚡ Processing</span><span class="pe-val">2 hours</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">✅ Eligibility</span><span class="pe-val">Salaried / self-employed · Age 21–65 · Good credit history</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">📄 Documents</span><span class="pe-val">KYC documents · Income proof · Gold jewellery</span></div>
+            </div>
+            <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+              <a href="https://www.indusind.com" target="_blank" rel="noopener noreferrer" class="view-btn" style="text-decoration:none">Visit Website ↗</a>
+              <button class="view-btn" style="background:transparent;border:1px solid rgba(201,168,76,.35);color:var(--g)" onclick="toggleProvider(3)">✕ Close</button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Card 5 -->
-      <div class="mkt-card">
-        <div class="mkt-card-img"><img src="images/jeweler-logos/bajaj-finserv.png" class="jeweler-logo" alt="Bajaj Finserv" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏢</span></div>
+      <div class="mkt-card" id="card-4">
+        <div class="mkt-card-img"><img src="images/jeweler-logos/bajaj-finserv.png" class="jeweler-logo" alt="Bajaj Finserv" onerror="this.src='images/logo.png'"/></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
-          <div class="mkt-card-name">Bajaj Finserv</div>
-          <div class="mkt-card-loc">📍 500+ Cities</div>
+          <div class="mkt-card-name provider-toggle" onclick="toggleProvider(4)" style="cursor:pointer;display:flex;align-items:center;gap:8px">
+            Bajaj Finserv <span class="toggle-arrow" id="arrow-4" style="font-size:11px;color:var(--g);transition:transform .3s">▼</span>
+          </div>
+          <div class="mkt-card-loc">📍 500+ Cities across India</div>
           <div class="mkt-card-rate">8.9% p.a.</div>
           <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
-          <div class="mkt-card-meta">
-            <div class="meta-chip">⚖️ LTV 70%</div>
-            <div class="meta-chip">⚡ 1 hour</div>
-            <div class="meta-chip">💰 ₹1K–₹30L</div>
-          </div>
+          <div class="mkt-card-meta"><div class="meta-chip">⚖️ LTV 70%</div><div class="meta-chip">⚡ 1 hour</div><div class="meta-chip">💰 ₹1K–₹30L</div></div>
           <div class="mkt-card-footer">
             <div><div class="stars">★★★★☆</div><div class="trust-badge">✓ NBFC</div></div>
-            <button class="view-btn">View Details</button>
+            <button class="view-btn" onclick="toggleProvider(4)">View Details</button>
+          </div>
+        </div>
+      </div>
+      <!-- Expand 5 -->
+      <div class="provider-expand" id="expand-4">
+        <div class="pe-inner">
+          <div class="pe-left">
+            <img src="images/jeweler-logos/bajaj-finserv.png" alt="Bajaj Finserv" class="pe-logo" onerror="this.src='images/logo.png'"/>
+            <div class="pe-name">Bajaj Finserv</div>
+            <div class="pe-type">RBI Licensed NBFC</div>
+            <div class="pe-stars">★★★★☆ <span class="pe-badge">✓ NBFC</span></div>
+          </div>
+          <div class="pe-right">
+            <div class="pe-grid">
+              <div class="pe-item"><span class="pe-lbl">📍 Location</span><span class="pe-val">500+ Cities across India</span></div>
+              <div class="pe-item"><span class="pe-lbl">📊 Interest Rate</span><span class="pe-val" style="color:#C9A84C;font-weight:700">8.9% p.a.</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚖️ LTV Ratio</span><span class="pe-val">70%</span></div>
+              <div class="pe-item"><span class="pe-lbl">💰 Loan Range</span><span class="pe-val">₹1,000 – ₹30 Lakh</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚡ Processing</span><span class="pe-val">1 hour</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">✅ Eligibility</span><span class="pe-val">Gold jewellery 18K–22K · Age 21–70 · No income proof</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">📄 Documents</span><span class="pe-val">Aadhaar / PAN / Passport · Passport photo</span></div>
+            </div>
+            <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+              <a href="https://www.bajajfinserv.in" target="_blank" rel="noopener noreferrer" class="view-btn" style="text-decoration:none">Visit Website ↗</a>
+              <button class="view-btn" style="background:transparent;border:1px solid rgba(201,168,76,.35);color:var(--g)" onclick="toggleProvider(4)">✕ Close</button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Card 6 -->
-      <div class="mkt-card">
-        <div class="mkt-card-img"><img src="images/jeweler-logos/pawn-broking.png" class="jeweler-logo" alt="Pawn Broking Ltd" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏪</span></div>
+      <div class="mkt-card" id="card-5">
+        <div class="mkt-card-img"><img src="images/jeweler-logos/pawn-broking.png" class="jeweler-logo" alt="Pawn Broking Ltd" onerror="this.src='images/logo.png'"/></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
-          <div class="mkt-card-name">Pawn Broking Ltd</div>
-          <div class="mkt-card-loc">📍 20+ Cities</div>
+          <div class="mkt-card-name provider-toggle" onclick="toggleProvider(5)" style="cursor:pointer;display:flex;align-items:center;gap:8px">
+            Pawn Broking Ltd <span class="toggle-arrow" id="arrow-5" style="font-size:11px;color:var(--g);transition:transform .3s">▼</span>
+          </div>
+          <div class="mkt-card-loc">📍 20+ Cities · Local branches</div>
           <div class="mkt-card-rate">9.5% p.a.</div>
           <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
-          <div class="mkt-card-meta">
-            <div class="meta-chip">⚖️ LTV 85%</div>
-            <div class="meta-chip">⚡ Same day</div>
-            <div class="meta-chip">💰 ₹500–₹5L</div>
-          </div>
+          <div class="mkt-card-meta"><div class="meta-chip">⚖️ LTV 85%</div><div class="meta-chip">⚡ Same day</div><div class="meta-chip">💰 ₹500–₹5L</div></div>
           <div class="mkt-card-footer">
             <div><div class="stars">★★★★☆</div><div class="trust-badge">✓ Registered</div></div>
-            <button class="view-btn">View Details</button>
+            <button class="view-btn" onclick="toggleProvider(5)">View Details</button>
+          </div>
+        </div>
+      </div>
+      <!-- Expand 6 -->
+      <div class="provider-expand" id="expand-5">
+        <div class="pe-inner">
+          <div class="pe-left">
+            <img src="images/jeweler-logos/pawn-broking.png" alt="Pawn Broking Ltd" class="pe-logo" onerror="this.src='images/logo.png'"/>
+            <div class="pe-name">Pawn Broking Ltd</div>
+            <div class="pe-type">Registered Pawn Broker</div>
+            <div class="pe-stars">★★★★☆ <span class="pe-badge">✓ Registered</span></div>
+          </div>
+          <div class="pe-right">
+            <div class="pe-grid">
+              <div class="pe-item"><span class="pe-lbl">📍 Location</span><span class="pe-val">20+ Cities · Local branches</span></div>
+              <div class="pe-item"><span class="pe-lbl">📊 Interest Rate</span><span class="pe-val" style="color:#C9A84C;font-weight:700">9.5% p.a.</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚖️ LTV Ratio</span><span class="pe-val">85%</span></div>
+              <div class="pe-item"><span class="pe-lbl">💰 Loan Range</span><span class="pe-val">₹500 – ₹5 Lakh</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚡ Processing</span><span class="pe-val">Same day</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">✅ Eligibility</span><span class="pe-val">Any gold/silver jewellery · Age 18+ · Walk-in accepted</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">📄 Documents</span><span class="pe-val">Any valid ID proof · Gold jewellery</span></div>
+            </div>
+            <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+              <button class="view-btn" disabled style="opacity:.45;cursor:default">Website N/A</button>
+              <button class="view-btn" style="background:transparent;border:1px solid rgba(201,168,76,.35);color:var(--g)" onclick="toggleProvider(5)">✕ Close</button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Card 7 -->
-      <div class="mkt-card">
-        <div class="mkt-card-img"><img src="images/jeweler-logos/capital-finance.png" class="jeweler-logo" alt="Capital Finance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💰</span></div>
+      <div class="mkt-card" id="card-6">
+        <div class="mkt-card-img"><img src="images/jeweler-logos/capital-finance.png" class="jeweler-logo" alt="Capital Finance" onerror="this.src='images/logo.png'"/></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
-          <div class="mkt-card-name">Capital Finance</div>
-          <div class="mkt-card-loc">📍 North India</div>
+          <div class="mkt-card-name provider-toggle" onclick="toggleProvider(6)" style="cursor:pointer;display:flex;align-items:center;gap:8px">
+            Capital Finance <span class="toggle-arrow" id="arrow-6" style="font-size:11px;color:var(--g);transition:transform .3s">▼</span>
+          </div>
+          <div class="mkt-card-loc">📍 North India · 400+ branches</div>
           <div class="mkt-card-rate">8.75% p.a.</div>
           <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
-          <div class="mkt-card-meta">
-            <div class="meta-chip">⚖️ LTV 76%</div>
-            <div class="meta-chip">⚡ 45 min</div>
-            <div class="meta-chip">💰 ₹5K–₹40L</div>
-          </div>
+          <div class="mkt-card-meta"><div class="meta-chip">⚖️ LTV 76%</div><div class="meta-chip">⚡ 45 min</div><div class="meta-chip">💰 ₹5K–₹40L</div></div>
           <div class="mkt-card-footer">
             <div><div class="stars">★★★★★</div><div class="trust-badge">✓ RBI Licensed</div></div>
-            <button class="view-btn">View Details</button>
+            <button class="view-btn" onclick="toggleProvider(6)">View Details</button>
+          </div>
+        </div>
+      </div>
+      <!-- Expand 7 -->
+      <div class="provider-expand" id="expand-6">
+        <div class="pe-inner">
+          <div class="pe-left">
+            <img src="images/jeweler-logos/capital-finance.png" alt="Capital Finance" class="pe-logo" onerror="this.src='images/logo.png'"/>
+            <div class="pe-name">Capital Finance</div>
+            <div class="pe-type">RBI Licensed NBFC</div>
+            <div class="pe-stars">★★★★★ <span class="pe-badge">✓ RBI Licensed</span></div>
+          </div>
+          <div class="pe-right">
+            <div class="pe-grid">
+              <div class="pe-item"><span class="pe-lbl">📍 Location</span><span class="pe-val">North India · 400+ branches</span></div>
+              <div class="pe-item"><span class="pe-lbl">📊 Interest Rate</span><span class="pe-val" style="color:#C9A84C;font-weight:700">8.75% p.a.</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚖️ LTV Ratio</span><span class="pe-val">76%</span></div>
+              <div class="pe-item"><span class="pe-lbl">💰 Loan Range</span><span class="pe-val">₹5,000 – ₹40 Lakh</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚡ Processing</span><span class="pe-val">45 minutes</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">✅ Eligibility</span><span class="pe-val">Gold 18K–24K · Age 18–65 · Self-employed / salaried</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">📄 Documents</span><span class="pe-val">Aadhaar / Voter ID / PAN · Address proof</span></div>
+            </div>
+            <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+              <button class="view-btn" disabled style="opacity:.45;cursor:default">Website N/A</button>
+              <button class="view-btn" style="background:transparent;border:1px solid rgba(201,168,76,.35);color:var(--g)" onclick="toggleProvider(6)">✕ Close</button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Card 8 -->
-      <div class="mkt-card">
-        <div class="mkt-card-img"><img src="images/jeweler-logos/axis-bank.png" class="jeweler-logo" alt="Axis Bank" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏛️</span></div>
+      <div class="mkt-card" id="card-7">
+        <div class="mkt-card-img"><img src="images/jeweler-logos/axis-bank.png" class="jeweler-logo" alt="Axis Bank" onerror="this.src='images/logo.png'"/></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
-          <div class="mkt-card-name">Axis Bank</div>
-          <div class="mkt-card-loc">📍 Metro Cities</div>
+          <div class="mkt-card-name provider-toggle" onclick="toggleProvider(7)" style="cursor:pointer;display:flex;align-items:center;gap:8px">
+            Axis Bank <span class="toggle-arrow" id="arrow-7" style="font-size:11px;color:var(--g);transition:transform .3s">▼</span>
+          </div>
+          <div class="mkt-card-loc">📍 Metro Cities · 4,700+ branches</div>
           <div class="mkt-card-rate">7.99% p.a.</div>
           <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
-          <div class="mkt-card-meta">
-            <div class="meta-chip">⚖️ LTV 74%</div>
-            <div class="meta-chip">⚡ 1-2 days</div>
-            <div class="meta-chip">💰 ₹50K–₹50L</div>
-          </div>
+          <div class="mkt-card-meta"><div class="meta-chip">⚖️ LTV 74%</div><div class="meta-chip">⚡ 1-2 days</div><div class="meta-chip">💰 ₹50K–₹50L</div></div>
           <div class="mkt-card-footer">
             <div><div class="stars">★★★★★</div><div class="trust-badge">✓ Bank</div></div>
-            <button class="view-btn">View Details</button>
+            <button class="view-btn" onclick="toggleProvider(7)">View Details</button>
+          </div>
+        </div>
+      </div>
+      <!-- Expand 8 -->
+      <div class="provider-expand" id="expand-7">
+        <div class="pe-inner">
+          <div class="pe-left">
+            <img src="images/jeweler-logos/axis-bank.png" alt="Axis Bank" class="pe-logo" onerror="this.src='images/logo.png'"/>
+            <div class="pe-name">Axis Bank</div>
+            <div class="pe-type">Scheduled Commercial Bank</div>
+            <div class="pe-stars">★★★★★ <span class="pe-badge">✓ Bank</span></div>
+          </div>
+          <div class="pe-right">
+            <div class="pe-grid">
+              <div class="pe-item"><span class="pe-lbl">📍 Location</span><span class="pe-val">Metro Cities · 4,700+ branches</span></div>
+              <div class="pe-item"><span class="pe-lbl">📊 Interest Rate</span><span class="pe-val" style="color:#C9A84C;font-weight:700">7.99% p.a.</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚖️ LTV Ratio</span><span class="pe-val">74%</span></div>
+              <div class="pe-item"><span class="pe-lbl">💰 Loan Range</span><span class="pe-val">₹50,000 – ₹50 Lakh</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚡ Processing</span><span class="pe-val">1–2 business days</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">✅ Eligibility</span><span class="pe-val">Salaried / self-employed · Age 18–70 · Bank account required</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">📄 Documents</span><span class="pe-val">KYC + Income proof · 6 months bank statement · Gold</span></div>
+            </div>
+            <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+              <a href="https://www.axisbank.com" target="_blank" rel="noopener noreferrer" class="view-btn" style="text-decoration:none">Visit Website ↗</a>
+              <button class="view-btn" style="background:transparent;border:1px solid rgba(201,168,76,.35);color:var(--g)" onclick="toggleProvider(7)">✕ Close</button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Card 9 -->
-      <div class="mkt-card">
-        <div class="mkt-card-img"><img src="images/jeweler-logos/gold-finance-solutions.png" class="jeweler-logo" alt="Gold Finance Solutions" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💎</span></div>
+      <div class="mkt-card" id="card-8">
+        <div class="mkt-card-img"><img src="images/jeweler-logos/gold-finance-solutions.png" class="jeweler-logo" alt="Gold Finance Solutions" onerror="this.src='images/logo.png'"/></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
-          <div class="mkt-card-name">Gold Finance Solutions</div>
-          <div class="mkt-card-loc">📍 East India</div>
+          <div class="mkt-card-name provider-toggle" onclick="toggleProvider(8)" style="cursor:pointer;display:flex;align-items:center;gap:8px">
+            Gold Finance Solutions <span class="toggle-arrow" id="arrow-8" style="font-size:11px;color:var(--g);transition:transform .3s">▼</span>
+          </div>
+          <div class="mkt-card-loc">📍 East India · 150+ branches</div>
           <div class="mkt-card-rate">9.25% p.a.</div>
           <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
-          <div class="mkt-card-meta">
-            <div class="meta-chip">⚖️ LTV 78%</div>
-            <div class="meta-chip">⚡ 30 min</div>
-            <div class="meta-chip">💰 ₹2K–₹20L</div>
-          </div>
+          <div class="mkt-card-meta"><div class="meta-chip">⚖️ LTV 78%</div><div class="meta-chip">⚡ 30 min</div><div class="meta-chip">💰 ₹2K–₹20L</div></div>
           <div class="mkt-card-footer">
             <div><div class="stars">★★★★☆</div><div class="trust-badge">✓ NBFC</div></div>
-            <button class="view-btn">View Details</button>
+            <button class="view-btn" onclick="toggleProvider(8)">View Details</button>
+          </div>
+        </div>
+      </div>
+      <!-- Expand 9 -->
+      <div class="provider-expand" id="expand-8">
+        <div class="pe-inner">
+          <div class="pe-left">
+            <img src="images/jeweler-logos/gold-finance-solutions.png" alt="Gold Finance Solutions" class="pe-logo" onerror="this.src='images/logo.png'"/>
+            <div class="pe-name">Gold Finance Solutions</div>
+            <div class="pe-type">RBI Licensed NBFC</div>
+            <div class="pe-stars">★★★★☆ <span class="pe-badge">✓ NBFC</span></div>
+          </div>
+          <div class="pe-right">
+            <div class="pe-grid">
+              <div class="pe-item"><span class="pe-lbl">📍 Location</span><span class="pe-val">East India · 150+ branches</span></div>
+              <div class="pe-item"><span class="pe-lbl">📊 Interest Rate</span><span class="pe-val" style="color:#C9A84C;font-weight:700">9.25% p.a.</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚖️ LTV Ratio</span><span class="pe-val">78%</span></div>
+              <div class="pe-item"><span class="pe-lbl">💰 Loan Range</span><span class="pe-val">₹2,000 – ₹20 Lakh</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚡ Processing</span><span class="pe-val">30 minutes</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">✅ Eligibility</span><span class="pe-val">Gold jewellery 18K–22K · Age 21+ · Walk-in available</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">📄 Documents</span><span class="pe-val">Aadhaar / Voter ID · Passport photo</span></div>
+            </div>
+            <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+              <button class="view-btn" disabled style="opacity:.45;cursor:default">Website N/A</button>
+              <button class="view-btn" style="background:transparent;border:1px solid rgba(201,168,76,.35);color:var(--g)" onclick="toggleProvider(8)">✕ Close</button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Card 10 -->
-      <div class="mkt-card">
-        <div class="mkt-card-img"><img src="images/jeweler-logos/cibil-safe-finance.png" class="jeweler-logo" alt="CIBIL Safe Finance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏪</span></div>
+      <div class="mkt-card" id="card-9">
+        <div class="mkt-card-img"><img src="images/jeweler-logos/cibil-safe-finance.png" class="jeweler-logo" alt="CIBIL Safe Finance" onerror="this.src='images/logo.png'"/></div>
         <div class="mkt-card-body">
           <div class="mkt-card-tag tag-loan">Gold Loan</div>
-          <div class="mkt-card-name">CIBIL Safe Finance</div>
-          <div class="mkt-card-loc">📍 Western States</div>
+          <div class="mkt-card-name provider-toggle" onclick="toggleProvider(9)" style="cursor:pointer;display:flex;align-items:center;gap:8px">
+            CIBIL Safe Finance <span class="toggle-arrow" id="arrow-9" style="font-size:11px;color:var(--g);transition:transform .3s">▼</span>
+          </div>
+          <div class="mkt-card-loc">📍 Western States · 300+ branches</div>
           <div class="mkt-card-rate">8.5% p.a.</div>
           <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
-          <div class="mkt-card-meta">
-            <div class="meta-chip">⚖️ LTV 77%</div>
-            <div class="meta-chip">⚡ 1 hour</div>
-            <div class="meta-chip">💰 ₹3K–₹35L</div>
-          </div>
+          <div class="mkt-card-meta"><div class="meta-chip">⚖️ LTV 77%</div><div class="meta-chip">⚡ 1 hour</div><div class="meta-chip">💰 ₹3K–₹35L</div></div>
           <div class="mkt-card-footer">
             <div><div class="stars">★★★★☆</div><div class="trust-badge">✓ RBI Licensed</div></div>
-            <button class="view-btn">View Details</button>
+            <button class="view-btn" onclick="toggleProvider(9)">View Details</button>
           </div>
         </div>
       </div>
-
-      <!-- Card 11 -->
-      <div class="mkt-card">
-        <div class="mkt-card-img"><img src="images/jeweler-logos/hdfc-bank.png" class="jeweler-logo" alt="HDFC Bank" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💳</span></div>
-        <div class="mkt-card-body">
-          <div class="mkt-card-tag tag-loan">Gold Loan</div>
-          <div class="mkt-card-name">HDFC Bank</div>
-          <div class="mkt-card-loc">📍 All Branches</div>
-          <div class="mkt-card-rate">8.15% p.a.</div>
-          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
-          <div class="mkt-card-meta">
-            <div class="meta-chip">⚖️ LTV 73%</div>
-            <div class="meta-chip">⚡ 2 days</div>
-            <div class="meta-chip">💰 ₹1L–₹1 Cr</div>
+      <!-- Expand 10 -->
+      <div class="provider-expand" id="expand-9">
+        <div class="pe-inner">
+          <div class="pe-left">
+            <img src="images/jeweler-logos/cibil-safe-finance.png" alt="CIBIL Safe Finance" class="pe-logo" onerror="this.src='images/logo.png'"/>
+            <div class="pe-name">CIBIL Safe Finance</div>
+            <div class="pe-type">RBI Licensed NBFC</div>
+            <div class="pe-stars">★★★★☆ <span class="pe-badge">✓ RBI Licensed</span></div>
           </div>
-          <div class="mkt-card-footer">
-            <div><div class="stars">★★★★★</div><div class="trust-badge">✓ Bank</div></div>
-            <button class="view-btn">View Details</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 12 -->
-      <div class="mkt-card">
-        <div class="mkt-card-img"><img src="images/jeweler-logos/shriram-finance.png" class="jeweler-logo" alt="Shriram Finance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏢</span></div>
-        <div class="mkt-card-body">
-          <div class="mkt-card-tag tag-loan">Gold Loan</div>
-          <div class="mkt-card-name">Shriram Finance</div>
-          <div class="mkt-card-loc">📍 100+ Branches</div>
-          <div class="mkt-card-rate">8.99% p.a.</div>
-          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
-          <div class="mkt-card-meta">
-            <div class="meta-chip">⚖️ LTV 74%</div>
-            <div class="meta-chip">⚡ 2 hours</div>
-            <div class="meta-chip">💰 ₹5K–₹25L</div>
-          </div>
-          <div class="mkt-card-footer">
-            <div><div class="stars">★★★★☆</div><div class="trust-badge">✓ RBI Licensed</div></div>
-            <button class="view-btn">View Details</button>
+          <div class="pe-right">
+            <div class="pe-grid">
+              <div class="pe-item"><span class="pe-lbl">📍 Location</span><span class="pe-val">Western States · 300+ branches</span></div>
+              <div class="pe-item"><span class="pe-lbl">📊 Interest Rate</span><span class="pe-val" style="color:#C9A84C;font-weight:700">8.5% p.a.</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚖️ LTV Ratio</span><span class="pe-val">77%</span></div>
+              <div class="pe-item"><span class="pe-lbl">💰 Loan Range</span><span class="pe-val">₹3,000 – ₹35 Lakh</span></div>
+              <div class="pe-item"><span class="pe-lbl">⚡ Processing</span><span class="pe-val">1 hour</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">✅ Eligibility</span><span class="pe-val">Gold 18K–22K · Age 18–68 · No minimum income required</span></div>
+              <div class="pe-item" style="grid-column:1/-1"><span class="pe-lbl">📄 Documents</span><span class="pe-val">Aadhaar / PAN · Passport photo · Gold ornaments</span></div>
+            </div>
+            <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+              <button class="view-btn" disabled style="opacity:.45;cursor:default">Website N/A</button>
+              <button class="view-btn" style="background:transparent;border:1px solid rgba(201,168,76,.35);color:var(--g)" onclick="toggleProvider(9)">✕ Close</button>
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- Card 13 -->
-      <div class="mkt-card">
-        <div class="mkt-card-img"><img src="images/jeweler-logos/premium-lending-co.png" class="jeweler-logo" alt="Premium Lending Co" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">💎</span></div>
-        <div class="mkt-card-body">
-          <div class="mkt-card-tag tag-loan">Gold Loan</div>
-          <div class="mkt-card-name">Premium Lending Co</div>
-          <div class="mkt-card-loc">📍 Metro + Tier-1</div>
-          <div class="mkt-card-rate">8.35% p.a.</div>
-          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
-          <div class="mkt-card-meta">
-            <div class="meta-chip">⚖️ LTV 75%</div>
-            <div class="meta-chip">⚡ 2 hours</div>
-            <div class="meta-chip">💰 ₹10K–₹45L</div>
-          </div>
-          <div class="mkt-card-footer">
-            <div><div class="stars">★★★★★</div><div class="trust-badge">✓ NBFC</div></div>
-            <button class="view-btn">View Details</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 14 -->
-      <div class="mkt-card">
-        <div class="mkt-card-img"><img src="images/jeweler-logos/trust-finance-ltd.png" class="jeweler-logo" alt="Trust Finance Ltd" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏪</span></div>
-        <div class="mkt-card-body">
-          <div class="mkt-card-tag tag-loan">Gold Loan</div>
-          <div class="mkt-card-name">Trust Finance Ltd</div>
-          <div class="mkt-card-loc">📍 South & West</div>
-          <div class="mkt-card-rate">9.1% p.a.</div>
-          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
-          <div class="mkt-card-meta">
-            <div class="meta-chip">⚖️ LTV 81%</div>
-            <div class="meta-chip">⚡ 1 hour</div>
-            <div class="meta-chip">💰 ₹1K–₹15L</div>
-          </div>
-          <div class="mkt-card-footer">
-            <div><div class="stars">★★★★☆</div><div class="trust-badge">✓ RBI Licensed</div></div>
-            <button class="view-btn">View Details</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 15 -->
-      <div class="mkt-card">
-        <div class="mkt-card-img"><img src="images/jeweler-logos/national-credit-bank.png" class="jeweler-logo" alt="National Credit Bank" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="jeweler-logo-fallback">🏛️</span></div>
-        <div class="mkt-card-body">
-          <div class="mkt-card-tag tag-loan">Gold Loan</div>
-          <div class="mkt-card-name">National Credit Bank</div>
-          <div class="mkt-card-loc">📍 Pan India</div>
-          <div class="mkt-card-rate">8.45% p.a.</div>
-          <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
-          <div class="mkt-card-meta">
-            <div class="meta-chip">⚖️ LTV 76%</div>
-            <div class="meta-chip">⚡ 1.5 hours</div>
-            <div class="meta-chip">💰 ₹5K–₹60L</div>
-          </div>
-          <div class="mkt-card-footer">
-            <div><div class="stars">★★★★★</div><div class="trust-badge">✓ RBI Licensed</div></div>
-            <button class="view-btn">View Details</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Pagination -->
-    <div class="pagination reveal">
-      <button class="page-num active">1</button>
-      <button class="page-num">2</button>
-      <button class="page-num">3</button>
-      <button class="page-num">...</button>
-      <button class="page-num">50</button>
-      <span class="page-info">Showing 1–15 of 500+ providers</span>
     </div>
 
   </div>
 </section>
 
-<footer>
+
+<footer style="background:var(--b0);border-top:1px solid rgba(201,168,76,.1)">
   <div class="foot-inner">
-    <div class="foot-row">
-      <a href="index.html" class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
-      <div class="foot-links">
+    <div class="foot-grid-full">
+      <!-- Brand -->
+      <div class="foot-col-brand">
+        <a href="index.html"><img src="images/logo.png" alt="GoldBazaar"/></a>
+        <p>India's unified gold marketplace connecting customers, jewellers and financial institutions.</p>
+        <div class="foot-socials-row" style="margin-top:12px">
+          <a href="#" class="fsoc-sm">in</a>
+          <a href="#" class="fsoc-sm">f</a>
+          <a href="#" class="fsoc-sm">📷</a>
+          <a href="#" class="fsoc-sm">𝕏</a>
+        </div>
+      </div>
+      <!-- Services -->
+      <div class="foot-col">
+        <h5>Gold Services</h5>
         <a href="gold-loan-providers.html">Gold Loan</a>
         <a href="gold-buyers.html">Sell Gold</a>
-        <a href="gold-exchange.html" class="foot-disabled">Exchange</a>
-        <a href="jewellery-purchase.html" class="foot-disabled">Jewellery</a>
-        <a href="gold-savings-scheme.html" class="foot-disabled">Savings</a>
-        <a href="digital-gold.html" class="foot-disabled">Digital Gold</a>
-        <a href="gold-insurance.html" class="foot-disabled">Insurance</a>
-        <a href="gold-investment.html" class="foot-disabled">Investment</a>
-        <a href="about.html">About</a>
+        <!-- <a href="gold-exchange.html" class="foot-disabled">Gold Exchange</a> -->
+        <!-- <a href="jewellery-purchase.html" class="foot-disabled">Jewellery</a> -->
+        <!-- <a href="gold-savings-scheme.html" class="foot-disabled">Savings Scheme</a> -->
+        <!-- <a href="digital-gold.html" class="foot-disabled">Digital Gold</a> -->
+      </div>
+      <!-- Company -->
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="about.html">About Us</a>
         <a href="contact.html">Contact</a>
         <a href="careers.html">Careers</a>
         <a href="blog.html">Blog</a>
+        <a href="vendor-onboarding-complete.html">Vendor Onboarding</a>
+        <!-- <a href="admin-dashboard.html">Admin</a> -->
+      </div>
+      <!-- Legal -->
+      <div class="foot-col">
+        <h5>Legal</h5>
         <a href="privacy-policy.html">Privacy Policy</a>
         <a href="terms-conditions.html">Terms &amp; Conditions</a>
         <a href="grievance-policy.html">Grievance Policy</a>
         <a href="sitemap.html">Sitemap</a>
       </div>
-      
     </div>
-    <div class="foot-bottom" style="border-top:1px solid rgba(201,168,76,.08);padding-top:16px;margin-top:20px"><p>© 2026 GoldBazaar.app — All rights reserved.</p></div>
+    <hr class="foot-divider"/>
+    <div class="foot-bottom-row">
+      <p>© 2026 GoldBazaar. All rights reserved. | SEBI &amp; RBI compliant platform</p>
+      <p>Made with ❤️ in India</p>
+    </div>
   </div>
 </footer>
 
@@ -847,39 +1066,60 @@ function toggleMktView(btn, view){
 }
 
 /* ── Filter Functions ── */
-function resetFilters(){
-  document.getElementById('filter-city').value = '';
-  document.getElementById('filter-rate').value = '';
-  document.getElementById('filter-loan').value = '';
-}
+// Provider data for filtering
+const PROVIDER_DATA = [
+  {idx:0, name:'Muthoot Finance',    rate:8.5,  minLoan:1000,    location:'Pan India'},
+  {idx:1, name:'Manappuram Finance', rate:9.0,  minLoan:500,     location:'South India'},
+  {idx:2, name:'IIFL Finance',       rate:7.8,  minLoan:1000,    location:'All Major Cities'},
+  {idx:3, name:'IndusInd Bank',      rate:8.2,  minLoan:10000,   location:'Urban Centers'},
+  {idx:4, name:'Bajaj Finserv',      rate:8.9,  minLoan:1000,    location:'500+ Cities'},
+  {idx:5, name:'Pawn Broking Ltd',   rate:9.5,  minLoan:500,     location:'20+ Cities'},
+  {idx:6, name:'Capital Finance',    rate:8.75, minLoan:5000,    location:'North India'},
+  {idx:7, name:'Axis Bank',          rate:7.99, minLoan:50000,   location:'Metro Cities'},
+  {idx:8, name:'Gold Finance Solutions', rate:9.25, minLoan:2000, location:'East India'},
+  {idx:9, name:'CIBIL Safe Finance', rate:8.5,  minLoan:3000,    location:'Western States'},
+];
 
-/* ── Process Steps Animation ── */
-function animateProcessSteps(){
-  const steps = document.querySelectorAll('.process-card');
+function applyFilters(){
+  const nameQ  = (document.getElementById('filter-name')?.value  || '').toLowerCase().trim();
+  const rateQ  = parseFloat(document.getElementById('filter-rate')?.value) || null;
+  const loanQ  = parseInt(document.getElementById('filter-loan')?.value)   || 0;
+  const grid   = document.getElementById('providers-grid');
+  let visibleCount = 0;
 
-  // Remove animation class from all
-  steps.forEach(step => step.classList.remove('animate'));
-
-  // Add animation with staggered delays
-  steps.forEach((step, index) => {
-    setTimeout(() => {
-      step.classList.add('animate');
-    }, index * 1000); // 1 second delay between each step
+  PROVIDER_DATA.forEach(p => {
+    const card   = document.getElementById('card-'+p.idx);
+    const expand = document.getElementById('expand-'+p.idx);
+    if(!card) return;
+    const nameMatch = !nameQ   || p.name.toLowerCase().includes(nameQ);
+    const rateMatch = !rateQ   || p.rate <= rateQ;
+    const loanMatch = !loanQ   || p.minLoan >= loanQ;
+    const show = nameMatch && rateMatch && loanMatch;
+    card.style.display   = show ? '' : 'none';
+    if(expand) expand.style.display = show ? '' : 'none';
+    if(show) visibleCount++;
   });
 
-  // Repeat after full cycle completes (5 steps × 1s + 0.7s animation + buffer)
-  setTimeout(animateProcessSteps, 6700);
+  // Show "no results" message
+  let noRes = document.getElementById('no-results-msg');
+  if(!noRes){
+    noRes = document.createElement('div');
+    noRes.id = 'no-results-msg';
+    noRes.style.cssText = 'grid-column:1/-1;text-align:center;padding:40px;color:rgba(255,255,255,.35);font-size:14px';
+    noRes.textContent = 'No providers match your filters. Try adjusting the criteria.';
+    grid.appendChild(noRes);
+  }
+  noRes.style.display = visibleCount === 0 ? 'block' : 'none';
 }
 
-// Start animation when page loads
-window.addEventListener('load', () => {
-  setTimeout(animateProcessSteps, 300);
-});
-
-// Fallback if load event doesn't fire
-if(document.readyState === 'complete'){
-  setTimeout(animateProcessSteps, 300);
+function resetFilters(){
+  document.getElementById('filter-name').value = '';
+  document.getElementById('filter-rate').value = '';
+  document.getElementById('filter-loan').value = '';
+  applyFilters();
 }
+
+
 </script>
 
 <script>
@@ -936,6 +1176,69 @@ const HeroManager={
   next(){this.go((this.current+1)%this.items.length)}
 };
 document.addEventListener('DOMContentLoaded',()=>HeroManager.init());
+
+/* ── Vendor Rolling Banner ── */
+(function(){
+  const VENDORS = [
+    {name:'Muthoot Finance',logo:'images/jeweler-logos/muthoot-finance.png',bannerImg:'images/gold-loan-vendors/vendor-1.png',rate:'8.5% p.a.',chips:['LTV 75%','30 min','₹1K–₹50L']},
+    {name:'Manappuram Finance',logo:'images/jeweler-logos/manappuram-finance.png',bannerImg:'images/gold-loan-vendors/vendor-2.png',rate:'9.0% p.a.',chips:['LTV 80%','Same day','₹500–₹1Cr']},
+    {name:'IIFL Finance',logo:'images/jeweler-logos/iifl-finance.png',bannerImg:'images/gold-loan-vendors/vendor-3.png',rate:'7.8% p.a.',chips:['LTV 75%','Doorstep','Up to ₹50L']},
+    {name:'IndusInd Bank',logo:'images/jeweler-logos/indusind-bank.png',bannerImg:'images/gold-loan-vendors/vendor-4.png',rate:'8.2% p.a.',chips:['LTV 72%','2 hours','₹10K–₹25L']},
+    {name:'Bajaj Finserv',logo:'images/jeweler-logos/bajaj-finserv.png',bannerImg:'images/gold-loan-vendors/vendor-5.png',rate:'8.9% p.a.',chips:['LTV 70%','1 hour','₹1K–₹30L']},
+    {name:'Pawn Broking Ltd',logo:'images/jeweler-logos/pawn-broking.png',bannerImg:'images/gold-loan-vendors/vendor-6.png',rate:'9.5% p.a.',chips:['LTV 85%','Same day','₹500–₹5L']},
+    {name:'Capital Finance',logo:'images/jeweler-logos/capital-finance.png',bannerImg:'images/gold-loan-vendors/vendor-7.png',rate:'8.75% p.a.',chips:['LTV 76%','45 min','₹5K–₹40L']},
+    {name:'Axis Bank',logo:'images/jeweler-logos/axis-bank.png',bannerImg:'images/gold-loan-vendors/vendor-8.png',rate:'7.99% p.a.',chips:['LTV 74%','1-2 days','₹50K–₹50L']},
+    {name:'Gold Finance Solutions',logo:'images/jeweler-logos/gold-finance-solutions.png',bannerImg:'images/gold-loan-vendors/vendor-9.png',rate:'9.25% p.a.',chips:['LTV 78%','30 min','₹2K–₹20L']},
+    {name:'CIBIL Safe Finance',logo:'images/jeweler-logos/cibil-safe-finance.png',bannerImg:'images/gold-loan-vendors/vendor-10.png',rate:'8.5% p.a.',chips:['LTV 77%','1 hour','₹3K–₹35L']},
+  ];
+  const track = document.getElementById('vb-track');
+  if(!track) return;
+  // Duplicate for infinite scroll
+  [...VENDORS, ...VENDORS].forEach(v => {
+    const card = document.createElement('div');
+    card.className = 'vb-card';
+    // Try banner image first, fall back to logo
+    const imgSrc = v.bannerImg;
+    card.innerHTML = `
+      <div class="vb-card-badge">VERIFIED</div>
+      <div class="vb-card-logo-wrap">
+        <img src="${v.logo}" alt="${v.name}" onerror="this.src='images/logo.png'" />
+      </div>
+      <div class="vb-card-body">
+        <div class="vb-card-name">${v.name}</div>
+        <div class="vb-card-rate-row">
+          <div class="vb-card-rate">${v.rate.replace(' p.a.','')}</div>
+          <div class="vb-card-rate-unit">p.a.</div>
+        </div>
+        <div class="vb-card-divider"></div>
+        <div class="vb-card-chips">${v.chips.map(ch=>`<span class="vb-chip">${ch}</span>`).join('')}</div>
+      </div>`;
+    card.addEventListener('click', () => {
+      const idx = VENDORS.findIndex(vv=>vv.name===v.name) % 10;
+      if(idx >= 0) toggleProvider(idx);
+      document.getElementById('providers-grid')?.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+    card.style.cursor = 'pointer';
+    track.appendChild(card);
+  });
+})();
+
+/* ── Provider Expand Toggle ── */
+function toggleProvider(idx){
+  const panel = document.getElementById('expand-'+idx);
+  const arrow = document.getElementById('arrow-'+idx);
+  const isOpen = panel.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.provider-expand.open').forEach(p=>p.classList.remove('open'));
+  document.querySelectorAll('.toggle-arrow').forEach(a=>{a.textContent='▼';a.style.transform='';});
+  // Open clicked if it was closed
+  if(!isOpen){
+    panel.classList.add('open');
+    if(arrow){arrow.textContent='▲';arrow.style.transform='rotate(0)';}
+    setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+  }
+}
+
 </script>
 
 </body>

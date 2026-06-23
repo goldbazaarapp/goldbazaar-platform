@@ -70,7 +70,7 @@ html[data-theme="light"]{
 .nav-right{display:flex;align-items:center;gap:8px}
 .nav-theme{padding:6px 10px;font-size:16px;border:none;background:none;cursor:pointer;transition:transform .2s;display:flex;align-items:center;justify-content:center}
 .nav-theme:hover{transform:scale(1.1)}
-.nav-login{padding:8px 16px;border:1px solid rgba(201,168,76,.35);border-radius:8px;font-size:13px;font-weight:500;color:var(--g);transition:all .2s}
+.nav-login{padding:8px 16px;border:1px solid rgba(201,168,76,.35);border-radius:8px;font-size:13px;font-weight:500;color:var(--g);transition:all .2s;display:none}
 .nav-login:hover{background:rgba(201,168,76,.08)}
 .nav-back{padding:8px 16px;border:1px solid rgba(255,255,255,.18);border-radius:8px;font-size:13px;font-weight:500;color:rgba(255,255,255,.75);transition:all .2s}
 .nav-back:hover{border-color:var(--g);color:var(--g)}
@@ -332,7 +332,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
   .gold-widget{display:none}
 }
 
-.foot-disabled{opacity:.35;pointer-events:none;cursor:default;text-decoration:none}
+.foot-disabled{display:none}
 </style>
 <link rel="stylesheet" href="responsive.css"/>
 </head>
@@ -346,7 +346,7 @@ footer{background:var(--b1);border-top:1px solid var(--b4);padding:64px 0 32px}
   <div class="nav-right">
     <a href="index.html" style="padding:8px 16px;border:1px solid rgba(201,168,76,.35);border-radius:8px;color:var(--g);font-size:13px;">← Back to Home</a>
     <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()" title="Toggle theme" aria-label="Toggle dark/light theme">🌙</button>
-    <a href="#" onclick="alert('Login feature coming soon')" class="nav-login">Login</a>
+    <!-- <a href="#" onclick="alert('Login feature coming soon')" class="nav-login">Login</a> -->
     <a href="vendor-onboarding-complete.html" class="nav-vendor">Vendor Onboarding</a>
   </div>
 

@@ -30,7 +30,7 @@ html[data-theme="light"]{--bg:#FFF;--b1:#F8F8F8;--b2:#F2F2F2;--b3:#EBEBEB;--text
 .nav-center a:hover,.nav-center a.active{color:var(--g);font-weight:600}
 .nav-right{display:flex;align-items:center;gap:8px}
 .nav-theme{padding:6px 10px;font-size:16px}
-.nav-login{padding:8px 16px;border:1px solid rgba(201,168,76,.35);border-radius:8px;font-size:13px;font-weight:500;color:var(--g)}
+.nav-login{padding:8px 16px;border:1px solid rgba(201,168,76,.35);border-radius:8px;font-size:13px;font-weight:500;color:var(--g);display:none}
 .nav-vendor{padding:8px 16px;border:1px solid rgba(255,255,255,.18);border-radius:8px;font-size:13px;color:rgba(255,255,255,.75)}
 .nav-vendor:hover{border-color:var(--g);color:var(--g)}
 .nav-cta{padding:8px 20px;border-radius:8px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:13px;font-weight:700}
@@ -129,7 +129,7 @@ html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,
 html[data-theme="light"] .featured-post{background:#fff}
 html[data-theme="light"] .blog-card{background:#fff}
 
-.foot-disabled{opacity:.35;pointer-events:none;cursor:default;text-decoration:none}
+.foot-disabled{display:none}
 </style>
 <link rel="stylesheet" href="responsive.css"/>
 </head>
@@ -271,7 +271,7 @@ html[data-theme="light"] .blog-card{background:#fff}
   <div class="foot-inner">
     <div class="foot-grid">
       <div><div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div><p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions.</p><div class="foot-socials"><a href="#" class="fsoc">in</a><a href="#" class="fsoc">f</a><a href="#" class="fsoc">📷</a><a href="#" class="fsoc">𝕏</a></div></div>
-      <div class="foot-col"><h4>Services</h4><ul><li><a href="gold-loan-providers.html">Gold Loan</a></li><li><a href="gold-buyers.html">Sell Gold</a></li><li><a href="gold-exchange.html" class="foot-disabled">Exchange</a></li><li><a href="jewellery-purchase.html" class="foot-disabled">Jewellery</a></li><li><a href="gold-savings-scheme.html" class="foot-disabled">Savings</a></li></ul></div><div class="foot-col"><h4>More</h4><ul><li><a href="digital-gold.html" class="foot-disabled">Digital Gold</a></li><li><a href="gold-insurance.html" class="foot-disabled">Insurance</a></li><li><a href="gold-investment.html" class="foot-disabled">Investment</a></li><li><a href="index.html#gold-calculator" class="foot-disabled">Calculator</a></li></ul></div>
+      <div class="foot-col"><h4>Services</h4><ul><li><a href="gold-loan-providers.html">Gold Loan</a></li><li><a href="gold-buyers.html">Sell Gold</a></li><!-- <li><!-- <a href="gold-exchange.html" class="foot-disabled">Exchange</a> --></li> --><!-- <li><!-- <a href="jewellery-purchase.html" class="foot-disabled">Jewellery</a> --></li> --><!-- <li><!-- <a href="gold-savings-scheme.html" class="foot-disabled">Savings</a> --></li> --></ul></div><div class="foot-col"><h4>More</h4><ul><!-- <li><!-- <a href="digital-gold.html" class="foot-disabled">Digital Gold</a> --></li> --><!-- <li><!-- <a href="gold-insurance.html" class="foot-disabled">Insurance</a> --></li> --><!-- <li><!-- <a href="gold-investment.html" class="foot-disabled">Investment</a> --></li> --><!-- <li><!-- <a href="index.html#gold-calculator" class="foot-disabled">Calculator</a> --></li> --></ul></div>
       <div class="foot-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="careers.html">Careers</a></li><li><a href="blog.html" class="cur">Blog</a></li></ul></div>
       <div class="foot-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-conditions.html">Terms &amp; Conditions</a></li><li><a href="grievance-policy.html">Grievance Policy</a></li><li><a href="sitemap.html">Sitemap</a></li></ul></div>
     </div>
