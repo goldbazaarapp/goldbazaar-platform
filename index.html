@@ -558,6 +558,19 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
   <div class="hero-dots" id="hero-dots"></div>
 </section>
 
+<!-- FILE:// WARNING BANNER -->
+<div id="file-protocol-banner" style="display:none;background:#7c2d12;color:#fef3c7;text-align:center;padding:10px 16px;font-size:13px;font-weight:500;position:relative;z-index:999">
+  ⚠️ You're opening this as a local file — live gold rates are blocked by the browser.
+  <strong style="color:#fde68a"> Double-click "Start GoldBazaar.bat"</strong> in your GoldBazaar folder, then visit
+  <a href="http://localhost:8080" style="color:#fde68a;text-decoration:underline">http://localhost:8080</a> for live rates.
+  <button onclick="document.getElementById('file-protocol-banner').style.display='none'" style="margin-left:16px;background:rgba(255,255,255,0.15);border:none;color:#fef3c7;padding:2px 10px;border-radius:4px;cursor:pointer;font-size:12px">✕</button>
+</div>
+<script>
+if (location.protocol === 'file:') {
+  document.getElementById('file-protocol-banner').style.display = 'block';
+}
+</script>
+
 <!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker-track" id="ticker-track">
@@ -1130,99 +1143,90 @@ function toggleGoldRates(){const w=document.getElementById('gold-rates-widget');
    India premium added: Gold +3.5%, Silver +2% (MCX vs LBMA)
    ════════════════════════════════════════════════════════════ */
 /* ══════════════════════════════════════════════════════════════════
-   LIVE INDIA GOLD & SILVER RATE ENGINE  v3
-   ── Primary: goldprice.org /dbXRates/INR ──────────────────────
-   Returns XAU & XAG price already in INR per troy oz.
-   Includes India import duty (6%) + GST (3%) + MCX premium.
-   Same source used by Groww, ET Markets, Moneycontrol.
-   No USD/INR conversion needed. No multiplier needed.
-   ── Fallback: goldprice.org /dbXRates/USD + live forex ────────
-   USD spot × live USD/INR × 1.094 (= 6% duty + 3% GST + 0.4% premium)
-   ── Forex: open.er-api → jsdelivr currency-api (both free, CORS) ──
+   LIVE INDIA GOLD & SILVER RATE ENGINE  v4
+   Source A: fawazahmed0 currency-api on jsDelivr CDN
+             XAU→INR (gold) + XAG→INR (silver) + USD→INR
+             Free, no API key, works from localhost & goldbazaar.app
+   Source B: goldprice.org /dbXRates/INR  (India MCX price direct)
+   Source C: goldprice.org /dbXRates/USD + open.er-api forex
    ════════════════════════════════════════════════════════════════ */
 const GoldRateManager = {
   TROY_G: 31.1035,
-  // India total duty factor: 6% import duty × 1.03 GST × 1.004 MCX = ~1.094
-  INDIA_FACTOR: 1.094,
-  // Realistic fallback rates (updated June 2026, per gram)
+  INDIA_FACTOR: 1.094,   // 6% import duty × 1.03 GST × 1.004 MCX ≈ 1.094
+  INDIA_SILVER: 1.153,   // 10% import duty × 1.03 GST × 1.02 ≈ 1.153
+  CDN: 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/',
+  GP:  'https://data-asg.goldprice.org/dbXRates/',
   FALLBACK: { gold24: 14800, gold22: 13565, gold18: 11100, gold14: 8658, silver1g: 250, usdInr: 94.41 },
 
   set(el, txt) { const e = document.getElementById(el); if (e) e.textContent = txt; },
-  fmt(n)       { return '₹' + Math.round(n).toLocaleString('en-IN'); },
-  fmtg(n)      { return this.fmt(n) + '/g'; },
+  fmt(n)  { return '₹' + Math.round(n).toLocaleString('en-IN'); },
+  fmtg(n) { return this.fmt(n) + '/g'; },
+  get(url){ return fetch(url, { signal: AbortSignal.timeout(8000) }).then(r => { if(!r.ok) throw r.status; return r.json(); }); },
 
-  /* ── Build rate object from 24K per-gram INR price ── */
   buildRates(gold24g, silver1g, usdInr) {
     return {
-      gold24:   Math.round(gold24g),
-      gold22:   Math.round(gold24g * 0.9167),
-      gold18:   Math.round(gold24g * 0.75),
-      gold14:   Math.round(gold24g * 0.585),
+      gold24:  Math.round(gold24g),
+      gold22:  Math.round(gold24g * 0.9167),
+      gold18:  Math.round(gold24g * 0.75),
+      gold14:  Math.round(gold24g * 0.585),
       silver1g: Math.round(silver1g * 10) / 10,
       silverKg: Math.round(silver1g * 1000),
-      usdInr:   Math.round(usdInr * 100) / 100
+      usdInr:  Math.round(usdInr * 100) / 100
     };
   },
 
-  /* ── SOURCE 1: goldprice.org INR endpoint (India MCX price) ── */
+  /* SOURCE A — jsDelivr CDN (fawazahmed0 currency-api)
+     Gives international XAU/XAG/USD rates in INR. Apply India duty factor.
+     Works from localhost, goldbazaar.app and most browsers. */
+  async fetchCDN() {
+    const [xauD, xagD, usdD] = await Promise.all([
+      this.get(this.CDN + 'xau.json'),
+      this.get(this.CDN + 'xag.json'),
+      this.get(this.CDN + 'usd.json'),
+    ]);
+    const xauInr = xauD?.xau?.inr;
+    const xagInr = xagD?.xag?.inr;
+    const usdInr = usdD?.usd?.inr;
+    if (!xauInr || xauInr < 50000) throw new Error('CDN: bad XAU value');
+    const gold24g  = (xauInr / this.TROY_G) * this.INDIA_FACTOR;
+    const silver1g = xagInr ? (xagInr / this.TROY_G) * this.INDIA_SILVER : this.FALLBACK.silver1g;
+    console.log('[GB] CDN rates — XAU/INR:', xauInr, '→ 24K/g:', Math.round(gold24g));
+    return { gold24g, silver1g, pchgGold: 0, pchgSilver: 0, usdInr: usdInr || this.FALLBACK.usdInr, src: 'Live Market' };
+  },
+
+  /* SOURCE B — goldprice.org INR (India MCX, already includes duties) */
   async fetchGoldpriceINR() {
-    // Fetch gold/silver INR rates AND live USD/INR forex in parallel
-    const [d, usdInr] = await Promise.all([
-      fetch('https://data-asg.goldprice.org/dbXRates/INR',
-        { headers: { 'Accept': 'application/json' }, signal: AbortSignal.timeout(6000) }
-      ).then(r => r.json()),
-      this.fetchForex()
-    ]);
-
-    const item = d.items ? d.items[0] : d;
-    if (!item?.xauPrice || item.xauPrice < 10000) throw new Error('bad data');
-
-    const gold24g = item.xauPrice / this.TROY_G;
-
-    // Silver: use INR endpoint value if valid, else fetch USD endpoint × forex
-    let silver1g = (item.xagPrice && item.xagPrice > 500)
-      ? item.xagPrice / this.TROY_G : 0;
+    const [d, usdInr] = await Promise.all([ this.get(this.GP + 'INR'), this.fetchForex() ]);
+    const item = d.items?.[0] || d;
+    if (!item?.xauPrice || item.xauPrice < 10000) throw new Error('GP-INR: bad data');
+    const gold24g  = item.xauPrice / this.TROY_G;
+    let silver1g   = (item.xagPrice > 500) ? item.xagPrice / this.TROY_G : 0;
     if (!silver1g) {
-      try {
-        const ds = await fetch('https://data-asg.goldprice.org/dbXRates/USD',
-          { signal: AbortSignal.timeout(5000) }).then(r => r.json());
-        const si = ds.items ? ds.items[0] : ds;
-        if (si?.xagPrice) silver1g = (si.xagPrice / this.TROY_G) * usdInr;
-      } catch(e) {}
+      try { const ds = await this.get(this.GP + 'USD'); const s = ds.items?.[0]||ds; silver1g = s.xagPrice ? (s.xagPrice/this.TROY_G)*usdInr*this.INDIA_SILVER : 0; } catch(e){}
     }
-    if (!silver1g) silver1g = this.FALLBACK.silver1g;
-
-    return { gold24g, silver1g, pchgGold: item.pchgXau||0, pchgSilver: item.pchgXag||0, usdInr, src: 'goldprice.org' };
+    console.log('[GB] goldprice.org INR — xauPrice:', item.xauPrice, '→ 24K/g:', Math.round(gold24g));
+    return { gold24g, silver1g: silver1g||this.FALLBACK.silver1g, pchgGold: item.pchgXau||0, pchgSilver: 0, usdInr, src: 'MCX Live' };
   },
 
-  /* ── SOURCE 2: goldprice.org USD + live forex + India duty factor ── */
+  /* SOURCE C — goldprice.org USD × live forex */
   async fetchGoldpriceUSD() {
-    const [d, usdInr] = await Promise.all([
-      fetch('https://data-asg.goldprice.org/dbXRates/USD',
-        { headers: { 'Accept': 'application/json' }, signal: AbortSignal.timeout(6000) }
-      ).then(r => r.json()),
-      this.fetchForex()
-    ]);
-    const item = d.items ? d.items[0] : d;
-    if (!item?.xauPrice) throw new Error('bad data');
+    const [d, usdInr] = await Promise.all([ this.get(this.GP + 'USD'), this.fetchForex() ]);
+    const item = d.items?.[0] || d;
+    if (!item?.xauPrice) throw new Error('GP-USD: bad data');
     const gold24g  = (item.xauPrice / this.TROY_G) * usdInr * this.INDIA_FACTOR;
-    const silver1g = item.xagPrice ? (item.xagPrice / this.TROY_G) * usdInr : this.FALLBACK.silver1g;
-    return { gold24g, silver1g, pchgGold: item.pchgXau||0, pchgSilver: item.pchgXag||0, usdInr, src: 'goldprice.org (USD)' };
+    const silver1g = item.xagPrice ? (item.xagPrice / this.TROY_G) * usdInr * this.INDIA_SILVER : this.FALLBACK.silver1g;
+    console.log('[GB] goldprice.org USD — xauPrice:', item.xauPrice, 'usdInr:', usdInr, '→ 24K/g:', Math.round(gold24g));
+    return { gold24g, silver1g, pchgGold: item.pchgXau||0, pchgSilver: 0, usdInr, src: 'MCX Live' };
   },
 
-  /* ── Forex: open.er-api.com (CORS-open, free, no key) → jsdelivr CDN → hardcoded ── */
   async fetchForex() {
-    const sources = [
-      () => fetch('https://open.er-api.com/v6/latest/USD', { signal: AbortSignal.timeout(6000) })
-              .then(r => r.json()).then(d => (d.result==='success' && d.rates?.INR) ? d.rates.INR : null),
-      () => fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json',
-              { signal: AbortSignal.timeout(6000) })
-              .then(r => r.json()).then(d => d.usd?.inr || null),
-      () => fetch('https://api.frankfurter.app/latest?from=USD&to=INR', { signal: AbortSignal.timeout(6000) })
-              .then(r => r.json()).then(d => d.rates?.INR || null),
+    const urls = [
+      [() => this.get('https://open.er-api.com/v6/latest/USD'),   d => d.result==='success' ? d.rates?.INR : null],
+      [() => this.get(this.CDN + 'usd.json'),                      d => d.usd?.inr],
+      [() => this.get('https://api.frankfurter.app/latest?from=USD&to=INR'), d => d.rates?.INR],
     ];
-    for (const src of sources) {
-      try { const v = await src(); if (v && v > 70 && v < 200) return Math.round(v * 100) / 100; } catch(e) {}
+    for (const [fn, pick] of urls) {
+      try { const v = pick(await fn()); if (v > 70 && v < 200) return Math.round(v*100)/100; } catch(e){}
     }
     return this.FALLBACK.usdInr;
   },
@@ -1289,17 +1293,21 @@ const GoldRateManager = {
   },
 
   async init() {
-    // Show cached instantly
+    // Clear stale cache (older than 10 min) or any fallback-sourced cache
     try {
       const c = JSON.parse(sessionStorage.getItem('gb_rate_cache') || 'null');
-      if (c && (Date.now() - c.ts) < 10 * 60 * 1000)
-        this.updateDisplay(c.r, c.src + ' ·cached');
+      if (c) {
+        const stale = (Date.now() - c.ts) > 10 * 60 * 1000;
+        const isFallback = (c.src || '').includes('Reference') || (c.src || '').includes('cached');
+        if (!stale && !isFallback) this.updateDisplay(c.r, c.src + ' ·cached');
+        if (stale) sessionStorage.removeItem('gb_rate_cache');
+      }
     } catch(e) {}
 
-    // Try sources in order
     const sources = [
-      () => this.fetchGoldpriceINR(),
-      () => this.fetchGoldpriceUSD()
+      () => this.fetchCDN(),            // jsDelivr CDN — works everywhere
+      () => this.fetchGoldpriceINR(),   // goldprice.org INR — India MCX direct
+      () => this.fetchGoldpriceUSD(),   // goldprice.org USD × forex — last resort
     ];
     for (const src of sources) {
       try {
