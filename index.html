@@ -1143,92 +1143,123 @@ function toggleGoldRates(){const w=document.getElementById('gold-rates-widget');
    India premium added: Gold +3.5%, Silver +2% (MCX vs LBMA)
    ════════════════════════════════════════════════════════════ */
 /* ══════════════════════════════════════════════════════════════════
-   LIVE INDIA GOLD & SILVER RATE ENGINE  v4
-   Source A: fawazahmed0 currency-api on jsDelivr CDN
-             XAU→INR (gold) + XAG→INR (silver) + USD→INR
-             Free, no API key, works from localhost & goldbazaar.app
-   Source B: goldprice.org /dbXRates/INR  (India MCX price direct)
-   Source C: goldprice.org /dbXRates/USD + open.er-api forex
+   LIVE INDIA GOLD & SILVER RATE ENGINE  v7  — NO HARDCODED FALLBACK
+   ─────────────────────────────────────────────────────────────────
+   PRIMARY  : goldprice.org /dbXRates/INR  (MCX, same as Groww)
+   FALLBACK1: api.gold-api.com + api.metals.live × open.er-api.com
+   FALLBACK2: goldprice.org /dbXRates/USD  × open.er-api.com
+   Forex    : open.er-api.com → api.frankfurter.app
+   All sources CORS-open, free, no API key.
+   file:// → proxied via allorigins.win (null-origin workaround)
+   All fail → show "—" in ticker
    ════════════════════════════════════════════════════════════════ */
 const GoldRateManager = {
-  TROY_G: 31.1035,
-  INDIA_FACTOR: 1.094,   // 6% import duty × 1.03 GST × 1.004 MCX ≈ 1.094
-  INDIA_SILVER: 1.153,   // 10% import duty × 1.03 GST × 1.02 ≈ 1.153
-  CDN: 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/',
-  GP:  'https://data-asg.goldprice.org/dbXRates/',
-  FALLBACK: { gold24: 14800, gold22: 13565, gold18: 11100, gold14: 8658, silver1g: 250, usdInr: 94.41 },
+  TROY_G:       31.1035,
+  INDIA_FACTOR: 1.130,  // import duty 6% + AIDC + GST 3% + MCX premium ≈ 13% total
+  INDIA_SILVER: 1.300,  // silver has higher India import duty structure ≈ 30% total
+  ON_FILE:      location.protocol === 'file:',
+  _errors:      [],
 
   set(el, txt) { const e = document.getElementById(el); if (e) e.textContent = txt; },
   fmt(n)  { return '₹' + Math.round(n).toLocaleString('en-IN'); },
   fmtg(n) { return this.fmt(n) + '/g'; },
-  get(url){ return fetch(url, { signal: AbortSignal.timeout(8000) }).then(r => { if(!r.ok) throw r.status; return r.json(); }); },
+
+  get(url, timeout = 10000) {
+    const target = this.ON_FILE
+      ? `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
+      : url;
+    const ctrl = new AbortController();
+    const tid = setTimeout(() => ctrl.abort(), timeout);
+    return fetch(target, { signal: ctrl.signal })
+      .then(r => { clearTimeout(tid); if (!r.ok) throw new Error(`HTTP ${r.status} from ${url}`); return r.json(); })
+      .catch(e => { clearTimeout(tid); throw e; });
+  },
 
   buildRates(gold24g, silver1g, usdInr) {
     return {
-      gold24:  Math.round(gold24g),
-      gold22:  Math.round(gold24g * 0.9167),
-      gold18:  Math.round(gold24g * 0.75),
-      gold14:  Math.round(gold24g * 0.585),
+      gold24:   Math.round(gold24g),
+      gold22:   Math.round(gold24g * 0.9167),
+      gold18:   Math.round(gold24g * 0.75),
+      gold14:   Math.round(gold24g * 0.585),
       silver1g: Math.round(silver1g * 10) / 10,
       silverKg: Math.round(silver1g * 1000),
-      usdInr:  Math.round(usdInr * 100) / 100
+      usdInr:   Math.round(usdInr * 100) / 100
     };
   },
 
-  /* SOURCE A — jsDelivr CDN (fawazahmed0 currency-api)
-     Gives international XAU/XAG/USD rates in INR. Apply India duty factor.
-     Works from localhost, goldbazaar.app and most browsers. */
-  async fetchCDN() {
-    const [xauD, xagD, usdD] = await Promise.all([
-      this.get(this.CDN + 'xau.json'),
-      this.get(this.CDN + 'xag.json'),
-      this.get(this.CDN + 'usd.json'),
-    ]);
-    const xauInr = xauD?.xau?.inr;
-    const xagInr = xagD?.xag?.inr;
-    const usdInr = usdD?.usd?.inr;
-    if (!xauInr || xauInr < 50000) throw new Error('CDN: bad XAU value');
-    const gold24g  = (xauInr / this.TROY_G) * this.INDIA_FACTOR;
-    const silver1g = xagInr ? (xagInr / this.TROY_G) * this.INDIA_SILVER : this.FALLBACK.silver1g;
-    console.log('[GB] CDN rates — XAU/INR:', xauInr, '→ 24K/g:', Math.round(gold24g));
-    return { gold24g, silver1g, pchgGold: 0, pchgSilver: 0, usdInr: usdInr || this.FALLBACK.usdInr, src: 'Live Market' };
-  },
-
-  /* SOURCE B — goldprice.org INR (India MCX, already includes duties) */
-  async fetchGoldpriceINR() {
-    const [d, usdInr] = await Promise.all([ this.get(this.GP + 'INR'), this.fetchForex() ]);
-    const item = d.items?.[0] || d;
-    if (!item?.xauPrice || item.xauPrice < 10000) throw new Error('GP-INR: bad data');
-    const gold24g  = item.xauPrice / this.TROY_G;
-    let silver1g   = (item.xagPrice > 500) ? item.xagPrice / this.TROY_G : 0;
-    if (!silver1g) {
-      try { const ds = await this.get(this.GP + 'USD'); const s = ds.items?.[0]||ds; silver1g = s.xagPrice ? (s.xagPrice/this.TROY_G)*usdInr*this.INDIA_SILVER : 0; } catch(e){}
-    }
-    console.log('[GB] goldprice.org INR — xauPrice:', item.xauPrice, '→ 24K/g:', Math.round(gold24g));
-    return { gold24g, silver1g: silver1g||this.FALLBACK.silver1g, pchgGold: item.pchgXau||0, pchgSilver: 0, usdInr, src: 'MCX Live' };
-  },
-
-  /* SOURCE C — goldprice.org USD × live forex */
-  async fetchGoldpriceUSD() {
-    const [d, usdInr] = await Promise.all([ this.get(this.GP + 'USD'), this.fetchForex() ]);
-    const item = d.items?.[0] || d;
-    if (!item?.xauPrice) throw new Error('GP-USD: bad data');
-    const gold24g  = (item.xauPrice / this.TROY_G) * usdInr * this.INDIA_FACTOR;
-    const silver1g = item.xagPrice ? (item.xagPrice / this.TROY_G) * usdInr * this.INDIA_SILVER : this.FALLBACK.silver1g;
-    console.log('[GB] goldprice.org USD — xauPrice:', item.xauPrice, 'usdInr:', usdInr, '→ 24K/g:', Math.round(gold24g));
-    return { gold24g, silver1g, pchgGold: item.pchgXau||0, pchgSilver: 0, usdInr, src: 'MCX Live' };
-  },
-
+  /* ── Forex ── */
   async fetchForex() {
-    const urls = [
-      [() => this.get('https://open.er-api.com/v6/latest/USD'),   d => d.result==='success' ? d.rates?.INR : null],
-      [() => this.get(this.CDN + 'usd.json'),                      d => d.usd?.inr],
-      [() => this.get('https://api.frankfurter.app/latest?from=USD&to=INR'), d => d.rates?.INR],
-    ];
-    for (const [fn, pick] of urls) {
-      try { const v = pick(await fn()); if (v > 70 && v < 200) return Math.round(v*100)/100; } catch(e){}
+    for (const [fn, pick] of [
+      [() => this.get('https://open.er-api.com/v6/latest/USD'),             d => d.result === 'success' ? d.rates?.INR : null],
+      [() => this.get('https://api.frankfurter.app/latest?from=USD&to=INR'),d => d.rates?.INR],
+    ]) {
+      try { const v = pick(await fn()); if (v > 70 && v < 200) { console.log('[GB] Forex USD/INR =', v); return Math.round(v * 100) / 100; } } catch(e) { this._errors.push('Forex: ' + e.message); }
     }
-    return this.FALLBACK.usdInr;
+    throw new Error('Forex: all failed');
+  },
+
+  /* ── SOURCE 1: goldprice.org INR (India MCX, same feed as Groww) ── */
+  async fetchGoldpriceINR() {
+    const [d, usdInr] = await Promise.all([this.get('https://data-asg.goldprice.org/dbXRates/INR'), this.fetchForex()]);
+    const item = Array.isArray(d.items) ? d.items[0] : d;
+    console.log('[GB] goldprice.org INR raw:', JSON.stringify(item).slice(0, 200));
+    const xau = item?.xauPrice;
+    if (!xau || xau < 1000) throw new Error('GP-INR: xauPrice=' + xau);
+    // xauPrice = international spot in INR/troy oz — apply India duty+GST+MCX factor
+    const gold24g = (xau / this.TROY_G) * this.INDIA_FACTOR;
+    const xag = item?.xagPrice;
+    const silver1g = (xag && xag > 100) ? (xag / this.TROY_G) * this.INDIA_SILVER
+      : await this.fetchForex().then(fx => this.get('https://data-asg.goldprice.org/dbXRates/USD')
+          .then(ds => { const s = Array.isArray(ds.items) ? ds.items[0] : ds; return s.xagPrice ? (s.xagPrice / this.TROY_G) * fx * this.INDIA_SILVER : null; }))
+          .catch(() => null);
+    if (!silver1g) throw new Error('GP-INR: no silver');
+    console.log('[GB] ✅ SOURCE 1 goldprice.org INR — 24K/g ₹' + Math.round(gold24g) + '  Silver/g ₹' + Math.round(silver1g));
+    return { gold24g, silver1g, usdInr, pchgGold: item.pchgXau || 0, src: 'MCX Live' };
+  },
+
+  /* ── SOURCE 2: gold-api.com + metals.live × live forex ── */
+  async fetchGoldApi() {
+    const usdInr = await this.fetchForex();
+    // Try gold-api.com for gold, metals.live for silver
+    const [gd, md] = await Promise.allSettled([
+      this.get('https://api.gold-api.com/price/XAU'),
+      this.get('https://api.metals.live/v1/spot'),
+    ]);
+    const goldUsd = gd.status === 'fulfilled' ? (gd.value?.price || gd.value?.price_usd) : null;
+    console.log('[GB] gold-api.com raw:', gd.status, goldUsd);
+    if (!goldUsd || goldUsd < 500) throw new Error('gold-api.com: invalid gold=' + goldUsd);
+    const gold24g = (goldUsd / this.TROY_G) * usdInr * this.INDIA_FACTOR;
+    // metals.live returns array: [{metal:'gold',price:...},{metal:'silver',price:...}]
+    let silverUsd = null;
+    if (md.status === 'fulfilled') {
+      const arr = Array.isArray(md.value) ? md.value : [];
+      const sv = arr.find(x => x.metal === 'silver' || x.symbol === 'XAG');
+      silverUsd = sv?.price || sv?.price_usd;
+      console.log('[GB] metals.live silver:', silverUsd);
+    }
+    if (!silverUsd) {
+      // Fallback: try gold-api.com for silver too
+      try { const sd = await this.get('https://api.gold-api.com/price/XAG'); silverUsd = sd?.price || sd?.price_usd; } catch(e) {}
+    }
+    if (!silverUsd || silverUsd < 5) throw new Error('SOURCE2: no silver');
+    const silver1g = (silverUsd / this.TROY_G) * usdInr * this.INDIA_SILVER;
+    console.log('[GB] ✅ SOURCE 2 gold-api+metals.live — 24K/g ₹' + Math.round(gold24g) + '  Silver/g ₹' + Math.round(silver1g));
+    return { gold24g, silver1g, usdInr, pchgGold: 0, src: 'Spot Live' };
+  },
+
+  /* ── SOURCE 3: goldprice.org USD × forex ── */
+  async fetchGoldpriceUSD() {
+    const [d, usdInr] = await Promise.all([this.get('https://data-asg.goldprice.org/dbXRates/USD'), this.fetchForex()]);
+    const item = Array.isArray(d.items) ? d.items[0] : d;
+    console.log('[GB] goldprice.org USD raw:', JSON.stringify(item).slice(0, 200));
+    const xau = item?.xauPrice;
+    if (!xau || xau < 500) throw new Error('GP-USD: xauPrice=' + xau);
+    const gold24g  = (xau / this.TROY_G) * usdInr * this.INDIA_FACTOR;
+    const xag = item?.xagPrice;
+    if (!xag || xag < 5) throw new Error('GP-USD: no silver');
+    const silver1g = (xag / this.TROY_G) * usdInr * this.INDIA_SILVER;
+    console.log('[GB] ✅ SOURCE 3 goldprice.org USD — 24K/g ₹' + Math.round(gold24g));
+    return { gold24g, silver1g, usdInr, pchgGold: item.pchgXau || 0, src: 'MCX Live' };
   },
 
   /* ── Update every DOM element that shows a rate ── */
@@ -1292,38 +1323,66 @@ const GoldRateManager = {
     try { sessionStorage.setItem('gb_rate_cache', JSON.stringify({ ts: Date.now(), r, src })); } catch(e) {}
   },
 
+  showUnavailable(errors = []) {
+    const dash = '—';
+    ['tick-24k','tick-22k','tick-18k','tick-14k','tick-silver-g','tick-silver-kg','tick-usd-3','svc-rate-22k'].forEach(id => this.set(id, dash));
+    document.querySelectorAll('.ad-live-22k').forEach(el => el.textContent = dash);
+    this.set('tick-source', 'Rates unavailable — retrying…');
+    this.set('gold-update-time', '—');
+    // Show debug banner with actual errors (helps diagnose API issues)
+    let dbg = document.getElementById('gb-api-debug');
+    if (!dbg) {
+      dbg = document.createElement('div');
+      dbg.id = 'gb-api-debug';
+      dbg.style.cssText = 'position:fixed;bottom:12px;right:12px;z-index:9999;background:#1a0a00;border:1px solid #c9a84c;border-radius:8px;padding:12px 16px;max-width:420px;font:12px monospace;color:#fde68a;box-shadow:0 4px 20px rgba(0,0,0,.6)';
+      document.body.appendChild(dbg);
+    }
+    dbg.innerHTML = '<b style="color:#c9a84c">⚠ GoldBazaar — API Debug</b><br>'
+      + (errors.length ? errors.map(e => '❌ ' + e).join('<br>') : 'All rate sources failed')
+      + '<br><br><span style="color:#86efac">Open F12 → Console for details</span>'
+      + '<br><button onclick="document.getElementById(\'gb-api-debug\').remove()" style="margin-top:8px;background:#c9a84c;color:#000;border:none;border-radius:4px;padding:3px 10px;cursor:pointer;font-weight:700">Close</button>';
+  },
+
   async init() {
-    // Clear stale cache (older than 10 min) or any fallback-sourced cache
+    // Clear cache (always fetch fresh — no stale data)
     try {
       const c = JSON.parse(sessionStorage.getItem('gb_rate_cache') || 'null');
       if (c) {
-        const stale = (Date.now() - c.ts) > 10 * 60 * 1000;
-        const isFallback = (c.src || '').includes('Reference') || (c.src || '').includes('cached');
-        if (!stale && !isFallback) this.updateDisplay(c.r, c.src + ' ·cached');
-        if (stale) sessionStorage.removeItem('gb_rate_cache');
+        const age = Date.now() - c.ts;
+        const stale = age > 10 * 60 * 1000;
+        if (!stale) {
+          this.updateDisplay(c.r, c.src + ' · cached');
+          setTimeout(() => this.init(), (10 * 60 * 1000) - age);
+          return;
+        }
+        sessionStorage.removeItem('gb_rate_cache');
       }
     } catch(e) {}
 
+    this._errors = [];
     const sources = [
-      () => this.fetchCDN(),            // jsDelivr CDN — works everywhere
-      () => this.fetchGoldpriceINR(),   // goldprice.org INR — India MCX direct
-      () => this.fetchGoldpriceUSD(),   // goldprice.org USD × forex — last resort
+      ['goldprice.org/INR (MCX)',   () => this.fetchGoldpriceINR()],
+      ['gold-api.com + metals.live',() => this.fetchGoldApi()],
+      ['goldprice.org/USD × forex', () => this.fetchGoldpriceUSD()],
     ];
-    for (const src of sources) {
+    for (const [label, fn] of sources) {
       try {
-        const res = await src();
+        console.log('[GB] Trying:', label);
+        const res = await fn();
         const r = this.buildRates(res.gold24g, res.silver1g, res.usdInr);
         this.updateDisplay(r, res.src, res.pchgGold);
         setTimeout(() => this.init(), 5 * 60 * 1000);
         return;
-      } catch(e) { /* try next */ }
+      } catch(e) {
+        const msg = e.message || String(e);
+        this._errors.push(label + ': ' + msg);
+        console.warn('[GB] ❌', label, '—', msg);
+      }
     }
-    // All failed — show fallback
-    const r = this.buildRates(
-      this.FALLBACK.gold24, this.FALLBACK.silver1g, this.FALLBACK.usdInr
-    );
-    this.updateDisplay(r, 'Reference rates');
-    setTimeout(() => this.init(), 60 * 1000); // retry sooner
+    // All sources failed — show "—" (no fallback, no hardcoded rates)
+    console.error('[GB] ❌ All sources failed:\n' + this._errors.join('\n'));
+    this.showUnavailable(this._errors);
+    setTimeout(() => this.init(), 60 * 1000);
   }
 };
 /* ── HERO MODE CONFIG ───────────────────────────────────────────────────
