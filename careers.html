@@ -100,7 +100,7 @@ footer{background:var(--b1);border-top:1.5px solid rgba(201,168,76,.25)}
 @media(max-width:1100px){.foot-grid{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr}.foot-inner{padding:32px 20px 20px}}
 @media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
-.foot-logo img{height:56px;margin-bottom:14px}
+.foot-logo img{height:100px;margin-bottom:14px}
 .foot-desc{font-size:13px;color:var(--text3);line-height:1.7;max-width:260px;margin-bottom:18px}
 .foot-socials{display:flex;gap:10px}
 .fsoc{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all .2s}
@@ -125,6 +125,32 @@ html[data-theme="light"] .notify-section{background:#fff}
 html[data-theme="light"] .role-tag{background:#fff}
 
 .foot-disabled{display:none}
+/* FOOTER */
+footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
+.foot-inner{max-width:1200px;margin:0 auto;padding:48px 48px 24px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+@media(max-width:1100px){.foot-grid{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr}.foot-inner{padding:32px 20px 20px}}
+@media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
+.foot-logo img{height:100px;width:auto}
+.foot-desc{font-size:13px;color:var(--text-tertiary);line-height:1.7;max-width:260px;margin-bottom:20px}
+.foot-socials{display:flex;gap:10px;margin-top:4px}
+.fsoc{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all .2s;color:rgba(255,255,255,.6);text-decoration:none}
+.fsoc:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.3);color:var(--g)}
+.foot-col h4{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.foot-col ul li a{font-size:13px;color:var(--text-tertiary);transition:color .2s}
+.foot-col ul li a:hover{color:var(--g)}
+.foot-col ul li a.cur{color:var(--g);font-weight:600}
+.foot-bottom{border-top:1px solid rgba(201,168,76,.1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.foot-bottom p{font-size:12px;color:rgba(255,255,255,.3)}
+html[data-theme="light"] footer{background:#f5f5f0;border-top-color:rgba(201,168,76,.35)}
+html[data-theme="light"] .foot-desc{color:rgba(0,0,0,.45)}
+html[data-theme="light"] .foot-col ul li a{color:rgba(0,0,0,.5)}
+html[data-theme="light"] .foot-col ul li a:hover{color:var(--g)}
+html[data-theme="light"] .foot-bottom p{color:rgba(0,0,0,.4)}
+html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1);color:rgba(0,0,0,.5)}
+html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-color:var(--g);color:var(--g)}
 </style>
 <link rel="stylesheet" href="responsive.css"/>
 </head>
@@ -216,12 +242,47 @@ html[data-theme="light"] .role-tag{background:#fff}
 <footer>
   <div class="foot-inner">
     <div class="foot-grid">
-      <div><div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div><p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions.</p><div class="foot-socials"><a href="#" class="fsoc">in</a><a href="#" class="fsoc">f</a><a href="#" class="fsoc">📷</a><a href="#" class="fsoc">𝕏</a></div></div>
-      <div class="foot-col"><h4>Services</h4><ul><li><a href="gold-loan-providers.html">Gold Loan</a></li><li><a href="gold-buyers.html">Sell Gold</a></li><!-- <li><!-- <a href="gold-exchange.html" class="foot-disabled">Exchange</a> --></li> --><!-- <li><!-- <a href="jewellery-purchase.html" class="foot-disabled">Jewellery</a> --></li> --><!-- <li><!-- <a href="gold-savings-scheme.html" class="foot-disabled">Savings</a> --></li> --></ul></div><div class="foot-col"><h4>More</h4><ul><!-- <li><!-- <a href="digital-gold.html" class="foot-disabled">Digital Gold</a> --></li> --><!-- <li><!-- <a href="gold-insurance.html" class="foot-disabled">Insurance</a> --></li> --><!-- <li><!-- <a href="gold-investment.html" class="foot-disabled">Investment</a> --></li> --><!-- <li><!-- <a href="index.html#gold-calculator" class="foot-disabled">Calculator</a> --></li> --></ul></div>
-      <div class="foot-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="careers.html" class="cur">Careers</a></li><li><a href="blog.html">Blog</a></li></ul></div>
-      <div class="foot-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-conditions.html">Terms &amp; Conditions</a></li><li><a href="grievance-policy.html">Grievance Policy</a></li><li><a href="sitemap.html">Sitemap</a></li></ul></div>
+      <div>
+        <div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div>
+        <p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions.</p>
+        <div class="foot-socials">
+          <a href="https://linkedin.com" target="_blank" class="fsoc" title="LinkedIn">in</a>
+          <a href="https://facebook.com" target="_blank" class="fsoc" title="Facebook">f</a>
+          <a href="https://instagram.com" target="_blank" class="fsoc" title="Instagram">📷</a>
+          <a href="https://twitter.com" target="_blank" class="fsoc" title="X / Twitter">𝕏</a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="gold-loan-providers.html">Gold Loan</a></li>
+          <li><a href="gold-buyers.html">Sell Gold</a></li>
+          <li><a href="jewellery.html">Jewellery</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="careers.html" class="cur">Careers</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="vendor-onboarding-complete.html">Vendor Onboarding</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-conditions.html">Terms &amp; Conditions</a></li>
+          <li><a href="grievance-policy.html">Grievance Policy</a></li>
+          <li><a href="sitemap.html">Sitemap</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="foot-bottom"><p>© 2026 GoldBazaar.app — All rights reserved.</p></div>
+    <div class="foot-bottom">
+      <p>© 2026 GoldBazaar.app — All rights reserved. <a href="https://www.imprimis.in/" target="_blank" rel="noopener" style="color:var(--g);opacity:.7;font-weight:600">Imprimis Innovations Pvt. Ltd</a></p>
+    </div>
   </div>
 </footer>
 

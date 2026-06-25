@@ -237,149 +237,28 @@ html[data-theme="light"] .svc-stats span{color:var(--text-tertiary)}
 .cf-submit:hover{box-shadow:0 8px 28px rgba(201,168,76,.4);transform:translateY(-1px)}
 /* FOOTER */
 footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
-.footer-partners-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.28);text-align:center;margin-bottom:16px}
-.footer-logos-row{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;max-width:1200px;margin:0 auto;padding:24px 48px}
-.footer-logo{width:52px;height:52px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.1);display:flex;align-items:center;justify-content:center;font-size:20px;overflow:hidden}
-.footer-logo .jeweler-logo{width:100%;height:100%;object-fit:contain;padding:4px;display:block}
-.footer-logo .jeweler-logo-fallback{font-size:20px;display:none}
 .foot-inner{max-width:1200px;margin:0 auto;padding:48px 48px 24px}
-.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
-.foot-logo img{height:60px;margin-bottom:16px}
-.foot-desc{font-size:13px;color:var(--text-tertiary);line-height:1.7;max-width:260px;margin-bottom:20px}
-.foot-socials{display:flex;gap:10px}
-.fsoc{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all .2s}
-.fsoc:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.3)}
-.foot-col h4{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g);margin-bottom:16px}
-.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
-.foot-col ul li a{font-size:13px;color:var(--text-tertiary);transition:color .2s}
-.foot-col ul li a:hover{color:var(--g)}
-.foot-bottom{border-top:1px solid rgba(201,168,76,.1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-.foot-bottom p{font-size:12px;color:rgba(255,255,255,.3)}
-.foot-badges{display:flex;gap:8px;flex-wrap:wrap}
-.f-badge{font-size:10px;font-weight:700;padding:4px 10px;border:1px solid rgba(201,168,76,.2);border-radius:20px;color:rgba(255,255,255,.35)}
-/* MISC */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
-.reveal.in{opacity:1;transform:none}
-.q-chip{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(0,0,0,.45);border:1px solid rgba(201,168,76,.2);border-radius:50px;font-size:12px;font-weight:600;color:rgba(255,255,255,.75);backdrop-filter:blur(8px)}
-@keyframes slideInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes slideOutDown{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(20px)}}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
 @media(max-width:1100px){.foot-grid{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr}.foot-inner{padding:32px 20px 20px}}
 @media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
-
-/* ===== SECTION BORDERS & ANIMATIONS ===== */
-.section,.section.alt{position:relative}
-.section::before,.section.alt::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:70%;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.18),transparent);pointer-events:none}
-.svc-tile{transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
-.svc-tile:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(201,168,76,.1)}
-.step{transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
-.step:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.3)}
-.why-card{transition:transform .3s var(--ease),border-color .3s}
-.why-card:hover{transform:translateY(-3px);border-color:rgba(201,168,76,.25)}
-.news-card-live{transition:transform .3s var(--ease),border-color .3s}
-.news-card-live:hover{transform:translateY(-3px);border-color:rgba(201,168,76,.2)}
-@keyframes pulseGold{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.0)}50%{box-shadow:0 0 0 6px rgba(201,168,76,.07)}}
-.svc-tile:hover{animation:pulseGold .8s ease}
-
-/* ===== COMING SOON STYLES ===== */
-.cs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-@media(max-width:900px){.cs-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:540px){.cs-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:380px){.cs-grid{grid-template-columns:1fr}}
-.cs-tile{position:relative;padding:22px 18px;background:var(--b3);border:1px solid rgba(201,168,76,.08);border-radius:16px;overflow:hidden;cursor:default;transition:border-color .3s}
-.cs-tile:hover{border-color:rgba(201,168,76,.18)}
-.cs-overlay{position:absolute;inset:0;background:rgba(0,0,0,.3);z-index:1;display:flex;align-items:flex-start;justify-content:flex-end;padding:12px}
-.cs-badge{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);color:var(--g);padding:4px 10px;border-radius:20px}
-.cs-content{position:relative;z-index:2;opacity:.65}
-.cs-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:12px}
-.cs-name{font-size:15px;font-weight:800;color:var(--text-primary);margin-bottom:5px}
-.cs-desc{font-size:12px;color:var(--text-tertiary);line-height:1.55}
-.cs-eta{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(201,168,76,.55);margin-top:10px;display:flex;align-items:center;gap:5px}
-.cs-notify-row{text-align:center;margin-top:44px;padding:28px 0;border-top:1px solid rgba(201,168,76,.08)}
-.cs-notify-row p{font-size:14px;color:var(--text-tertiary);margin-bottom:16px}
-
-/* ===== LIGHT THEME — COMPREHENSIVE OVERRIDES ===== */
-html[data-theme="light"] #nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 2px 16px rgba(0,0,0,.1)}
-html[data-theme="light"] .nav-center a{color:rgba(0,0,0,.6)}
-html[data-theme="light"] .nav-center a:hover,html[data-theme="light"] .nav-center a.active{color:var(--g)}
-html[data-theme="light"] .hamburger span{background:#1a1a1a}
-html[data-theme="light"] .nav-vendor{border-color:rgba(0,0,0,.18);color:rgba(0,0,0,.65)}
-html[data-theme="light"] .nav-vendor:hover{border-color:var(--g);color:var(--g)}
-html[data-theme="light"] .nav-login{color:var(--g);border-color:rgba(201,168,76,.45);display:none}
-html[data-theme="light"] .nav-logo img{filter:drop-shadow(0 1px 3px rgba(0,0,0,.12))}
-html[data-theme="light"] #mob-nav{background:rgba(255,255,255,.98);border-bottom-color:rgba(0,0,0,.08)}
-html[data-theme="light"] #mob-nav a{color:rgba(0,0,0,.65);border-bottom-color:rgba(0,0,0,.06)}
-html[data-theme="light"] #mob-nav a:hover{color:var(--g)}
-html[data-theme="light"] .btn-ghost{border-color:rgba(0,0,0,.18);color:rgba(0,0,0,.7);background:rgba(0,0,0,.04)}
-html[data-theme="light"] .btn-ghost:hover{border-color:var(--g);color:var(--g);background:rgba(201,168,76,.05)}
-html[data-theme="light"] .gold-widget{background:rgba(255,255,255,.9);border-color:rgba(201,168,76,.35);box-shadow:0 4px 20px rgba(0,0,0,.1)}
-html[data-theme="light"] .gold-widget-header{border-bottom-color:rgba(0,0,0,.06)}
-html[data-theme="light"] .gold-widget-rate{border-bottom-color:rgba(0,0,0,.06)}
-html[data-theme="light"] .contact-left h3{color:#1a1a1a}
-html[data-theme="light"] .contact-info-text{color:rgba(0,0,0,.65)}
-html[data-theme="light"] .why-card h3{color:#1a1a1a}
-html[data-theme="light"] .step-title{color:#1a1a1a}
-html[data-theme="light"] .step-icon{filter:none}
-html[data-theme="light"] .cs-eta{color:rgba(180,140,40,.8)}
-html[data-theme="light"] .cs-notify-row p{color:rgba(0,0,0,.5)}
-html[data-theme="light"] .cs-notify-row{border-top-color:rgba(0,0,0,.08)}
-html[data-theme="light"] .ad-banner{background:rgba(201,168,76,.04);border-color:rgba(201,168,76,.12)}
-html[data-theme="light"] .ticker-wrap{background:rgba(248,248,248,.95);border-color:rgba(0,0,0,.08)}
-html[data-theme="light"] .tick-item{color:rgba(0,0,0,.55)}
-html[data-theme="light"] .tick-sep{color:rgba(0,0,0,.2)}
-html[data-theme="light"] .ad-card{background:rgba(255,255,255,.95);border-color:rgba(0,0,0,.08)}
-html[data-theme="light"] .ad-card-title{color:#1a1a1a}
-html[data-theme="light"] .ad-card-scheme{color:rgba(0,0,0,.65)}
-html[data-theme="light"] .ad-card-detail-item{color:rgba(0,0,0,.5)}
-html[data-theme="light"] .ad-card-pct{color:#1a1a1a}
-html[data-theme="light"] .svc-arrow{color:rgba(0,0,0,.15)}
-html[data-theme="light"] .step{background:#fff;border-color:rgba(0,0,0,.08);box-shadow:0 2px 12px rgba(0,0,0,.05)}
-html[data-theme="light"] .step:hover{box-shadow:0 12px 32px rgba(0,0,0,.1)}
-html[data-theme="light"] .step-num{color:rgba(0,0,0,.08)}
-html[data-theme="light"] .step-desc{color:rgba(0,0,0,.5)}
-html[data-theme="light"] .trusted-vendors-banner{background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(201,168,76,.02));border-color:rgba(201,168,76,.2)}
-html[data-theme="light"] .trusted-title{color:rgba(0,0,0,.4)}
-html[data-theme="light"] .gb-tabs{background:#fff;border-color:rgba(0,0,0,.08)}
-html[data-theme="light"] .gb-tab{color:rgba(0,0,0,.4)}
-html[data-theme="light"] .gb-input-card,html[data-theme="light"] .gb-result-card{background:#fff;border-color:rgba(0,0,0,.08);box-shadow:0 2px 12px rgba(0,0,0,.05)}
-html[data-theme="light"] .gb-field-label{color:rgba(0,0,0,.45)}
-html[data-theme="light"] .gb-field select,html[data-theme="light"] .gb-field input[type=number]{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.12);color:#1a1a1a}
-html[data-theme="light"] .gb-input-prefix{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.12)}
-html[data-theme="light"] .gb-input-prefix input{color:#1a1a1a}
-html[data-theme="light"] .gb-result-hero-label{color:rgba(0,0,0,.45)}
-html[data-theme="light"] .gb-result-hero-sub{color:rgba(0,0,0,.45)}
-html[data-theme="light"] .gb-result-row-label{color:rgba(0,0,0,.5)}
-html[data-theme="light"] .gb-result-row-val{color:#1a1a1a}
-html[data-theme="light"] .gb-hint{color:rgba(0,0,0,.35)}
-html[data-theme="light"] .gb-insight{color:rgba(0,0,0,.6);background:rgba(201,168,76,.07);border-color:rgba(201,168,76,.2)}
-html[data-theme="light"] .gb-empty-text{color:rgba(0,0,0,.4)}
-html[data-theme="light"] .gb-rate-bar{background:rgba(201,168,76,.07);border-color:rgba(201,168,76,.15)}
-html[data-theme="light"] .gb-rate-bar-label{color:rgba(0,0,0,.45)}
-html[data-theme="light"] .news-card-live{background:#fff;border-color:rgba(0,0,0,.08);box-shadow:0 2px 12px rgba(0,0,0,.05)}
-html[data-theme="light"] .news-card-live:hover{box-shadow:0 12px 28px rgba(0,0,0,.1)}
-html[data-theme="light"] .news-card-source{color:rgba(0,0,0,.4)}
-html[data-theme="light"] .news-card-time{color:rgba(0,0,0,.35)}
-html[data-theme="light"] .news-sentiment-badge{color:rgba(0,0,0,.5);border-color:rgba(0,0,0,.12)}
-html[data-theme="light"] .why-card{background:#fff;border-color:rgba(0,0,0,.08);box-shadow:0 2px 12px rgba(0,0,0,.05)}
-html[data-theme="light"] .why-card:hover{box-shadow:0 12px 28px rgba(0,0,0,.1);border-color:rgba(201,168,76,.25)}
-html[data-theme="light"] .why-card-body{color:rgba(0,0,0,.5)}
-html[data-theme="light"] .contact-right{background:#fff;border-color:rgba(0,0,0,.08);box-shadow:0 2px 16px rgba(0,0,0,.06)}
-html[data-theme="light"] .cf-field label{color:rgba(0,0,0,.5)}
-html[data-theme="light"] .cf-field input,html[data-theme="light"] .cf-field select,html[data-theme="light"] .cf-field textarea{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.12);color:#1a1a1a}
-html[data-theme="light"] .cf-field input::placeholder,html[data-theme="light"] .cf-field textarea::placeholder{color:rgba(0,0,0,.3)}
-html[data-theme="light"] .cf-field input:focus,html[data-theme="light"] .cf-field select:focus,html[data-theme="light"] .cf-field textarea:focus{background:rgba(0,0,0,.02);border-color:rgba(201,168,76,.5)}
-html[data-theme="light"] .contact-info-icon{background:rgba(201,168,76,.12)}
-html[data-theme="light"] .contact-info-item{border-bottom-color:rgba(0,0,0,.06)}
-html[data-theme="light"] footer{background:#f5f5f0;border-top-color:rgba(0,0,0,.06)}
-html[data-theme="light"] .footer-partners-label{color:rgba(0,0,0,.4)}
-html[data-theme="light"] .footer-logo{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.08)}
+.foot-logo img{height:100px;width:auto}
+.foot-desc{font-size:13px;color:var(--text-tertiary);line-height:1.7;max-width:260px;margin-bottom:20px}
+.foot-socials{display:flex;gap:10px;margin-top:4px}
+.fsoc{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all .2s;color:rgba(255,255,255,.6);text-decoration:none}
+.fsoc:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.3);color:var(--g)}
+.foot-col h4{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.foot-col ul li a{font-size:13px;color:var(--text-tertiary);transition:color .2s}
+.foot-col ul li a:hover{color:var(--g)}
+.foot-col ul li a.cur{color:var(--g);font-weight:600}
+.foot-bottom{border-top:1px solid rgba(201,168,76,.1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.foot-bottom p{font-size:12px;color:rgba(255,255,255,.3)}
+html[data-theme="light"] footer{background:#f5f5f0;border-top-color:rgba(201,168,76,.35)}
 html[data-theme="light"] .foot-desc{color:rgba(0,0,0,.45)}
-html[data-theme="light"] .foot-col h4{color:#1a1a1a}
 html[data-theme="light"] .foot-col ul li a{color:rgba(0,0,0,.5)}
 html[data-theme="light"] .foot-col ul li a:hover{color:var(--g)}
-html[data-theme="light"] .foot-bottom{border-top-color:rgba(0,0,0,.08)}
 html[data-theme="light"] .foot-bottom p{color:rgba(0,0,0,.4)}
-html[data-theme="light"] .f-badge{color:rgba(0,0,0,.4);border-color:rgba(0,0,0,.15)}
 html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1);color:rgba(0,0,0,.5)}
 html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-color:var(--g);color:var(--g)}
 html[data-theme="light"] .rate-purity{color:rgba(0,0,0,.6)}
@@ -1106,12 +985,47 @@ if (location.protocol === 'file:') {
 <footer>
   <div class="foot-inner">
     <div class="foot-grid">
-      <div><div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div><p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions.</p><div class="foot-socials"><a href="#" class="fsoc">in</a><a href="#" class="fsoc">f</a><a href="#" class="fsoc">📷</a><a href="#" class="fsoc">𝕏</a></div></div>
-      <div class="foot-col"><h4>Services</h4><ul><li><a href="gold-loan-providers.html">Gold Loan</a></li><li><a href="gold-buyers.html">Sell Gold</a></li><!-- <li><!-- <a href="gold-exchange.html" class="foot-disabled">Exchange</a> --></li> --><!-- <li><!-- <a href="jewellery-purchase.html" class="foot-disabled">Jewellery</a> --></li> --><!-- <li><!-- <a href="gold-savings-scheme.html" class="foot-disabled">Savings</a> --></li> --></ul></div><div class="foot-col"><h4>More</h4><ul><!-- <li><!-- <a href="digital-gold.html" class="foot-disabled">Digital Gold</a> --></li> --><!-- <li><!-- <a href="gold-insurance.html" class="foot-disabled">Insurance</a> --></li> --><!-- <li><!-- <a href="gold-investment.html" class="foot-disabled">Investment</a> --></li> --><!-- <li><!-- <a href="index.html#gold-calculator" class="foot-disabled">Calculator</a> --></li> --></ul></div>
-      <div class="foot-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="careers.html">Careers</a></li><li><a href="blog.html">Blog</a></li></ul></div>
-      <div class="foot-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-conditions.html">Terms &amp; Conditions</a></li><li><a href="grievance-policy.html">Grievance Policy</a></li><li><a href="sitemap.html">Sitemap</a></li></ul></div>
+      <div>
+        <div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div>
+        <p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions.</p>
+        <div class="foot-socials">
+          <a href="https://linkedin.com" target="_blank" class="fsoc" title="LinkedIn">in</a>
+          <a href="https://facebook.com" target="_blank" class="fsoc" title="Facebook">f</a>
+          <a href="https://instagram.com" target="_blank" class="fsoc" title="Instagram">📷</a>
+          <a href="https://twitter.com" target="_blank" class="fsoc" title="X / Twitter">𝕏</a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="gold-loan-providers.html">Gold Loan</a></li>
+          <li><a href="gold-buyers.html">Sell Gold</a></li>
+          <li><a href="jewellery.html">Jewellery</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="vendor-onboarding-complete.html">Vendor Onboarding</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-conditions.html">Terms &amp; Conditions</a></li>
+          <li><a href="grievance-policy.html">Grievance Policy</a></li>
+          <li><a href="sitemap.html">Sitemap</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="foot-bottom"><p>© 2026 GoldBazaar.app — All rights reserved.</p></div>
+    <div class="foot-bottom">
+      <p>© 2026 GoldBazaar.app — All rights reserved. <a href="https://www.imprimis.in/" target="_blank" rel="noopener" style="color:var(--g);opacity:.7;font-weight:600">Imprimis Innovations Pvt. Ltd</a></p>
+    </div>
   </div>
 </footer>
 
@@ -1458,6 +1372,12 @@ function scrollCarousel(d){const t=document.getElementById('carousel-track');if(
 setInterval(()=>{const t=document.getElementById('carousel-track');if(t){const max=t.scrollWidth-t.clientWidth;if(t.scrollLeft>=max-10)t.scrollLeft=0;else t.scrollBy({left:316,behavior:'smooth'})}},3500);
 const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')})},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+/* ── Boot ── */
+document.addEventListener('DOMContentLoaded',()=>{
+  if(typeof HeroManager!=='undefined')HeroManager.init();
+  if(typeof GoldRateManager!=='undefined')GoldRateManager.init();
+  if(typeof ThemeManager!=='undefined')ThemeManager.init();
+});
 /* Scroll Spy — highlight active nav link */
 (function(){
   const sections=['hero','services','gold-calculator','gold-news','why','contact-us'];
@@ -1731,7 +1651,20 @@ function calcEM(){
     set('em-hero-lbl','Monthly Interest (Bullet)');
     set('em-monthly',inr(monthlyInt)+'/mo');
     set('em-hero-sub','pay principal ₹'+Math.round(principal).toLocaleString('en-IN')+' at end');
-    set('em-tint',inr(totalInt));
-    set('em-total',inr(principal+totalInt));
-    const saving=((principal*0.15/12)*months+principal)-(principal+totalInt);
-    set('em-savings',inr(Math.max(0,saving))+' vs 15% r
+    set('em-total',inr(totalInt+principal));
+    set('em-interest',inr(totalInt));
+    set('em-savings','N/A for bullet loans');
+  } else {
+    const emi=r===0?principal/months:principal*(r*Math.pow(1+r,months))/(Math.pow(1+r,months)-1);
+    const totalAmt=emi*months;
+    const totalInt=totalAmt-principal;
+    const saving=principal*0.15-totalInt;
+    set('em-hero-lbl','Monthly EMI');
+    set('em-monthly',inr(emi)+'/mo');
+    set('em-hero-sub','over '+months+' months');
+    set('em-total',inr(totalAmt));
+    set('em-interest',inr(totalInt));
+    set('em-savings',inr(Math.max(0,saving))+' vs 15% rate');
+  }
+}
+</script></body></html>
