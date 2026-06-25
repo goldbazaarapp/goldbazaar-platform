@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vendor Onboarding — GoldBazaar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet"/>
@@ -2442,68 +2445,131 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
     let currentMobileNumber = '';
     let verifiedMobile = '';
 
-    function handleOtpRequest(event) {
+    function showToast(msg, duration) {
+      let t = document.getElementById('gb-toast');
+      if (!t) {
+        t = document.createElement('div');
+        t.id = 'gb-toast';
+        t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(20,20,20,.96);color:#fff;padding:12px 22px;border-radius:50px;font-size:13.5px;font-weight:500;box-shadow:0 8px 32px rgba(0,0,0,.4);border:1px solid rgba(201,168,76,.25);z-index:99999;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;white-space:nowrap;';
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      t.style.opacity = '1';
+      t.style.transform = 'translateX(-50%) translateY(0)';
+      clearTimeout(t._hide);
+      t._hide = setTimeout(() => {
+        t.style.opacity = '0';
+        t.style.transform = 'translateX(-50%) translateY(20px)';
+      }, duration || 3000);
+    }
+
+    // ── Firebase OTP Helpers (exposed by module script below) ──────────────────
+    const OTP_VALID_MS = 5 * 60 * 1000;
+    let _otpTimer = null;
+
+    async function handleOtpRequest(event) {
       event.preventDefault();
-      const mobile = document.getElementById('mobile').value.trim();
+      const mobile  = document.getElementById('mobile').value.trim();
       const errorEl = document.getElementById('mobileError');
-      const btn = event.target.querySelector('button[type=submit]');
-
-      const mobileRegex = /^[6-9]\d{9}$/;
+      const btn     = event.target.querySelector('button[type=submit]');
       const cleanMobile = mobile.replace(/\D/g, '');
-
-      if (!cleanMobile || !mobileRegex.test(cleanMobile)) {
+      if (!/^[6-9]\d{9}$/.test(cleanMobile)) {
         errorEl.textContent = 'Please enter a valid 10-digit Indian mobile number';
         errorEl.classList.add('show');
         return;
       }
       errorEl.classList.remove('show');
       currentMobileNumber = cleanMobile;
-      btn.textContent = 'Sending...';
+      btn.textContent = 'Sending…';
       btn.disabled = true;
 
-      // Demo mode: any 6-digit OTP will work
-      setTimeout(() => {
+      // firebaseSendOTP is exposed by the module <script> below
+      const result = await window.firebaseSendOTP('+91' + cleanMobile);
+
+      btn.textContent = 'Send OTP';
+      btn.disabled = false;
+
+      if (result.success) {
         document.getElementById('otpStep').style.display = 'none';
         document.getElementById('verifyStep').style.display = 'block';
         document.getElementById('mobileDisplay').textContent = '+91 ' + cleanMobile.slice(0,5) + ' ' + cleanMobile.slice(5);
         document.getElementById('step1').classList.remove('active');
         document.getElementById('step2').classList.add('active');
-        btn.textContent = 'Send OTP';
-        btn.disabled = false;
-        showToast('OTP sent to +91 ' + cleanMobile);
-      }, 800);
+        _startOtpTimer();
+        showToast('OTP sent to +91 ' + cleanMobile.slice(0,5) + ' XXXXX');
+      } else {
+        errorEl.textContent = result.message || 'Failed to send OTP. Please try again.';
+        errorEl.classList.add('show');
+      }
     }
 
-    function handleOtpVerify(event) {
+    async function handleOtpVerify(event) {
       event.preventDefault();
-      const otp = document.getElementById('otp').value.trim();
+      const entered = document.getElementById('otp').value.trim();
       const errorEl = document.getElementById('otpError');
-      const btn = event.target.querySelector('button[type=submit]');
-
-      if (!otp || otp.length !== 6 || !/^\d{6}$/.test(otp)) {
+      const btn     = event.target.querySelector('button[type=submit]');
+      if (!entered || !/^\d{6}$/.test(entered)) {
         errorEl.textContent = 'Please enter a valid 6-digit OTP';
         errorEl.classList.add('show');
         return;
       }
       errorEl.classList.remove('show');
-      btn.textContent = 'Verifying...';
+      btn.textContent = 'Verifying…';
       btn.disabled = true;
 
-      // Demo mode: any 6-digit OTP is accepted
-      setTimeout(() => {
+      const result = await window.firebaseVerifyOTP(entered);
+
+      if (result.success) {
+        clearInterval(_otpTimer);
         verifiedMobile = currentMobileNumber;
+        sessionStorage.setItem('gb_vendor_mobile', verifiedMobile);
+        sessionStorage.setItem('gb_vendor_verified', '1');
         document.getElementById('loginScreen').classList.remove('visible');
         document.getElementById('pageHeader').classList.add('visible');
         document.getElementById('onboarding').classList.add('active');
         initializeForm();
         window.scrollTo({ top: 0, behavior: 'smooth' });
         showToast('✅ Mobile verified! Welcome to GoldBazaar.');
-      }, 600);
+      } else {
+        errorEl.textContent = result.message || 'Incorrect OTP. Please try again.';
+        errorEl.classList.add('show');
+        document.getElementById('otp').value = '';
+        document.getElementById('otp').focus();
+      }
+      btn.textContent = 'Verify & Continue';
+      btn.disabled = false;
     }
 
-    function resendOtp() {
-      showToast('OTP resent to +91 ' + currentMobileNumber.slice(0,5) + ' ' + currentMobileNumber.slice(5));
+    async function resendOtp() {
+      const resendBtn = document.querySelector('.resend-otp button');
+      if (resendBtn) { resendBtn.textContent = 'Sending…'; resendBtn.disabled = true; }
+      const result = await window.firebaseSendOTP('+91' + currentMobileNumber);
+      if (result.success) {
+        _startOtpTimer();
+        showToast('New OTP sent to +91 ' + currentMobileNumber.slice(0,5) + ' XXXXX');
+      } else {
+        showToast('Failed to resend. Please try again.');
+      }
+      if (resendBtn) { resendBtn.textContent = 'Resend OTP'; resendBtn.disabled = false; }
     }
+
+    function _startOtpTimer() {
+      clearInterval(_otpTimer);
+      const resendEl = document.querySelector('.resend-otp');
+      if (!resendEl) return;
+      let secs = Math.ceil(OTP_VALID_MS / 1000);
+      resendEl.innerHTML = `OTP expires in <span id="otp-countdown" style="color:var(--g);font-weight:600">${_fmtTime(secs)}</span>`;
+      _otpTimer = setInterval(() => {
+        secs--;
+        const el = document.getElementById('otp-countdown');
+        if (el) el.textContent = _fmtTime(secs);
+        if (secs <= 0) {
+          clearInterval(_otpTimer);
+          if (resendEl) resendEl.innerHTML = `Didn't receive the code? <button type="button" onclick="resendOtp()">Resend OTP</button>`;
+        }
+      }, 1000);
+    }
+    function _fmtTime(s) { return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
 
     // Form Management
     let currentStep = 1;
@@ -3010,4 +3076,15 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:48
   }
 
   function scrollToAppt() {
-    const apptSec = document.getElementById('drawerApp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+    const apptSec = document.getElementById('drawerAppointments');
+    if (apptSec) apptSec.scrollIntoView({ behavior: 'smooth' });
+  }
+
+</script>
+
+  <!-- recaptcha anchor for Firebase invisible recaptcha -->
+  <div id="recaptcha-container"></div>
+  <script type="module" src="js/firebase-otp.js"></script>
+
+</body>
+</html>

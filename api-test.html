@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head><title>API Test</title>
+<style>body{font-family:monospace;padding:20px;background:#111;color:#eee}
+.ok{color:#4f4}  .fail{color:#f44}  .wait{color:#fa0}
+div{margin:6px 0;padding:6px 10px;background:#1a1a1a;border-radius:4px}
+</style>
+</head>
+<body>
+<h2>GoldBazaar API Diagnostic</h2>
+<div id="out">Running tests…</div>
+
+<script>
+const out = document.getElementById('out');
+out.innerHTML = '';
+
+function log(msg, cls=''){
+  const d = document.createElement('div');
+  d.className = cls;
+  d.textContent = msg;
+  out.appendChild(d);
+}
+
+async function test(label, url, parse){
+  const d = document.createElement('div');
+  d.className = 'wait';
+  d.textContent = '⏳ ' + label + ' …';
+  out.appendChild(d);
+  const t0 = Date.now();
+  try {
+    const r = await fetch(url, {signal: AbortSignal.timeout(8000)});
+    const txt = await r.text();
+    if(txt.startsWith('<') || txt.includes("You've") || txt.includes('Too Many')){
+      throw new Error('Rate limited / HTML response');
+    }
+    const json = JSON.parse(txt);
+    const val = parse(json);
+    d.className = 'ok';
+    d.textContent = `✅ ${label} — ${val}  (${Date.now()-t0}ms)`;
+  } catch(e){
+    d.className = 'fail';
+    d.textContent = `❌ ${label} — ${e.message}  (${Date.now()-t0}ms)`;
+  }
+}
+
+const PROXIES = [
+  url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+  url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+  url => url, // direct
+];
+const PROXY_NAMES = ['allorigins','corsproxy.io','direct'];
+
+const APIS = [
+  {
+    name: 'goldprice.org/INR',
+    url: 'https://data-asg.goldprice.org/dbXRates/INR',
+    parse: d => 'xauPrice=' + (d.items?.[0]?.xauPrice || d.xauPrice)
+  },
+  {
+    name: 'gold-api.com XAU',
+    url: 'https://api.gold-api.com/price/XAU',
+    parse: d => 'price=' + d.price
+  },
+  {
+    name: 'metals.live',
+    url: 'https://api.metals.live/v1/spot',
+    parse: d => 'gold=' + (Array.isArray(d) ? d.find(x=>x.metal==='gold')?.price : d)
+  },
+  {
+    name: 'Yahoo Finance GC=F (gold USD)',
+    url: 'https://query1.finance.yahoo.com/v8/finance/chart/GC%3DF',
+    parse: d => 'price=' + d?.chart?.result?.[0]?.meta?.regularMarketPrice
+  },
+  {
+    name: 'Yahoo Finance USDINR=X',
+    url: 'https://query1.finance.yahoo.com/v8/finance/chart/USDINR%3DX',
+    parse: d => 'INR=' + d?.chart?.result?.[0]?.meta?.regularMarketPrice
+  },
+  {
+    name: 'open.er-api.com forex',
+    url: 'https://open.er-api.com/v6/latest/USD',
+    parse: d => 'INR=' + d?.rates?.INR
+  },
+  {
+    name: 'frankfurter.app forex',
+    url: 'https://api.frankfurter.app/latest?from=USD&to=INR',
+    parse: d => 'INR=' + d?.rates?.INR
+  },
+];
+
+(async()=>{
+  for(const api of APIS){
+    log('── ' + api.name, '');
+    for(let i=0;i<PROXIES.length;i++){
+      await test(PROXY_NAMES[i], PROXIES[i](api.url), api.parse);
+    }
+  }
+  log('── Done ──');
+})();
+</script>
+</body>
+</html>

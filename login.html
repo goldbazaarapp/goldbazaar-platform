@@ -2,658 +2,250 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Login — GoldBazaar | India's Unified Gold Marketplace</title>
+<title>Login — GoldBazaar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow:hidden}
-body{font-family:'Inter',-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
-a{text-decoration:none;color:inherit}
-button{font-family:inherit;cursor:pointer;border:none;background:none}
-img{display:block;max-width:100%}
-
-:root{
-  --g:#C9A84C;--gl:#E8C96A;--gd:#9B7B2E;
-  --fd:'Playfair Display',Georgia,serif;
-  --ease:cubic-bezier(.4,0,.2,1);
-  --nav-h:68px;
+html{font-size:16px}
+body{
+  background:#000;color:#fff;
+  font-family:'Inter',-apple-system,sans-serif;
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  -webkit-font-smoothing:antialiased;overflow:hidden;
 }
-
-/* ── HERO BACKGROUND ── */
-#bg{
-  position:fixed;inset:0;z-index:0;
-  background:#000;
-}
-.bg-scene{
-  position:absolute;inset:0;
-  background-size:cover;background-position:center;
-  opacity:0;transition:opacity 1.6s ease;
-}
-.bg-scene.active{opacity:1}
-/* Dark overlay so card pops */
-#bg::after{
-  content:'';position:absolute;inset:0;
-  background:rgba(0,0,0,.68);
-  backdrop-filter:blur(1.5px);
-}
-/* Gold vignette edges */
-#bg::before{
-  content:'';position:absolute;inset:0;z-index:1;
-  background:
-    radial-gradient(ellipse 80% 50% at 50% 50%, transparent 40%, rgba(0,0,0,.55) 100%);
-  pointer-events:none;
-}
-
-/* ── NAV (exact landing page nav) ── */
-#nav{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  height:var(--nav-h);display:flex;align-items:center;
-  justify-content:space-between;padding:0 32px;
-  background:rgba(0,0,0,.75);backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(201,168,76,.15);
-}
-.nav-logo img{height:56px;width:auto}
-.nav-center{display:flex;align-items:center;gap:4px}
-.nav-center a{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);padding:7px 12px;border-radius:7px;white-space:nowrap;transition:color .2s}
-.nav-center a:hover{color:var(--g)}
-.nav-right{display:flex;align-items:center;gap:8px}
-.nav-theme{padding:6px 10px;font-size:16px;color:#fff;transition:transform .2s}
-.nav-theme:hover{transform:scale(1.1)}
-.nav-vendor{padding:8px 16px;border:1px solid rgba(255,255,255,.18);border-radius:8px;font-size:13px;color:rgba(255,255,255,.75);transition:all .2s}
-.nav-vendor:hover{border-color:var(--g);color:var(--g)}
-.nav-cta{padding:8px 20px;border-radius:8px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:13px;font-weight:700;transition:all .2s}
-.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,168,76,.35)}
-.hamburger{display:none;flex-direction:column;gap:5px;padding:4px}
-.hamburger span{width:21px;height:1.5px;background:#fff;display:block}
-#mob-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:999;background:rgba(0,0,0,.97);border-bottom:1px solid rgba(201,168,76,.1);backdrop-filter:blur(18px);padding:20px 28px;flex-direction:column;gap:4px}
-#mob-nav.open{display:flex}
-#mob-nav a{font-size:15px;font-weight:500;color:rgba(255,255,255,.72);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
-
-/* ── PAGE: centered card over hero ── */
-#page{
-  position:fixed;
-  top:var(--nav-h);left:0;right:0;bottom:0;
-  z-index:10;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:16px;
-}
-
-/* ── LOGIN CARD ── */
-.lcard{
-  width:100%;max-width:440px;
-  background:rgba(8,6,2,.82);
-  border:1px solid rgba(201,168,76,.28);
-  border-radius:24px;
-  padding:36px 34px 30px;
-  backdrop-filter:blur(28px);
-  box-shadow:
-    0 0 0 1px rgba(201,168,76,.07) inset,
-    0 1px 0 rgba(201,168,76,.18) inset,
-    0 32px 80px rgba(0,0,0,.6),
-    0 0 60px rgba(201,168,76,.05);
-  position:relative;overflow:hidden;
-  animation:cardIn .5s var(--ease) both;
-}
-@keyframes cardIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-
-/* Gold top bar */
-.lcard::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--g) 30%,var(--gl) 70%,transparent);
-  border-radius:24px 24px 0 0;
-}
-/* Shimmer */
-.lcard::after{
-  content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.03),transparent);
-  animation:shimmer 6s ease 2s infinite;pointer-events:none;
-}
-@keyframes shimmer{0%{left:-60%}100%{left:160%}}
-
-/* Card header */
-.ch{text-align:center;margin-bottom:20px}
-.ch-eye{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
-  color:var(--g);margin-bottom:8px;
-}
-.ch-eye::before,.ch-eye::after{content:'';width:14px;height:1px;background:rgba(201,168,76,.5)}
-.ch-title{
-  font-family:var(--fd);font-size:24px;font-weight:700;
-  color:#fff;margin-bottom:4px;line-height:1.2;
-}
-.gold-t{
-  background:linear-gradient(135deg,#C9A84C 0%,#F5E6C0 50%,#C9A84C 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.ch-desc{font-size:12px;color:rgba(255,255,255,.42);line-height:1.55}
-
-/* ── TABS ── */
-.ltabs{
-  display:flex;
-  background:rgba(0,0,0,.5);
-  border:1px solid rgba(201,168,76,.14);
-  border-radius:12px;padding:4px;gap:4px;
-  margin-bottom:20px;
-}
-.ltab{
-  flex:1;padding:9px 0;border-radius:9px;
-  font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
-  color:rgba(255,255,255,.38);transition:all .22s var(--ease);
-}
-.ltab:hover:not(.active){color:rgba(255,255,255,.65)}
-.ltab.active{
-  background:linear-gradient(135deg,var(--g),var(--gl));
-  color:#000;box-shadow:0 4px 16px rgba(201,168,76,.3);
-}
-
-/* ── FORMS ── */
-.lform{display:none}
-.lform.active{display:block;animation:fadeUp .28s var(--ease)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-
-.ftag{font-size:11.5px;color:rgba(255,255,255,.38);line-height:1.6;margin-bottom:16px;text-align:center}
-
-/* Fields */
-.fg{margin-bottom:13px}
-.flbl{display:block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:5px}
-.fw{position:relative}
-.fpfx{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:700;color:var(--g);pointer-events:none;user-select:none}
-.fi{
-  width:100%;padding:11px 14px 11px 40px;
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(201,168,76,.16);border-radius:10px;
-  color:#fff;font-size:14px;font-family:inherit;outline:none;
-  transition:border-color .2s,box-shadow .2s,background .2s;
-}
-.fi.np{padding-left:14px}
-.fi::placeholder{color:rgba(255,255,255,.28)}
-.fi:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(201,168,76,.1);background:rgba(255,255,255,.07)}
-.fi.err{border-color:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.08)}
-.ferr{font-size:11px;color:#ef4444;margin-top:4px;display:none}
-.ferr.show{display:block}
-
-/* ── OTP DIGITS ── */
-.otp-row{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:6px;
-  margin-bottom:6px;
-}
-.od{
-  padding:11px 0;text-align:center;
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(201,168,76,.16);border-radius:10px;
-  color:#fff;font-size:20px;font-weight:700;
-  font-family:inherit;outline:none;
-  transition:all .18s;width:100%;
-}
-.od:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(201,168,76,.12);background:rgba(255,255,255,.08)}
-.od.filled{border-color:rgba(201,168,76,.35);background:rgba(201,168,76,.05)}
-
-/* Timer + resend row */
-.otp-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.otimer{font-size:11px;color:rgba(255,255,255,.35)}
-.oresend{font-size:12px;font-weight:600;color:var(--g);transition:opacity .2s}
-.oresend:disabled{opacity:.28;cursor:not-allowed}
-
-/* OTP step container */
-.ostep{display:none}
-.ostep.show{display:block;animation:fadeUp .28s var(--ease)}
-
-/* ── BUTTONS ── */
-.btn-p{
-  width:100%;padding:13px;
-  background:linear-gradient(135deg,var(--g),var(--gl));
-  color:#000;border:none;border-radius:10px;
-  font-size:14px;font-weight:700;cursor:pointer;
-  transition:transform .2s,box-shadow .2s,opacity .2s;
-  font-family:inherit;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  margin-top:4px;
-}
-.btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(201,168,76,.38)}
-.btn-p:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
-.bspin{width:15px;height:15px;border-radius:50%;border:2px solid rgba(0,0,0,.2);border-top-color:#000;animation:spin .5s linear infinite;display:none;flex-shrink:0}
+:root{--g:#C9A84C;--gl:#E8C96A;--fd:'Playfair Display',Georgia,serif}
+.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 50% at 30% 30%,rgba(201,168,76,.10) 0%,transparent 70%),
+             radial-gradient(ellipse 50% 60% at 70% 70%,rgba(201,168,76,.07) 0%,transparent 70%);}
+.card{position:relative;z-index:1;width:100%;max-width:420px;margin:20px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.18);border-radius:24px;
+  padding:44px 40px 40px;backdrop-filter:blur(20px);
+  box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04);}
+.login-logo{display:flex;justify-content:center;margin-bottom:28px}
+.login-logo img{height:60px;width:auto}
+.login-logo-fallback{font-family:var(--fd);font-size:28px;font-weight:700;
+  background:linear-gradient(135deg,#C9A84C,#F5E6C0,#C9A84C);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+h1{font-family:var(--fd);font-size:26px;font-weight:700;text-align:center;letter-spacing:-.02em;margin-bottom:6px;}
+.subtitle{font-size:13.5px;color:rgba(255,255,255,.5);text-align:center;line-height:1.6;margin-bottom:32px;}
+.step{display:none}.step.active{display:block}
+label{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:8px;}
+.input-wrap{display:flex;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:0 16px;transition:border-color .2s;margin-bottom:20px;}
+.input-wrap:focus-within{border-color:var(--g)}
+.input-wrap .prefix{font-size:14px;font-weight:600;color:rgba(255,255,255,.55);border-right:1px solid rgba(255,255,255,.1);padding-right:10px;margin-right:10px;white-space:nowrap;}
+.input-wrap input{flex:1;background:none;border:none;outline:none;color:#fff;font-size:15px;font-family:inherit;padding:14px 0;}
+.input-wrap input::placeholder{color:rgba(255,255,255,.25)}
+.otp-row{display:flex;gap:10px;justify-content:center;margin-bottom:20px;}
+.otp-box{width:48px;height:56px;border-radius:12px;border:1px solid rgba(201,168,76,.2);background:rgba(255,255,255,.05);color:#fff;font-size:22px;font-weight:700;text-align:center;outline:none;transition:border-color .2s;}
+.otp-box:focus{border-color:var(--g);background:rgba(201,168,76,.08)}
+.btn{width:100%;padding:15px;border-radius:50px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s,opacity .2s;}
+.btn-primary{background:linear-gradient(135deg,var(--g),var(--gl));color:#000;}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,168,76,.38)}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed}
+.btn-ghost{background:none;color:rgba(255,255,255,.5);font-size:13px;font-weight:500;margin-top:14px;width:100%;text-align:center;padding:8px;cursor:pointer;border:none;font-family:inherit;}
+.btn-ghost:hover{color:var(--g)}
+.msg{font-size:13px;text-align:center;padding:10px 14px;border-radius:10px;margin-bottom:16px;display:none;}
+.msg.error{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);color:#f87171;display:block}
+.msg.success{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);color:#4ade80;display:block}
+.timer{font-size:13px;color:rgba(255,255,255,.4);text-align:center;margin-top:10px}
+.timer span{color:var(--g);font-weight:600}
+.phone-display{font-size:15px;font-weight:600;color:var(--g);text-align:center;margin-bottom:24px;}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(0,0,0,.3);border-top-color:#000;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px;}
 @keyframes spin{to{transform:rotate(360deg)}}
-.btn-p.ld .blbl{display:none}
-.btn-p.ld .bspin{display:block}
-.btn-g{
-  width:100%;padding:10px;margin-top:8px;
-  background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);
-  border-radius:10px;color:var(--g);font-size:13px;font-weight:600;
-  cursor:pointer;transition:background .2s;font-family:inherit;
-}
-.btn-g:hover{background:rgba(201,168,76,.13)}
-
-/* ── SUCCESS ── */
-.ssuc{display:none;flex-direction:column;align-items:center;text-align:center;padding:10px 0 6px}
-.ssuc.show{display:flex;animation:fadeUp .35s var(--ease)}
-.sring{
-  width:64px;height:64px;border-radius:50%;
-  background:linear-gradient(135deg,var(--g),var(--gl));
-  display:flex;align-items:center;justify-content:center;
-  font-size:24px;font-weight:900;color:#000;
-  margin-bottom:12px;
-  box-shadow:0 6px 28px rgba(201,168,76,.45);
-  animation:pop .45s cubic-bezier(.34,1.56,.64,1);
-}
-@keyframes pop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
-.stitle{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px}
-.ssub{font-size:12px;color:rgba(255,255,255,.42);margin-bottom:10px}
-.sroute{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:11px;font-weight:600;color:var(--g);
-  background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.18);
-  padding:6px 14px;border-radius:20px;
-}
-
-
-/* ── RESPONSIVE ── */
-@media(max-width:768px){
-  .nav-center{display:none}
-  .hamburger{display:flex}
-  #page{padding:16px}
-  .lcard{padding:28px 20px 22px}
-  .od{font-size:16px;padding:9px 0}
-  .otp-row{gap:5px}
-}
-@media(max-width:380px){
-  .otp-row{gap:4px}
-  .od{font-size:14px;border-radius:8px}
-  .lcard{padding:24px 16px 18px;border-radius:18px}
-}
-
-@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
-.shake{animation:shake .35s ease}
+.success-icon{font-size:52px;text-align:center;margin-bottom:16px;animation:pop .4s ease;}
+@keyframes pop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
+.success-name{font-family:var(--fd);font-size:22px;font-weight:700;text-align:center;margin-bottom:8px;}
+.success-sub{font-size:13.5px;color:rgba(255,255,255,.5);text-align:center;margin-bottom:28px;}
+@media(max-width:480px){.card{padding:36px 24px 32px}.otp-box{width:42px;height:50px;font-size:20px}}
 </style>
-<link rel="stylesheet" href="responsive.css"/>
 </head>
 <body>
+<div class="bg-glow"></div>
+<div class="card">
 
-<!-- ── HERO BACKGROUND ── -->
-<div id="bg">
-  <div class="bg-scene active" id="bs0"></div>
-  <div class="bg-scene" id="bs1"></div>
-  <div class="bg-scene" id="bs2"></div>
-</div>
-
-<!-- ── NAV ── -->
-<nav id="nav">
-  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="GoldBazaar"/></a>
-  <div class="nav-center">
-    <a href="index.html">Home</a>
-    <a href="index.html#services">Services</a>
-    <a href="index.html#gold-calculator">Calculators</a>
-    <a href="index.html#gold-news">Gold News</a>
-    <a href="about.html">About Us</a>
-    <a href="contact.html">Contact Us</a>
+  <div class="login-logo">
+    <img src="images/logo.png" alt="GoldBazaar" onerror="this.style.display='none';document.querySelector('.login-logo-fallback').style.display='block'"/>
+    <span class="login-logo-fallback" style="display:none">GoldBazaar</span>
   </div>
-  <div class="nav-right">
-    <button id="theme-toggle" class="nav-theme" onclick="TM.toggle()">🌙</button>
-    <a href="vendor-onboarding-complete.html" class="nav-vendor">Vendor Onboarding</a>
-    <button class="hamburger" onclick="mobToggle()"><span></span><span></span><span></span></button>
+
+  <!-- STEP 1: Phone -->
+  <div class="step active" id="step-phone">
+    <h1>Welcome Back</h1>
+    <p class="subtitle">Enter your mobile number to receive a one-time password</p>
+    <div id="msg-phone" class="msg"></div>
+    <label for="phone-input">Mobile Number</label>
+    <div class="input-wrap">
+      <span class="prefix">🇮🇳 +91</span>
+      <input type="tel" id="phone-input" placeholder="98765 43210" maxlength="10" inputmode="numeric" autocomplete="tel"/>
+    </div>
+    <button class="btn btn-primary" id="send-btn" onclick="sendOTP()">Send OTP</button>
+    <button class="btn-ghost" onclick="window.location.href='index.html'">← Back to GoldBazaar</button>
   </div>
-</nav>
-<div id="mob-nav">
-  <a href="index.html">Home</a>
-  <a href="index.html#services">Services</a>
-  <a href="index.html#gold-calculator">Calculators</a>
-  <a href="index.html#gold-news">Gold News</a>
-  <a href="about.html">About Us</a>
-  <a href="contact.html">Contact Us</a>
-  <a href="vendor-onboarding-complete.html">Vendor Onboarding</a>
-</div>
 
-<!-- ── CENTERED LOGIN CARD ── -->
-<div id="page">
-  <div class="lcard">
-
-    <!-- Header -->
-    <div class="ch">
-      <div class="ch-eye">Secure Access</div>
-      <h2 class="ch-title" id="cTitle">Vendor <span class="gold-t">Portal</span> Login</h2>
-      <p class="ch-desc" id="cDesc">Access your business dashboard and manage leads.</p>
+  <!-- STEP 2: OTP -->
+  <div class="step" id="step-otp">
+    <h1>Verify OTP</h1>
+    <p class="subtitle">Enter the 6-digit code sent to</p>
+    <div class="phone-display" id="phone-display"></div>
+    <div id="msg-otp" class="msg"></div>
+    <label>Enter OTP</label>
+    <div class="otp-row" id="otp-row">
+      <input class="otp-box" type="tel" maxlength="1" inputmode="numeric"/>
+      <input class="otp-box" type="tel" maxlength="1" inputmode="numeric"/>
+      <input class="otp-box" type="tel" maxlength="1" inputmode="numeric"/>
+      <input class="otp-box" type="tel" maxlength="1" inputmode="numeric"/>
+      <input class="otp-box" type="tel" maxlength="1" inputmode="numeric"/>
+      <input class="otp-box" type="tel" maxlength="1" inputmode="numeric"/>
     </div>
-
-    <!-- Tabs -->
-    <!-- MVP: only Vendor login active; User & Admin tabs commented out below -->
-    <div class="ltabs" role="tablist">
-      <!-- MVP-HIDDEN: <button class="ltab" onclick="switchTab('user',this)" role="tab">User</button> -->
-      <button class="ltab active" onclick="switchTab('vendor',this)" role="tab">Vendor</button>
-      <!-- MVP-HIDDEN: <button class="ltab" onclick="switchTab('admin',this)" role="tab">Admin</button> -->
-    </div>
-
-    <!-- MVP-HIDDEN USER LOGIN BLOCK (re-enable for v2)
-    <div id="form-user" class="lform">
-      <p class="ftag">Explore gold services, manage enquiries and connect with trusted vendors.</p>
-      <div id="u-s1">
-        <div class="fg">
-          <label class="flbl">Mobile Number</label>
-          <div class="fw"><span class="fpfx">+91</span>
-            <input type="tel" id="u-mob" class="fi" placeholder="98765 43210" maxlength="10"
-              oninput="this.value=this.value.replace(/\D/g,'')" onkeydown="ek(event,'u-sbtn')"/>
-          </div>
-          <span class="ferr" id="u-mob-e">Enter a valid 10-digit mobile number</span>
-        </div>
-        <button class="btn-p" id="u-sbtn" onclick="sendOtp('u')">
-          <span class="blbl">Send OTP →</span><div class="bspin"></div>
-        </button>
-      </div>
-      <div class="ostep" id="u-s2">
-        <div class="fg">
-          <label class="flbl">Enter 6-Digit OTP</label>
-          <div class="otp-row" id="u-otp"></div>
-          <span class="ferr" id="u-otp-e">Please enter all 6 digits</span>
-        </div>
-        <div class="otp-meta">
-          <span class="otimer" id="u-tmr">Expires in <strong>30s</strong></span>
-          <button class="oresend" id="u-rs" disabled onclick="resend('u')">Resend OTP</button>
-        </div>
-        <button class="btn-p" id="u-vbtn" onclick="verify('u','user-dashboard.html')">
-          <span class="blbl">Verify &amp; Login →</span><div class="bspin"></div>
-        </button>
-        <button class="btn-g" onclick="back('u','u-mob')">← Change Number</button>
-      </div>
-      <div class="ssuc" id="u-suc">
-        <div class="sring">✓</div>
-        <div class="stitle">Logged In!</div>
-        <div class="ssub">Redirecting to your dashboard…</div>
-        <span class="sroute">→ User Dashboard</span>
-      </div>
-    </div>
-    END MVP-HIDDEN USER LOGIN BLOCK -->
-
-    <!-- ── VENDOR ── -->
-    <div id="form-vendor" class="lform active">
-      <p class="ftag">Manage leads, business visibility and growth through GoldBazaar.</p>
-
-      <!-- Demo badge -->
-      <div style="display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
-        <div style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.06));border:1.5px solid rgba(201,168,76,.45);border-radius:50px;padding:6px 18px;font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#E8C96A;">
-          <span style="width:7px;height:7px;border-radius:50%;background:#C9A84C;display:inline-block;animation:demoPulse 1.4s ease-in-out infinite"></span>
-          Demo Mode — Any OTP works
-        </div>
-      </div>
-      <style>@keyframes demoPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.85)}}</style>
-
-      <div id="v-s1">
-        <div class="fg">
-          <label class="flbl">Mobile Number</label>
-          <div class="fw"><span class="fpfx">+91</span>
-            <input type="tel" id="v-mob" class="fi" placeholder="98765 43210" maxlength="10"
-              oninput="this.value=this.value.replace(/\D/g,'')" onkeydown="ek(event,'v-sbtn')"/>
-          </div>
-          <span class="ferr" id="v-mob-e">Enter a valid 10-digit mobile number</span>
-        </div>
-        <button class="btn-p" id="v-sbtn" onclick="sendOtp('v')">
-          <span class="blbl">Send OTP →</span><div class="bspin"></div>
-        </button>
-      </div>
-      <div class="ostep" id="v-s2">
-        <div class="fg">
-          <label class="flbl">Enter 6-Digit OTP</label>
-          <div class="otp-row" id="v-otp"></div>
-          <span class="ferr" id="v-otp-e">Please enter all 6 digits</span>
-        </div>
-        <div class="otp-meta">
-          <span class="otimer" id="v-tmr">Expires in <strong>30s</strong></span>
-          <button class="oresend" id="v-rs" disabled onclick="resend('v')">Resend OTP</button>
-        </div>
-        <button class="btn-p" id="v-vbtn" onclick="verify('v','vendor-dashboard.html')">
-          <span class="blbl">Verify &amp; Login →</span><div class="bspin"></div>
-        </button>
-        <button class="btn-g" onclick="back('v','v-mob')">← Change Number</button>
-      </div>
-      <div class="ssuc" id="v-suc">
-        <div class="sring">✓</div>
-        <div class="stitle">Welcome, Vendor!</div>
-        <div class="ssub">Loading your portal…</div>
-        <span class="sroute">→ Vendor Dashboard</span>
-      </div>
-    </div>
-
-    <!-- MVP-HIDDEN ADMIN LOGIN BLOCK (re-enable for v2)
-    <div id="form-admin" class="lform">
-      <p class="ftag">Manage platform operations, vendors and business performance.</p>
-      <div id="a-s1">
-        <div class="fg">
-          <label class="flbl">Email Address</label>
-          <div class="fw"><span class="fpfx">✉</span>
-            <input type="email" id="a-eml" class="fi" placeholder="admin@goldbazaar.in"
-              onkeydown="ek(event,'a-sbtn')"/>
-          </div>
-          <span class="ferr" id="a-eml-e">Enter a valid email address</span>
-        </div>
-        <button class="btn-p" id="a-sbtn" onclick="sendOtp('a')">
-          <span class="blbl">Send OTP →</span><div class="bspin"></div>
-        </button>
-      </div>
-      <div class="ostep" id="a-s2">
-        <div class="fg">
-          <label class="flbl">Enter 6-Digit OTP</label>
-          <div class="otp-row" id="a-otp"></div>
-          <span class="ferr" id="a-otp-e">Please enter all 6 digits</span>
-        </div>
-        <div class="otp-meta">
-          <span class="otimer" id="a-tmr">Expires in <strong>30s</strong></span>
-          <button class="oresend" id="a-rs" disabled onclick="resend('a')">Resend OTP</button>
-        </div>
-        <button class="btn-p" id="a-vbtn" onclick="verify('a','admin-dashboard.html')">
-          <span class="blbl">Verify &amp; Login →</span><div class="bspin"></div>
-        </button>
-        <button class="btn-g" onclick="back('a','a-eml')">← Change Email</button>
-      </div>
-      <div class="ssuc" id="a-suc">
-        <div class="sring">✓</div>
-        <div class="stitle">Admin Access Granted</div>
-        <div class="ssub">Loading platform dashboard…</div>
-        <span class="sroute">→ Admin Dashboard</span>
-      </div>
-    </div>
-    END MVP-HIDDEN ADMIN LOGIN BLOCK -->
-
+    <button class="btn btn-primary" id="verify-btn" onclick="verifyOTP()" disabled>Verify OTP</button>
+    <div class="timer" id="timer-display"></div>
+    <button class="btn-ghost" id="resend-btn" onclick="resendOTP()" style="display:none">Resend OTP</button>
+    <button class="btn-ghost" onclick="goBack()">← Change number</button>
   </div>
+
+  <!-- STEP 3: Success -->
+  <div class="step" id="step-success">
+    <div class="success-icon">✅</div>
+    <div class="success-name">You're logged in!</div>
+    <div class="success-sub" id="success-sub">Welcome to GoldBazaar</div>
+    <button class="btn btn-primary" onclick="window.location.href='index.html'">Explore GoldBazaar →</button>
+  </div>
+
 </div>
 
 <script>
-/* ── Theme ── */
-const TM={K:'gb-theme',D:'dark',L:'light',
-  init(){this.set(localStorage.getItem(this.K)||this.D)},
-  get(){return document.documentElement.dataset.theme||this.D},
-  set(t){const v=t===this.L?this.L:this.D;document.documentElement.dataset.theme=v;localStorage.setItem(this.K,v);this.upd()},
-  toggle(){this.set(this.get()===this.D?this.L:this.D)},
-  upd(){const b=document.getElementById('theme-toggle');if(b)b.textContent=this.get()===this.D?'🌙':'☀️'}
-};
+// ── STATE ────────────────────────────────────────────────────────────────────
+let timerInterval = null, userPhone = '';
 
-/* ── Mobile nav ── */
-function mobToggle(){document.getElementById('mob-nav').classList.toggle('open')}
-document.addEventListener('click',e=>{
-  if(!e.target.closest('#nav')&&!e.target.closest('#mob-nav'))
-    document.getElementById('mob-nav').classList.remove('open');
-});
+// ── SEND OTP (uses Firebase exposed via module script below) ─────────────────
+async function sendOTP() {
+  const input = document.getElementById('phone-input');
+  const phone = input.value.replace(/\D/g,'');
+  const msgEl = document.getElementById('msg-phone');
+  const btn   = document.getElementById('send-btn');
+  if (phone.length !== 10) { showMsg(msgEl,'error','Please enter a valid 10-digit mobile number.'); return; }
+  userPhone = phone;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Sending…';
+  hideMsg(msgEl);
 
-/* ── Hero background slideshow ── */
-(async function(){
-  const scenes=[document.getElementById('bs0'),document.getElementById('bs1'),document.getElementById('bs2')];
-  const imgs=[];
-  for(let i=1;i<=6;i++){
-    const ok=await new Promise(r=>{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src='images/hero-'+i+'.png'});
-    if(ok)imgs.push('images/hero-'+i+'.png');
+  const result = await window.firebaseSendOTP('+91' + phone);
+
+  btn.disabled = false;
+  btn.textContent = 'Send OTP';
+
+  if (result.success) {
+    goToStep('step-otp');
+    document.getElementById('phone-display').textContent = `+91 ${phone.replace(/(\d{5})(\d{5})/, '$1 $2')}`;
+    startTimer();
+    setupOTPBoxes();
+  } else {
+    showMsg(msgEl,'error', result.message || 'Failed to send OTP. Please try again.');
   }
-  if(!imgs.length){document.getElementById('bg').style.background='linear-gradient(135deg,#0A0700,#1A1100)';return}
-  // Assign first 3
-  scenes.forEach((s,i)=>{if(imgs[i])s.style.backgroundImage='url('+imgs[i]+')'});
-  let cur=0;
-  if(imgs.length>1){
-    setInterval(()=>{
-      scenes[cur%scenes.length].classList.remove('active');
-      cur=(cur+1)%Math.min(imgs.length,scenes.length);
-      scenes[cur].classList.add('active');
-    },5000);
-  }
-})();
-
-/* ── Tab switching ── */
-const TABS={
-  user:  {title:'Welcome to <span class="gold-t">GoldBazaar</span>', desc:'Sign in to access your personalised gold services.'},
-  vendor:{title:'Vendor <span class="gold-t">Portal</span> Login',   desc:'Access your business dashboard and manage leads.'},
-  admin: {title:'Admin <span class="gold-t">Control Panel</span>',   desc:'Secure access to platform management tools.'},
-};
-function switchTab(tab,btn){
-  document.querySelectorAll('.ltab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.lform').forEach(f=>f.classList.remove('active'));
-  document.getElementById('form-'+tab).classList.add('active');
-  document.getElementById('cTitle').innerHTML=TABS[tab].title;
-  document.getElementById('cDesc').textContent=TABS[tab].desc;
 }
 
-/* ── Enter key shortcut ── */
-function ek(e,btnId){if(e.key==='Enter'){e.preventDefault();document.getElementById(btnId)?.click()}}
+// ── OTP BOXES ────────────────────────────────────────────────────────────────
+function setupOTPBoxes() {
+  const boxes = document.querySelectorAll('.otp-box');
+  boxes.forEach(b => b.value = '');
+  boxes.forEach((box,i) => {
+    box.oninput = () => {
+      box.value = box.value.replace(/\D/g,'').slice(-1);
+      if (box.value && i < boxes.length-1) boxes[i+1].focus();
+      checkFilled();
+    };
+    box.onkeydown = e => { if (e.key==='Backspace' && !box.value && i>0) boxes[i-1].focus(); };
+    box.onpaste = e => {
+      const p = (e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'');
+      if (p.length >= 6) { boxes.forEach((b,j) => b.value=p[j]||''); boxes[5].focus(); checkFilled(); e.preventDefault(); }
+    };
+  });
+  setTimeout(() => boxes[0].focus(), 300);
+}
+function checkFilled() {
+  const filled = [...document.querySelectorAll('.otp-box')].every(b => b.value.length===1);
+  document.getElementById('verify-btn').disabled = !filled;
+}
+function getOTP() { return [...document.querySelectorAll('.otp-box')].map(b=>b.value).join(''); }
 
-/* ── OTP digit grid builder ── */
-function buildOtp(pfx){
-  const row=document.getElementById(pfx+'-otp');
-  if(row.children.length)return;
-  for(let i=0;i<6;i++){
-    const d=document.createElement('input');
-    d.type='tel';d.maxLength=1;d.className='od';d.autocomplete='one-time-code';
-    d.addEventListener('input',()=>{
-      d.value=d.value.replace(/\D/g,'');
-      d.classList.toggle('filled',!!d.value);
-      if(d.value&&i<5)row.children[i+1].focus();
+// ── VERIFY OTP ───────────────────────────────────────────────────────────────
+async function verifyOTP() {
+  const entered = getOTP();
+  const msgEl   = document.getElementById('msg-otp');
+  const btn     = document.getElementById('verify-btn');
+  hideMsg(msgEl);
+  btn.disabled = true;
+  btn.textContent = 'Verifying…';
+
+  const result = await window.firebaseVerifyOTP(entered);
+
+  if (result.success) {
+    clearInterval(timerInterval);
+    sessionStorage.setItem('gb_logged_in','1');
+    sessionStorage.setItem('gb_phone', userPhone);
+    document.getElementById('success-sub').textContent = `Logged in as +91 ${userPhone.replace(/(\d{5})(\d{5})/, '$1 $2')}`;
+    goToStep('step-success');
+  } else {
+    showMsg(msgEl,'error', result.message || 'Incorrect OTP. Please try again.');
+    document.querySelectorAll('.otp-box').forEach(b => {
+      b.style.borderColor='rgba(239,68,68,.6)';
+      setTimeout(()=>b.style.borderColor='',1000);
     });
-    d.addEventListener('keydown',e=>{
-      if(e.key==='Backspace'&&!d.value&&i>0){
-        row.children[i-1].value='';
-        row.children[i-1].classList.remove('filled');
-        row.children[i-1].focus();
-      }
-    });
-    d.addEventListener('paste',e=>{
-      e.preventDefault();
-      const v=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'').slice(0,6);
-      [...row.children].forEach((c,j)=>{c.value=v[j]||'';c.classList.toggle('filled',!!c.value)});
-      const focus=Math.min(v.length,5);
-      row.children[focus].focus();
-    });
-    row.appendChild(d);
+    btn.disabled = false;
+    btn.textContent = 'Verify OTP';
   }
 }
-function getOtp(pfx){return[...document.getElementById(pfx+'-otp').children].map(c=>c.value).join('')}
-function clearOtp(pfx){const r=document.getElementById(pfx+'-otp');if(r)[...r.children].forEach(c=>{c.value='';c.classList.remove('filled')})}
 
-/* ── Timer ── */
-const timers={};
-function startTimer(pfx,secs=30){
-  clearInterval(timers[pfx]);
-  const el=document.getElementById(pfx+'-tmr');
-  const rb=document.getElementById(pfx+'-rs');
-  if(rb)rb.disabled=true;
-  let t=secs;
-  timers[pfx]=setInterval(()=>{
-    t--;
-    if(el)el.innerHTML=t>0?'Expires in <strong>'+t+'s</strong>':'<span style="color:#ef4444">OTP expired</span>';
-    if(t<=0){clearInterval(timers[pfx]);if(rb)rb.disabled=false}
-  },1000);
+// ── TIMER ────────────────────────────────────────────────────────────────────
+function startTimer() {
+  clearInterval(timerInterval);
+  document.getElementById('resend-btn').style.display='none';
+  const expiry = Date.now() + 5*60*1000;
+  timerInterval = setInterval(() => {
+    const rem = Math.max(0, Math.ceil((expiry-Date.now())/1000));
+    const m = Math.floor(rem/60), s = rem%60;
+    document.getElementById('timer-display').innerHTML = rem > 0
+      ? `OTP expires in <span>${m}:${String(s).padStart(2,'0')}</span>` : 'OTP expired';
+    if (rem === 0) { clearInterval(timerInterval); document.getElementById('resend-btn').style.display='block'; }
+  }, 1000);
 }
 
-/* ── Loading state ── */
-function setLoad(btnId,on){
-  const b=document.getElementById(btnId);
-  if(!b)return;
-  b.classList.toggle('ld',on);
-  b.disabled=on;
-}
-
-/* ── Send OTP ── */
-const INPUT_IDS={u:'u-mob',v:'v-mob',a:'a-eml'};
-const S1_IDS={u:'u-s1',v:'v-s1',a:'a-s1'};
-const S2_IDS={u:'u-s2',v:'v-s2',a:'a-s2'};
-
-function sendOtp(pfx){
-  const isAdmin=pfx==='a';
-  const inp=document.getElementById(INPUT_IDS[pfx]);
-  const err=document.getElementById(INPUT_IDS[pfx]+'-e');
-  const val=inp.value.trim();
-  const ok=isAdmin?/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val):/^[6-9]\d{9}$/.test(val.replace(/\D/g,''));
-  if(!ok){
-    inp.classList.add('err');err.classList.add('show');
-    inp.classList.add('shake');setTimeout(()=>inp.classList.remove('shake'),380);
-    return;
+async function resendOTP() {
+  document.getElementById('resend-btn').style.display='none';
+  hideMsg(document.getElementById('msg-otp'));
+  const result = await window.firebaseSendOTP('+91' + userPhone);
+  if (result.success) {
+    showMsg(document.getElementById('msg-otp'),'success','New OTP sent!');
+    startTimer(); setupOTPBoxes();
+  } else {
+    showMsg(document.getElementById('msg-otp'),'error', result.message || 'Failed to resend.');
+    document.getElementById('resend-btn').style.display='block';
   }
-  inp.classList.remove('err');err.classList.remove('show');
-  setLoad(pfx+'-sbtn',true);
-  setTimeout(()=>{
-    setLoad(pfx+'-sbtn',false);
-    buildOtp(pfx);
-    document.getElementById(S1_IDS[pfx]).style.display='none';
-    document.getElementById(S2_IDS[pfx]).classList.add('show');
-    startTimer(pfx,30);
-    setTimeout(()=>{const r=document.getElementById(pfx+'-otp');if(r&&r.children[0])r.children[0].focus()},60);
-  },1000);
 }
 
-/* ── Resend ── */
-function resend(pfx){
-  clearOtp(pfx);
-  const el=document.getElementById(pfx+'-tmr');
-  if(el)el.innerHTML='Sending…';
-  document.getElementById(pfx+'-rs').disabled=true;
-  document.getElementById(pfx+'-otp-e').classList.remove('show');
-  setTimeout(()=>startTimer(pfx,30),700);
-}
+// ── HELPERS ──────────────────────────────────────────────────────────────────
+function goToStep(id) { document.querySelectorAll('.step').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+function goBack() { clearInterval(timerInterval); goToStep('step-phone'); }
+function showMsg(el,type,text) { el.className=`msg ${type}`; el.textContent=text; }
+function hideMsg(el) { el.className='msg'; el.textContent=''; }
 
-/* ── Verify OTP ── */
-function verify(pfx,route){
-  const otp=getOtp(pfx);
-  const err=document.getElementById(pfx+'-otp-e');
-  if(otp.length!==6){
-    err.textContent='Please enter all 6 digits.';err.classList.add('show');
-    const row=document.getElementById(pfx+'-otp');
-    row.classList.add('shake');setTimeout(()=>row.classList.remove('shake'),380);
-    return;
-  }
-  err.classList.remove('show');
-  setLoad(pfx+'-vbtn',true);
-  setTimeout(()=>{
-    setLoad(pfx+'-vbtn',false);
-    clearInterval(timers[pfx]);
-    document.getElementById(S2_IDS[pfx]).classList.remove('show');
-    document.getElementById(pfx+'-suc').classList.add('show');
-    setTimeout(()=>window.location.href=route,1800);
-  },1200);
-}
+// ── Init ──────────────────────────────────────────────────────────────────────
+document.getElementById('phone-input').addEventListener('input', function(){ this.value=this.value.replace(/\D/g,'').slice(0,10); });
+document.getElementById('phone-input').addEventListener('keydown', e => { if(e.key==='Enter') sendOTP(); });
 
-/* ── Back ── */
-function back(pfx,inputId){
-  document.getElementById(S2_IDS[pfx]).classList.remove('show');
-  document.getElementById(S1_IDS[pfx]).style.display='';
-  clearOtp(pfx);clearInterval(timers[pfx]);
-  document.getElementById(inputId)?.focus();
+if (sessionStorage.getItem('gb_logged_in')==='1') {
+  const p = sessionStorage.getItem('gb_phone')||'';
+  document.getElementById('success-sub').textContent = `Already logged in as +91 ${p.replace(/(\d{5})(\d{5})/, '$1 $2')}`;
+  goToStep('step-success');
 }
-
-/* ── Init ── */
-document.addEventListener('DOMContentLoaded',()=>TM.init());
 </script>
 
-<footer style="background:#0a0a0a;border-top:1px solid rgba(201,168,76,.1);padding:16px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-  <p style="font-size:12px;color:rgba(255,255,255,.3);margin:0;">© 2026  All rights reserved.</p>
-  <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
-    <a href="about.html" style="font-size:12px;color:rgba(255,255,255,.35);text-decoration:none;">About</a>
-    <a href="contact.html" style="font-size:12px;color:rgba(255,255,255,.35);text-decoration:none;">Contact</a>
-    <a href="careers.html" style="font-size:12px;color:rgba(255,255,255,.35);text-decoration:none;">Careers</a>
-    <a href="blog.html" style="font-size:12px;color:rgba(255,255,255,.35);text-decoration:none;">Blog</a>
-    <a href="privacy-policy.html" style="font-size:12px;color:rgba(255,255,255,.35);text-decoration:none;">Privacy Policy</a>
-    <a href="terms-conditions.html" style="font-size:12px;color:rgba(255,255,255,.35);text-decoration:none;">Terms &amp; Conditions</a>
-    <a href="grievance-policy.html" style="font-size:12px;color:rgba(255,255,255,.35);text-decoration:none;">Grievance Policy</a>
-    <a href="sitemap.html" style="font-size:12px;color:rgba(255,255,255,.35);text-decoration:none;">Sitemap</a>
-  </div>
-</footer>
+<div id="recaptcha-container"></div>
+<script type="module" src="js/firebase-otp.js"></script>
 </body>
 </html>

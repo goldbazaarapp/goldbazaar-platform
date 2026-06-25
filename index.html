@@ -2,6 +2,9 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8"/>
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>GoldBazaar — India's Unified Gold Marketplace</title>
 <meta name="description" content="Explore gold loans, sell gold, find verified jewellers across 500+ cities in India."/>
@@ -20,14 +23,14 @@ html[data-theme="dark"]{--b0:#000;--b1:#0A0A0A;--b2:#111;--b3:#161616;--b4:#1E1E
 html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#E8E8E8;--text-primary:#1A1A1A;--text-secondary:#333;--text-tertiary:#555;--bg-primary:#FFF}
 .wrap{max-width:1200px;margin:0 auto;padding:0 48px}
 @media(max-width:600px){.wrap{padding:0 20px}}
-.section{padding:96px 0}
+.section{padding:52px 0}
 .alt{background:var(--b2)}
 .gold{background:linear-gradient(135deg,#C9A84C 0%,#F5E6C0 50%,#C9A84C 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:10px}
 .eyebrow::before{content:'';width:20px;height:1.5px;background:var(--g);display:inline-block}
-.sec-title{font-family:var(--fd);font-size:clamp(26px,3.4vw,44px);font-weight:700;letter-spacing:-.03em;line-height:1.18;margin-bottom:16px;color:var(--text-primary)}
-.sec-body{font-size:15px;font-weight:300;color:var(--text-secondary);max-width:560px;line-height:1.78}
-.sec-head{text-align:center;margin-bottom:48px}
+.sec-title{font-family:var(--fd);font-size:clamp(24px,3vw,40px);font-weight:700;letter-spacing:-.03em;line-height:1.18;margin-bottom:12px;color:var(--text-primary)}
+.sec-body{font-size:14px;font-weight:300;color:var(--text-secondary);max-width:560px;line-height:1.7}
+.sec-head{text-align:center;margin-bottom:32px}
 .sec-head .sec-body{margin:0 auto}
 .btn-gold{display:inline-flex;align-items:center;gap:7px;padding:13px 28px;border-radius:50px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:14px;font-weight:700;transition:transform .2s,box-shadow .2s}
 .btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,168,76,.38)}
@@ -93,8 +96,8 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 .ad-card{background:var(--b3);border:1.5px solid rgba(201,168,76,.2);border-radius:14px;padding:22px 26px;display:flex;flex-direction:column;gap:12px;min-width:380px;flex-shrink:0;transition:all .3s;cursor:pointer}
 .ad-card:hover{border-color:rgba(201,168,76,.4);transform:translateY(-4px)}
 .ad-card-header{display:flex;align-items:center;gap:14px;margin-bottom:4px}
-.ad-card-icon{width:80px;height:64px;border-radius:12px;background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.08));display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0;overflow:hidden;border:1px solid rgba(201,168,76,.15)}
-.ad-card-icon .jeweler-logo{width:100%;height:100%;object-fit:contain;padding:6px;display:block}
+.ad-card-icon{width:96px;height:56px;border-radius:10px;background:transparent;display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0;overflow:hidden;border:none}
+.ad-card-icon .jeweler-logo{width:100%;height:100%;object-fit:contain;object-position:left center;display:block}
 .ad-card-icon .jeweler-logo-fallback{font-size:28px;display:none}
 .ad-card-brand{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--g)}
 .ad-card-title{font-size:15px;font-weight:800;color:#fff;line-height:1.2}
@@ -106,15 +109,10 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 .ad-card-tag{font-size:10px;font-weight:700;padding:4px 10px;border:1px solid rgba(201,168,76,.3);border-radius:20px;color:var(--g)}
 .ad-card-cta{padding:8px 16px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:12px;font-weight:700;border-radius:6px;cursor:pointer;border:none}
 /* SERVICE TILES */
-/* MVP: 2 services only — centred pair */
-.svc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,420px));gap:24px;justify-content:center}
-@media(max-width:768px){.svc-grid{grid-template-columns:1fr 1fr;gap:14px}}
-@media(max-width:480px){.svc-grid{grid-template-columns:1fr;gap:12px}}
-/* re-enable below when more services are added:
-.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 @media(max-width:1100px){.svc-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:768px){.svc-grid{grid-template-columns:repeat(2,1fr);gap:14px}}
-@media(max-width:480px){.svc-grid{grid-template-columns:1fr;gap:12px}} */
+@media(max-width:480px){.svc-grid{grid-template-columns:1fr;gap:12px}}
 .svc-tile{display:flex;flex-direction:column;gap:14px;padding:22px 20px;background:var(--b3);border:1px solid rgba(201,168,76,.1);border-radius:18px;text-decoration:none;color:inherit;transition:all .28s var(--ease);position:relative;overflow:hidden;cursor:pointer}
 .svc-tile:hover{border-color:rgba(201,168,76,.3);transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.25)}
 html[data-theme="light"] .svc-tile{background:#fff;border-color:rgba(0,0,0,.07)}
@@ -129,7 +127,7 @@ html[data-theme="light"] .svc-stats span{color:var(--text-tertiary)}
 .svc-arrow{position:absolute;top:18px;right:18px;font-size:16px;color:rgba(255,255,255,.2);transition:all .25s;font-weight:700}
 .svc-tile:hover .svc-arrow{color:var(--g);transform:translate(3px,-2px)}
 /* STEPS */
-.steps-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;margin-top:40px}
+.steps-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;margin-top:24px}
 .step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:28px 20px;background:var(--b3);border:1px solid rgba(201,168,76,.1);border-radius:16px;cursor:pointer;opacity:0;transform:translateY(30px)scale(0.85)}
 .step.in{animation:stepPopup 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards}
 .step:hover{transform:translateY(-6px);border-color:rgba(201,168,76,.3)}
@@ -160,7 +158,7 @@ html[data-theme="light"] .svc-stats span{color:var(--text-tertiary)}
 .news-card-source{font-size:11px;color:rgba(255,255,255,.4)}
 @media(max-width:768px){.news-grid-live{grid-template-columns:1fr}}
 /* WHY */
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:24px}
 .why-card{background:var(--b3);border:1px solid rgba(201,168,76,.1);border-radius:14px;padding:28px 24px;transition:all .3s}
 .why-card:hover{border-color:rgba(201,168,76,.3);transform:translateY(-4px)}
 .why-icon{font-size:28px;margin-bottom:14px}
@@ -548,6 +546,7 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
     <div class="gold-widget-rate"><span class="rate-purity">24K</span><span class="rate-value" id="rate-24k">—</span></div>
     <div class="gold-widget-rate"><span class="rate-purity">22K</span><span class="rate-value" id="rate-22k">—</span></div>
     <div class="gold-widget-footer">Live · Updated <span id="gold-update-time">—</span></div>
+    <button onclick="GoldRateManager.forceRefresh()" id="gr-refresh-btn" style="margin-top:8px;width:100%;padding:6px 0;background:linear-gradient(135deg,#C9A84C,#E8C96A);border:none;border-radius:6px;font-size:11px;font-weight:700;color:#000;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:opacity .2s">🔄 Refresh Rates</button>
   </div>
 </div>
 
@@ -586,6 +585,8 @@ if (location.protocol === 'file:') {
     <span class="tick-item">💱 USD/INR <strong id="tick-usd">—</strong></span>
     <span class="tick-sep">❙</span>
     <span class="tick-item" id="tick-source" style="font-size:10px;opacity:.45;letter-spacing:.06em">LIVE RATES</span>
+    <span class="tick-sep">❙</span>
+    <span class="tick-item"><button onclick="GoldRateManager.forceRefresh()" title="Refresh live rates" style="background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);color:#C9A84C;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;cursor:pointer;letter-spacing:.04em">🔄 REFRESH</button></span>
     <span class="tick-sep">❙</span>
     <!-- SET 2 — duplicate (no IDs) for seamless loop -->
     <span class="tick-item">🪙 24K GOLD <strong id="tick-24k-2">—</strong></span>
@@ -733,6 +734,14 @@ if (location.protocol === 'file:') {
         <div class="svc-stats"><span>💎 <span id="svc-rate-22k">—</span> (22K)</span><span>✓ BIS Certified</span></div>
         <div class="svc-arrow">→</div>
       </a>
+      <a class="svc-tile" href="jewellery.html">
+        <div class="svc-icon-wrap" style="--svc-c1:#ec4899;--svc-c2:#f472b6">💍</div>
+        <div class="svc-label">Trending Designs</div>
+        <div class="svc-name">Jewellery</div>
+        <div class="svc-desc">Explore latest & trending jewellery designs from 8,500+ BIS-verified jewellers across India.</div>
+        <div class="svc-stats"><span>🏅 BIS Hallmarked</span><span>📍 500+ Cities</span></div>
+        <div class="svc-arrow">→</div>
+      </a>
       <!-- MVP-HIDDEN SERVICES (re-enable for v2)
       <a class="svc-tile" href="gold-exchange.html">
         <div class="svc-icon-wrap" style="--svc-c1:#3b82f6;--svc-c2:#60a5fa">🔄</div>
@@ -858,7 +867,7 @@ if (location.protocol === 'file:') {
     </div>
 	----!>
   </div>
-</section> ----!>
+</section> 
 
 <!-- HOW IT WORKS -->
 <section class="section alt">
@@ -1153,26 +1162,34 @@ function toggleGoldRates(){const w=document.getElementById('gold-rates-widget');
    file:// → proxied via allorigins.win (null-origin workaround)
    All fail → show "—" in ticker
    ════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════
+   LIVE INDIA GOLD & SILVER RATE ENGINE  v8
+   ─────────────────────────────────────────────────────────────────
+   Confirmed working (from api-test.html):
+     gold-api.com/price/XAU  → DIRECT  ✅ ~600ms
+     gold-api.com/price/XAG  → DIRECT  ✅ ~600ms
+     open.er-api.com          → DIRECT  ✅
+     frankfurter.app          → DIRECT  ✅
+   Dead: goldprice.org (all methods fail), metals.live (CORS blocked)
+   ════════════════════════════════════════════════════════════════ */
 const GoldRateManager = {
   TROY_G:       31.1035,
-  INDIA_FACTOR: 1.130,  // import duty 6% + AIDC + GST 3% + MCX premium ≈ 13% total
-  INDIA_SILVER: 1.300,  // silver has higher India import duty structure ≈ 30% total
-  ON_FILE:      location.protocol === 'file:',
-  _errors:      [],
+  INDIA_FACTOR: 1.158,  // 6% BCD + 5% AIDC + 3% GST + MCX premium = ~15.8% actual
+  INDIA_SILVER: 1.300,  // silver duty structure ≈ 30%
 
   set(el, txt) { const e = document.getElementById(el); if (e) e.textContent = txt; },
   fmt(n)  { return '₹' + Math.round(n).toLocaleString('en-IN'); },
   fmtg(n) { return this.fmt(n) + '/g'; },
 
-  get(url, timeout = 10000) {
-    const target = this.ON_FILE
-      ? `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
-      : url;
-    const ctrl = new AbortController();
-    const tid = setTimeout(() => ctrl.abort(), timeout);
-    return fetch(target, { signal: ctrl.signal })
-      .then(r => { clearTimeout(tid); if (!r.ok) throw new Error(`HTTP ${r.status} from ${url}`); return r.json(); })
-      .catch(e => { clearTimeout(tid); throw e; });
+  /* Simple fetch — 8s timeout, rejects on rate-limit HTML */
+  _get(url) {
+    return fetch(url, { signal: AbortSignal.timeout(8000) })
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+      .then(txt => {
+        if (txt.startsWith('<') || txt.includes("You've") || txt.includes('Too Many'))
+          throw new Error('Rate limited');
+        return JSON.parse(txt);
+      });
   },
 
   buildRates(gold24g, silver1g, usdInr) {
@@ -1187,79 +1204,54 @@ const GoldRateManager = {
     };
   },
 
-  /* ── Forex ── */
+  /* Forex: try two free APIs, take first that returns a plausible INR rate */
   async fetchForex() {
-    for (const [fn, pick] of [
-      [() => this.get('https://open.er-api.com/v6/latest/USD'),             d => d.result === 'success' ? d.rates?.INR : null],
-      [() => this.get('https://api.frankfurter.app/latest?from=USD&to=INR'),d => d.rates?.INR],
-    ]) {
-      try { const v = pick(await fn()); if (v > 70 && v < 200) { console.log('[GB] Forex USD/INR =', v); return Math.round(v * 100) / 100; } } catch(e) { this._errors.push('Forex: ' + e.message); }
+    const apis = [
+      () => this._get('https://open.er-api.com/v6/latest/USD').then(d => d.rates?.INR),
+      () => this._get('https://api.frankfurter.app/latest?from=USD&to=INR').then(d => d.rates?.INR),
+    ];
+    for (const fn of apis) {
+      try {
+        const v = await fn();
+        if (v > 70 && v < 200) { console.log('[GB] Forex USD/INR =', v); return v; }
+      } catch(e) { console.warn('[GB] Forex attempt failed:', e.message); }
     }
     throw new Error('Forex: all failed');
   },
 
-  /* ── SOURCE 1: goldprice.org INR (India MCX, same feed as Groww) ── */
-  async fetchGoldpriceINR() {
-    const [d, usdInr] = await Promise.all([this.get('https://data-asg.goldprice.org/dbXRates/INR'), this.fetchForex()]);
-    const item = Array.isArray(d.items) ? d.items[0] : d;
-    console.log('[GB] goldprice.org INR raw:', JSON.stringify(item).slice(0, 200));
-    const xau = item?.xauPrice;
-    if (!xau || xau < 1000) throw new Error('GP-INR: xauPrice=' + xau);
-    // xauPrice = international spot in INR/troy oz — apply India duty+GST+MCX factor
-    const gold24g = (xau / this.TROY_G) * this.INDIA_FACTOR;
-    const xag = item?.xagPrice;
-    const silver1g = (xag && xag > 100) ? (xag / this.TROY_G) * this.INDIA_SILVER
-      : await this.fetchForex().then(fx => this.get('https://data-asg.goldprice.org/dbXRates/USD')
-          .then(ds => { const s = Array.isArray(ds.items) ? ds.items[0] : ds; return s.xagPrice ? (s.xagPrice / this.TROY_G) * fx * this.INDIA_SILVER : null; }))
-          .catch(() => null);
-    if (!silver1g) throw new Error('GP-INR: no silver');
-    console.log('[GB] ✅ SOURCE 1 goldprice.org INR — 24K/g ₹' + Math.round(gold24g) + '  Silver/g ₹' + Math.round(silver1g));
-    return { gold24g, silver1g, usdInr, pchgGold: item.pchgXau || 0, src: 'MCX Live' };
-  },
-
-  /* ── SOURCE 2: gold-api.com + metals.live × live forex ── */
+  /* PRIMARY: gold-api.com direct — confirmed working ~600ms */
   async fetchGoldApi() {
-    const usdInr = await this.fetchForex();
-    // Try gold-api.com for gold, metals.live for silver
-    const [gd, md] = await Promise.allSettled([
-      this.get('https://api.gold-api.com/price/XAU'),
-      this.get('https://api.metals.live/v1/spot'),
+    const [usdInr, goldData, silverData] = await Promise.all([
+      this.fetchForex(),
+      this._get('https://api.gold-api.com/price/XAU'),
+      this._get('https://api.gold-api.com/price/XAG'),
     ]);
-    const goldUsd = gd.status === 'fulfilled' ? (gd.value?.price || gd.value?.price_usd) : null;
-    console.log('[GB] gold-api.com raw:', gd.status, goldUsd);
-    if (!goldUsd || goldUsd < 500) throw new Error('gold-api.com: invalid gold=' + goldUsd);
-    const gold24g = (goldUsd / this.TROY_G) * usdInr * this.INDIA_FACTOR;
-    // metals.live returns array: [{metal:'gold',price:...},{metal:'silver',price:...}]
-    let silverUsd = null;
-    if (md.status === 'fulfilled') {
-      const arr = Array.isArray(md.value) ? md.value : [];
-      const sv = arr.find(x => x.metal === 'silver' || x.symbol === 'XAG');
-      silverUsd = sv?.price || sv?.price_usd;
-      console.log('[GB] metals.live silver:', silverUsd);
-    }
-    if (!silverUsd) {
-      // Fallback: try gold-api.com for silver too
-      try { const sd = await this.get('https://api.gold-api.com/price/XAG'); silverUsd = sd?.price || sd?.price_usd; } catch(e) {}
-    }
-    if (!silverUsd || silverUsd < 5) throw new Error('SOURCE2: no silver');
+    const goldUsd   = goldData?.price;
+    const silverUsd = silverData?.price;
+    console.log('[GB] gold-api.com — gold:', goldUsd, 'silver:', silverUsd, 'forex:', usdInr);
+    if (!goldUsd   || goldUsd < 500)   throw new Error('gold-api XAU invalid: ' + goldUsd);
+    if (!silverUsd || silverUsd < 5)   throw new Error('gold-api XAG invalid: ' + silverUsd);
+    const gold24g  = (goldUsd   / this.TROY_G) * usdInr * this.INDIA_FACTOR;
     const silver1g = (silverUsd / this.TROY_G) * usdInr * this.INDIA_SILVER;
-    console.log('[GB] ✅ SOURCE 2 gold-api+metals.live — 24K/g ₹' + Math.round(gold24g) + '  Silver/g ₹' + Math.round(silver1g));
-    return { gold24g, silver1g, usdInr, pchgGold: 0, src: 'Spot Live' };
+    console.log('[GB] ✅ gold-api.com — 24K/g ₹' + Math.round(gold24g) + '  Silver/g ₹' + Math.round(silver1g));
+    return { gold24g, silver1g, usdInr, pchgGold: 0, src: 'Live' };
   },
 
-  /* ── SOURCE 3: goldprice.org USD × forex ── */
-  async fetchGoldpriceUSD() {
-    const [d, usdInr] = await Promise.all([this.get('https://data-asg.goldprice.org/dbXRates/USD'), this.fetchForex()]);
-    const item = Array.isArray(d.items) ? d.items[0] : d;
-    console.log('[GB] goldprice.org USD raw:', JSON.stringify(item).slice(0, 200));
-    const xau = item?.xauPrice;
-    if (!xau || xau < 500) throw new Error('GP-USD: xauPrice=' + xau);
-    const gold24g  = (xau / this.TROY_G) * usdInr * this.INDIA_FACTOR;
-    const xag = item?.xagPrice;
-    if (!xag || xag < 5) throw new Error('GP-USD: no silver');
-    const silver1g = (xag / this.TROY_G) * usdInr * this.INDIA_SILVER;
-    console.log('[GB] ✅ SOURCE 3 goldprice.org USD — 24K/g ₹' + Math.round(gold24g));
-    return { gold24g, silver1g, usdInr, pchgGold: item.pchgXau || 0, src: 'MCX Live' };
+  /* FALLBACK: metals.live via allorigins proxy */
+  async fetchMetalsLive() {
+    const usdInr = await this.fetchForex();
+    const enc = encodeURIComponent('https://api.metals.live/v1/spot');
+    const arr  = await this._get(`https://api.allorigins.win/raw?url=${enc}`);
+    if (!Array.isArray(arr)) throw new Error('metals.live: unexpected response');
+    const goldUsd   = arr.find(x => x.metal === 'gold')?.price;
+    const silverUsd = arr.find(x => x.metal === 'silver')?.price;
+    console.log('[GB] metals.live — gold:', goldUsd, 'silver:', silverUsd);
+    if (!goldUsd   || goldUsd < 500)  throw new Error('metals.live XAU invalid: ' + goldUsd);
+    if (!silverUsd || silverUsd < 5)  throw new Error('metals.live XAG invalid: ' + silverUsd);
+    const gold24g  = (goldUsd   / this.TROY_G) * usdInr * this.INDIA_FACTOR;
+    const silver1g = (silverUsd / this.TROY_G) * usdInr * this.INDIA_SILVER;
+    console.log('[GB] ✅ metals.live — 24K/g ₹' + Math.round(gold24g) + '  Silver/g ₹' + Math.round(silver1g));
+    return { gold24g, silver1g, usdInr, pchgGold: 0, src: 'Live' };
   },
 
   /* ── Update every DOM element that shows a rate ── */
@@ -1323,66 +1315,53 @@ const GoldRateManager = {
     try { sessionStorage.setItem('gb_rate_cache', JSON.stringify({ ts: Date.now(), r, src })); } catch(e) {}
   },
 
-  showUnavailable(errors = []) {
+  forceRefresh() {
+    // Clear cache and immediately re-fetch
+    try { sessionStorage.removeItem('gb_rate_cache'); } catch(e) {}
+    const btn = document.getElementById('gr-refresh-btn');
+    if (btn) { btn.textContent = '⏳ Fetching…'; btn.disabled = true; }
+    this.set('tick-source', 'Fetching live rates…');
+    this.init().finally(() => {
+      if (btn) { btn.innerHTML = '🔄 Refresh Rates'; btn.disabled = false; }
+    });
+  },
+
+  showUnavailable() {
+    // Silent fail — just show dashes, no popup
     const dash = '—';
     ['tick-24k','tick-22k','tick-18k','tick-14k','tick-silver-g','tick-silver-kg','tick-usd-3','svc-rate-22k'].forEach(id => this.set(id, dash));
     document.querySelectorAll('.ad-live-22k').forEach(el => el.textContent = dash);
-    this.set('tick-source', 'Rates unavailable — retrying…');
+    this.set('tick-source', 'Updating rates…');
     this.set('gold-update-time', '—');
-    // Show debug banner with actual errors (helps diagnose API issues)
-    let dbg = document.getElementById('gb-api-debug');
-    if (!dbg) {
-      dbg = document.createElement('div');
-      dbg.id = 'gb-api-debug';
-      dbg.style.cssText = 'position:fixed;bottom:12px;right:12px;z-index:9999;background:#1a0a00;border:1px solid #c9a84c;border-radius:8px;padding:12px 16px;max-width:420px;font:12px monospace;color:#fde68a;box-shadow:0 4px 20px rgba(0,0,0,.6)';
-      document.body.appendChild(dbg);
-    }
-    dbg.innerHTML = '<b style="color:#c9a84c">⚠ GoldBazaar — API Debug</b><br>'
-      + (errors.length ? errors.map(e => '❌ ' + e).join('<br>') : 'All rate sources failed')
-      + '<br><br><span style="color:#86efac">Open F12 → Console for details</span>'
-      + '<br><button onclick="document.getElementById(\'gb-api-debug\').remove()" style="margin-top:8px;background:#c9a84c;color:#000;border:none;border-radius:4px;padding:3px 10px;cursor:pointer;font-weight:700">Close</button>';
   },
 
   async init() {
-    // Clear cache (always fetch fresh — no stale data)
+    // Use 10-min cache to avoid hammering the APIs
+    const CACHE_MS = 30 * 60 * 1000;
     try {
       const c = JSON.parse(sessionStorage.getItem('gb_rate_cache') || 'null');
-      if (c) {
-        const age = Date.now() - c.ts;
-        const stale = age > 10 * 60 * 1000;
-        if (!stale) {
-          this.updateDisplay(c.r, c.src + ' · cached');
-          setTimeout(() => this.init(), (10 * 60 * 1000) - age);
-          return;
-        }
-        sessionStorage.removeItem('gb_rate_cache');
+      if (c && (Date.now() - c.ts) < CACHE_MS) {
+        this.updateDisplay(c.r, c.src + ' · cached');
+        setTimeout(() => this.init(), CACHE_MS - (Date.now() - c.ts));
+        return;
       }
+      sessionStorage.removeItem('gb_rate_cache');
     } catch(e) {}
 
-    this._errors = [];
-    const sources = [
-      ['goldprice.org/INR (MCX)',   () => this.fetchGoldpriceINR()],
-      ['gold-api.com + metals.live',() => this.fetchGoldApi()],
-      ['goldprice.org/USD × forex', () => this.fetchGoldpriceUSD()],
-    ];
-    for (const [label, fn] of sources) {
-      try {
-        console.log('[GB] Trying:', label);
-        const res = await fn();
-        const r = this.buildRates(res.gold24g, res.silver1g, res.usdInr);
-        this.updateDisplay(r, res.src, res.pchgGold);
-        setTimeout(() => this.init(), 5 * 60 * 1000);
-        return;
-      } catch(e) {
-        const msg = e.message || String(e);
-        this._errors.push(label + ': ' + msg);
-        console.warn('[GB] ❌', label, '—', msg);
-      }
+    // Fire both sources in parallel — first to succeed wins (≤ 8s)
+    try {
+      const res = await Promise.any([
+        this.fetchGoldApi()    .catch(e => { console.warn('[GB] ❌ gold-api —',    e.message); throw e; }),
+        this.fetchMetalsLive() .catch(e => { console.warn('[GB] ❌ metals.live —', e.message); throw e; }),
+      ]);
+      const r = this.buildRates(res.gold24g, res.silver1g, res.usdInr);
+      this.updateDisplay(r, res.src, res.pchgGold);
+      setTimeout(() => this.init(), CACHE_MS);
+    } catch(e) {
+      console.warn('[GB] All rate sources unavailable, retrying in 2 min');
+      this.showUnavailable();
+      setTimeout(() => this.init(), 2 * 60 * 1000);
     }
-    // All sources failed — show "—" (no fallback, no hardcoded rates)
-    console.error('[GB] ❌ All sources failed:\n' + this._errors.join('\n'));
-    this.showUnavailable(this._errors);
-    setTimeout(() => this.init(), 60 * 1000);
   }
 };
 /* ── HERO MODE CONFIG ───────────────────────────────────────────────────
@@ -1755,69 +1734,4 @@ function calcEM(){
     set('em-tint',inr(totalInt));
     set('em-total',inr(principal+totalInt));
     const saving=((principal*0.15/12)*months+principal)-(principal+totalInt);
-    set('em-savings',inr(Math.max(0,saving))+' vs 15% rate');
-  } else if(type==='od'){
-    const monthlyInt=principal*r;
-    set('em-hero-lbl','Monthly Interest (Overdraft)');
-    set('em-monthly',inr(monthlyInt)+'/mo');
-    set('em-hero-sub','only pay interest; redraw anytime');
-    set('em-tint',inr(monthlyInt*months)+' (if fully drawn '+months+' months)');
-    set('em-total',inr(principal+monthlyInt*months));
-    set('em-savings','Flexible — save by repaying early');
-  } else {
-    const emi=principal*r*Math.pow(1+r,months)/(Math.pow(1+r,months)-1);
-    const total=emi*months;
-    const interest=total-principal;
-    const refEMI=principal*(0.15/100/12)*Math.pow(1+0.15/100/12,months)/(Math.pow(1+0.15/100/12,months)-1);
-    const saving=(refEMI-emi)*months;
-    set('em-hero-lbl','Monthly EMI');
-    set('em-monthly',inr(emi));
-    set('em-hero-sub','principal + interest over '+months+' months');
-    set('em-tint',inr(interest));
-    set('em-total',inr(total));
-    set('em-savings',inr(Math.max(0,saving))+' vs 15% rate');
-  }
-  set('em-insight','💡 Gold loan interest ('+ratePA+'% p.a.) is typically 50% cheaper than personal loans.');
-}
-const FORM_ENDPOINT='https://script.google.com/macros/s/AKfycbyfojYeuv0YaKWAyz_mdLka4fwG30p5E8H-OTMB-khcJvq-8Ds9ys2S1hPkp6iBaYaAuw/exec';
-async function submitContactForm(){
-  const name=document.getElementById('cf-name').value.trim();
-  const mobile=document.getElementById('cf-mobile').value.trim();
-  const type=document.getElementById('cf-type').value;
-  const city=document.getElementById('cf-city').value.trim();
-  const msg=document.getElementById('cf-msg').value.trim();
-  if(!name||!mobile){toast('Please fill name and mobile');return;}
-  const btn=document.querySelector('.cf-submit');
-  if(btn){btn.disabled=true;btn.textContent='Sending…';}
-  try{
-    await fetch(FORM_ENDPOINT,{method:'POST',body:JSON.stringify({name,mobile,type,city,msg,ts:new Date().toISOString()}),headers:{'Content-Type':'application/json'}});
-    toast('Message sent! We\'ll call you within 2 hours.');
-    ['cf-name','cf-mobile','cf-city','cf-msg'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
-  }catch(e){toast('Sent! Our team will contact you shortly.');}
-  if(btn){btn.disabled=false;btn.textContent='Send Message →';}
-}
-(function injectVendorAds(){
-  try{
-    const track=document.getElementById('ad-track');
-    if(!track)return;
-    const approved=(JSON.parse(localStorage.getItem('gb_vendor_banners')||'[]')).filter(v=>v.status==='approved');
-    if(!approved.length)return;
-    approved.forEach(v=>{
-      const card=document.createElement('div');
-      card.className='ad-card';card.style.cursor='pointer';
-      card.onclick=()=>{const u=v.websiteUrl||'index.html';if(u.startsWith('http'))window.open(u,'_blank','noopener,noreferrer');else window.location.href=u;};
-      card.innerHTML='<div class="ad-card-header"><div class="ad-card-icon">'+(v.bannerDataUrl?'<img src="'+v.bannerDataUrl+'" class="jeweler-logo" alt="'+v.bizName+'" style="width:100%;height:100%;object-fit:cover;border-radius:8px"/>'  :'<span class="jeweler-logo-fallback">🏪</span>')+'</div><div><div class="ad-card-brand">GoldBazaar Partner</div><div class="ad-card-title">'+(v.bizName||'Verified Vendor')+'</div></div></div><div class="ad-card-loc">📍 '+(v.city||'India')+'</div><div class="ad-card-tag">Verified Partner ✓</div>';
-      track.appendChild(card);
-    });
-    const trackEl=document.getElementById('ad-track');
-    if(trackEl){const clone=trackEl.cloneNode(true);clone.id='ad-track-clone';clone.setAttribute('aria-hidden','true');trackEl.parentNode.appendChild(clone);}
-  }catch(e){}
-})();
-document.addEventListener('DOMContentLoaded',()=>{
-  HeroManager.init();
-  GoldRateManager.init();
-  loadNews();
-});
-</script>
-</body>
-</html>
+    set('em-savings',inr(Math.max(0,saving))+' vs 15% r

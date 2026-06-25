@@ -20,7 +20,7 @@ html[data-theme="dark"]{--b0:#000;--b1:#0A0A0A;--b2:#111;--b3:#161616;--b4:#1E1E
 html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#E8E8E8;--text-primary:#1A1A1A;--text-secondary:#333;--text-tertiary:#555;--bg-primary:#FFF}
 .wrap{max-width:1200px;margin:0 auto;padding:0 48px}
 @media(max-width:600px){.wrap{padding:0 20px}}
-.section{padding:80px 0}
+.section{padding:80px 0}.section.filter-section{padding:32px 0 60px}
 .alt{background:var(--b2)}
 .gold{background:linear-gradient(135deg,#C9A84C 0%,#F5E6C0 50%,#C9A84C 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
@@ -186,7 +186,7 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 @media(max-width:768px){.nav-center{display:none}.hamburger{display:flex}}
 
 /* ── HERO SLIDER ─────────────────────────────────── */
-#hero{width:100%;margin-top:var(--nav-h);aspect-ratio:16/9;width:100%;position:relative;overflow:hidden;background:#000}
+#hero{display:none;width:100%;margin-top:0;position:relative;overflow:hidden;background:#000}#hero.has-images{display:block;aspect-ratio:16/9}
 .hero-bg{position:absolute;inset:0}
 .hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;background-size:cover;background-position:center;pointer-events:none}
 .hero-scene.active{opacity:1;pointer-events:auto;cursor:pointer}
@@ -206,7 +206,7 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 
 
 /* ── Vendor Rolling Banner (Gold Buyers) ── */
-.vb-wrap{position:relative;background:var(--b1);overflow:hidden}
+.vb-wrap{position:relative;background:var(--b1);overflow:hidden;margin-top:var(--nav-h)}.vb-wrap.hero-shown{margin-top:0}
 .vb-header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px 14px;border-bottom:1px solid rgba(34,197,94,.12)}
 .vb-header-left{display:flex;align-items:center;gap:12px}
 .vb-header-icon{width:36px;height:36px;background:linear-gradient(135deg,#22c55e,#4ade80);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
@@ -220,20 +220,22 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 .vb-track{display:flex;gap:16px;width:max-content;animation:vbScroll 60s linear infinite;padding:0 8px}
 .vb-track:hover{animation-play-state:paused}
 @keyframes vbScroll{0%{transform:translateX(0)}100%{transform:translateX(calc(-50% - 8px))}}
-.vb-card{position:relative;width:200px;border-radius:16px;overflow:hidden;cursor:pointer;flex-shrink:0;background:linear-gradient(145deg,#021a08,#032e0f);border:1px solid rgba(34,197,94,.18);transition:transform .3s ease,box-shadow .3s ease,border-color .3s}
-.vb-card:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 12px 40px rgba(34,197,94,.18);border-color:rgba(34,197,94,.5)}
-.vb-card-logo-wrap{height:110px;display:flex;align-items:center;justify-content:center;padding:20px;background:#fff;position:relative;overflow:hidden}
-.vb-card-logo-wrap img{width:100%;height:100%;object-fit:contain;transition:transform .3s ease}
+.vb-card{position:relative;width:300px;border-radius:16px;overflow:hidden;cursor:pointer;flex-shrink:0;background:linear-gradient(160deg,#011a06,#02300c);border:1px solid rgba(34,197,94,.2);transition:transform .3s,box-shadow .3s,border-color .3s}
+.vb-card:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 16px 48px rgba(34,197,94,.2);border-color:rgba(34,197,94,.55)}
+.vb-card-logo-wrap{height:180px;display:flex;align-items:center;justify-content:center;padding:24px;background:transparent;overflow:hidden;position:relative}
+.vb-card-logo-wrap img{max-width:100%;max-height:130px;width:auto;height:auto;object-fit:contain;border-radius:10px;transition:transform .3s}
 .vb-card:hover .vb-card-logo-wrap img{transform:scale(1.06)}
-.vb-card-body{padding:14px 14px 16px}
-.vb-card-name{font-size:11px;font-weight:700;color:rgba(255,255,255,.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:6px}
-.vb-card-rate-row{display:flex;align-items:baseline;gap:4px}
-.vb-card-rate{font-size:20px;font-weight:900;color:var(--accent);line-height:1}
-.vb-card-rate-unit{font-size:10px;color:rgba(255,255,255,.35)}
-.vb-card-divider{height:1px;background:rgba(34,197,94,.12);margin:8px 0}
-.vb-card-chips{display:flex;gap:4px;flex-wrap:wrap}
+.vb-card-badge{position:absolute;top:10px;left:10px;background:linear-gradient(135deg,#22c55e,#4ade80);color:#000;font-size:8px;font-weight:800;padding:3px 9px;border-radius:20px;letter-spacing:.07em}
+.vb-card-body{padding:12px 14px 14px}
+.vb-card-name{font-size:13px;font-weight:800;color:#fff;margin-bottom:1px}
+.vb-card-type{font-size:9px;color:rgba(255,255,255,.35);margin-bottom:8px}
+.vb-scheme-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid rgba(34,197,94,.1)}
+.vb-scheme-label{font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.3);font-weight:600;margin-bottom:2px}
+.vb-scheme-val{font-size:12px;font-weight:800;color:var(--accent)}
+.vb-scheme-val.gold{color:#C9A84C}
+.vb-card-cta{display:block;width:100%;padding:6px 0;border-radius:7px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);color:var(--accent-l);font-size:10px;font-weight:700;text-align:center;letter-spacing:.05em;transition:background .2s;margin-top:8px}
+.vb-card:hover .vb-card-cta{background:rgba(34,197,94,.25)}
 .vb-chip{font-size:9px;padding:3px 7px;border-radius:20px;background:rgba(34,197,94,.08);color:rgba(255,255,255,.55);border:1px solid rgba(34,197,94,.15);white-space:nowrap}
-.vb-card-badge{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);color:var(--accent);font-size:8px;font-weight:700;padding:3px 8px;border-radius:20px;border:1px solid rgba(34,197,94,.3);letter-spacing:.06em}
 
 /* ── Expand Panel ── */
 .provider-expand{display:none;grid-column:1/-1;background:linear-gradient(135deg,#021a08,#032e0f);border:1px solid rgba(34,197,94,.2);border-radius:14px;margin:4px 0 8px;overflow:hidden}
@@ -300,6 +302,18 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
   .provider-card{grid-template-columns:60px 1fr 50px;gap:10px}
   .pc-right{display:none}
 }
+
+/* ── Scheme Sections (vertical, below expand grid) ── */
+.pe-scheme-section{margin-top:18px;border-radius:12px;padding:16px 18px;border:1px solid rgba(34,197,94,.25);background:linear-gradient(135deg,rgba(34,197,94,.06),rgba(34,197,94,.02))}
+.pe-scheme-section.gold{border-color:rgba(201,168,76,.3);background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(201,168,76,.02))}
+.pe-scheme-section-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.pe-scheme-section-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4)}
+.pe-scheme-section-name{font-size:14px;font-weight:800;color:var(--accent-l)}
+.pe-scheme-section.gold .pe-scheme-section-name{color:#C9A84C}
+.pe-scheme-bullets{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+.pe-scheme-bullets li{font-size:12.5px;color:rgba(255,255,255,.78);padding-left:18px;position:relative;line-height:1.5}
+.pe-scheme-bullets li::before{content:"•";position:absolute;left:4px;color:var(--accent);font-size:14px;line-height:1.2}
+.pe-scheme-section.gold .pe-scheme-bullets li::before{color:#C9A84C}
 </style>
 <link rel="stylesheet" href="responsive.css"/>
 <script>
@@ -315,6 +329,7 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 })();
 </script>
 <script src="hero-links.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -326,7 +341,7 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
   </div>
   <div class="nav-right">
     <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
-    <a href="index.html#contact-us" class="nav-cta">Get Started</a>
+    <a href="login.html" class="nav-cta">Get Started</a>
   </div>
   <button class="hamburger" onclick="mobToggle()"><span></span><span></span><span></span></button>
 </nav>
@@ -352,14 +367,14 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
         <div class="vb-header-sub">Hover to pause · Click to view details</div>
       </div>
     </div>
-    <div class="vb-header-count">10 Verified Buyers</div>
+    <div class="vb-header-count" id="vb-count">Top 5 Buyers</div>
   </div>
   <div class="vb-track-outer">
     <div class="vb-track" id="vb-track"></div>
   </div>
 </div>
 
-<section class="section">
+<section class="section filter-section">
   <div class="wrap">
     <!-- Filter -->
     <div class="filter-bar reveal">
@@ -388,7 +403,7 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
     </div>
     <!-- Grid -->
     <div id="no-results" style="display:none;text-align:center;padding:40px 0;color:rgba(255,255,255,.4);font-size:15px">No buyers match your filters. <button onclick="resetFilters()" style="color:var(--accent);background:none;border:none;cursor:pointer;font-size:15px">Reset</button></div>
-    <div class="provider-list" id="buyers-grid"></div>
+    <div class="provider-list" id="buyers-grid"><div id="buyers-loading" style="padding:40px;text-align:center;color:rgba(255,255,255,.4)">Loading buyers…</div></div>
   </div>
 </section>
 
@@ -483,40 +498,111 @@ const ThemeManager={STORAGE_KEY:'gb-theme',DARK:'dark',LIGHT:'light',
 window.addEventListener('DOMContentLoaded',()=>ThemeManager.init());
 const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')})},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
-/* ── Buyer Data ── */
-const BUYER_DATA=[
-  {id:0,name:'Kalyan Jewellers',logo:'images/jeweler-logos/kalyan-jewellers.png',type:'Jewellery Chain',stars:'★★★★★',loc:'50+ Branches Pan India',rate:'₹13,380/g',rateVal:13380,purity:'22K',minGrams:'1g',payment:'Instant',processing:'Same Day',purityAccepted:'18K, 22K, 24K',docs:'ID Proof, Gold Receipt',url:'https://www.kalyanjewellers.net'},
-  {id:1,name:'Malabar Gold & Diamonds',logo:'images/jeweler-logos/malabar-gold.png',type:'Jewellery Chain',stars:'★★★★★',loc:'80+ Stores Nationwide',rate:'₹13,320/g',rateVal:13320,purity:'22K',minGrams:'2g',payment:'Instant',processing:'30 Mins',purityAccepted:'22K, 24K',docs:'Aadhaar, PAN',url:'https://www.malabargoldanddiamonds.com'},
-  {id:2,name:'PC Jeweller',logo:'images/jeweler-logos/pc-jeweller.png',type:'Jewellery Chain',stars:'★★★★☆',loc:'100+ Locations',rate:'₹13,420/g',rateVal:13420,purity:'22K',minGrams:'1g',payment:'Same Day',processing:'1-2 Hours',purityAccepted:'All Grades',docs:'ID Proof',url:'https://www.pcjeweller.com'},
-  {id:3,name:'Tanishq',logo:'images/jeweler-logos/tanishq.png',type:'Premium Retailer',stars:'★★★★★',loc:'150+ Showrooms',rate:'₹13,300/g',rateVal:13300,purity:'22K',minGrams:'5g',payment:'Instant',processing:'1 Hour',purityAccepted:'18K, 22K, 24K',docs:'Aadhaar, Receipt',url:'https://www.tanishq.co.in'},
-  {id:4,name:'Joyalukkas',logo:'images/jeweler-logos/joyalukkas.png',type:'Jewellery Chain',stars:'★★★★★',loc:'70+ Locations South India',rate:'₹13,390/g',rateVal:13390,purity:'22K',minGrams:'2g',payment:'Instant',processing:'45 Mins',purityAccepted:'22K, 24K',docs:'ID Proof',url:'https://www.joyalukkas.com'},
-  {id:5,name:'Senco Gold',logo:'images/jeweler-logos/senco-gold.png',type:'Jewellery Chain',stars:'★★★★☆',loc:'60+ Locations East India',rate:'₹13,360/g',rateVal:13360,purity:'22K',minGrams:'2g',payment:'Same Day',processing:'2 Hours',purityAccepted:'18K, 22K',docs:'Aadhaar, PAN',url:'https://www.sencogoldanddiamonds.com'},
-  {id:6,name:'Augmont Digital Gold',logo:'images/jeweler-logos/augmont.png',type:'Digital Platform',stars:'★★★★★',loc:'Online + 10 Cities',rate:'₹6,900/g',rateVal:6900,purity:'24K',minGrams:'0.1g',payment:'Instant',processing:'Instant',purityAccepted:'24K Only',docs:'KYC Online',url:'https://www.augmont.com'},
-  {id:7,name:'Reliance Jewels',logo:'images/jeweler-logos/reliance-jewels.png',type:'Retail Chain',stars:'★★★★☆',loc:'200+ Locations',rate:'₹13,340/g',rateVal:13340,purity:'22K',minGrams:'2g',payment:'Instant',processing:'1 Hour',purityAccepted:'18K, 22K, 24K',docs:'ID Proof, Receipt',url:'https://www.reliancejewels.com'},
-  {id:8,name:'MMTC-PAMP',logo:'images/jeweler-logos/mmtc-pamp.png',type:'Government Refinery',stars:'★★★★★',loc:'Pan India + Online',rate:'₹7,010/g',rateVal:7010,purity:'24K',minGrams:'1g',payment:'1-2 Days',processing:'1-2 Days',purityAccepted:'24K Certified',docs:'Aadhaar, PAN, KYC',url:'https://www.mmtcpamp.com'},
-  {id:9,name:'Muthoot Gold',logo:'images/jeweler-logos/muthoot-gold.png',type:'NBFC / Gold Specialist',stars:'★★★★★',loc:'4000+ Branches Pan India',rate:'₹13,250/g',rateVal:13250,purity:'22K',minGrams:'1g',payment:'Instant',processing:'30 Mins',purityAccepted:'18K, 22K, 24K',docs:'Aadhaar, PAN',url:'https://www.muthootfinance.com'}
-];
-let openIdx=-1;
+/* ══ Excel-driven Buyer Data ══ */
+let GB_BUYERS = [];
+
+function xlsxRowToBuyer(r, idx) {
+  return {
+    id:             idx,
+    name:           String(r['name']           || ''),
+    logo:           String(r['logo']           || ''),
+    type:           String(r['type']           || ''),
+    loc:            String(r['location']       || ''),
+    rate:           String(r['rate']           || ''),
+    rateVal:        parseFloat(r['rate_val'])  || 0,
+    purity:         String(r['purity']         || '22K'),
+    minGrams:       String(r['min_grams']      || ''),
+    payment:        String(r['payment']        || ''),
+    processing:     String(r['processing']     || ''),
+    purityAccepted: String(r['purity_accepted']|| ''),
+    docs:           String(r['documents']      || ''),
+    stars:          parseInt(r['stars'])       || 4,
+    trustBadge:     String(r['trust_badge']    || ''),
+    url:            String(r['website']        || ''),
+    scheme1:        String(r['scheme1_name']   || ''),
+    scheme1Color:   String(r['scheme1_color']  || ''),
+    scheme1Details: (String(r['scheme1_details']||'')).split('|').map(s=>s.trim()).filter(Boolean),
+    scheme2:        String(r['scheme2_name']   || ''),
+    scheme2Color:   String(r['scheme2_color']  || ''),
+    scheme2Details: (String(r['scheme2_details']||'')).split('|').map(s=>s.trim()).filter(Boolean),
+    featured:       String(r['featured']       || '').toUpperCase() === 'Y',
+    active:         String(r['active']         || '').toUpperCase() === 'Y',
+  };
+}
+
+async function loadBuyerData() {
+  const loadingEl = document.getElementById('buyers-loading');
+  try {
+    const resp = await fetch('data/gold-buyers.xlsx');
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const buf  = await resp.arrayBuffer();
+    const wb   = XLSX.read(buf, {type:'array'});
+    const ws   = wb.Sheets[wb.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(ws, {defval:''});
+    GB_BUYERS  = rows.map((r,i)=>xlsxRowToBuyer(r,i)).filter(b=>b.active);
+    buildVBanner();
+    renderBuyers(GB_BUYERS);
+  } catch(e) {
+    if (loadingEl) {
+      loadingEl.innerHTML = '⚠️ Please open via <strong>Start GoldBazaar.bat</strong> → visit ' +
+        '<a href="http://localhost:8080/gold-buyers.html" style="color:var(--accent-l)">localhost:8080</a> to load live data from Excel.';
+    }
+  }
+}
+
+function starStr(n){ return '★'.repeat(n) + '☆'.repeat(5-n); }
+
+function renderScheme(name, color, details, label) {
+  if (!name) return '';
+  const cls = color === 'gold' ? 'gold' : '';
+  const bullets = details.length
+    ? `<ul class="pe-scheme-bullets">${details.map(d=>`<li>${d}</li>`).join('')}</ul>`
+    : '';
+  return `<div class="pe-scheme-section ${cls}">
+    <div class="pe-scheme-section-header">
+      <span class="pe-scheme-section-tag">🏷 ${label}</span>
+      <span class="pe-scheme-section-name">${name}</span>
+    </div>
+    ${bullets}
+  </div>`;
+}
+
+let openIdx = -1;
+
+function toggleBuyer(idx){
+  if(openIdx === idx){
+    document.getElementById('pe-'+idx).classList.remove('open');
+    document.getElementById('ta-'+idx).style.transform = '';
+    openIdx = -1; return;
+  }
+  if(openIdx !== -1){
+    document.getElementById('pe-'+openIdx).classList.remove('open');
+    document.getElementById('ta-'+openIdx).style.transform = '';
+  }
+  document.getElementById('pe-'+idx).classList.add('open');
+  document.getElementById('ta-'+idx).style.transform = 'rotate(180deg)';
+  openIdx = idx;
+  setTimeout(()=>document.getElementById('pe-'+idx).scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+}
 
 function renderBuyers(data){
-  const grid=document.getElementById('buyers-grid');
-  if(!grid)return;
-  grid.innerHTML='';
-  data.forEach((b,i)=>{
-    const card=document.createElement('div');
-    card.className='provider-card reveal';
-    card.dataset.idx=b.id;
-    card.onclick=()=>toggleBuyer(b.id);
-    card.style.cursor='pointer';
-    card.innerHTML=`
+  const grid = document.getElementById('buyers-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  data.forEach((b, i) => {
+    const card = document.createElement('div');
+    card.className = 'provider-card reveal';
+    card.dataset.idx = b.id;
+    card.onclick = () => toggleBuyer(b.id);
+    card.innerHTML = `
       <div class="pc-left">
-        <div class="pc-rank">${String(b.id+1).padStart(2,'0')}</div>
+        <div class="pc-rank">${String(i+1).padStart(2,'0')}</div>
         <div class="pc-logo-box"><img src="${b.logo}" alt="${b.name}" onerror="this.src='images/logo.png'"></div>
       </div>
       <div class="pc-mid">
         <div class="pc-name">${b.name}</div>
         <div class="pc-type">${b.type}</div>
-        <div class="pc-stars">${b.stars}</div>
+        <div class="pc-stars" style="color:var(--accent)">${starStr(b.stars)}</div>
         <div class="pc-loc">📍 ${b.loc}</div>
       </div>
       <div class="pc-right">
@@ -527,108 +613,108 @@ function renderBuyers(data){
           <span class="pc-chip">✓ ${b.purityAccepted.split(',')[0]}</span>
         </div>
       </div>
-      <div class="pc-expand-btn">
-        <span class="toggle-arrow" id="ta-${b.id}">▼</span>
-      </div>`;
+      <div class="pc-expand-btn"><span class="toggle-arrow" id="ta-${b.id}">▼</span></div>`;
     grid.appendChild(card);
-    // Expand panel
-    const ep=document.createElement('div');
-    ep.className='provider-expand';
-    ep.id='pe-'+b.id;
-    ep.innerHTML=`
+
+    const ep = document.createElement('div');
+    ep.className = 'provider-expand';
+    ep.id = 'pe-' + b.id;
+    ep.innerHTML = `
       <div class="pe-inner">
         <div class="pe-left">
           <img src="${b.logo}" class="pe-logo" alt="${b.name}" onerror="this.src='images/logo.png'">
           <div class="pe-name">${b.name}</div>
           <div class="pe-type">${b.type}</div>
-          <div class="pe-stars">${b.stars}</div>
-          <button class="view-btn" onclick="window.open('${b.url}','_blank','noopener')">Visit Website ↗</button>
+          <div class="pe-stars" style="color:var(--accent)">${starStr(b.stars)} <span class="pe-badge">✓ ${b.trustBadge}</span></div>
+          ${b.url ? `<a href="${b.url}" target="_blank" rel="noopener" class="view-btn" style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;text-decoration:none">Visit Website ↗</a>` : ''}
         </div>
-        <div class="pe-grid">
-          <div class="pe-item"><div class="pe-lbl">Buy Rate</div><div class="pe-val">${b.rate} (${b.purity})</div></div>
-          <div class="pe-item"><div class="pe-lbl">Min Weight</div><div class="pe-val">${b.minGrams}</div></div>
-          <div class="pe-item"><div class="pe-lbl">Payment</div><div class="pe-val">${b.payment}</div></div>
-          <div class="pe-item"><div class="pe-lbl">Processing</div><div class="pe-val">${b.processing}</div></div>
-          <div class="pe-item"><div class="pe-lbl">Purity Accepted</div><div class="pe-val">${b.purityAccepted}</div></div>
-          <div class="pe-item"><div class="pe-lbl">Documents</div><div class="pe-val">${b.docs}</div></div>
-          <div class="pe-item"><div class="pe-lbl">Locations</div><div class="pe-val">${b.loc}</div></div>
-          <div class="pe-item"><div class="pe-lbl">Buyer Type</div><div class="pe-val">${b.type}</div></div>
+        <div class="pe-right">
+          <div class="pe-grid">
+            <div class="pe-item"><div class="pe-lbl">💰 Buy Rate</div><div class="pe-val" style="color:var(--accent);font-weight:700">${b.rate} (${b.purity})</div></div>
+            <div class="pe-item"><div class="pe-lbl">⚖️ Min Weight</div><div class="pe-val">${b.minGrams}</div></div>
+            <div class="pe-item"><div class="pe-lbl">⚡ Payment</div><div class="pe-val">${b.payment}</div></div>
+            <div class="pe-item"><div class="pe-lbl">🔄 Processing</div><div class="pe-val">${b.processing}</div></div>
+            <div class="pe-item"><div class="pe-lbl">✨ Purity Accepted</div><div class="pe-val">${b.purityAccepted}</div></div>
+            <div class="pe-item"><div class="pe-lbl">📄 Documents</div><div class="pe-val">${b.docs}</div></div>
+            <div class="pe-item" style="grid-column:1/-1"><div class="pe-lbl">📍 Locations</div><div class="pe-val">${b.loc}</div></div>
+          </div>
+          ${renderScheme(b.scheme1, b.scheme1Color, b.scheme1Details, 'Buy-Back Scheme')}
+          ${renderScheme(b.scheme2, b.scheme2Color, b.scheme2Details, 'Also Available')}
+          <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            <button class="view-btn" style="background:transparent;border:1px solid rgba(34,197,94,.35);color:var(--accent-l)" onclick="toggleBuyer(${b.id})">✕ Close</button>
+          </div>
         </div>
       </div>`;
     grid.appendChild(ep);
   });
-  document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 }
 
-function toggleBuyer(idx){
-  if(openIdx===idx){
-    document.getElementById('pe-'+idx).classList.remove('open');
-    document.getElementById('ta-'+idx).style.transform='';
-    openIdx=-1;return;
-  }
-  if(openIdx!==-1){
-    document.getElementById('pe-'+openIdx).classList.remove('open');
-    document.getElementById('ta-'+openIdx).style.transform='';
-  }
-  document.getElementById('pe-'+idx).classList.add('open');
-  document.getElementById('ta-'+idx).style.transform='rotate(180deg)';
-  openIdx=idx;
-  setTimeout(()=>document.getElementById('pe-'+idx).scrollIntoView({behavior:'smooth',block:'nearest'}),100);
-}
-
-function applyFilters(){
-  const nm=(document.getElementById('filter-name')||{}).value||'';
-  const rt=parseFloat((document.getElementById('filter-rate')||{}).value)||0;
-  const pu=((document.getElementById('filter-purity')||{}).value||'').toLowerCase();
-  const filtered=BUYER_DATA.filter(b=>{
-    if(nm&&!b.name.toLowerCase().includes(nm.toLowerCase()))return false;
-    if(rt&&b.rateVal<rt)return false;
-    if(pu&&!b.purityAccepted.toLowerCase().includes(pu))return false;
-    return true;
-  });
-  renderBuyers(filtered);
-  document.getElementById('no-results').style.display=filtered.length?'none':'block';
-  if(openIdx!==-1)openIdx=-1;
-}
-
-function resetFilters(){
-  ['filter-name','filter-rate','filter-purity'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  applyFilters();
-}
-
-function toggleView(btn,view){
-  document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-}
-
-/* ── Rolling Banner ── */
 function buildVBanner(){
-  const track=document.getElementById('vb-track');
-  if(!track)return;
-  const items=[...BUYER_DATA,...BUYER_DATA];
-  track.innerHTML=items.map(b=>`
+  const track = document.getElementById('vb-track');
+  if (!track) return;
+  const featured = GB_BUYERS.filter(b => b.featured);
+  const items = [...featured, ...featured];
+  track.innerHTML = items.map((b, i) => `
     <div class="vb-card" onclick="scrollToBuyer(${b.id})">
-      <div class="vb-card-badge">TOP BUYER</div>
-      <div class="vb-card-logo-wrap"><img src="${b.logo}" alt="${b.name}" onerror="this.src='images/logo.png'"></div>
+      <span class="vb-card-badge">⭐ TOP BUYER</span>
+      <div class="vb-card-logo-wrap">
+        <img src="${b.logo}" alt="${b.name}" onerror="this.style.display='none';const fb=this.parentElement.querySelector('.vb-logo-fb');if(fb)fb.style.display='flex'">
+        <div class="vb-logo-fb" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:linear-gradient(135deg,#011a06,#02300c);font-size:28px;font-weight:900;color:rgba(255,255,255,.7)">${b.name.split(' ').map(w=>w[0]).join('').slice(0,3)}</div>
+      </div>
       <div class="vb-card-body">
         <div class="vb-card-name">${b.name}</div>
-        <div class="vb-card-rate-row"><span class="vb-card-rate">${b.rate.replace('/g','')}</span><span class="vb-card-rate-unit">/g</span></div>
-        <div class="vb-card-divider"></div>
-        <div class="vb-card-chips"><span class="vb-chip">${b.purity}</span><span class="vb-chip">${b.payment}</span></div>
+        <div class="vb-card-type">${b.type}</div>
+        <div class="vb-scheme-row">
+          <div><div class="vb-scheme-label">Buy Rate (${b.purity})</div><div class="vb-scheme-val">${b.rate}</div></div>
+          <div><div class="vb-scheme-label">Buy-Back Scheme</div><div class="vb-scheme-val">${b.scheme1 || '—'}</div></div>
+        </div>
+        <div class="vb-scheme-row" style="border-bottom:none;margin-bottom:8px;padding-bottom:0">
+          <div><div class="vb-scheme-label">Purity Accepted</div><div style="font-size:10px;color:rgba(255,255,255,.7);font-weight:700;margin-top:2px">${b.purityAccepted}</div></div>
+          <div><div class="vb-scheme-label">Payment</div><div style="font-size:10px;color:var(--accent);font-weight:800;margin-top:2px">${b.payment}</div></div>
+        </div>
+        <div class="vb-card-cta">View Buy-Back Details →</div>
       </div>
     </div>`).join('');
+  const cnt = document.getElementById('vb-count');
+  if (cnt) cnt.textContent = `Top ${featured.length} Buyers`;
 }
 
 function scrollToBuyer(idx){
-  const grid=document.getElementById('buyers-grid');
-  if(!grid)return;
-  grid.scrollIntoView({behavior:'smooth',block:'start'});
-  setTimeout(()=>toggleBuyer(idx),500);
+  const grid = document.getElementById('buyers-grid');
+  if (!grid) return;
+  grid.scrollIntoView({behavior:'smooth', block:'start'});
+  setTimeout(() => toggleBuyer(idx), 500);
 }
 
-function calcQuote(){const p=parseFloat(document.getElementById('q-purity').value);const w=parseFloat(document.getElementById('q-weight').value);if(!w||w<=0){document.getElementById('q-result').style.display='none';return}const rate=14563*p*0.97;const val=Math.round(w*rate);document.getElementById('q-result').style.display='block';document.getElementById('q-val').textContent='₹'+val.toLocaleString('en-IN');document.getElementById('q-note').textContent='at current MCX rate (after ~3% buyer deduction)'}
-function toast(msg){const t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;bottom:20px;right:20px;background:rgba(0,0,0,.85);color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;z-index:9999;border:1px solid rgba(34,197,94,.2);animation:slideInUp .3s ease';document.body.appendChild(t);setTimeout(()=>t.remove(),2500)}
-window.addEventListener('DOMContentLoaded',()=>{ThemeManager.init();renderBuyers(BUYER_DATA);buildVBanner();});
+function applyFilters(){
+  const nm = (document.getElementById('filter-name')||{}).value || '';
+  const rt = parseFloat((document.getElementById('filter-rate')||{}).value) || 0;
+  const pu = ((document.getElementById('filter-purity')||{}).value || '').toLowerCase();
+  const filtered = GB_BUYERS.filter(b => {
+    if (nm && !b.name.toLowerCase().includes(nm.toLowerCase())) return false;
+    if (rt && b.rateVal < rt) return false;
+    if (pu && !b.purityAccepted.toLowerCase().includes(pu)) return false;
+    return true;
+  });
+  renderBuyers(filtered);
+  document.getElementById('no-results').style.display = filtered.length ? 'none' : 'block';
+  openIdx = -1;
+}
+
+function resetFilters(){
+  ['filter-name','filter-rate','filter-purity'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  renderBuyers(GB_BUYERS);
+  document.getElementById('no-results').style.display = 'none';
+  openIdx = -1;
+}
+
+function toggleView(btn, view){
+  document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+document.addEventListener('DOMContentLoaded', () => { ThemeManager.init(); loadBuyerData(); });
 </script>
 
 <script>
@@ -650,6 +736,8 @@ const HeroManager={
       return;
     }
     this.items=found;
+    document.getElementById('hero').classList.add('has-images');
+    document.querySelector('.vb-wrap')?.classList.add('hero-shown');
     found.forEach((item,i)=>{
       const link=getHeroLink('sell-gold',item.index);
       const sc=document.createElement('div');
@@ -689,4 +777,3 @@ document.addEventListener('DOMContentLoaded',()=>HeroManager.init());
 
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
