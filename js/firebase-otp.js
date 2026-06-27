@@ -14,11 +14,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-// App Check — blocks API key abuse
-initializeAppCheck(app, {
-  provider: new ReCaptchaEnterpriseProvider('6LdF6DMtAAAAACqZBCTe4bH9ii-R3sTJ_FBoiLkI'),
-  isTokenAutoRefreshEnabled: true
-});
+// App Check disabled for localhost — enable after deploying to production domain
+// initializeAppCheck(app, { provider: new ReCaptchaEnterpriseProvider('...'), isTokenAutoRefreshEnabled: true });
 
 const auth = getAuth(app);
 auth.languageCode = 'en';

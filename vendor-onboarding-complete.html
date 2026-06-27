@@ -386,7 +386,7 @@
     #ob-hero .bg-scene {
       position: absolute; inset: 0;
       background-size: cover;
-      background-position: center;
+      background-position: center 30%;
       opacity: 0;
       transition: opacity 1s ease;
       pointer-events: none;
@@ -395,13 +395,66 @@
     #ob-hero .bg-scene.instant { transition: none; }
     #ob-hero .ob-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(135deg,
-        rgba(0,0,0,0.62) 0%,
-        rgba(0,0,0,0.28) 50%,
-        rgba(0,0,0,0.55) 100%);
-      display: flex; align-items: center;
-      padding: 0 64px;
+      background: linear-gradient(95deg,
+        rgba(5,3,0,.65) 0%,
+        rgba(5,3,0,.42) 30%,
+        rgba(5,3,0,.18) 55%,
+        rgba(5,3,0,0) 75%);
       pointer-events: none;
+    }
+    /* ── Bottom-left hero text (consistent with other GoldBazaar pages) ── */
+    #ob-hero .ob-hero-content {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0 52px 52px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    #ob-hero .ob-hero-content .ob-tag {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--g, #C9A84C);
+      margin-bottom: 10px;
+    }
+    #ob-hero .ob-hero-content .ob-tag::before {
+      content: '';
+      display: block;
+      width: 32px; height: 1.5px;
+      background: var(--g, #C9A84C);
+    }
+    #ob-hero .ob-hero-content h1 {
+      font-family: var(--fd, 'Cormorant Garamond', serif);
+      font-size: clamp(14px, 1.4vw, 20px);
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.25;
+      margin: 0 0 10px;
+      max-width: 500px;
+      text-shadow: 0 2px 16px rgba(0,0,0,1), 0 4px 32px rgba(0,0,0,.9);
+    }
+    #ob-hero .ob-hero-content p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.82);
+      max-width: 420px;
+      line-height: 1.6;
+      margin: 0 0 20px;
+      text-shadow: 0 1px 8px rgba(0,0,0,.8);
+    }
+    .ob-hero-text-enter {
+      animation: obTextIn 0.55s cubic-bezier(.22,.68,0,1.2) both;
+    }
+    @keyframes obTextIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
     #ob-hero .ob-caption h2 {
       font-family: var(--fd);
@@ -922,6 +975,11 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
     <div id="ob-hero">
       <!-- bg-scene divs injected by JS -->
       <div class="ob-overlay"></div>
+      <div class="ob-hero-content" id="obHeroContent">
+        <div class="ob-tag" id="obTag"></div>
+        <h1 id="obH1"></h1>
+        <p id="obSub"></p>
+      </div>
       <div class="ob-dots" id="obDots"></div>
     </div>
 
@@ -955,8 +1013,8 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
           <span class="up-spec-val">16 : 9 (Full HD)</span>
         </div>
         <div class="up-spec-item">
-          <span class="up-spec-label">Save As</span>
-          <span class="up-spec-val">slide-1.jpg</span>
+          <span class="up-spec-label">Formats</span>
+          <span class="up-spec-val">JPG · PNG · WebP</span>
         </div>
       </div>
 
@@ -975,7 +1033,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
           <div class="up-file-name" id="upFileName">—</div>
           <div class="up-file-meta" id="upFileMeta">—</div>
         </div>
-        <span class="up-file-ok">✓</span>
+        <button type="button" onclick="removeUploadedFile()" title="Remove image" style="background:none;border:none;cursor:pointer;color:rgba(255,80,80,0.85);font-size:18px;padding:2px 6px;line-height:1;flex-shrink:0;" aria-label="Remove">✕</button>
       </div>
 
     
@@ -1147,7 +1205,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
               <div style="margin-top:22px; border-top:1px solid rgba(201,168,76,0.12); padding-top:20px;">
                 <p style="font-size:13px; font-weight:700; color:var(--gl); margin-bottom:4px;">📸 Upload Your Hero Banner</p>
                 <p style="font-size:11.5px; color:rgba(255,255,255,0.45); margin-bottom:14px;">
-                  Recommended: <strong style="color:rgba(255,255,255,0.7);">1920 × 1080 px · 16:9 (Full HD)</strong> · JPG / PNG / WebP · Max 5 MB · Save as <code style="color:var(--g); font-size:10.5px;">slide-1.jpg</code> in <code style="color:var(--g); font-size:10.5px;">images\onboarding-hero\</code>
+                  Recommended: <strong style="color:rgba(255,255,255,0.7);">1920 × 1080 px · 16:9 (Full HD)</strong> · JPG / PNG / WebP · Max 5 MB
                 </p>
                 <div id="s2DropZone" onclick="document.getElementById('s2-file-input').click()"
                   style="border:2px dashed rgba(201,168,76,0.28); border-radius:10px; padding:18px; text-align:center; cursor:pointer; background:rgba(201,168,76,0.03); transition:border-color .2s;">
@@ -1162,7 +1220,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
                     <div id="s2FileName" style="font-size:12px; font-weight:600; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"></div>
                     <div id="s2FileMeta" style="font-size:11px; color:rgba(255,255,255,0.45); margin-top:2px;"></div>
                   </div>
-                  <span style="color:#4caf50; font-size:16px; flex-shrink:0;">✓</span>
+                  <button type="button" onclick="removeS2File()" title="Remove image" style="background:none;border:none;cursor:pointer;color:rgba(255,80,80,0.85);font-size:18px;padding:2px 6px;line-height:1;flex-shrink:0;" aria-label="Remove">✕</button>
                 </div>
                 <!-- Preview in hero button -->
                 <button id="s2PreviewBtn" onclick="backToBannerPreview()" style="display:none; width:100%; margin-top:10px; padding:9px; background:transparent; border:1.5px solid var(--g); color:var(--g); border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; transition:all .2s;">
@@ -2256,7 +2314,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       <div class="up-spec-item"><span class="up-spec-label">Formats</span><span class="up-spec-val">JPG, PNG, WebP</span></div>
       <div class="up-spec-item"><span class="up-spec-label">Max File Size</span><span class="up-spec-val">5 MB</span></div>
       <div class="up-spec-item"><span class="up-spec-label">Aspect Ratio</span><span class="up-spec-val">16 : 9 (Full HD)</span></div>
-      <div class="up-spec-item"><span class="up-spec-label">Save As</span><span class="up-spec-val">slide-1.jpg</span></div>
+      <div class="up-spec-item"><span class="up-spec-label">Any Filename</span><span class="up-spec-val">No restrictions</span></div>
     </div>
     <div class="up-dropzone pulse-active" id="upDropzoneModal" onclick="document.getElementById('up-file-input-modal').click()">
       <span class="up-dropzone-arrow">👆</span>
@@ -2270,7 +2328,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
         <div class="up-file-name" id="upFileNameModal">—</div>
         <div class="up-file-meta" id="upFileMetaModal">—</div>
       </div>
-      <span class="up-file-ok">✓</span>
+      <button type="button" onclick="removeModalFile()" title="Remove image" style="background:none;border:none;cursor:pointer;color:rgba(255,80,80,0.85);font-size:18px;padding:2px 6px;line-height:1;flex-shrink:0;" aria-label="Remove">✕</button>
     </div>
     <div class="up-actions" style="margin-top:20px">
       <button class="up-btn up-btn-preview" id="umPreviewBtn" onclick="previewBannerModal()" style="display:block">Visualise Banner</button>
@@ -2333,6 +2391,45 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 
     // ── Banner Upload ──
     let uploadedBlobUrl = null;
+    let uploadedFileObj = null;   // keeps reference for submission
+    let uploadedFileName = null;
+    let uploadedFileMime = null;
+
+    function _clearUploadState() {
+      uploadedBlobUrl = null;
+      uploadedFileObj = null;
+      uploadedFileName = null;
+      uploadedFileMime = null;
+    }
+
+    function removeUploadedFile() {
+      _clearUploadState();
+      document.getElementById('upThumb').src = '';
+      document.getElementById('upFileName').textContent = '—';
+      document.getElementById('upFileMeta').textContent = '—';
+      document.getElementById('upFileInfo').classList.remove('show');
+      document.getElementById('upPreviewBtn')?.classList.remove('show');
+      document.getElementById('up-file-input').value = '';
+      // Also clear step-2 info
+      document.getElementById('s2FileInfo').style.display = 'none';
+      document.getElementById('s2PreviewBtn').style.display = 'none';
+      document.getElementById('s2-file-input').value = '';
+    }
+
+    function removeS2File() { removeUploadedFile(); }
+
+    function removeModalFile() {
+      _clearUploadState();
+      document.getElementById('upThumbModal').src = '';
+      document.getElementById('upFileNameModal').textContent = '—';
+      document.getElementById('upFileMetaModal').textContent = '—';
+      document.getElementById('upFileInfoModal').style.display = 'none';
+      document.getElementById('umContinueBtn')?.classList.remove('show');
+      document.getElementById('up-file-input-modal').value = '';
+      // Also clear step-2 info
+      document.getElementById('s2FileInfo').style.display = 'none';
+      document.getElementById('s2PreviewBtn').style.display = 'none';
+    }
 
     function handleBannerUpload(event) {
       const file = event.target.files[0];
@@ -2349,6 +2446,10 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
         alert('❌ File too large. Maximum size is 5 MB.');
         return;
       }
+
+      uploadedFileObj  = file;
+      uploadedFileName = file.name;
+      uploadedFileMime = file.type;
 
       const reader = new FileReader();
       reader.onload = function(e) {
@@ -2398,6 +2499,9 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       const allowed = ['image/jpeg','image/png','image/webp'];
       if (!allowed.includes(file.type)) { alert('❌ Use JPG, PNG, or WebP only.'); return; }
       if (file.size > 5 * 1024 * 1024) { alert('❌ File must be under 5 MB.'); return; }
+      uploadedFileObj  = file;
+      uploadedFileName = file.name;
+      uploadedFileMime = file.type;
       const reader = new FileReader();
       reader.onload = e => {
         uploadedBlobUrl = e.target.result; // reuse same variable so hero preview also works
@@ -2464,31 +2568,69 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
     }
 
     // ── Onboarding Hero Slider ──
-    // Drop images as slide-1.jpg, slide-2.jpg, … into images/onboarding-hero/
+    // Pexels CDN slides — jewellery only, no text overlay, unique across all GoldBazaar pages.
+    // Source: Pexels (free commercial use, no attribution required).
+    // No overlap with jewellery.html, gold-buyers.html or gold-loan-providers.html.
+    // ⚠️  Visually verify each image after first load — swap any non-jewellery ID as needed.
+    // Unsplash CDN — gold jewellery, unique across all GoldBazaar pages.
+    // No overlap with jewellery.html, gold-buyers.html, or gold-loan-providers.html.
+    const OB_HERO_SLIDES = [
+      {
+        src: 'https://images.unsplash.com/photo-1623321673989-830eff0fd59f?w=1600&h=900&fit=crop&crop=entropy&q=90',
+        tag: 'JOIN GOLDBAZAAR',
+        h1: 'Showcase Your Brand to Millions.',
+        sub: 'List your jewellery store and reach verified buyers across India.'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1612150354898-a69132eb7c67?w=1600&h=900&fit=crop&crop=entropy&q=90',
+        tag: 'EASY ONBOARDING',
+        h1: 'Get Listed in Minutes.',
+        sub: 'Upload your catalogue, set your profile, and start receiving enquiries instantly.'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1600&h=900&fit=crop&crop=entropy&q=90',
+        tag: 'GROW YOUR BUSINESS',
+        h1: 'Your Next Customer is Waiting.',
+        sub: 'Join 500+ verified jewellers and gold dealers already growing on GoldBazaar.'
+      },
+    ];
+
+    /* ── LOCAL IMAGE OVERRIDE (commented out — enable when ready) ────────────
+    // Drop branded images as slide-1.jpg, slide-2.jpg … into images/onboarding-hero/
+    // then uncomment the probe() call inside initObHero() below.
+    // const FOLDER = 'images/onboarding-hero/';
+    // const MAX    = 20;
+    // const EXTS   = ['.jpg', '.jpeg', '.png', '.webp', '.JPG', '.JPEG', '.PNG'];
+    // ─────────────────────────────────────────────────────────────────────── */
+
     function initObHero() {
-      const FOLDER = 'images/onboarding-hero/';
-      const MAX    = 20;
       const hero   = document.getElementById('ob-hero');
       const dots   = document.getElementById('obDots');
+      const tagEl  = document.getElementById('obTag');
+      const h1El   = document.getElementById('obH1');
+      const subEl  = document.getElementById('obSub');
+      const cont   = document.getElementById('obHeroContent');
       let scenes = [], current = 0, timer = null;
+
+      function renderContent(slide) {
+        if (!tagEl) return;
+        tagEl.textContent = slide.tag || '';
+        h1El.textContent  = slide.h1  || '';
+        subEl.textContent = slide.sub || '';
+        // Trigger entrance animation
+        cont.querySelectorAll('.ob-tag, h1, p').forEach(el => {
+          el.classList.remove('ob-hero-text-enter');
+          void el.offsetWidth; // reflow
+          el.classList.add('ob-hero-text-enter');
+        });
+      }
 
       function buildSlider(items) {
         if (!items.length) return;
-        items.forEach((item, i) => {
-          const url   = typeof item === 'string' ? item : item.url;
-          const imgIdx= typeof item === 'string' ? (i+1) : item.index;
-          const link  = (typeof getHeroLink === 'function') ? getHeroLink('vendor-onboarding', imgIdx) : '';
+        items.forEach((slide, i) => {
           const sc = document.createElement('div');
           sc.className = 'bg-scene' + (i === 0 ? ' active instant' : '');
-          sc.style.backgroundImage = `url("${url}")`;
-          if (link) {
-            sc.style.cursor = 'pointer';
-            sc.title = 'Click to visit';
-            sc.addEventListener('click', () => {
-              if (link.startsWith('http')) window.open(link, '_blank', 'noopener,noreferrer');
-              else window.location.href = link;
-            });
-          }
+          sc.style.backgroundImage = `url("${slide.src}")`;
           hero.insertBefore(sc, hero.querySelector('.ob-overlay'));
           scenes.push(sc);
           if (i === 0) requestAnimationFrame(() => requestAnimationFrame(() => sc.classList.remove('instant')));
@@ -2497,6 +2639,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
           dot.addEventListener('click', (e) => { e.stopPropagation(); goTo(i); });
           dots.appendChild(dot);
         });
+        renderContent(items[0]);
         if (items.length > 1) timer = setInterval(() => goTo((current + 1) % scenes.length), 4500);
       }
 
@@ -2506,37 +2649,34 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
         current = n;
         scenes[current].classList.add('active');
         dots.children[current].classList.add('active');
+        renderContent(OB_HERO_SLIDES[current]);
         if (timer) { clearInterval(timer); timer = setInterval(() => goTo((current + 1) % scenes.length), 4500); }
       }
 
-      // Probe images sequentially; try .jpg, .jpeg, .png, .webp for each index
-      const EXTS = ['.jpg', '.jpeg', '.png', '.webp', '.JPG', '.JPEG', '.PNG'];
-      const urls = [];
-      let idx = 1;
+      // Use CDN slides immediately — no blocking HTTP probes
+      buildSlider(OB_HERO_SLIDES);
 
-      function tryExt(base, exts, onFound, onNone) {
-        if (!exts.length) { onNone(); return; }
-        const img = new Image();
-        img.onload  = () => onFound(base + exts[0]);
-        img.onerror = () => tryExt(base, exts.slice(1), onFound, onNone);
-        img.src = base + exts[0];
-      }
-
-      function probe() {
-        if (idx > MAX) { buildSlider(urls); return; }
-        const base = FOLDER + 'slide-' + idx;
-        const curIdx = idx;
-        tryExt(base, EXTS,
-          (url) => { urls.push({url, index: curIdx}); idx++; probe(); },
-          ()    => buildSlider(urls)
-        );
-      }
-      probe();
+      /* ── LOCAL IMAGE PROBE (commented out — enable when ready) ──────────
+      // function tryExt(base, exts, onFound, onNone) {
+      //   if (!exts.length) { onNone(); return; }
+      //   const img = new Image();
+      //   img.onload  = () => onFound(base + exts[0]);
+      //   img.onerror = () => tryExt(base, exts.slice(1), onFound, onNone);
+      //   img.src = base + exts[0];
+      // }
+      // const urls = []; let idx = 1;
+      // function probe() {
+      //   if (idx > MAX) { buildSlider(urls); return; }
+      //   const base = FOLDER + 'slide-' + idx; const curIdx = idx;
+      //   tryExt(base, EXTS, (url) => { urls.push(url); idx++; probe(); }, () => buildSlider(urls));
+      // }
+      // probe();
+      // ─────────────────────────────────────────────────────────────────── */
     }
 
     // ── Google Sheets endpoint — paste your Apps Script URL here ──
     // See customer_data/SETUP.md for instructions (one-time, 5 minutes)
-    const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyfojYeuv0YaKWAyz_mdLka4fwG30p5E8H-OTMB-khcJvq-8Ds9ys2S1hPkp6iBaYaAuw/exec';
+    const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyDSKAO1bGWib22KOZrmmyybvBvKKmWwNIg92CPRRkiv7psCpdvg55n9xX1A7lBzntF7A/exec';
 
     // OTP Login Flow
     let currentMobileNumber = '';
@@ -2805,12 +2945,13 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 
       const websiteUrl = (document.getElementById('websiteUrl')?.value || '').trim();
 
-      // Save full vendor details → Vendor Signups sheet
+      // Save vendor details → Vendor Signups sheet (GET — works with existing Apps Script)
       fetch(FORM_ENDPOINT+'?'+new URLSearchParams({
         sheet:'vendor', mobile:'91-'+verifiedMobile,
         businessName:bizName, ownerName, category,
         services:svcs, city, state, pincode:pin,
         websiteUrl,
+        bannerFileName: uploadedFileName || '',
         status:'Application Submitted'
       }),{mode:'no-cors'}).catch(()=>{});
 
@@ -2819,18 +2960,15 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       const refEl = document.getElementById('pendingRef');
       if (refEl) refEl.textContent = ref;
 
-      // ── Save vendor banner + details to localStorage for admin approval ──
+      // ── Save vendor metadata to localStorage (NO image data — avoids quota errors) ──
       try {
         const existingBanners = JSON.parse(localStorage.getItem('gb_vendor_banners') || '[]');
         existingBanners.push({
           id: ref,
-          bizName,
-          ownerName,
+          bizName, ownerName,
           mobile: '91-' + verifiedMobile,
-          category,
-          city, state,
-          websiteUrl,
-          bannerDataUrl: uploadedBlobUrl || null,
+          category, city, state, websiteUrl,
+          bannerFileName: uploadedFileName || null,  // filename only, not base64
           status: 'pending',
           submittedAt: new Date().toISOString()
         });
@@ -2884,6 +3022,11 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       if (tabName === 'leads') renderLeads();
     }
   </script>
+
+  <!-- ── Firebase Phone Auth module ── -->
+  <!-- Defines window.firebaseSendOTP and window.firebaseVerifyOTP -->
+  <div id="recaptcha-container" style="position:fixed;bottom:0;left:0;z-index:9999;"></div>
+  <script type="module" src="js/firebase-otp.js"></script>
 
   <!-- ═══════════════════ LEAD MANAGEMENT JS ═══════════════════ -->
   <script>

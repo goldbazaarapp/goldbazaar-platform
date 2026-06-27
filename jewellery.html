@@ -61,26 +61,29 @@ html[data-theme="light"] #mob-nav{background:rgba(255,255,255,.98)}
 html[data-theme="light"] #mob-nav a{color:rgba(0,0,0,.65)}
 
 /* ── PAGE HERO (full-bleed slider) ── */
-#hero{width:100%;margin-top:var(--nav-h);aspect-ratio:16/6;position:relative;overflow:hidden;background:#0d0008;min-height:340px}
-.hero-bg{position:absolute;inset:0}
-.hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;background-size:cover;background-position:center}
+#hero{width:100%;margin-top:var(--nav-h);aspect-ratio:16/6;position:relative;overflow:hidden;background:#0a0700;min-height:340px}
+#hero-bg{position:absolute;inset:0}
+/* Full cover — exact fit to hero dimensions */
+.hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease;background-size:cover;background-repeat:no-repeat;background-position:center center}
 .hero-scene.active{opacity:1}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.28) 0%,rgba(0,0,0,.15) 40%,rgba(0,0,0,.78) 100%);z-index:2;pointer-events:none}
-.hero-content{position:absolute;inset:0;z-index:3;display:flex;align-items:center}
-.hero-content .wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 48px}
-.hero-content h1{font-family:var(--fd);font-size:clamp(30px,5vw,60px);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:14px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.5)}
-.hero-content p{font-size:16px;color:rgba(255,255,255,.82);max-width:560px;line-height:1.72;margin-bottom:28px;text-shadow:0 1px 8px rgba(0,0,0,.4)}
-.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px}
-.btn-outline-w{padding:12px 26px;border-radius:50px;border:1px solid rgba(255,255,255,.35);color:#fff;font-size:14px;font-weight:700;background:rgba(255,255,255,.08);transition:all .2s}
-.btn-outline-w:hover{background:rgba(255,255,255,.18)}
-.page-hero-stats{display:flex;gap:36px;flex-wrap:wrap}
-.ph-stat{display:flex;flex-direction:column;gap:3px}
-.ph-stat-val{font-size:24px;font-weight:800;text-shadow:0 2px 8px rgba(0,0,0,.4)}
-.ph-stat-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.55)}
-.hero-dots{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:4}
+/* Left-to-right gradient so text is readable over image */
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(95deg,rgba(5,3,0,.55) 0%,rgba(5,3,0,.38) 25%,rgba(5,3,0,.15) 50%,rgba(5,3,0,0) 70%);z-index:2;pointer-events:none}
+/* Text floats over image — confined to left 46% */
+.hero-content{position:absolute;top:0;left:0;bottom:0;width:46%;z-index:3;display:flex;padding:0 52px}
+.hero-content.pos-top{align-items:flex-start;padding-top:48px}
+.hero-content.pos-mid{align-items:center}
+.hero-content.pos-bot{align-items:flex-end;padding-bottom:48px}
+.hero-content h1{font-family:var(--fd);font-size:clamp(14px,1.4vw,20px);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:6px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,1),0 4px 32px rgba(0,0,0,.9)}
+.hero-content p{font-size:11px;color:rgba(255,255,255,.92);max-width:300px;line-height:1.6;margin-bottom:14px;text-shadow:0 1px 10px rgba(0,0,0,1),0 2px 20px rgba(0,0,0,.8)}
+.hero-dots{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:4}
 .hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s;border:none}
-.hero-dot.active{background:#ec4899;width:24px;border-radius:4px}
-@media(max-width:600px){.hero-content .wrap{padding:0 20px}.hero-content h1{font-size:clamp(24px,8vw,36px)}.page-hero-stats{gap:20px}}
+.hero-dot.active{background:#C9A84C;width:24px;border-radius:4px}
+.hero-eyebrow{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C9A84C;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.hero-eyebrow::before{content:'';flex:0 0 24px;height:1px;background:rgba(201,168,76,.6)}
+@keyframes heroFadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.hero-slide-content{animation:heroFadeUp .6s ease both}
+@media(max-width:700px){.hero-content{width:80%;padding:0 24px}.hero-content h1{font-size:clamp(22px,6vw,32px)}}
+@media(max-width:480px){.hero-content{width:95%}}
 
 /* ── VENDOR ROLLING BANNER — compact strip ── */
 .vb-wrap{position:relative;background:var(--b1);overflow:hidden;border-bottom:1px solid rgba(236,72,153,.1)}
@@ -315,8 +318,11 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 
 <!-- ═══════ PAGE HERO ═══════ -->
 <section id="hero">
-  <div id="hero-bg" class="hero-bg"></div>
+  <div id="hero-bg"></div>
   <div class="hero-overlay"></div>
+  <div id="hero-content" class="hero-content pos-bot">
+    <div id="hero-slide-content" class="hero-slide-content"></div>
+  </div>
   <div id="hero-dots" class="hero-dots"></div>
 </section>
 
@@ -338,7 +344,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 </div>
 
 <!-- ═══════ MAIN SECTION ═══════ -->
-<section class="section" style="padding-top:20px">
+<section class="section" id="jewellery-list" style="padding-top:20px">
   <div class="wrap">
 
     <!-- Category tabs -->
@@ -356,10 +362,6 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
     <!-- Filter bar -->
     <div class="filter-wrap reveal">
       <div class="filter-row">
-        <div class="filter-group">
-          <label>Jeweller</label>
-          <input type="text" id="filter-name" placeholder="e.g. Tanishq, Malabar…" oninput="applyFilters()"/>
-        </div>
         <div class="filter-group">
           <label>City</label>
           <input type="text" id="filter-city" placeholder="e.g. Mumbai, Delhi…" oninput="applyFilters()"/>
@@ -480,35 +482,148 @@ const ThemeManager={STORAGE_KEY:'gb-theme',DARK:'dark',LIGHT:'light',
 };
 function mobToggle(){document.getElementById('mob-nav').classList.toggle('open')}
 /* ── Hero slider ── */
+/* All photo IDs below have been visually confirmed as jewellery images.
+   Dimensions 1600×560 match the hero exactly (full-width, 560px tall). */
 const HERO_SLIDES = [
-  'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1920&h=800&fit=crop&q=80', // bridal necklace
-  'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1920&h=800&fit=crop&q=80', // gold rings
-  'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=1920&h=800&fit=crop&q=80', // earrings
+  {
+    pos: 'bot',
+    src: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1600&h=600&fit=crop&crop=center&q=90',
+    tag: 'Gold Chains',
+    h1: 'Pure Gold. Pure Trust.',
+    sub: 'Premium gold chains certified for purity, weight and craftsmanship.'
+  },
+  {
+    pos: 'bot',
+    src: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1600&h=600&fit=crop&crop=center&q=90',
+    tag: 'Gold Rings',
+    h1: 'Every Ring Tells a Story.',
+    sub: 'Discover gold rings crafted for every occasion and milestone.'
+  },
+  {
+    pos: 'bot',
+    src: 'https://images.unsplash.com/photo-1617191880362-aac615de3c26?w=1600&h=600&fit=crop&crop=center&q=90',
+    tag: 'Festive Picks',
+    h1: 'Gold for Every Celebration.',
+    sub: 'Festival-ready jewellery with instant buyback assurance on GoldBazaar.'
+  },
+  {
+    pos: 'bot',
+    src: 'https://images.unsplash.com/photo-1633934542430-0905ccb5f050?w=1600&h=600&fit=crop&crop=center&q=90',
+    tag: 'Rings & Necklaces',
+    h1: 'Crafted in Gold.',
+    sub: 'Timeless rings and necklaces from India\'s finest jewellers.'
+  },
+  {
+    pos: 'bot',
+    src: 'https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=1600&h=600&fit=crop&crop=center&q=90',
+    tag: 'Gold Necklaces',
+    h1: 'Wear Your Legacy.',
+    sub: 'Handcrafted gold necklaces — BIS hallmarked & ethically sourced.'
+  },
+  {
+    pos: 'bot',
+    src: 'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=1600&h=600&fit=crop&crop=center&q=90',
+    tag: 'Gold Earrings',
+    h1: 'Elegance in Every Detail.',
+    sub: 'Handpicked gold earrings certified for purity and craftsmanship.'
+  },
+  <!-- {
+   <!--  pos: 'bot',
+   <!--  src: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1600&h=600&fit=crop&crop=center&q=90',
+   <!--  tag: 'Bridal Collection',
+   <!--  h1: 'Shine on Your Day.',
+  <!--   sub: 'Curated bridal jewellery sets from 200+ verified jewellers across India.'
+  <!-- },
+  {
+    pos: 'bot',
+    src: 'https://images.pexels.com/photos/32797479/pexels-photo-32797479.jpeg?auto=compress&cs=tinysrgb&w=1600&h=600&fit=crop',
+    tag: 'Nature-Inspired Gold',
+    h1: 'Gold in Every Detail.',
+    sub: 'Discover jewellery pieces that celebrate artistry and craftsmanship.'
+  },
+  {
+    pos: 'bot',
+    src: 'https://images.pexels.com/photos/28939437/pexels-photo-28939437.jpeg?auto=compress&cs=tinysrgb&w=1600&h=600&fit=crop',
+    tag: 'Heritage Designs',
+    h1: 'Crafted with Pearl Perfection.',
+    sub: 'Timeless necklaces blending gold and pearl for every occasion.'
+  },
+  {
+    pos: 'bot',
+    src: 'https://images.pexels.com/photos/37597742/pexels-photo-37597742.jpeg?auto=compress&cs=tinysrgb&w=1600&h=600&fit=crop',
+    tag: 'Bridal Jewellery',
+    h1: 'Adorned for Your Greatest Moment.',
+    sub: 'Traditional bridal sets handpicked from India\'s finest jewellers.'
+  },
 ];
 let heroIdx = 0, heroTimer = null;
+function heroRenderContent(slide){
+  const el = document.getElementById('hero-slide-content');
+  if(!el) return;
+  el.style.animation = 'none';
+  el.offsetHeight;
+  el.style.animation = '';
+  el.innerHTML = `
+    <div class="hero-eyebrow">${slide.tag}</div>
+    <h1 style="margin-bottom:10px">${slide.h1}</h1>
+    <p style="max-width:480px;margin-bottom:22px;font-size:15px">${slide.sub}</p>
+    <a href="#jewellery-list" class="btn-gold" style="font-size:11px;padding:8px 18px" onclick="event.preventDefault();document.getElementById('jewellery-list').scrollIntoView({behavior:'smooth'})">Explore Collection</a>`;
+}
 function heroGo(i){
   const scenes = document.querySelectorAll('.hero-scene');
   const dots   = document.querySelectorAll('.hero-dot');
-  scenes.forEach((s,idx)=>{s.classList.toggle('active', idx===i);});
-  dots.forEach((d,idx)=>{d.classList.toggle('active', idx===i);});
+  scenes.forEach((s,idx)=>s.classList.toggle('active', idx===i));
+  dots.forEach((d,idx)=>d.classList.toggle('active', idx===i));
   heroIdx = i;
+  const slide = HERO_SLIDES[i];
+  const wrap = document.getElementById('hero-content');
+  if(wrap){
+    wrap.classList.remove('pos-top','pos-mid','pos-bot');
+    wrap.classList.add('pos-'+(slide.pos||'bot'));
+  }
+  heroRenderContent(slide);
 }
 function heroNext(){ heroGo((heroIdx+1) % HERO_SLIDES.length); }
+/* ── Hero: CDN-primary, local-override — hosting-agnostic ── */
 function initHero(){
   const bg   = document.getElementById('hero-bg');
   const dots = document.getElementById('hero-dots');
   if(!bg) return;
-  HERO_SLIDES.forEach((src,i)=>{
+  // ① Build CDN slides immediately — no blocking
+  HERO_SLIDES.forEach((slide,i)=>{
     const sc = document.createElement('div');
     sc.className = 'hero-scene' + (i===0?' active':'');
-    sc.style.backgroundImage = `url(${src})`;
+    sc.style.backgroundImage = `url(${slide.src})`;
     bg.appendChild(sc);
     const d = document.createElement('button');
     d.className = 'hero-dot' + (i===0?' active':'');
     d.onclick = ()=>{ clearInterval(heroTimer); heroGo(i); heroTimer=setInterval(heroNext,5000); };
     dots.appendChild(d);
   });
+  const wrap = document.getElementById('hero-content');
+  if(wrap){ wrap.classList.remove('pos-top','pos-mid','pos-bot'); wrap.classList.add('pos-'+(HERO_SLIDES[0].pos||'bot')); }
+  heroRenderContent(HERO_SLIDES[0]);
   heroTimer = setInterval(heroNext, 5000);
+  /* ── LOCAL IMAGE OVERRIDE (commented out — enable when ready) ──────────
+  // To use your own branded images: add images/jewellery/hero-1.png
+  // to the repo, then uncomment the block below.
+  // (async()=>{
+  //   for(let i=1;i<=5;i++){
+  //     const src='images/jewellery/hero-'+i+'.png';
+  //     const ok=await new Promise(r=>{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src=src;});
+  //     if(!ok)break;
+  //     clearInterval(heroTimer);
+  //     const slide={pos:'mid',src,tag:'',h1:'',sub:''};
+  //     HERO_SLIDES.unshift(slide);
+  //     const sc=document.createElement('div');sc.className='hero-scene active';sc.style.backgroundImage='url('+src+')';
+  //     bg.querySelector('.hero-scene.active')?.classList.remove('active');bg.prepend(sc);
+  //     const d=document.createElement('button');d.className='hero-dot active';
+  //     d.onclick=()=>{clearInterval(heroTimer);heroGo(0);heroTimer=setInterval(heroNext,5000);};
+  //     dots.querySelectorAll('.hero-dot').forEach(x=>x.classList.remove('active'));dots.prepend(d);
+  //     heroIdx=0;heroRenderContent(slide);heroTimer=setInterval(heroNext,5000);
+  //   }
+  // })();
+  // ─────────────────────────────────────────────────────────────────── */
 }
 
 window.addEventListener('DOMContentLoaded',()=>{
@@ -607,17 +722,19 @@ function renderSchemeSection(name, color, details) {
 function buildBanner(){
   const track = document.getElementById('vb-track');
   if(!track) return;
-  const featured = JEWELLERS.filter(j=>j.featured);
+  const featured = JEWELLERS.filter(j=>j.featured).slice(0, 5);
   const items = [...featured, ...featured];
-  track.innerHTML = items.map((j,i) => `
+  const LOGO = 'images/logo.png';
+  track.innerHTML = items.map((j, i) => {
+    const label = 'Jeweller - ' + ((i % featured.length) + 1);
+    return `
     <div class="vb-card" onclick="scrollToVendor(${j.id})">
       <span class="vb-card-badge">⭐ FEATURED</span>
       <div class="vb-card-logo-wrap">
-        <img src="${j.logo}" alt="${j.name}" onerror="this.style.display='none';const fb=this.parentElement.querySelector('.vb-logo-fb');if(fb)fb.style.display='flex'">
-        <div class="vb-logo-fb" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:linear-gradient(135deg,#2d0020,#1a0012);font-size:28px;font-weight:900;color:rgba(255,255,255,.7)">${j.name.split(' ').map(w=>w[0]).join('').slice(0,3)}</div>
+        <img src="${LOGO}" alt="${label}" style="background:transparent;padding:16px">
       </div>
       <div class="vb-card-body">
-        <div class="vb-card-name">${j.name}</div>
+        <div class="vb-card-name">${label}</div>
         <div class="vb-card-type">${j.type}</div>
         <div class="vb-scheme-row">
           <div><div class="vb-scheme-label">Making Charges</div><div class="vb-scheme-val">${j.makingCharge}</div></div>
@@ -632,7 +749,8 @@ function buildBanner(){
         </div>
         <div class="vb-card-cta">View Scheme Details →</div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
   const cnt = document.getElementById('vb-count');
   if(cnt) cnt.textContent = `Top ${featured.length} Featured`;
 }
@@ -666,13 +784,11 @@ function filterCategory(cat, btn){
 
 function applyFilters(){
   if(!document.getElementById('vendor-list')) return;
-  const nm   = (document.getElementById('filter-name')?.value||'').toLowerCase();
   const city = (document.getElementById('filter-city')?.value||'').toLowerCase();
   const pu   = (document.getElementById('filter-purity')?.value||'').toLowerCase();
   const sort = document.getElementById('filter-sort')?.value || 'popular';
 
   let data = JEWELLERS.filter(j => {
-    if(nm && !j.name.toLowerCase().includes(nm)) return false;
     if(city && !j.city.includes(city)) return false;
     if(pu && !j.purity.toLowerCase().includes(pu)) return false;
     if(activeCategory !== 'all' && !j.categories.includes(activeCategory)) return false;
@@ -688,7 +804,7 @@ function applyFilters(){
 }
 
 function resetFilters(){
-  ['filter-name','filter-city'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['filter-city'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('filter-purity').value = '';
   document.getElementById('filter-sort').value = 'popular';
   activeCategory = 'all';
@@ -734,7 +850,7 @@ function renderJewelleryItems(j){
           <span class="jwl-tag">${catLabel(item.cat)}</span>
         </div>
         <div class="jwl-quality">${item.quality||''}</div>
-        <a href="${item.linkUrl||j.url}" target="_blank" rel="noopener" class="jwl-view-btn">View on ${j.name} →</a>
+        <a href="${item.linkUrl||j.url}" target="_blank" rel="noopener" class="jwl-view-btn">View Details →</a>
       </div>
     </div>`;
   }).join('');
@@ -749,18 +865,20 @@ function renderVendors(data){
   if(loading) loading.remove();
   list.innerHTML = '';
 
-  data.forEach(j => {
+  const LOGO = 'images/logo.png';
+  data.slice(0, 5).forEach((j, listIdx) => {
+    const label = 'Jeweller - ' + (listIdx + 1);
     const card = document.createElement('div');
     card.className = 'vendor-card';
     card.id = 'vc-'+j.id;
     card.innerHTML = `
       <div class="vendor-card-header" onclick="toggleVendor(${j.id})">
         <div class="vc-left">
-          <div class="vc-rank">${String(j.id+1).padStart(2,'0')}</div>
-          <div class="vc-logo-box"><img src="${j.logo}" alt="${j.name}" onerror="this.style.display='none'"></div>
+          <div class="vc-rank">${String(listIdx+1).padStart(2,'0')}</div>
+          <div class="vc-logo-box"><img src="${LOGO}" alt="${label}" style="object-fit:contain;padding:4px;background:transparent"></div>
         </div>
         <div class="vc-info">
-          <div class="vc-name">${j.name}</div>
+          <div class="vc-name">${label}</div>
           <div class="vc-type">${j.type}</div>
           <div class="vc-stars">${j.starStr}</div>
           <div class="vc-loc">📍 ${j.loc}</div>
@@ -780,12 +898,11 @@ function renderVendors(data){
       <div class="vendor-expand" id="ve-${j.id}">
         <div class="ve-inner">
           <div class="ve-left">
-            <img src="${j.logo}" class="ve-brand-logo" alt="${j.name}" onerror="this.style.opacity='.3'">
-            <div class="ve-brand-name">${j.name}</div>
+            <img src="${LOGO}" class="ve-brand-logo" alt="${label}" style="background:transparent;padding:8px">
+            <div class="ve-brand-name">${label}</div>
             <div class="ve-brand-sub">${j.type}</div>
             <div class="ve-brand-stars">${j.starStr}</div>
             <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;width:100%">
-              <a href="${j.url}" target="_blank" rel="noopener" class="ve-btn ve-btn-outline" style="text-align:center;text-decoration:none">Visit Website ↗</a>
               <a href="index.html#contact-us" class="ve-btn ve-btn-filled" style="text-align:center;text-decoration:none">Contact Jeweller</a>
             </div>
           </div>
@@ -824,12 +941,35 @@ function toggleVendor(id){
     document.getElementById('ve-'+openVendorId).classList.remove('open');
     document.getElementById('ta-'+openVendorId).style.transform='';
   }
-  document.getElementById('ve-'+id).classList.add('open');
+  const ve = document.getElementById('ve-'+id);
+  if(ve){ ve.classList.add('open'); setTimeout(()=>ve.scrollIntoView({behavior:'smooth',block:'nearest'}),50); }
   document.getElementById('ta-'+id).style.transform='rotate(180deg)';
   openVendorId=id;
-  setTimeout(()=>document.getElementById('ve-'+id).scrollIntoView({behavior:'smooth',block:'nearest'}),100);
 }
 
+/* ── Load jewellers from Excel ── */
+async function loadJewellers(){
+  const loadingEl = document.getElementById('jewellers-loading');
+  try {
+    const resp = await fetch('data/jewellers.xlsx');
+    if(!resp.ok) throw new Error('HTTP '+resp.status);
+    const buf = await resp.arrayBuffer();
+    const wb  = XLSX.read(buf,{type:'array'});
+    const ws  = wb.Sheets[wb.SheetNames[0]];
+    const rows= XLSX.utils.sheet_to_json(ws,{defval:''});
+    JEWELLERS = rows.map((r,i)=>xlsxRowToJeweller(r,i)).filter(j=>j.active);
+    buildBanner();
+    applyFilters();
+  } catch(e){
+    if(loadingEl){
+      loadingEl.innerHTML='⚠️ Please open via <strong>Start GoldBazaar.bat</strong> → visit '+
+        '<a href="http://localhost:8080/jewellery.html" style="color:var(--accent-l)">localhost:8080</a> to load live data from Excel.';
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded',()=>{ ThemeManager.init(); loadJewellers(); initHero(); });
 </script>
+
 </body>
 </html>

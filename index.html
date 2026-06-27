@@ -504,7 +504,7 @@ if (location.protocol === 'file:') {
       <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">🏦</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Gold Loan</div></div></div>
       <div class="ad-card-scheme">Instant Loans Against Gold</div>
       <div class="ad-card-details"><span class="ad-card-detail-item">💰 From 7.5% p.a.</span><span class="ad-card-detail-item">⚡ 30-min disbursal</span><span class="ad-card-detail-item">📊 LTV up to 80%</span></div>
-      <div class="ad-card-offer">500+  Trusted Lenders on One Platform</div>
+      <div class="ad-card-offer">500+ RBI-Licensed Lenders on One Platform</div>
       <div class="ad-card-tag" style="align-self:flex-start">LOAN</div>
     </div>
     <div class="ad-card" onclick="location.href='gold-buyers.html'">
@@ -1308,7 +1308,7 @@ const HeroManager={
       slides.push({src:v.bannerDataUrl,link:v.websiteUrl||'index.html',type:'image',label:v.bizName});
     });
 
-    // 2. Default GoldBazaar media
+    // 2. Default GoldBazaar media (local images/videos)
     const cfg=HERO_CFG[HERO_MODE];
     for(let i=1;i<=cfg.max;i++){
       const src=cfg.folder+cfg.prefix+i+cfg.ext;
@@ -1318,8 +1318,6 @@ const HeroManager={
       });
       const hl=getHeroLink('landing',i);if(ok)slides.push({src,link:hl||'index.html',type:HERO_MODE,label:'GoldBazaar',external:hl.startsWith('http')});else break;
     }
-
-    if(!slides.length){bg.style.background='linear-gradient(135deg,#0A0700,#1A1200)';if(dotsEl)dotsEl.style.display='none';return;}
     this.items=slides;
 
     slides.forEach((slide,i)=>{
@@ -1666,5 +1664,54 @@ function calcEM(){
     set('em-interest',inr(totalInt));
     set('em-savings',inr(Math.max(0,saving))+' vs 15% rate');
   }
+}
+
+/* ── Contact Form ── */
+const CONTACT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyDSKAO1bGWib22KOZrmmyybvBvKKmWwNIg92CPRRkiv7psCpdvg55n9xX1A7lBzntF7A/exec';
+
+function submitContactForm() {
+  const name    = (document.getElementById('cf-name')?.value || '').trim();
+  const mobile  = (document.getElementById('cf-mobile')?.value || '').trim();
+  const type    = (document.getElementById('cf-type')?.value || '').trim();
+  const city    = (document.getElementById('cf-city')?.value || '').trim();
+  const message = (document.getElementById('cf-message')?.value || '').trim();
+  const btn     = document.querySelector('.cf-submit');
+
+  if (!name || !mobile) {
+    alert('Please enter your name and mobile number.');
+    return;
+  }
+
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  fetch(CONTACT_ENDPOINT + '?sheet=ce&name=' + encodeURIComponent(name) +
+    '&mobile=' + encodeURIComponent(mobile) +
+    '&type=' + encodeURIComponent(type) +
+    '&city=' + encodeURIComponent(city) +
+    '&message=' + encodeURIComponent(message) +
+    '&status=NewEnquiry',
+    { mode: 'no-cors' }).catch(() => {});
+
+  // Save to localStorage as backup
+  try {
+    const leads = JSON.parse(localStorage.getItem('gb_contact_leads') || '[]');
+    leads.push({ name, mobile, type, city, message, submittedAt: new Date().toISOString() });
+    localStorage.setItem('gb_contact_leads', JSON.stringify(leads));
+  } catch(e) {}
+
+  setTimeout(() => {
+    btn.textContent = '✅ Message Sent!';
+    btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
+    document.getElementById('cf-name').value = '';
+    document.getElementById('cf-mobile').value = '';
+    document.getElementById('cf-city').value = '';
+    document.getElementById('cf-message').value = '';
+    setTimeout(() => {
+      btn.textContent = 'Send Message →';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 3000);
+  }, 1000);
 }
 </script></body></html>

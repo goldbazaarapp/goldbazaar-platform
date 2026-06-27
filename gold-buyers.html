@@ -188,15 +188,18 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 @media(max-width:768px){.nav-center{display:none}.hamburger{display:flex}}
 
 /* ── HERO SLIDER ─────────────────────────────────── */
-#hero{display:none;width:100%;margin-top:var(--nav-h);position:relative;overflow:hidden;background:#000}#hero.has-images{display:block;aspect-ratio:16/9}
+#hero{width:100%;margin-top:var(--nav-h);aspect-ratio:16/6;position:relative;overflow:hidden;background:#0a0700;min-height:340px}
 .hero-bg{position:absolute;inset:0}
-.hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;background-size:cover;background-position:center;pointer-events:none}
+.hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease;background-size:cover;background-position:center;pointer-events:none}
 .hero-scene.active{opacity:1;pointer-events:auto;cursor:pointer}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.38) 0%,rgba(0,0,0,.22) 50%,rgba(0,0,0,.72) 100%);z-index:2;pointer-events:none}
-.hero-content{position:absolute;inset:0;z-index:3;display:flex;align-items:center}
-.hero-content .wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 48px}
-.hero-content h1{font-family:var(--fd);font-size:clamp(36px,5.5vw,66px);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:18px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.5)}
-.hero-content p{font-size:17px;color:rgba(255,255,255,.82);max-width:580px;line-height:1.72;margin-bottom:32px;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(95deg,rgba(5,3,0,.55) 0%,rgba(5,3,0,.38) 25%,rgba(5,3,0,.15) 50%,rgba(5,3,0,0) 70%);z-index:2;pointer-events:none}
+.hero-content{position:absolute;top:0;left:0;bottom:0;width:46%;z-index:3;display:flex;align-items:flex-end;padding:0 52px 48px}
+.hero-content h1{font-family:var(--fd);font-size:clamp(14px,1.4vw,20px);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:10px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,1),0 4px 32px rgba(0,0,0,.9)}
+.hero-content p{font-size:13px;color:rgba(255,255,255,.92);max-width:360px;line-height:1.7;margin-bottom:20px;text-shadow:0 1px 10px rgba(0,0,0,1),0 2px 20px rgba(0,0,0,.8)}
+.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C9A84C;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.hero-eyebrow::before{content:'';flex:0 0 24px;height:1px;background:rgba(201,168,76,.6)}
+@keyframes heroFadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.hero-slide-content{animation:heroFadeUp .6s ease both}
 .hero-dots{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:4}
 .hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s;border:none}
 .hero-dot.active{background:#fff;width:24px;border-radius:4px}
@@ -208,7 +211,7 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 
 
 /* ── Vendor Rolling Banner (Gold Buyers) ── */
-.vb-wrap{position:relative;background:var(--b1);overflow:hidden;margin-top:var(--nav-h)}.vb-wrap.hero-shown{margin-top:0}
+.vb-wrap{position:relative;background:var(--b1);overflow:hidden}
 .vb-header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px 14px;border-bottom:1px solid rgba(34,197,94,.12)}
 .vb-header-left{display:flex;align-items:center;gap:12px}
 .vb-header-icon{width:36px;height:36px;background:linear-gradient(135deg,#22c55e,#4ade80);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
@@ -385,6 +388,9 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 <section id="hero">
   <div id="hero-bg" class="hero-bg"></div>
   <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div id="hero-slide-content" class="hero-slide-content"></div>
+  </div>
   <div id="hero-dots" class="hero-dots"></div>
 </section>
 
@@ -409,10 +415,6 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   <div class="wrap">
     <!-- Filter -->
     <div class="filter-bar reveal">
-      <div class="filter-group">
-        <label for="filter-name">Buyer Name</label>
-        <input type="text" id="filter-name" placeholder="e.g. Tanishq, Malabar..." oninput="applyFilters()"/>
-      </div>
       <div class="filter-group">
         <label for="filter-rate">Min Buy Rate (₹/g)</label>
         <input type="number" id="filter-rate" placeholder="e.g. 7000" oninput="applyFilters()"/>
@@ -618,7 +620,9 @@ function renderBuyers(data){
   const grid = document.getElementById('buyers-grid');
   if (!grid) return;
   grid.innerHTML = '';
-  data.forEach((b, i) => {
+  const LOGO = 'images/logo.png';
+  data.slice(0, 5).forEach((b, i) => {
+    const label = 'Gold Buyer - ' + (i + 1);
     const card = document.createElement('div');
     card.className = 'provider-card reveal';
     card.dataset.idx = b.id;
@@ -626,10 +630,10 @@ function renderBuyers(data){
     card.innerHTML = `
       <div class="pc-left">
         <div class="pc-rank">${String(i+1).padStart(2,'0')}</div>
-        <div class="pc-logo-box"><img src="${b.logo}" alt="${b.name}" onerror="this.src='images/logo.png'"></div>
+        <div class="pc-logo-box"><img src="${LOGO}" alt="${label}"></div>
       </div>
       <div class="pc-mid">
-        <div class="pc-name">${b.name}</div>
+        <div class="pc-name">${label}</div>
         <div class="pc-type">${b.type}</div>
         <div class="pc-stars" style="color:var(--accent)">${starStr(b.stars)}</div>
         <div class="pc-loc">📍 ${b.loc}</div>
@@ -651,11 +655,10 @@ function renderBuyers(data){
     ep.innerHTML = `
       <div class="pe-inner">
         <div class="pe-left">
-          <img src="${b.logo}" class="pe-logo" alt="${b.name}" onerror="this.src='images/logo.png'">
-          <div class="pe-name">${b.name}</div>
+          <img src="${LOGO}" class="pe-logo" alt="${label}" style="background:transparent;padding:8px">
+          <div class="pe-name">${label}</div>
           <div class="pe-type">${b.type}</div>
           <div class="pe-stars" style="color:var(--accent)">${starStr(b.stars)} <span class="pe-badge">✓ ${b.trustBadge}</span></div>
-          ${b.url ? `<a href="${b.url}" target="_blank" rel="noopener" class="view-btn" style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;text-decoration:none">Visit Website ↗</a>` : ''}
         </div>
         <div class="pe-right">
           <div class="pe-grid">
@@ -682,17 +685,19 @@ function renderBuyers(data){
 function buildVBanner(){
   const track = document.getElementById('vb-track');
   if (!track) return;
-  const featured = GB_BUYERS.filter(b => b.featured);
+  const featured = GB_BUYERS.filter(b => b.featured).slice(0, 5);
   const items = [...featured, ...featured];
-  track.innerHTML = items.map((b, i) => `
+  const LOGO = 'images/logo.png';
+  track.innerHTML = items.map((b, i) => {
+    const label = 'Gold Buyer - ' + ((i % featured.length) + 1);
+    return `
     <div class="vb-card" onclick="scrollToBuyer(${b.id})">
       <span class="vb-card-badge">⭐ TOP BUYER</span>
       <div class="vb-card-logo-wrap">
-        <img src="${b.logo}" alt="${b.name}" onerror="this.style.display='none';const fb=this.parentElement.querySelector('.vb-logo-fb');if(fb)fb.style.display='flex'">
-        <div class="vb-logo-fb" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:linear-gradient(135deg,#011a06,#02300c);font-size:28px;font-weight:900;color:rgba(255,255,255,.7)">${b.name.split(' ').map(w=>w[0]).join('').slice(0,3)}</div>
+        <img src="${LOGO}" alt="${label}" style="background:transparent;padding:16px">
       </div>
       <div class="vb-card-body">
-        <div class="vb-card-name">${b.name}</div>
+        <div class="vb-card-name">${label}</div>
         <div class="vb-card-type">${b.type}</div>
         <div class="vb-scheme-row">
           <div><div class="vb-scheme-label">Buy Rate (${b.purity})</div><div class="vb-scheme-val">${b.rate}</div></div>
@@ -704,7 +709,8 @@ function buildVBanner(){
         </div>
         <div class="vb-card-cta">View Buy-Back Details →</div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
   const cnt = document.getElementById('vb-count');
   if (cnt) cnt.textContent = `Top ${featured.length} Buyers`;
 }
@@ -717,11 +723,9 @@ function scrollToBuyer(idx){
 }
 
 function applyFilters(){
-  const nm = (document.getElementById('filter-name')||{}).value || '';
   const rt = parseFloat((document.getElementById('filter-rate')||{}).value) || 0;
   const pu = ((document.getElementById('filter-purity')||{}).value || '').toLowerCase();
   const filtered = GB_BUYERS.filter(b => {
-    if (nm && !b.name.toLowerCase().includes(nm.toLowerCase())) return false;
     if (rt && b.rateVal < rt) return false;
     if (pu && !b.purityAccepted.toLowerCase().includes(pu)) return false;
     return true;
@@ -732,7 +736,7 @@ function applyFilters(){
 }
 
 function resetFilters(){
-  ['filter-name','filter-rate','filter-purity'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  ['filter-rate','filter-purity'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
   renderBuyers(GB_BUYERS);
   document.getElementById('no-results').style.display = 'none';
   openIdx = -1;
@@ -751,39 +755,64 @@ document.addEventListener('DOMContentLoaded', () => { ThemeManager.init(); loadB
 </script>
 
 <script>
+/* ── Hero Slides — Sell Gold (Unsplash, free commercial use) ───────────
+   All photo IDs confirmed as gold jewellery images.
+   Dimensions: 1600×600 matching aspect-ratio 16/6.
+   ──────────────────────────────────────────────────────────────────── */
+/* ── Hero Slides — Sell Gold (Unsplash, free commercial use) ───────────
+   IDs sourced from Unsplash jewellery pool — unique across all GoldBazaar pages.
+   None of these IDs appear in jewellery.html, gold-loan-providers.html or vendor-onboarding.
+   ──────────────────────────────────────────────────────────────────── */
+/* ── Hero Slides — Sell Gold (Unsplash, free commercial use) ───────────
+   All IDs confirmed gold jewellery from unsplash.com/s/photos/gold-jewelry.
+   Unique to this page — no overlap with jewellery.html, gold-loan, onboarding.
+   ──────────────────────────────────────────────────────────────────── */
+const HERO_SLIDES_SELL=[
+  {src:'https://images.unsplash.com/photo-1611107683227-e9060eccd846?w=1600&h=600&fit=crop&crop=entropy&q=90', tag:'Sell Gold', h1:'Get the Best Price for Your Gold.', sub:'Instant valuation from verified gold buyers across India.'},
+  <!---{src:'https://images.unsplash.com/photo-1650455221359-3aebf920bcc5?w=1600&h=600&fit=crop&crop=entropy&q=90', tag:'Trusted Buyers', h1:'Sell with  <!---Confidence.', sub:'BIS-certified, transparent weighing and same-day payment guaranteed.'},
+  {src:'https://images.unsplash.com/photo-1611955167811-4711904bb9f8?w=1600&h=600&fit=crop&crop=entropy&q=90', tag:'Zero Hidden Charges', h1:'What You See Is What You Get.', sub:'No deductions, no surprises — fair market rate every time.'},
+  {src:'https://images.unsplash.com/photo-1622398925373-3f91b1e275f5?w=1600&h=600&fit=crop&crop=entropy&q=90', tag:'Gold Buyers Near You', h1:'Walk In. Walk Out Richer.', sub:'Find top-rated gold buyers in your city with real-time gold rates.'},
+  {src:'https://images.pexels.com/photos/31605845/pexels-photo-31605845.jpeg?auto=compress&cs=tinysrgb&w=1600&h=600&fit=crop', tag:'Jewellery Buyers', h1:'Every Piece Has Its Price.', sub:'Expert valuation for necklaces, pendants, bangles — any gold jewellery.'},
+  {src:'https://images.pexels.com/photos/29502923/pexels-photo-29502923.jpeg?auto=compress&cs=tinysrgb&w=1600&h=600&fit=crop', tag:'Certified Gold Buyers', h1:'Your Gold Deserves the Best Rate.', sub:'Sell to BIS-certified buyers with no deductions and same-day payment.'},
+  {src:'https://images.pexels.com/photos/9358366/pexels-photo-9358366.jpeg?auto=compress&cs=tinysrgb&w=1600&h=600&fit=crop', tag:'Gold Jewellery Buyers', h1:'Turn Your Gold into Cash Today.', sub:'Instant offers from verified buyers — transparent, trusted, and fast.'},
+];
 const HeroManager={
   items:[],current:0,timer:null,
-  async init(){
+  init(){
     const bg=document.getElementById('hero-bg');
     const dotsEl=document.getElementById('hero-dots');
     if(!bg)return;
-    const found=[];
-    for(let i=1;i<=10;i++){
-      const src='images/gold-buyers/hero-'+i+'.png';
-      const ok=await new Promise(r=>{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src=src});
-      if(ok)found.push({src,index:i});else break;
+    // Load CDN slides immediately
+    this.items=[...HERO_SLIDES_SELL];
+    this._build(bg,dotsEl);
+    this.renderContent(this.items[0]);
+    if(this.items.length>1)this.timer=setInterval(()=>this.next(),5000);
+    /* ── LOCAL IMAGE OVERRIDE (commented out — enable when ready) ──────
+    // To use your own branded images: add images/gold-buyers/hero-1.png
+    // to the repo, then uncomment the line below.
+    // this._scanLocal('images/gold-buyers/hero-', bg, dotsEl);
+    // ─────────────────────────────────────────────────────────────── */
+  },
+  /* async _scanLocal(prefix,bg,dotsEl){
+    for(let i=1;i<=5;i++){
+      const src=prefix+i+'.png';
+      const ok=await new Promise(r=>{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src=src;});
+      if(!ok)break;
+      const slide={src,tag:'',h1:'',sub:''};
+      this.items.unshift(slide);
+      const sc=document.createElement('div');sc.className='hero-scene active';sc.style.backgroundImage='url('+src+')';
+      bg.querySelector('.hero-scene.active')?.classList.remove('active');bg.prepend(sc);
+      if(dotsEl){const d=document.createElement('button');d.className='hero-dot active';
+        d.onclick=(e)=>{e.stopPropagation();this.go(0);};
+        dotsEl.querySelectorAll('.hero-dot').forEach(x=>x.classList.remove('active'));dotsEl.prepend(d);}
+      this.current=0;this.renderContent(slide);
     }
-    if(!found.length){
-      bg.style.background='linear-gradient(135deg,#1a1000 0%,#2d1f00 50%,#1a1000 100%)';
-      if(dotsEl)dotsEl.style.display='none';
-      return;
-    }
-    this.items=found;
-    document.getElementById('hero').classList.add('has-images');
-    document.querySelector('.vb-wrap')?.classList.add('hero-shown');
-    found.forEach((item,i)=>{
-      const link=getHeroLink('sell-gold',item.index);
+  }, */
+  _build(bg,dotsEl){
+    this.items.forEach((item,i)=>{
       const sc=document.createElement('div');
       sc.className='hero-scene'+(i===0?' active':'');
       sc.style.backgroundImage='url('+item.src+')';
-      if(link){
-        sc.style.cursor='pointer';
-        sc.title='Click to visit';
-        sc.addEventListener('click',()=>{
-          if(link.startsWith('http'))window.open(link,'_blank','noopener,noreferrer');
-          else window.location.href=link;
-        });
-      }
       bg.appendChild(sc);
       if(dotsEl){
         const d=document.createElement('button');
@@ -792,7 +821,16 @@ const HeroManager={
         dotsEl.appendChild(d);
       }
     });
-    if(found.length>1)this.timer=setInterval(()=>this.next(),5000);
+  },
+  renderContent(slide){
+    const el=document.getElementById('hero-slide-content');
+    if(!el||!slide)return;
+    el.style.animation='none';el.offsetHeight;el.style.animation='';
+    el.innerHTML=slide.h1?`<div class="hero-eyebrow">${slide.tag}</div>
+      <h1 style="margin-bottom:10px">${slide.h1}</h1>
+      <p style="max-width:380px;margin-bottom:18px">${slide.sub}</p>
+      <a href="#buyers-grid" class="btn-gold" style="font-size:13px;padding:11px 24px"
+        onclick="event.preventDefault();document.getElementById('buyers-grid')?.scrollIntoView({behavior:'smooth'})">Find Buyers</a>`:'';
   },
   go(n){
     const scenes=document.querySelectorAll('.hero-scene');
@@ -802,6 +840,7 @@ const HeroManager={
     this.current=n;
     scenes[n]?.classList.add('active');
     dots[n]?.classList.add('active');
+    this.renderContent(this.items[n]);
   },
   next(){this.go((this.current+1)%this.items.length)}
 };

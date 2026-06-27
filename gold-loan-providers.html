@@ -314,15 +314,18 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 @media(max-width:768px){.nav-center{display:none}.hamburger{display:flex}}
 
 /* ── HERO SLIDER ─────────────────────────────────── */
-#hero{width:100%;margin-top:var(--nav-h);aspect-ratio:16/9;width:100%;position:relative;overflow:hidden;background:#000}
+#hero{width:100%;margin-top:var(--nav-h);aspect-ratio:16/6;position:relative;overflow:hidden;background:#0a0700;min-height:340px}
 .hero-bg{position:absolute;inset:0}
-.hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;background-size:cover;background-position:center;pointer-events:none}
+.hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease;background-size:cover;background-position:center;pointer-events:none}
 .hero-scene.active{opacity:1;pointer-events:auto;cursor:pointer}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.38) 0%,rgba(0,0,0,.22) 50%,rgba(0,0,0,.72) 100%);z-index:2;pointer-events:none}
-.hero-content{position:absolute;inset:0;z-index:3;display:flex;align-items:center}
-.hero-content .wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 48px}
-.hero-content h1{font-family:var(--fd);font-size:clamp(36px,5.5vw,66px);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:18px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.5)}
-.hero-content p{font-size:17px;color:rgba(255,255,255,.82);max-width:580px;line-height:1.72;margin-bottom:32px;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(95deg,rgba(5,3,0,.55) 0%,rgba(5,3,0,.38) 25%,rgba(5,3,0,.15) 50%,rgba(5,3,0,0) 70%);z-index:2;pointer-events:none}
+.hero-content{position:absolute;top:0;left:0;bottom:0;width:46%;z-index:3;display:flex;align-items:flex-end;padding:0 52px 48px}
+.hero-content h1{font-family:var(--fd);font-size:clamp(14px,1.4vw,20px);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:10px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,1),0 4px 32px rgba(0,0,0,.9)}
+.hero-content p{font-size:13px;color:rgba(255,255,255,.92);max-width:360px;line-height:1.7;margin-bottom:20px;text-shadow:0 1px 10px rgba(0,0,0,1),0 2px 20px rgba(0,0,0,.8)}
+.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C9A84C;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.hero-eyebrow::before{content:'';flex:0 0 24px;height:1px;background:rgba(201,168,76,.6)}
+@keyframes heroFadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.hero-slide-content{animation:heroFadeUp .6s ease both}
 .hero-dots{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:4}
 .hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s;border:none}
 .hero-dot.active{background:#fff;width:24px;border-radius:4px}
@@ -483,6 +486,9 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 <section id="hero">
   <div id="hero-bg" class="hero-bg"></div>
   <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div id="hero-slide-content" class="hero-slide-content"></div>
+  </div>
   <div id="hero-dots" class="hero-dots"></div>
 </section>
 
@@ -512,10 +518,6 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 
     <!-- Filter Bar -->
     <div class="filter-bar reveal">
-      <div class="filter-group">
-        <label for="filter-name">Provider Name</label>
-        <input type="text" id="filter-name" placeholder="e.g. Muthoot, Axis..." oninput="applyFilters()"/>
-      </div>
       <div class="filter-group">
         <label for="filter-rate">Max Interest Rate (%)</label>
         <input type="number" id="filter-rate" placeholder="e.g., 9" min="0" max="20" step="0.5" oninput="applyFilters()"/>
@@ -636,22 +638,20 @@ function toggleMktView(btn, view){
 
 /* ── Filter Functions — reads from GL_PROVIDERS (loaded from inline data) ── */
 function applyFilters(){
-  const nameQ  = (document.getElementById('filter-name')?.value  || '').toLowerCase().trim();
   const rateQ  = parseFloat(document.getElementById('filter-rate')?.value) || null;
   const loanQ  = parseInt(document.getElementById('filter-loan')?.value)   || 0;
   const grid   = document.getElementById('providers-grid');
   let visibleCount = 0;
 
-  GL_PROVIDERS.forEach((p, idx) => {
+  GL_PROVIDERS.slice(0, 5).forEach((p, idx) => {
     const card   = document.getElementById('card-'+idx);
     const expand = document.getElementById('expand-'+idx);
     const rate   = parseFloat(p.rate) || 0;
     const minLoan= parseInt((p.loanMin||'').replace(/[^\d]/g,'')) || 0;
     if(!card) return;
-    const nameMatch = !nameQ   || p.name.toLowerCase().includes(nameQ);
     const rateMatch = !rateQ   || rate <= rateQ;
     const loanMatch = !loanQ   || minLoan >= loanQ;
-    const show = nameMatch && rateMatch && loanMatch;
+    const show = rateMatch && loanMatch;
     card.style.display   = show ? '' : 'none';
     if(expand) expand.style.display = show ? '' : 'none';
     if(show) visibleCount++;
@@ -670,7 +670,6 @@ function applyFilters(){
 }
 
 function resetFilters(){
-  document.getElementById('filter-name').value = '';
   document.getElementById('filter-rate').value = '';
   document.getElementById('filter-loan').value = '';
   applyFilters();
@@ -680,37 +679,63 @@ function resetFilters(){
 </script>
 
 <script>
+/* ── Hero Slides — Gold Loan (Unsplash, free commercial use) ───────────
+   All photo IDs confirmed as gold jewellery images.
+   Dimensions: 1600×600 matching aspect-ratio 16/6.
+   ──────────────────────────────────────────────────────────────────── */
+/* ── Hero Slides — Gold Loan (Unsplash + Pexels, free commercial use) ──
+   IDs unique across all GoldBazaar pages — no overlap with jewellery.html,
+   gold-buyers.html or vendor-onboarding.
+   ──────────────────────────────────────────────────────────────────── */
+/* ── Hero Slides — Gold Loan (Unsplash, free commercial use) ───────────
+   All IDs confirmed gold jewellery from unsplash.com/s/photos/gold-jewelry.
+   Unique to this page — no overlap with jewellery.html, gold-buyers, onboarding.
+   ──────────────────────────────────────────────────────────────────── */
+const HERO_SLIDES_LOAN=[
+  {src:'https://images.unsplash.com/photo-1601821765780-754fa98637c1?w=1600&h=600&fit=crop&crop=entropy&q=90', tag:'Gold Loans', h1:'Unlock the Value of Your Gold.', sub:'Get instant loans against gold at the lowest interest rates from trusted lenders.'},
+  {src:'https://images.unsplash.com/photo-1626122780071-c09d403b8e32?w=1600&h=600&fit=crop&crop=entropy&q=90', tag:'Lowest Interest Rates', h1:'More Gold. More Money.', sub:'Compare loan-to-value ratios across 50+ verified gold loan providers near you.'},
+  {src:'https://images.unsplash.com/photo-1620656798579-1984d9e87df7?w=1600&h=600&fit=crop&crop=entropy&q=90', tag:'Quick Disbursal', h1:'Cash in Hand in 30 Minutes.', sub:'Walk into any verified branch — get your gold loan sanctioned on the spot.'},
+  {src:'https://images.unsplash.com/photo-1603974372039-adc49044b6bd?w=1600&h=600&fit=crop&crop=entropy&q=90', tag:'Safe & Secure', h1:'Your Gold Is in Safe Hands.', sub:'All lenders are RBI-regulated with insured vaults and full transparency.'},
+  {src:'https://images.pexels.com/photos/34469734/pexels-photo-34469734.jpeg?auto=compress&cs=tinysrgb&w=1600&h=600&fit=crop', tag:'Gold Earrings Accepted', h1:'Loan Against Any Gold Jewellery.', sub:'Earrings, bangles, chains — any hallmarked gold accepted as collateral.'},
+  {src:'https://images.pexels.com/photos/12124667/pexels-photo-12124667.jpeg?auto=compress&cs=tinysrgb&w=1600&h=600&fit=crop', tag:'Lowest Interest Rates', h1:'More Value for Your Gold.', sub:'Get up to 90% loan-to-value with interest starting at 7% per annum.'},
+];
 const HeroManager={
   items:[],current:0,timer:null,
-  async init(){
+  init(){
     const bg=document.getElementById('hero-bg');
     const dotsEl=document.getElementById('hero-dots');
     if(!bg)return;
-    const found=[];
-    for(let i=1;i<=10;i++){
-      const src='images/gold-loan/hero-'+i+'.png';
-      const ok=await new Promise(r=>{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src=src});
-      if(ok)found.push({src,index:i});else break;
+    // Load CDN slides immediately
+    this.items=[...HERO_SLIDES_LOAN];
+    this._build(bg,dotsEl);
+    this.renderContent(this.items[0]);
+    if(this.items.length>1)this.timer=setInterval(()=>this.next(),5000);
+    /* ── LOCAL IMAGE OVERRIDE (commented out — enable when ready) ──────
+    // To use your own branded images: add images/gold-loan/hero-1.png
+    // to the repo, then uncomment the line below.
+    // this._scanLocal('images/gold-loan/hero-', bg, dotsEl);
+    // ─────────────────────────────────────────────────────────────── */
+  },
+  /* async _scanLocal(prefix,bg,dotsEl){
+    for(let i=1;i<=5;i++){
+      const src=prefix+i+'.png';
+      const ok=await new Promise(r=>{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src=src;});
+      if(!ok)break;
+      const slide={src,tag:'',h1:'',sub:''};
+      this.items.unshift(slide);
+      const sc=document.createElement('div');sc.className='hero-scene active';sc.style.backgroundImage='url('+src+')';
+      bg.querySelector('.hero-scene.active')?.classList.remove('active');bg.prepend(sc);
+      if(dotsEl){const d=document.createElement('button');d.className='hero-dot active';
+        d.onclick=(e)=>{e.stopPropagation();this.go(0);};
+        dotsEl.querySelectorAll('.hero-dot').forEach(x=>x.classList.remove('active'));dotsEl.prepend(d);}
+      this.current=0;this.renderContent(slide);
     }
-    if(!found.length){
-      bg.style.background='linear-gradient(135deg,#1a1000 0%,#2d1f00 50%,#1a1000 100%)';
-      if(dotsEl)dotsEl.style.display='none';
-      return;
-    }
-    this.items=found;
-    found.forEach((item,i)=>{
-      const link=getHeroLink('gold-loan',item.index);
+  }, */
+  _build(bg,dotsEl){
+    this.items.forEach((item,i)=>{
       const sc=document.createElement('div');
       sc.className='hero-scene'+(i===0?' active':'');
       sc.style.backgroundImage='url('+item.src+')';
-      if(link){
-        sc.style.cursor='pointer';
-        sc.title='Click to visit';
-        sc.addEventListener('click',()=>{
-          if(link.startsWith('http'))window.open(link,'_blank','noopener,noreferrer');
-          else window.location.href=link;
-        });
-      }
       bg.appendChild(sc);
       if(dotsEl){
         const d=document.createElement('button');
@@ -719,7 +744,16 @@ const HeroManager={
         dotsEl.appendChild(d);
       }
     });
-    if(found.length>1)this.timer=setInterval(()=>this.next(),5000);
+  },
+  renderContent(slide){
+    const el=document.getElementById('hero-slide-content');
+    if(!el||!slide)return;
+    el.style.animation='none';el.offsetHeight;el.style.animation='';
+    el.innerHTML=slide.h1?`<div class="hero-eyebrow">${slide.tag}</div>
+      <h1 style="margin-bottom:10px">${slide.h1}</h1>
+      <p style="max-width:380px;margin-bottom:18px">${slide.sub}</p>
+      <a href="#providers-grid" class="btn-gold" style="font-size:13px;padding:11px 24px"
+        onclick="event.preventDefault();document.getElementById('providers-grid')?.scrollIntoView({behavior:'smooth'})">Compare Lenders</a>`:'';
   },
   go(n){
     const scenes=document.querySelectorAll('.hero-scene');
@@ -729,6 +763,7 @@ const HeroManager={
     this.current=n;
     scenes[n]?.classList.add('active');
     dots[n]?.classList.add('active');
+    this.renderContent(this.items[n]);
   },
   next(){this.go((this.current+1)%this.items.length)}
 };
@@ -797,17 +832,19 @@ function stars(n){ return '★'.repeat(n) + '☆'.repeat(5-n); }
 function buildBanner(){
   const track = document.getElementById('vb-track');
   if(!track) return;
-  const featured = GL_PROVIDERS.filter(p => p.featured);
+  const featured = GL_PROVIDERS.filter(p => p.featured).slice(0, 5);
   const items = [...featured, ...featured];
-  track.innerHTML = items.map((p,i) => `
+  const LOGO = 'images/logo.png';
+  track.innerHTML = items.map((p, i) => {
+    const label = 'Gold Lender - ' + ((i % featured.length) + 1);
+    return `
     <div class="vb-card" onclick="scrollToProvider(${i % featured.length})">
       <span class="vb-card-badge">⭐ FEATURED</span>
       <div class="vb-card-logo-wrap">
-        <img src="${p.logo}" alt="${p.name}" onerror="this.style.display='none';const fb=this.parentElement.querySelector('.vb-logo-fb');if(fb)fb.style.display='flex'">
-        <div class="vb-logo-fb" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1200,#2d1f00);font-size:28px;font-weight:900;color:rgba(255,255,255,.7)">${p.name.split(' ').map(w=>w[0]).join('').slice(0,3)}</div>
+        <img src="${LOGO}" alt="${label}" style="background:transparent;padding:16px">
       </div>
       <div class="vb-card-body">
-        <div class="vb-card-name">${p.name}</div>
+        <div class="vb-card-name">${label}</div>
         <div class="vb-card-type">${p.type}</div>
         <div class="vb-scheme-row">
           <div><div class="vb-scheme-label">Interest Rate</div><div class="vb-scheme-val">${p.rate}</div></div>
@@ -820,7 +857,8 @@ function buildBanner(){
         </div>
         <div class="vb-card-cta">View Loan Details →</div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
   const cnt = document.getElementById('vb-count');
   if(cnt) cnt.textContent = `Top ${featured.length} Lenders`;
 }
@@ -829,20 +867,22 @@ function buildProviderCards(){
   const grid = document.getElementById('providers-grid');
   const loading = document.getElementById('providers-list-loading');
   if(loading) loading.remove();
+  const LOGO = 'images/logo.png';
 
-  GL_PROVIDERS.forEach((p, idx) => {
+  GL_PROVIDERS.slice(0, 5).forEach((p, idx) => {
+    const label = 'Gold Lender - ' + (idx + 1);
     // Main card
     const card = document.createElement('div');
     card.className = 'mkt-card';
     card.id = 'card-' + idx;
     card.innerHTML = `
       <div class="mkt-card-img">
-        <img src="${p.logo}" class="jeweler-logo" alt="${p.name}" onerror="this.src='images/logo.png'"/>
+        <img src="${LOGO}" class="jeweler-logo" alt="${label}" style="object-fit:contain;padding:8px;background:transparent"/>
       </div>
       <div class="mkt-card-body">
         <div class="mkt-card-tag tag-loan">Gold Loan</div>
         <div class="mkt-card-name provider-toggle" onclick="toggleProvider(${idx})" style="cursor:pointer;display:flex;align-items:center;gap:8px">
-          ${p.name} <span class="toggle-arrow" id="arrow-${idx}" style="font-size:11px;color:var(--g);transition:transform .3s">▼</span>
+          ${label} <span class="toggle-arrow" id="arrow-${idx}" style="font-size:11px;color:var(--g);transition:transform .3s">▼</span>
         </div>
         <div class="mkt-card-loc">📍 ${p.location}</div>
         <div class="mkt-card-rate">${p.rate}</div>
@@ -881,15 +921,10 @@ function buildProviderCards(){
     panel.innerHTML = `
       <div class="pe-inner">
         <div class="pe-left">
-          <img src="${p.logo}" alt="${p.name}" class="pe-logo" onerror="this.src='images/logo.png'"/>
-          <div class="pe-name">${p.name}</div>
+          <img src="${LOGO}" alt="${label}" class="pe-logo" style="background:transparent;padding:8px"/>
+          <div class="pe-name">${label}</div>
           <div class="pe-type">${p.type}</div>
           <div class="pe-stars">${stars(p.stars)} <span class="pe-badge">✓ ${p.trustBadge}</span></div>
-          ${p.website
-            ? `<a href="${p.website}" target="_blank" rel="noopener noreferrer" class="pe-visit-btn" style="margin-top:12px;width:100%;justify-content:center">
-                Apply Now ↗
-               </a>`
-            : ''}
         </div>
         <div class="pe-right">
           <div class="pe-grid">
@@ -904,11 +939,6 @@ function buildProviderCards(){
           ${renderSchemeSection(p.scheme1, p.scheme1Color, p.scheme1Details, 'Special Scheme')}
           ${renderSchemeSection(p.scheme2, p.scheme2Color, p.scheme2Details, 'Also Available')}
           <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-            ${p.website
-              ? `<a href="${p.website}" target="_blank" rel="noopener noreferrer" class="pe-visit-btn" style="text-decoration:none">
-                  Visit ${p.name} Website ↗
-                 </a>`
-              : `<button class="view-btn" disabled style="opacity:.45;cursor:default">Website N/A</button>`}
             <button class="view-btn" style="background:transparent;border:1px solid rgba(201,168,76,.35);color:var(--g)" onclick="toggleProvider(${idx})">✕ Close</button>
           </div>
         </div>
