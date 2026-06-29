@@ -491,6 +491,24 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
 .gb-toast-icon{font-size:18px;flex-shrink:0}
 .gb-toast-msg{flex:1;line-height:1.5}
 .gb-toast-bar{position:absolute;bottom:0;left:0;height:3px;background:linear-gradient(90deg,#C9A84C,#f0c96e);border-radius:0 0 14px 14px}
+
+/* ── Mobile Responsive (hero + nav/footer logos) ── */
+@media(max-width:768px){
+  #hero{aspect-ratio:16/7;min-height:220px}
+  #hero .hero-content{width:82%;padding:0 20px 22px}
+  #hero .hero-content h1{font-size:clamp(18px,4.5vw,28px)}
+  #hero .hero-content p{font-size:12px}
+  .nav-logo img{height:38px!important}
+  #nav{padding:0 16px!important}
+  .foot-logo img{height:56px!important}
+}
+@media(max-width:480px){
+  #hero{aspect-ratio:16/9;min-height:200px;max-height:80vw}
+  #hero .hero-content{width:92%;padding:0 14px 16px}
+  #hero .hero-content h1{font-size:clamp(15px,4vw,20px)}
+  #hero .hero-content p{display:none}
+  .foot-logo img{height:44px!important}
+}
 </style>
 <link rel="stylesheet" href="responsive.css"/>
 <script>
@@ -1793,13 +1811,6 @@ function submitContactForm() {
     '&status=NewEnquiry',
     { mode: 'no-cors' }).catch(() => {});
 
-  // Save to localStorage as backup
-  try {
-    const leads = JSON.parse(localStorage.getItem('gb_contact_leads') || '[]');
-    leads.push({ name, mobile, type, city, message, submittedAt: new Date().toISOString() });
-    localStorage.setItem('gb_contact_leads', JSON.stringify(leads));
-  } catch(e) {}
-
   setTimeout(() => {
     btn.textContent = '✅ Message Sent!';
     btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
@@ -1810,8 +1821,9 @@ function submitContactForm() {
     setTimeout(() => {
       btn.textContent = 'Send Message →';
       btn.style.background = '';
+      btn.disabled = false;
     }, 3000);
-  });
+  }, 1200);
 }
 </script>
 </body>
