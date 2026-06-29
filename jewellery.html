@@ -135,7 +135,7 @@ html[data-theme="light"] #mob-nav a{color:rgba(0,0,0,.65)}
 .vendor-list{display:flex;flex-direction:column;gap:6px}
 .vendor-card{background:linear-gradient(135deg,#1a0012,#2a001d);border:1px solid rgba(236,72,153,.14);border-radius:16px;overflow:hidden;cursor:pointer;transition:border-color .25s,box-shadow .25s}
 .vendor-card:hover{border-color:rgba(236,72,153,.38);box-shadow:0 6px 28px rgba(236,72,153,.1)}
-.vendor-card-header{display:grid;grid-template-columns:80px 1fr auto 44px;align-items:center;gap:16px;padding:18px 20px}
+.vendor-card-header{display:grid;grid-template-columns:92px 1fr auto 44px;align-items:center;gap:16px;padding:18px 20px}
 .vc-rank{font-size:11px;font-weight:800;color:rgba(255,255,255,.18);letter-spacing:.06em}
 .vc-logo-box{width:60px;height:44px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:4px;flex-shrink:0}
 .vc-logo-box img{width:100%;height:100%;object-fit:contain}
@@ -153,7 +153,7 @@ html[data-theme="light"] #mob-nav a{color:rgba(0,0,0,.65)}
 .vc-toggle{width:36px;height:36px;border-radius:50%;background:rgba(236,72,153,.08);border:1px solid rgba(236,72,153,.2);color:var(--accent);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
 .vc-toggle:hover{background:rgba(236,72,153,.18)}
 .toggle-arrow{font-size:11px;color:var(--accent);transition:transform .3s;display:inline-block}
-@media(max-width:600px){.vendor-card-header{grid-template-columns:60px 1fr 44px;gap:10px}.vc-right{display:none}}
+@media(max-width:600px){.vendor-card-header{grid-template-columns:68px 1fr 44px;gap:10px}.vc-right{display:none}.vc-rank{display:none}.vc-left{justify-content:center}}
 
 /* ── EXPAND PANEL — scheme details (gold-loan style) ── */
 .vendor-expand{display:none;border-top:1px solid rgba(236,72,153,.1)}
@@ -295,7 +295,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(95deg,rgba(5,3,0,.72) 0%,rgba(5,3,0,.5) 40%,rgba(5,3,0,.15) 70%,transparent 100%);z-index:2;pointer-events:none}
 .hero-content{position:absolute;top:0;left:0;bottom:0;width:55%;z-index:3;display:flex;align-items:flex-end;padding:0 48px 36px}
 .hero-slide-content{display:flex;flex-direction:column;align-items:flex-start;animation:heroFadeUp .6s ease both}
-.hero-content h1{font-family:var(--fd);font-size:clamp(22px,2.8vw,40px);font-weight:700;letter-spacing:-.03em;line-height:1.18;margin-bottom:10px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,1),0 4px 32px rgba(0,0,0,.9)}
+.hero-content h1{font-family:var(--fd);font-size:clamp(16px,1.8vw,26px);font-weight:700;letter-spacing:-.03em;line-height:1.18;margin-bottom:10px;max-width:380px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,1),0 4px 32px rgba(0,0,0,.9)}
 .hero-content p{font-size:clamp(12px,1.1vw,14px);color:rgba(255,255,255,.88);max-width:420px;line-height:1.7;margin-bottom:18px;text-shadow:0 1px 10px rgba(0,0,0,1)}
 .hero-content .btn-gold{display:inline-flex!important;width:auto!important;align-self:flex-start;font-size:13px;padding:10px 22px}
 .hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C9A84C;margin-bottom:10px;display:flex;align-items:center;gap:8px}
@@ -311,7 +311,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 @media(max-width:768px){
   #hero{aspect-ratio:16/7;min-height:220px}
   .hero-content{width:82%;padding:0 20px 22px}
-  .hero-content h1{font-size:clamp(18px,4.5vw,28px)}
+  .hero-content h1{font-size:clamp(14px,3.5vw,20px)}
   .hero-content p{font-size:12px}
   .page-hero-stats{gap:12px}
   .ph-stat-val{font-size:18px}
@@ -324,7 +324,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 @media(max-width:480px){
   #hero{aspect-ratio:16/9;min-height:200px}
   .hero-content{width:92%;padding:0 16px 18px}
-  .hero-content h1{font-size:clamp(15px,4vw,20px);margin-bottom:8px}
+  .hero-content h1{font-size:clamp(12px,3.5vw,16px);margin-bottom:8px}
   .hero-content p{display:none}
   .hero-content .btn-gold{font-size:12px;padding:8px 18px}
   .page-hero-stats{gap:10px}
@@ -347,7 +347,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 <!-- Override responsive.css globals — must come AFTER the link to win -->
 <style>
 .hero-content{padding:0 52px!important;min-height:auto!important}
-.hero-content h1{font-size:clamp(22px,2.8vw,40px)!important;line-height:1.18!important}
+.hero-content h1{font-size:clamp(16px,1.8vw,26px)!important;max-width:380px!important;line-height:1.18!important}
 .hero-content .btn-gold,.hero-content .btn-pink{width:auto!important;display:inline-flex!important;align-self:flex-start!important}
 /* Prevent responsive.css [class*="btn-"] making buttons full-width on mobile */
 .btn-gold,.btn-pink{width:auto!important;display:inline-flex!important}
@@ -357,7 +357,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   .nav-logo img{height:38px!important;max-height:38px!important}
   #nav{padding:0 16px!important}
   .hero-content{width:82%!important;padding:0 20px 22px!important}
-  .hero-content h1{font-size:clamp(18px,4.5vw,28px)!important}
+  .hero-content h1{font-size:clamp(14px,3.5vw,20px)!important}
   .foot-logo img{height:56px!important;max-height:56px!important}
   .foot-inner{padding:32px 16px 16px!important}
   /* Fix responsive.css [class*="hero"] bleeding padding onto sub-elements */
@@ -383,7 +383,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 @media(max-width:480px){
   .nav-logo img{height:32px!important;max-height:32px!important}
   .hero-content{width:92%!important;padding:0 16px 18px!important}
-  .hero-content h1{font-size:clamp(15px,4vw,20px)!important;margin-bottom:8px!important}
+  .hero-content h1{font-size:clamp(12px,3.5vw,16px)!important;margin-bottom:8px!important}
   .hero-content p{display:none!important}
   .hero-content .btn-gold,.hero-content .btn-pink{font-size:12px!important;padding:8px 18px!important}
   .foot-logo img{height:44px!important;max-height:44px!important}
@@ -815,7 +815,7 @@ function renderSchemeSection(name, color, details) {
     </div>${bullets}</div>`;
 }
 
-const JEWELLER_NAMES = ['Suvarna Jewels','Bangara Jewels','Sona Jewels','Bangaram Jewels','Thangam Jewels'];
+const JEWELLER_NAMES = ['Bangara Treasures','Bangaram Emporium','Chinna Heritage','Thangam Regalia','Sona Treasury'];
 function buildBanner(){
   const track = document.getElementById('vb-track');
   if(!track) return;

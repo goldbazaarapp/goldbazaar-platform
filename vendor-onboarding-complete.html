@@ -436,21 +436,22 @@
     }
     #ob-hero .ob-hero-content h1 {
       font-family: var(--fd, 'Cormorant Garamond', serif);
-      font-size: clamp(14px, 1.4vw, 20px);
-      font-weight: 600;
+      font-size: clamp(13px, 1.3vw, 20px);
+      font-weight: 700;
       color: #fff;
-      line-height: 1.25;
+      letter-spacing: -0.03em;
+      line-height: 1.18;
       margin: 0 0 10px;
-      max-width: 500px;
+      max-width: 380px;
       text-shadow: 0 2px 16px rgba(0,0,0,1), 0 4px 32px rgba(0,0,0,.9);
     }
     #ob-hero .ob-hero-content p {
-      font-size: 13px;
-      color: rgba(255,255,255,0.82);
+      font-size: clamp(10px, 1.1vw, 13px);
+      color: rgba(255,255,255,0.88);
       max-width: 420px;
-      line-height: 1.6;
+      line-height: 1.7;
       margin: 0 0 20px;
-      text-shadow: 0 1px 8px rgba(0,0,0,.8);
+      text-shadow: 0 1px 10px rgba(0,0,0,1);
     }
     .ob-hero-text-enter {
       animation: obTextIn 0.55s cubic-bezier(.22,.68,0,1.2) both;
@@ -887,11 +888,17 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   .page-header h1{font-size:clamp(18px,4vw,26px)!important}
   .page-header .ph-inner{padding:0 16px!important}
   .tab-content{padding:24px 16px!important}
+  /* Hero text — match gold-buyers/jewellery at mobile */
+  #ob-hero .ob-hero-content h1{font-size:clamp(12px,2.8vw,16px)!important}
+  #ob-hero .ob-hero-content{padding:0 24px 32px!important}
 }
 @media(max-width:480px){
   .nav-logo img{height:32px!important;max-height:32px!important}
   .foot-logo img{height:44px!important;max-height:44px!important}
   .foot-inner{padding:28px 16px 16px!important}
+  #ob-hero .ob-hero-content h1{font-size:clamp(11px,2.5vw,14px)!important;margin-bottom:6px!important}
+  #ob-hero .ob-hero-content p{font-size:10px!important}
+  #ob-hero .ob-hero-content{padding:0 20px 24px!important}
 }
 </style>
 </head>

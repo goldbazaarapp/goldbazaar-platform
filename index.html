@@ -66,7 +66,7 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 .gold-widget-footer{padding:9px 16px;font-size:10px;color:rgba(255,255,255,.45);text-align:center;border-top:1px solid rgba(201,168,76,.1);background:rgba(0,0,0,.15)}
 @media(max-width:768px){.gold-widget{display:none}.hamburger{display:flex}.nav-center{display:none}}
 /* HERO */
-#hero{width:100%;margin-top:var(--nav-h);aspect-ratio:16/9;max-height:85vh;position:relative;overflow:hidden;background:#000}
+#hero{width:100%;margin-top:var(--nav-h);height:calc(100vh - var(--nav-h));position:relative;overflow:hidden;background:#000}
 .hero-bg{position:absolute;inset:0;z-index:0}
 .hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;cursor:pointer;pointer-events:none}
 .hero-scene.active{opacity:1;pointer-events:auto}
@@ -494,7 +494,7 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
 
 /* ── Mobile Responsive (hero + nav/footer logos) ── */
 @media(max-width:768px){
-  #hero{aspect-ratio:16/7;min-height:220px}
+  #hero{aspect-ratio:16/9;height:auto;min-height:200px}
   #hero .hero-content{width:82%;padding:0 20px 22px}
   #hero .hero-content h1{font-size:clamp(18px,4.5vw,28px)}
   #hero .hero-content p{font-size:12px}
@@ -503,7 +503,7 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
   .foot-logo img{height:56px!important}
 }
 @media(max-width:480px){
-  #hero{aspect-ratio:16/9;min-height:200px;max-height:80vw}
+  #hero{aspect-ratio:16/9;height:auto;min-height:160px}
   #hero .hero-content{width:92%;padding:0 14px 16px}
   #hero .hero-content h1{font-size:clamp(15px,4vw,20px)}
   #hero .hero-content p{display:none}
@@ -511,6 +511,23 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
 }
 </style>
 <link rel="stylesheet" href="responsive.css"/>
+<!-- Override responsive.css — must come AFTER the link to win -->
+<style>
+/* Force full-viewport hero height — matches vendor-onboarding-complete.html (calc(100vh - 124px)) */
+#hero{
+  height:calc(100vh - 124px)!important;
+  height:calc(100svh - 124px)!important;
+  aspect-ratio:unset!important;
+  max-height:none!important;
+  min-height:200px!important;
+}
+@media(max-width:768px){
+  #hero{height:calc(100vh - 124px)!important;height:calc(100svh - 124px)!important;aspect-ratio:unset!important;min-height:200px!important;max-height:none!important}
+}
+@media(max-width:480px){
+  #hero{height:calc(100vh - 124px)!important;height:calc(100svh - 124px)!important;aspect-ratio:unset!important;min-height:160px!important}
+}
+</style>
 <script>
 /* Fix 100vh on mobile browsers where address bar shrinks viewport */
 (function(){
@@ -634,7 +651,7 @@ if (location.protocol === 'file:') {
       <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">🏦</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Gold Loan</div></div></div>
       <div class="ad-card-scheme">Instant Loans Against Gold</div>
       <div class="ad-card-details"><span class="ad-card-detail-item">💰 From 7.5% p.a.</span><span class="ad-card-detail-item">⚡ 30-min disbursal</span><span class="ad-card-detail-item">📊 LTV up to 80%</span></div>
-      <div class="ad-card-offer">500+ RBI-Licensed Lenders on One Platform</div>
+      <div class="ad-card-offer">Discover RBI-Licensed Lenders Across India</div>
       <div class="ad-card-tag" style="align-self:flex-start">LOAN</div>
     </div>
     <div class="ad-card" onclick="location.href='gold-buyers.html'">
@@ -647,26 +664,26 @@ if (location.protocol === 'file:') {
     <div class="ad-card" onclick="location.href='hallmark.html'">
       <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">💍</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Jeweller Offers</div></div></div>
       <div class="ad-card-scheme">Latest Designs & Exchange Deals</div>
-      <div class="ad-card-details"><span class="ad-card-detail-item">🏅 BIS Certified</span><span class="ad-card-detail-item">📍 500+ Cities</span><span class="ad-card-detail-item">⚡ Express Service</span></div>
-      <div class="ad-card-offer">Compare Designs, Exchange & Buyback Rates</div>
+      <div class="ad-card-details"><span class="ad-card-detail-item">🏅 BIS Certified</span><span class="ad-card-detail-item">📍 Pan India Coverage</span><span class="ad-card-detail-item">⚡ Express Service</span></div>
+      <div class="ad-card-offer">Explore Designs, Exchange & Buyback Rates</div>
       <div class="ad-card-tag" style="align-self:flex-start">VERIFY</div>
     </div>
     <div class="ad-card" onclick="location.href='vendors.html'">
       <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">💍</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Find Jewellers</div></div></div>
-      <div class="ad-card-scheme">8,500+ Verified Jewellers</div>
+      <div class="ad-card-scheme">Discover Verified Jewellers</div>
       <div class="ad-card-details"><span class="ad-card-detail-item">🗺️ Near You</span><span class="ad-card-detail-item">⭐ Rated & Reviewed</span><span class="ad-card-detail-item">🛡️ Trust Verified</span></div>
-      <div class="ad-card-offer">Compare Before You Visit</div>
+      <div class="ad-card-offer">Explore Before You Visit</div>
       <div class="ad-card-tag" style="align-self:flex-start">DISCOVER</div>
     </div>
     <div class="ad-card" onclick="location.href='gold-insurance.html'">
       <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">🛡️</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Gold Insurance</div></div></div>
       <div class="ad-card-scheme">Protect Your Gold Assets</div>
-      <div class="ad-card-details"><span class="ad-card-detail-item">🏛️ RBI Approved</span><span class="ad-card-detail-item">⚡ Instant Claims</span><span class="ad-card-detail-item">🔒 Theft & Loss Cover</span></div>
+      <div class="ad-card-details"><span class="ad-card-detail-item">✅ Transparent Terms</span><span class="ad-card-detail-item">⚡ Instant Claims</span><span class="ad-card-detail-item">🔒 Theft & Loss Cover</span></div>
       <div class="ad-card-offer">Comprehensive Gold Protection Plans</div>
       <div class="ad-card-tag" style="align-self:flex-start">INSURE</div>
     </div>
     <div class="ad-card" onclick="location.href='gold-calculator.html'">
-      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">📊</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Gold Calculator</div></div></div>
+      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">📊</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Gold Rate Estimator</div></div></div>
       <div class="ad-card-scheme">Know Your Gold's True Value</div>
       <div class="ad-card-details"><span class="ad-card-detail-item">📈 Live Rates</span><span class="ad-card-detail-item">🧮 Loan Eligibility</span><span class="ad-card-detail-item">🔄 Exchange Value</span></div>
       <div class="ad-card-offer">Calculate Gold Value, Loan & Exchange Rates</div>
@@ -677,7 +694,7 @@ if (location.protocol === 'file:') {
       <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">🏦</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Gold Loan</div></div></div>
       <div class="ad-card-scheme">Instant Loans Against Gold</div>
       <div class="ad-card-details"><span class="ad-card-detail-item">💰 From 7.5% p.a.</span><span class="ad-card-detail-item">⚡ 30-min disbursal</span><span class="ad-card-detail-item">📊 LTV up to 80%</span></div>
-      <div class="ad-card-offer">500+ RBI-Licensed Lenders on One Platform</div>
+      <div class="ad-card-offer">Discover RBI-Licensed Lenders Across India</div>
       <div class="ad-card-tag" style="align-self:flex-start">LOAN</div>
     </div>
     <div class="ad-card" onclick="location.href='gold-buyers.html'">
@@ -690,26 +707,26 @@ if (location.protocol === 'file:') {
     <div class="ad-card" onclick="location.href='hallmark.html'">
       <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">💍</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Jeweller Offers</div></div></div>
       <div class="ad-card-scheme">Latest Designs & Exchange Deals</div>
-      <div class="ad-card-details"><span class="ad-card-detail-item">🏅 BIS Certified</span><span class="ad-card-detail-item">📍 500+ Cities</span><span class="ad-card-detail-item">⚡ Express Service</span></div>
-      <div class="ad-card-offer">Compare Designs, Exchange & Buyback Rates</div>
+      <div class="ad-card-details"><span class="ad-card-detail-item">🏅 BIS Certified</span><span class="ad-card-detail-item">📍 Pan India Coverage</span><span class="ad-card-detail-item">⚡ Express Service</span></div>
+      <div class="ad-card-offer">Explore Designs, Exchange & Buyback Rates</div>
       <div class="ad-card-tag" style="align-self:flex-start">VERIFY</div>
     </div>
     <div class="ad-card" onclick="location.href='vendors.html'">
       <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">💍</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Find Jewellers</div></div></div>
-      <div class="ad-card-scheme">8,500+ Verified Jewellers</div>
+      <div class="ad-card-scheme">Discover Verified Jewellers</div>
       <div class="ad-card-details"><span class="ad-card-detail-item">🗺️ Near You</span><span class="ad-card-detail-item">⭐ Rated & Reviewed</span><span class="ad-card-detail-item">🛡️ Trust Verified</span></div>
-      <div class="ad-card-offer">Compare Before You Visit</div>
+      <div class="ad-card-offer">Explore Before You Visit</div>
       <div class="ad-card-tag" style="align-self:flex-start">DISCOVER</div>
     </div>
     <div class="ad-card" onclick="location.href='gold-insurance.html'">
       <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">🛡️</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Gold Insurance</div></div></div>
       <div class="ad-card-scheme">Protect Your Gold Assets</div>
-      <div class="ad-card-details"><span class="ad-card-detail-item">🏛️ RBI Approved</span><span class="ad-card-detail-item">⚡ Instant Claims</span><span class="ad-card-detail-item">🔒 Theft & Loss Cover</span></div>
+      <div class="ad-card-details"><span class="ad-card-detail-item">✅ Transparent Terms</span><span class="ad-card-detail-item">⚡ Instant Claims</span><span class="ad-card-detail-item">🔒 Theft & Loss Cover</span></div>
       <div class="ad-card-offer">Comprehensive Gold Protection Plans</div>
       <div class="ad-card-tag" style="align-self:flex-start">INSURE</div>
     </div>
     <div class="ad-card" onclick="location.href='gold-calculator.html'">
-      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">📊</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Gold Calculator</div></div></div>
+      <div class="ad-card-header"><div class="ad-card-icon"><img src="images/logo.png" class="jeweler-logo" alt="GoldBazaar"><span class="jeweler-logo-fallback">📊</span></div><div><div class="ad-card-brand">GoldBazaar</div><div class="ad-card-title">Gold Rate Estimator</div></div></div>
       <div class="ad-card-scheme">Know Your Gold's True Value</div>
       <div class="ad-card-details"><span class="ad-card-detail-item">📈 Live Rates</span><span class="ad-card-detail-item">🧮 Loan Eligibility</span><span class="ad-card-detail-item">🔄 Exchange Value</span></div>
       <div class="ad-card-offer">Calculate Gold Value, Loan & Exchange Rates</div>
@@ -765,7 +782,7 @@ if (location.protocol === 'file:') {
         <div class="svc-label">Certified Jewellers</div>
         <div class="svc-name">Jewellery Purchase</div>
         <div class="svc-desc">Buy hallmarked jewellery from 8,500+ BIS-verified jewellers across 500+ cities.</div>
-        <div class="svc-stats"><span>🏅 BIS Hallmarked</span><span>📍 500+ Cities</span></div>
+        <div class="svc-stats"><span>🏅 BIS Hallmarked</span><span>📍 Pan India Coverage</span></div>
         <div class="svc-arrow">→</div>
       </a>
       <a class="svc-tile" href="gold-savings-scheme.html">
@@ -789,7 +806,7 @@ if (location.protocol === 'file:') {
         <div class="svc-label">Protection</div>
         <div class="svc-name">Gold Insurance</div>
         <div class="svc-desc">Protect your gold against theft, loss and damage with RBI-approved insurers.</div>
-        <div class="svc-stats"><span>🏛️ RBI Approved</span><span>⚡ Instant Claims</span></div>
+        <div class="svc-stats"><span>✅ Transparent Terms</span><span>⚡ Instant Claims</span></div>
         <div class="svc-arrow">→</div>
       </a>
       <a class="svc-tile" href="gold-investment.html">
