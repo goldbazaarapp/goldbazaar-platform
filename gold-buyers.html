@@ -121,18 +121,23 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40
   .hamburger{display:flex}
   .mkt-grid{grid-template-columns:1fr 1fr}
   .wrap{padding:0 16px}
-  .filter-bar{flex-direction:column;gap:12px;padding:16px}
+  .filter-bar{flex-direction:column;gap:10px;padding:14px}
   .filter-group{min-width:100%;width:100%}
   .mkt-view-toggle{margin-left:0;width:100%;justify-content:flex-end}
-  .vb-header{padding:14px 16px 10px;flex-wrap:wrap;gap:8px}
   .section{padding:48px 0}
+  .section.filter-section{padding:20px 0 40px}
 }
 @media(max-width:480px){
   .mkt-grid{grid-template-columns:1fr}
-  .provider-card{grid-template-columns:56px 1fr 44px;gap:8px;padding:12px 14px}
+  .provider-card{grid-template-columns:52px 1fr 40px;gap:8px;padding:12px 12px}
   .pc-right{display:none}
-  .filter-bar{padding:14px}
-  .section{padding:36px 0}
+  .pc-name{font-size:13px}
+  .pc-type{display:none}
+  .filter-bar{padding:12px;gap:8px}
+  .section{padding:32px 0}
+  .section.filter-section{padding:16px 0 32px}
+  .foot-inner{padding:28px 16px 16px}
+  .foot-grid{grid-template-columns:1fr 1fr}
 }
 /* ── LIGHT THEME OVERRIDES ── */
 html[data-theme="light"] #nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 2px 16px rgba(0,0,0,.1)}
@@ -208,36 +213,42 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 .hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease;background-size:cover;background-position:center;pointer-events:none}
 .hero-scene img,.hero-scene video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero-scene.active{opacity:1;pointer-events:auto;cursor:pointer}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(95deg,rgba(5,3,0,.65) 0%,rgba(5,3,0,.4) 40%,rgba(5,3,0,.1) 70%,transparent 100%);z-index:2;pointer-events:none}
-.hero-content{position:absolute;top:0;left:0;bottom:0;width:55%;z-index:3;display:flex;align-items:flex-end;padding:0 48px 36px}
-.hero-content h1{font-family:var(--fd);font-size:clamp(22px,2.8vw,42px);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:10px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,1),0 4px 32px rgba(0,0,0,.9)}
-.hero-content p{font-size:clamp(12px,1.1vw,15px);color:rgba(255,255,255,.92);max-width:420px;line-height:1.7;margin-bottom:20px;text-shadow:0 1px 10px rgba(0,0,0,1),0 2px 20px rgba(0,0,0,.8)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(95deg,rgba(5,3,0,.72) 0%,rgba(5,3,0,.5) 40%,rgba(5,3,0,.15) 70%,transparent 100%);z-index:2;pointer-events:none}
+.hero-content{position:absolute;top:0;left:0;bottom:0;width:52%;z-index:3;display:flex;align-items:flex-end;padding:0 48px 36px}
+.hero-slide-content{display:flex;flex-direction:column;align-items:flex-start;animation:heroFadeUp .6s ease both}
+.hero-content h1{font-family:var(--fd);font-size:clamp(22px,2.8vw,40px);font-weight:700;letter-spacing:-.03em;line-height:1.18;margin-bottom:10px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,1),0 4px 32px rgba(0,0,0,.9)}
+.hero-content p{font-size:clamp(12px,1.1vw,14px);color:rgba(255,255,255,.88);max-width:400px;line-height:1.7;margin-bottom:18px;text-shadow:0 1px 10px rgba(0,0,0,1)}
+.hero-content .btn-gold{display:inline-flex;width:auto;align-self:flex-start;font-size:13px;padding:10px 22px}
 .hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C9A84C;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .hero-eyebrow::before{content:'';flex:0 0 24px;height:1px;background:rgba(201,168,76,.6)}
 @keyframes heroFadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.hero-slide-content{animation:heroFadeUp .6s ease both}
 .hero-dots{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:4}
 .hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s;border:none}
 .hero-dot.active{background:#fff;width:24px;border-radius:4px}
 .ph-stat{display:flex;flex-direction:column;gap:3px}
-.ph-stat-val{font-size:clamp(18px,2.2vw,28px);font-weight:800;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+.ph-stat-val{font-size:clamp(18px,2.2vw,26px);font-weight:800;text-shadow:0 2px 8px rgba(0,0,0,.4)}
 .ph-stat-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.55)}
 .page-hero-stats{display:flex;gap:24px;flex-wrap:wrap;margin-top:8px}
 @media(max-width:768px){
   #hero{aspect-ratio:16/7;min-height:220px}
-  .hero-content{width:82%;padding:0 24px 24px}
-  .hero-content h1{font-size:clamp(20px,5vw,32px)}
-  .page-hero-stats{gap:14px}
-  .ph-stat-val{font-size:20px}
+  .hero-content{width:80%;padding:0 20px 22px}
+  .hero-content h1{font-size:clamp(18px,4.5vw,28px)}
+  .hero-content p{font-size:12px}
+  .page-hero-stats{gap:12px}
+  .ph-stat-val{font-size:18px}
 }
 @media(max-width:480px){
-  #hero{aspect-ratio:4/3;min-height:180px;max-height:58vw}
-  .hero-content{width:100%;padding:0 16px 18px}
-  .hero-content h1{font-size:clamp(16px,4.5vw,22px)}
+  #hero{aspect-ratio:16/9;min-height:200px}
+  .hero-content{width:90%;padding:0 16px 18px}
+  .hero-content h1{font-size:clamp(15px,4vw,20px);margin-bottom:8px}
   .hero-content p{display:none}
+  .hero-content .btn-gold{font-size:12px;padding:8px 18px}
   .page-hero-stats{gap:10px}
-  .ph-stat-val{font-size:17px}
+  .ph-stat-val{font-size:16px}
   .ph-stat-lbl{font-size:9px}
+  .vb-header{padding:12px 14px 10px;flex-wrap:wrap;gap:8px}
+  .vb-card{width:240px}
+  .vb-card-logo-wrap{height:140px}
 }
 
 
@@ -858,12 +869,12 @@ const HeroManager={
   renderContent(slide){
     const el=document.getElementById('hero-slide-content');
     if(!el||!slide)return;
-    el.style.animation='none';el.offsetHeight;el.style.animation='';
-    el.innerHTML=slide.h1?`<div class="hero-eyebrow">${slide.tag}</div>
-      <h1 style="margin-bottom:10px">${slide.h1}</h1>
-      <p style="max-width:380px;margin-bottom:18px">${slide.sub}</p>
-      <a href="#buyers-grid" class="btn-gold" style="font-size:13px;padding:11px 24px"
-        onclick="event.preventDefault();document.getElementById('buyers-grid')?.scrollIntoView({behavior:'smooth'})">Find Buyers</a>`:'';
+    el.innerHTML=`
+      ${slide.tag?`<div class="hero-eyebrow">${slide.tag}</div>`:''}
+      <h1>${slide.h1||'Sell Gold at Best Rates.'}</h1>
+      <p>${slide.sub||'Compare 200+ verified gold buyers across India.'}</p>
+      <a href="#buyers-grid" class="btn-gold" style="background:linear-gradient(135deg,#22c55e,#4ade80);color:#000;display:inline-flex;width:auto">Find Buyers →</a>
+    `;
   },
   go(n){
     const scenes=document.querySelectorAll('.hero-scene');
@@ -875,10 +886,18 @@ const HeroManager={
     dots[n]?.classList.add('active');
     this.renderContent(this.items[n]);
   },
-  next(){this.go((this.current+1)%this.items.length)}
+  next(){this.go((this.current+1)%this.items.length);}
 };
-document.addEventListener('DOMContentLoaded',()=>HeroManager.init());
+document.addEventListener('DOMContentLoaded',()=>{
+  HeroManager.init();
+  if(typeof ThemeManager!=='undefined')ThemeManager.init();
+});
+window.addEventListener('pageshow',function(e){
+  if(e.persisted){
+    const scenes=document.querySelectorAll('.hero-scene');
+    if(scenes.length){scenes.forEach(s=>s.classList.remove('active'));scenes[0].classList.add('active');HeroManager.renderContent(HeroManager.items[0]);}
+  }
+});
 </script>
-
 </body>
 </html>

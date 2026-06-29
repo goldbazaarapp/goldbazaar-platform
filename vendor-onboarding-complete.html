@@ -65,6 +65,10 @@
     #nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(0,0,0,.94);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,76,.12);transition:background .35s,border-color .35s}
     #nav.scrolled{background:rgba(0,0,0,.97);border-color:rgba(201,168,76,.18)}
     .nav-logo img{height:56px;width:auto;display:block}
+    @media(max-width:768px){
+      .nav-logo img{height:38px}
+      #nav{padding:0 16px}
+    }
 
     .nav-center {
       display: flex;
@@ -821,6 +825,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
 @media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr}.foot-inner{padding:32px 20px 20px}}
 @media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
 .foot-logo img{height:100px;width:auto}
+@media(max-width:768px){.foot-logo img{height:56px}}
 .foot-desc{font-size:13px;color:var(--text-tertiary);line-height:1.7;max-width:260px;margin-bottom:20px}
 .foot-socials{display:flex;gap:10px;margin-top:4px}
 .fsoc{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all .2s;color:rgba(255,255,255,.6);text-decoration:none}
@@ -893,6 +898,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   <div id="mob-nav">
     <a href="index.html">Home</a>
     <a href="index.html" style="color: var(--g); font-weight: 600;">← Back to Home</a>
+    <a href="#" id="mob-upload-btn" onclick="openUploadModal();mobToggle();return false;" style="display:none;color:var(--gl);font-weight:700;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:8px;padding:10px 14px;margin-top:4px;text-align:center">📤 Upload Banner</a>
   </div>
 
   <!-- ═══════════════════ OTP LOGIN SCREEN ═══════════════════ -->
@@ -2408,6 +2414,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       document.getElementById('hero-upload-wrap').classList.add('visible');
       document.body.classList.add('hero-phase');
       document.getElementById('uploadBtnWrap').style.display='inline-flex';
+      const mobUpBtn=document.getElementById('mob-upload-btn');if(mobUpBtn)mobUpBtn.style.display='block';
       // Auto-hide tooltip after 8 seconds or when user clicks Upload Banner
       setTimeout(hideUploadTooltip, 8000);
       initObHero();
@@ -2558,7 +2565,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
     function submitHeroStep() {
       document.getElementById('hero-upload-wrap').classList.remove('visible');
       document.body.classList.remove('hero-phase');
-      document.getElementById('uploadBtnWrap').style.display='none';
+      document.getElementById('uploadBtnWrap').style.display='none';const _mub=document.getElementById('mob-upload-btn');if(_mub)_mub.style.display='none';
       // Show mobile login/OTP FIRST before revealing the onboarding form
       document.getElementById('loginTitle').textContent = 'Verify Your Mobile';
       document.getElementById('loginSubtitle').textContent = 'Enter your mobile number to begin the vendor onboarding process';
@@ -3068,7 +3075,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       document.getElementById('loginScreen').classList.add('visible');
       document.getElementById('hero-upload-wrap').classList.remove('visible');
       document.body.classList.remove('hero-phase');
-      document.getElementById('uploadBtnWrap').style.display='none';
+      document.getElementById('uploadBtnWrap').style.display='none';const _mub=document.getElementById('mob-upload-btn');if(_mub)_mub.style.display='none';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -3242,16 +3249,4 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   function renderLeads() {
     const q     = (document.getElementById('leadSearchInput')?.value || '').toLowerCase();
     const svc   = document.getElementById('fltService')?.value || '';
-    const stat  = document.getElementById('fltStatus')?.value || '';
-    const intent= document.getElementById('fltIntent')?.value || '';
-    const loc   = document.getElementById('fltLocation')?.value || '';
-
-    const filtered = LEADS.filter(l => {
-      if (q && !l.name.toLowerCase().includes(q) && !l.mobile.includes(q) && !l.id.toLowerCase().includes(q)) return false;
-      if (svc   && l.service  !== svc)   return false;
-      if (stat  && l.status   !== stat)  return false;
-      if (intent&& l.intent   !== intent)return false;
-      if (loc 
-</script>
-</body>
-</html>
+    const stat  = docu
