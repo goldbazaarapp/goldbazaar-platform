@@ -70,8 +70,14 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 .gold-widget-footer{padding:9px 16px;font-size:10px;color:rgba(255,255,255,.45);text-align:center;border-top:1px solid rgba(201,168,76,.1);background:rgba(0,0,0,.15)}
 @media(max-width:768px){.gold-widget{display:none}.hamburger{display:flex}.nav-center{display:none}}
 /* HERO */
-#hero{width:100%;margin-top:var(--nav-h);aspect-ratio:16/9;position:relative;overflow:hidden;background:linear-gradient(135deg,#0a0a0a 0%,#1a1208 50%,#0a0a0a 100%);min-height:240px}
+#hero{width:100%;margin-top:var(--nav-h);aspect-ratio:16/9;position:relative;overflow:hidden;background:linear-gradient(135deg,#0a0a0a 0%,#1a1208 50%,#0a0a0a 100%);min-height:240px;max-height:85vh}
 @media(max-width:768px){#hero{aspect-ratio:unset;min-height:56vw;max-height:75vw}}
+.hero-content{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;pointer-events:none}
+.hero-title{font-size:clamp(1.5rem,4vw,3rem);font-weight:800;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.8);margin-bottom:12px;font-family:'Playfair Display',Georgia,serif}
+.hero-title span{background:linear-gradient(135deg,#C9A84C,#F5E6C0,#C9A84C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(.85rem,2vw,1.15rem);color:rgba(255,255,255,.85);text-shadow:0 1px 10px rgba(0,0,0,.8);max-width:600px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);border-radius:30px;padding:6px 18px;font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--g);margin-bottom:14px;text-shadow:none}
+@media(max-width:768px){.hero-content{padding:16px}.hero-sub{display:none}}
 .hero-bg{position:absolute;inset:0;z-index:0}
 .hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;cursor:pointer;pointer-events:none}
 .hero-scene.active{opacity:1;pointer-events:auto}
@@ -440,6 +446,11 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
 <section id="hero">
   <div class="hero-bg" id="hero-bg"></div>
   <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-badge">🏆 India's #1 Gold Platform</span>
+    <h1 class="hero-title">Where <span>Gold</span> Meets Infinity</h1>
+    <p class="hero-sub">Explore gold loans, sell gold & find verified jewellers across 500+ cities</p>
+  </div>
   <div class="hero-dots" id="hero-dots"></div>
 </section>
 

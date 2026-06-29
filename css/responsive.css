@@ -1,7 +1,10 @@
 /* GoldBazaar Global Responsive Fixes */
 *, *::before, *::after { box-sizing: border-box; }
 body { overflow-x: hidden; }
-img, video { max-width: 100%; height: auto; }
+img { max-width: 100%; height: auto; }
+video { max-width: 100%; }
+/* Hero images must fill their container — do NOT override height:100% */
+.hero-scene img, .hero-scene video { height: 100% !important; width: 100% !important; max-width: none; }
 
 /* Cap width for large screens/TVs */
 .gb-container {
@@ -64,7 +67,7 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.75rem); line-height: 1.4; }
   .btn, [class*="btn-"], button.cta { width: 100%; text-align: center; }
 
   /* Images */
-  img { max-width: 100% !important; height: auto !important; }
+  img:not(.hero-scene img) { max-width: 100% !important; height: auto !important; }
 
   /* Hide decorative large elements */
   [class*="absolute"][class*="w-96"] { display: none; }
