@@ -344,6 +344,54 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 <script src="hero-links.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <link rel="stylesheet" href="css/responsive.css"/>
+<!-- Override responsive.css globals — must come AFTER the link to win -->
+<style>
+.hero-content{padding:0 52px!important;min-height:auto!important}
+.hero-content h1{font-size:clamp(22px,2.8vw,40px)!important;line-height:1.18!important}
+.hero-content .btn-gold,.hero-content .btn-pink{width:auto!important;display:inline-flex!important;align-self:flex-start!important}
+/* Prevent responsive.css [class*="btn-"] making buttons full-width on mobile */
+.btn-gold,.btn-pink{width:auto!important;display:inline-flex!important}
+.nav-logo img{height:56px!important;width:auto!important;max-height:56px!important}
+.foot-logo img{height:100px!important;width:auto!important;max-height:100px!important}
+@media(max-width:768px){
+  .nav-logo img{height:38px!important;max-height:38px!important}
+  #nav{padding:0 16px!important}
+  .hero-content{width:82%!important;padding:0 20px 22px!important}
+  .hero-content h1{font-size:clamp(18px,4.5vw,28px)!important}
+  .foot-logo img{height:56px!important;max-height:56px!important}
+  .foot-inner{padding:32px 16px 16px!important}
+  /* Fix responsive.css [class*="hero"] bleeding padding onto sub-elements */
+  #hero{padding:0!important}
+  .hero-slide-content{padding:0!important;min-height:unset!important}
+  .hero-eyebrow{padding:0!important;min-height:unset!important}
+  .hero-dot{padding:0!important;width:8px!important;height:8px!important;min-height:unset!important}
+  .hero-dot.active{width:24px!important;height:8px!important}
+  /* Fix responsive.css section padding */
+  .section{padding:32px 0!important}
+  .wrap{padding:0 16px!important}
+  /* Filter bar stacking */
+  .filter-wrap{padding:14px 16px!important}
+  .filter-row{flex-direction:column!important;gap:10px!important}
+  .filter-group{min-width:100%!important;width:100%!important}
+  .filter-group input,.filter-group select{width:100%!important}
+  /* Collapse the 3-col "Why GoldBazaar" feature grid */
+  .section.alt .wrap .reveal{grid-template-columns:1fr!important;gap:12px!important}
+  /* Expand panel */
+  .ve-inner{grid-template-columns:1fr!important;padding:14px!important;gap:14px!important}
+  .ve-grid{grid-template-columns:1fr!important}
+}
+@media(max-width:480px){
+  .nav-logo img{height:32px!important;max-height:32px!important}
+  .hero-content{width:92%!important;padding:0 16px 18px!important}
+  .hero-content h1{font-size:clamp(15px,4vw,20px)!important;margin-bottom:8px!important}
+  .hero-content p{display:none!important}
+  .hero-content .btn-gold,.hero-content .btn-pink{font-size:12px!important;padding:8px 18px!important}
+  .foot-logo img{height:44px!important;max-height:44px!important}
+  .foot-inner{padding:28px 16px 16px!important}
+  .section{padding:24px 0!important}
+  .wrap{padding:0 14px!important}
+}
+</style>
 </head>
 <body>
 
