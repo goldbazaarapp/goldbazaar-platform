@@ -469,6 +469,7 @@ html[data-theme="light"] .foot-col ul li a:hover{color:var(--g)}
 html[data-theme="light"] .foot-bottom p{color:rgba(0,0,0,.4)}
 html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1);color:rgba(0,0,0,.5)}
 html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-color:var(--g);color:var(--g)}
+
 </style>
 
 <!-- SheetJS: reads data/gold-loan-providers.xlsx directly via HTTP -->
@@ -489,6 +490,55 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 </script>
 <script src="hero-links.js" defer></script>
 <link rel="stylesheet" href="css/responsive.css"/>
+<!-- Override responsive.css globals — must come AFTER the link to win -->
+<style>
+.hero-content{padding:0 48px 36px!important;min-height:auto!important}
+.hero-content h1{font-size:clamp(22px,2.8vw,40px)!important;line-height:1.18!important}
+.hero-content .btn-gold{width:auto!important;display:inline-flex!important;align-self:flex-start!important}
+.nav-logo img{height:56px!important;width:auto!important;max-height:56px!important}
+.foot-logo img{height:100px!important;width:auto!important;max-height:100px!important}
+@media(max-width:768px){
+  .nav-logo img{height:38px!important;max-height:38px!important}
+  #nav{padding:0 16px!important}
+  .hero-content{width:82%!important;padding:0 20px 22px!important}
+  .hero-content h1{font-size:clamp(18px,4.5vw,28px)!important}
+  .foot-logo img{height:56px!important;max-height:56px!important}
+  .foot-inner{padding:32px 16px 16px!important}
+  .mkt-grid{grid-template-columns:repeat(2,1fr)!important}
+  .filter-bar{flex-direction:column;gap:10px}
+  .filter-group{min-width:100%;width:100%}
+  .filter-group input,.filter-group select{width:100%}
+  .mkt-view-toggle{margin-left:0;width:100%}
+  .mkt-grid.list-view{display:flex!important;flex-direction:column;gap:10px;background:transparent;border:none;border-radius:0}
+  .mkt-table-header{display:none!important}
+  .mkt-grid.list-view .mkt-card{display:flex!important;flex-direction:row;align-items:flex-start;background:var(--b3)!important;border:1px solid rgba(201,168,76,.18)!important;border-radius:12px!important;padding:12px!important;gap:10px;min-height:unset!important}
+  .mkt-grid.list-view .mkt-card-img{width:60px!important;height:60px!important;grid-column:unset!important;align-self:flex-start;flex-shrink:0}
+  .mkt-grid.list-view .mkt-card-body{display:flex!important;flex-direction:column;gap:4px;flex:1}
+  .mkt-grid.list-view .mkt-card-tag{display:inline-block!important}
+  .mkt-grid.list-view .mkt-card-name{grid-column:unset!important;border-right:none!important;padding:0!important;font-size:14px}
+  .mkt-grid.list-view .mkt-card-loc{grid-column:unset!important;border-right:none!important;padding:0!important}
+  .mkt-grid.list-view .mkt-card-rate{grid-column:unset!important;border-right:none!important;padding:0!important;justify-content:flex-start!important;font-size:16px}
+  .mkt-grid.list-view .mkt-card-rate-lbl{display:block!important}
+  .mkt-grid.list-view .mkt-card-meta{grid-column:unset!important;border-right:none!important;padding:0!important}
+  .mkt-grid.list-view .mkt-card-footer{display:flex!important;grid-column:unset!important;border-right:none!important;padding:6px 0 0!important;border-top:1px solid rgba(255,255,255,.06)!important;margin-top:4px;justify-content:space-between;align-items:center}
+  .mkt-grid.list-view .mkt-card-footer>div{grid-column:unset!important;padding:0!important;border-right:none!important;flex-direction:row;gap:6px}
+  .mkt-grid.list-view .view-btn{grid-column:unset!important;align-self:unset!important;justify-self:unset!important;padding:6px 14px!important;font-size:11px!important}
+  .pe-inner{grid-template-columns:1fr!important;padding:14px!important;gap:14px}
+  .pe-left{border-right:none!important;border-bottom:1px solid rgba(201,168,76,.12);padding-bottom:12px;padding-right:0!important}
+  .pe-grid{grid-template-columns:1fr 1fr!important}
+}
+@media(max-width:480px){
+  .nav-logo img{height:32px!important;max-height:32px!important}
+  .hero-content{width:92%!important;padding:0 14px 16px!important}
+  .hero-content h1{font-size:clamp(15px,4vw,20px)!important;margin-bottom:8px!important}
+  .hero-content p{display:none!important}
+  .hero-content .btn-gold{font-size:12px!important;padding:8px 18px!important}
+  .foot-logo img{height:44px!important;max-height:44px!important}
+  .mkt-grid:not(.list-view){grid-template-columns:1fr!important}
+  .section{padding:28px 0!important}
+  .wrap{padding:0 14px!important}
+}
+</style>
 </head>
 <body>
 
@@ -913,7 +963,7 @@ function buildProviderCards(){
         <div class="mkt-card-tag tag-loan">Gold Loan</div>
         <div class="mkt-card-name provider-toggle" onclick="toggleProvider(${idx})" style="cursor:pointer;display:flex;align-items:center;gap:8px">
           ${label} <span class="toggle-arrow" id="arrow-${idx}" style="font-size:11px;color:var(--g);transition:transform .3s">▼</span>
-        </div>
+        </di        </div>
         <div class="mkt-card-loc">📍 ${p.location}</div>
         <div class="mkt-card-rate">${p.rate}</div>
         <div class="mkt-card-rate-lbl">Interest Rate Starting From</div>
