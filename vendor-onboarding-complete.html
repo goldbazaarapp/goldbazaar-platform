@@ -10,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet"/>
   <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
     :root {
       --g: #C9A84C;
@@ -32,7 +31,7 @@
       padding: 0;
     }
 
-    html {
+    html {overflow-x:hidden;
       scroll-behavior: smooth;
       font-size: 16px;
     }
@@ -716,7 +715,7 @@
 #uploadModal{display:none;position:fixed;inset:0;z-index:2000;align-items:center;justify-content:center;padding:20px}
 #uploadModal.open{display:flex}
 .um-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px)}
-.um-box{position:relative;z-index:1;background:rgba(10,9,6,.92);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:32px;width:100%;max-width:480px;box-shadow:0 24px 64px rgba(0,0,0,.6)}
+.um-box{position:relative;z-index:1;background:rgba(10,9,6,.92);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:32px;width:100%;max-max-width:480px;box-shadow:0 24px 64px rgba(0,0,0,.6)}
 .um-close{position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,.4);font-size:20px;cursor:pointer;line-height:1}
 .um-close:hover{color:var(--g)}
 .um-title{font-family:var(--fd);font-size:20px;font-weight:600;color:var(--gl);margin-bottom:6px}
@@ -816,7 +815,7 @@
 .bp-label{margin-top:16px;font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase}
 /* FOOTER */
 footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
-.foot-inner{max-width:1200px;margin:0 auto;padding:48px 48px 24px}
+.foot-inner{max-max-width:1200px;margin:0 auto;padding:48px 48px 24px}
 .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
 @media(max-width:1100px){.foot-grid{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr}.foot-inner{padding:32px 20px 20px}}
@@ -840,8 +839,13 @@ html[data-theme="light"] .foot-col ul li a:hover{color:var(--g)}
 html[data-theme="light"] .foot-bottom p{color:rgba(0,0,0,.4)}
 html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1);color:rgba(0,0,0,.5)}
 html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-color:var(--g);color:var(--g)}
+
+@media(max-width:600px){
+  /* Fixed checklist widget: reposition and resize for mobile */
+  [style*="width:220px"]{width:calc(100vw - 32px) !important;right:16px !important;max-width:220px !important;}
+}
 </style>
-<link rel="stylesheet" href="responsive.css"/>
+
 <script>
 /* Fix 100vh on mobile browsers where address bar shrinks viewport */
 (function(){
@@ -855,6 +859,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 })();
 </script>
 <script src="hero-links.js"></script>
+<link rel="stylesheet" href="css/responsive.css"/>
 </head>
 <body>
   <!-- ═══════════════════ NAVIGATION ═══════════════════ -->
@@ -1215,7 +1220,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
                 </div>
                 <!-- File info after upload -->
                 <div id="s2FileInfo" style="display:none; margin-top:10px; background:rgba(0,0,0,0.35); border:1px solid rgba(201,168,76,0.2); border-radius:8px; padding:10px 14px; align-items:center; gap:10px;">
-                  <img id="s2Thumb" style="width:48px; height:36px; border-radius:5px; object-fit:cover; border:1px solid rgba(201,168,76,0.3); flex-shrink:0;" src="" alt="">
+                  <img id="s2Thumb" style="max-width:100%;height:auto; height:36px; border-radius:5px; object-fit:cover; border:1px solid rgba(201,168,76,0.3); flex-shrink:0;" src="" alt="">
                   <div style="flex:1; min-width:0;">
                     <div id="s2FileName" style="font-size:12px; font-weight:600; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"></div>
                     <div id="s2FileMeta" style="font-size:11px; color:rgba(255,255,255,0.45); margin-top:2px;"></div>
@@ -1769,7 +1774,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 
   <!-- ═══════════════════ LEAD MANAGEMENT TAB ═══════════════════ -->
   <div id="leads" class="tab-content">
-    <div style="max-width:1440px; margin:0 auto;">
+    <div style="max-max-width:1440px; margin:0 auto;">
 
       <!-- Section Heading -->
       <div style="margin-bottom:20px;">
@@ -1974,12 +1979,12 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       }
       .success-sub {
         font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:16px;
-        text-align:center; line-height:1.5; max-width:480px;
+        text-align:center; line-height:1.5; max-max-width:480px;
         animation:fadeUp .5s .45s both;
       }
       .success-stats {
         display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
-        max-width:500px; width:100%; margin-bottom:16px;
+        max-max-width:500px; width:100%; margin-bottom:16px;
         animation:fadeUp .5s .55s both;
       }
       .success-stat-card {
@@ -1995,7 +2000,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       }
       .success-stat-card .ssc-label { font-size:11px; color:rgba(255,255,255,0.45); font-weight:600; text-transform:uppercase; letter-spacing:0.05em; }
       .success-steps {
-        max-width:520px; width:100%; margin-bottom:14px;
+        max-max-width:520px; width:100%; margin-bottom:14px;
         background:rgba(14,14,14,0.8); border:1px solid rgba(201,168,76,0.1);
         border-radius:12px; padding:12px 18px;
         animation:fadeUp .5s .65s both;
@@ -2099,11 +2104,11 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       }
       .pending-sub {
         font-size:13px; color:rgba(255,255,255,0.55); margin-bottom:14px;
-        text-align:center; line-height:1.55; max-width:460px;
+        text-align:center; line-height:1.55; max-max-width:460px;
         animation:pendingFadeUp .5s .35s both;
       }
       .pending-card {
-        max-width:500px; width:100%;
+        max-max-width:500px; width:100%;
         background:rgba(18,18,18,0.9); border:1px solid rgba(201,168,76,0.15);
         border-radius:12px; padding:14px 20px; margin-bottom:14px;
         animation:pendingFadeUp .5s .45s both;
@@ -2346,15 +2351,24 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
     function handleBannerUploadModal(event){
       const file = event.target.files[0];
       if(!file) return;
-      const url = URL.createObjectURL(file);
-      uploadedBlobUrl = url;
-      document.getElementById('upThumbModal').src = url;
-      document.getElementById('upFileNameModal').textContent = file.name;
-      document.getElementById('upFileMetaModal').textContent = (file.size/1024/1024).toFixed(2)+' MB';
-      document.getElementById('upFileInfoModal').style.display = 'flex';
-      document.getElementById('upDropzoneModal').style.borderColor = 'var(--g)';
-      document.getElementById('umPreviewBtn').classList.add('show');
-      document.getElementById('umContinueBtn').classList.add('show');
+      const allowed = ['image/jpeg','image/png','image/webp'];
+      if (!allowed.includes(file.type)) { alert('❌ Use JPG, PNG, or WebP only.'); return; }
+      if (file.size > 5 * 1024 * 1024) { alert('❌ File must be under 5 MB.'); return; }
+      uploadedFileObj  = file;
+      uploadedFileName = file.name;
+      uploadedFileMime = file.type;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        uploadedBlobUrl = ev.target.result; // base64 data URL
+        document.getElementById('upThumbModal').src = uploadedBlobUrl;
+        document.getElementById('upFileNameModal').textContent = file.name;
+        document.getElementById('upFileMetaModal').textContent = (file.size/1024/1024).toFixed(2)+' MB';
+        document.getElementById('upFileInfoModal').style.display = 'flex';
+        document.getElementById('upDropzoneModal').style.borderColor = 'var(--g)';
+        document.getElementById('umPreviewBtn').classList.add('show');
+        document.getElementById('umContinueBtn').classList.add('show');
+      };
+      reader.readAsDataURL(file);
     }
     function previewBannerModal(){
       if(!uploadedBlobUrl){ showToast('Please upload a banner first.'); return; }
@@ -2929,10 +2943,10 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
     // Countdown timer handle
     let successTimer = null;
 
-    function submitForm() {
+    async function submitForm() {
       clearAllErrors();
 
-      // Collect full vendor details → POST to server → saved in Vendor Signups sheet
+      // Collect full vendor details
       const bizName  = (document.getElementById('businessName')?.value || '').trim() || 'Your Business';
       const ownerName= (document.getElementById('ownerName')?.value || '').trim();
       const category = document.getElementById('category')?.value || '';
@@ -2942,16 +2956,57 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       const svcs     = [...(document.querySelectorAll('input[name="services"]:checked') || [])]
                          .map(cb => cb.parentElement?.querySelector('span')?.textContent?.trim() || '')
                          .join(', ');
-
       const websiteUrl = (document.getElementById('websiteUrl')?.value || '').trim();
 
-      // Save vendor details → Vendor Signups sheet (GET — works with existing Apps Script)
+      // ── Step 1: Upload banner to GitHub repo ──────────────────────────
+      const GH_OWNER  = 'goldbazaarapp';
+      const GH_REPO   = 'goldbazaar-platform';
+      const GH_PAT    = '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';
+      const GH_BRANCH = 'main';
+      let bannerDriveUrl = '';
+
+      if (uploadedBlobUrl && uploadedFileObj) {
+        try {
+          const base64 = uploadedBlobUrl.split(',')[1];
+          const filePath = 'vendor-banners/' + uploadedFileName;
+          const apiUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${filePath}`;
+
+          // Check if file already exists (need SHA to overwrite)
+          let sha = undefined;
+          const checkRes = await fetch(apiUrl, {
+            headers: { Authorization: 'Bearer ' + GH_PAT, Accept: 'application/vnd.github+json' }
+          });
+          if (checkRes.ok) {
+            const existing = await checkRes.json();
+            sha = existing.sha;
+          }
+
+          // Upload file
+          const body = { message: 'Upload vendor banner: ' + uploadedFileName, content: base64, branch: GH_BRANCH };
+          if (sha) body.sha = sha;
+          const uploadRes = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: { Authorization: 'Bearer ' + GH_PAT, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+          });
+          const uploadData = await uploadRes.json();
+          if (uploadData.content?.html_url) {
+            bannerDriveUrl = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${GH_BRANCH}/${filePath}`;
+            console.log('Banner uploaded to GitHub:', bannerDriveUrl);
+          } else {
+            console.error('GitHub upload error:', JSON.stringify(uploadData));
+          }
+        } catch(e) { console.warn('Banner upload failed:', e); }
+      }
+
+      // ── Step 2: Save vendor data to sheet ─────────────────────────────
       fetch(FORM_ENDPOINT+'?'+new URLSearchParams({
         sheet:'vendor', mobile:'91-'+verifiedMobile,
         businessName:bizName, ownerName, category,
         services:svcs, city, state, pincode:pin,
         websiteUrl,
         bannerFileName: uploadedFileName || '',
+        bannerDriveUrl: bannerDriveUrl,
         status:'Application Submitted'
       }),{mode:'no-cors'}).catch(()=>{});
 
@@ -3187,3 +3242,6 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       if (stat  && l.status   !== stat)  return false;
       if (intent&& l.intent   !== intent)return false;
       if (loc 
+</script>
+</body>
+</html>

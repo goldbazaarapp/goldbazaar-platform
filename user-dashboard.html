@@ -10,7 +10,7 @@
 /* ── RESET ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;background:var(--b0)}
+body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;min-min-height:100vh;overflow-x:hidden;background:var(--b0)}
 a{text-decoration:none;color:inherit}
 button{font-family:inherit;cursor:pointer;border:none;background:none}
 img{display:block;max-width:100%}
@@ -394,7 +394,8 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.1);padding:38p
   .ft-in{padding:0 16px}
 }
 </style>
-<link rel="stylesheet" href="responsive.css"/>
+
+<link rel="stylesheet" href="css/responsive.css"/>
 </head>
 <body>
 
@@ -506,7 +507,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.1);padding:38p
       <div>
         <div class="sh"><div class="sh-t">Recent Enquiries</div><span class="sh-a" onclick="navPanel('enquiries')">View All →</span></div>
         <div class="card" style="overflow-x:auto;padding:0">
-          <table class="tbl">
+          <div class="table-responsive"><table class="tbl">
             <thead><tr><th>Enquiry ID</th><th>Service</th><th>Vendor</th><th>Status</th><th></th></tr></thead>
             <tbody>
               <tr><td><span class="tid">#ENQ-0091</span></td><td>Gold Loan</td><td>Muthoot Finance</td><td><span class="bdg b-apt">Appointment</span></td><td><button class="bsm bg">View</button></td></tr>
@@ -514,7 +515,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.1);padding:38p
               <tr><td><span class="tid">#ENQ-0074</span></td><td>Gold Exchange</td><td>Tanishq</td><td><span class="bdg b-con">Contacted</span></td><td><button class="bsm bg">View</button></td></tr>
               <tr><td><span class="tid">#ENQ-0059</span></td><td>Gold Loan</td><td>HDFC Gold</td><td><span class="bdg b-cmp">Completed</span></td><td><button class="bsm bg">View</button></td></tr>
             </tbody>
-          </table>
+          </table></div>
         </div>
       </div>
       <div>
@@ -558,7 +559,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.1);padding:38p
   <div class="sec">
     <div class="sh"><div class="sh-t">My Enquiries</div><span style="font-size:12px;color:var(--t3)">15 total · 3 active</span></div>
     <div class="card" style="overflow-x:auto;padding:0">
-      <table class="tbl">
+      <div class="table-responsive"><table class="tbl">
         <thead><tr><th>Enquiry ID</th><th>Service Type</th><th>Vendor Assigned</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
         <tbody>
           <tr><td><span class="tid">#ENQ-2406-0091</span></td><td>Gold Loan</td><td>Muthoot Finance, Jayanagar</td><td>Jun 8, 2026</td><td><span class="bdg b-apt">Appointment Scheduled</span></td><td><div class="acts"><button class="bsm bg">View</button></div></td></tr>
@@ -567,7 +568,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.1);padding:38p
           <tr><td><span class="tid">#ENQ-2405-0059</span></td><td>Gold Loan</td><td>HDFC Gold Loan</td><td>May 22, 2026</td><td><span class="bdg b-cmp">Completed</span></td><td><div class="acts"><button class="bsm bg">View</button></div></td></tr>
           <tr><td><span class="tid">#ENQ-2405-0041</span></td><td>Gold Insurance</td><td>—</td><td>May 10, 2026</td><td><span class="bdg b-sub">Submitted</span></td><td><div class="acts"><button class="bsm bg">View</button></div></td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 </div>

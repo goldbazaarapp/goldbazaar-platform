@@ -21,7 +21,7 @@ img{display:block;max-width:100%}
 :root{--g:#C9A84C;--gl:#E8C96A;--gd:#9B7B2E;--fd:'Playfair Display',Georgia,serif;--ease:cubic-bezier(.4,0,.2,1);--nav-h:68px;--transition:background .3s,color .3s,border-color .3s}
 html[data-theme="dark"]{--b0:#000;--b1:#0A0A0A;--b2:#111;--b3:#161616;--b4:#1E1E1E;--text-primary:#FFF;--text-secondary:rgba(255,255,255,.7);--text-tertiary:rgba(255,255,255,.5);--bg-primary:#000}
 html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#E8E8E8;--text-primary:#1A1A1A;--text-secondary:#333;--text-tertiary:#555;--bg-primary:#FFF}
-.wrap{max-width:1200px;margin:0 auto;padding:0 48px}
+.wrap{max-max-width:1200px;margin:0 auto;padding:0 48px}
 @media(max-width:600px){.wrap{padding:0 20px}}
 .section{padding:52px 0}
 .alt{background:var(--b2)}
@@ -29,7 +29,7 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:10px}
 .eyebrow::before{content:'';width:20px;height:1.5px;background:var(--g);display:inline-block}
 .sec-title{font-family:var(--fd);font-size:clamp(24px,3vw,40px);font-weight:700;letter-spacing:-.03em;line-height:1.18;margin-bottom:12px;color:var(--text-primary)}
-.sec-body{font-size:14px;font-weight:300;color:var(--text-secondary);max-width:560px;line-height:1.7}
+.sec-body{font-size:14px;font-weight:300;color:var(--text-secondary);max-max-width:560px;line-height:1.7}
 .sec-head{text-align:center;margin-bottom:32px}
 .sec-head .sec-body{margin:0 auto}
 .btn-gold{display:inline-flex;align-items:center;gap:7px;padding:13px 28px;border-radius:50px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:14px;font-weight:700;transition:transform .2s,box-shadow .2s}
@@ -167,7 +167,7 @@ html[data-theme="light"] .svc-stats span{color:var(--text-tertiary)}
 @media(max-width:900px){.why-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:580px){.why-grid{grid-template-columns:1fr}}
 /* CALCULATOR */
-.gb-calc-wrap{max-width:920px;margin:0 auto}
+.gb-calc-wrap{max-max-width:920px;margin:0 auto}
 .gb-rate-bar{display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);border-radius:50px;padding:10px 24px;margin-bottom:36px;flex-wrap:wrap}
 .gb-rate-bar-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)}
 .gb-rate-edit{background:none;border:1px solid rgba(201,168,76,.3);color:var(--g);font-size:12px;cursor:pointer;padding:3px 10px;border-radius:6px;font-family:inherit}
@@ -218,7 +218,7 @@ html[data-theme="light"] .svc-stats span{color:var(--text-tertiary)}
 @media(max-width:768px){.contact-wrap{grid-template-columns:1fr;gap:40px}}
 .contact-left h2{font-family:var(--fd);font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.15;letter-spacing:-.03em;margin-bottom:20px}
 .contact-left h2 span{color:var(--g)}
-.contact-left p{font-size:15px;font-weight:300;color:var(--text-secondary);line-height:1.75;max-width:440px;margin-bottom:40px}
+.contact-left p{font-size:15px;font-weight:300;color:var(--text-secondary);line-height:1.75;max-max-width:440px;margin-bottom:40px}
 .contact-info-list{display:flex;flex-direction:column}
 .contact-info-item{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06)}
 .contact-info-item:last-child{border-bottom:none}
@@ -237,7 +237,7 @@ html[data-theme="light"] .svc-stats span{color:var(--text-tertiary)}
 .cf-submit:hover{box-shadow:0 8px 28px rgba(201,168,76,.4);transform:translateY(-1px)}
 /* FOOTER */
 footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
-.foot-inner{max-width:1200px;margin:0 auto;padding:48px 48px 24px}
+.foot-inner{max-max-width:1200px;margin:0 auto;padding:48px 48px 24px}
 .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
 @media(max-width:1100px){.foot-grid{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr}.foot-inner{padding:32px 20px 20px}}
@@ -374,7 +374,7 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
 .gb-toast-msg{flex:1;line-height:1.5}
 .gb-toast-bar{position:absolute;bottom:0;left:0;height:3px;background:linear-gradient(90deg,#C9A84C,#f0c96e);border-radius:0 0 14px 14px}
 </style>
-<link rel="stylesheet" href="responsive.css"/>
+
 <script>
 /* Fix 100vh on mobile browsers where address bar shrinks viewport */
 (function(){
@@ -388,6 +388,7 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
 })();
 </script>
 <script src="hero-links.js"></script>
+<link rel="stylesheet" href="css/responsive.css"/>
 </head>
 <body>
 
@@ -1422,7 +1423,7 @@ function renderNewsCards(items){
     c.style.cssText='cursor:pointer;opacity:1;transform:none';
     c.onclick=()=>window.open(a.url,'_blank','noopener,noreferrer');
     let favicon='';
-    try{favicon=`<img src="https://www.google.com/s2/favicons?domain=${new URL(a.url).hostname}&sz=16" style="width:14px;height:14px;border-radius:2px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">`;}catch(e){}
+    try{favicon=`<img src="https://www.google.com/s2/favicons?domain=${new URL(a.url).hostname}&sz=16" style="max-width:100%;height:auto;height:14px;border-radius:2px;vertical-align:middle;margin-right:4px" onerror="this.style.display='none'">`;}catch(e){}
     const excerpt=(a.excerpt||'').replace(/<[^>]*>/g,'').trim().slice(0,130);
     c.innerHTML=`
       <div class="news-card-date">${fmtNewsDate(a.date)}</div>
@@ -1708,10 +1709,7 @@ function submitContactForm() {
     document.getElementById('cf-city').value = '';
     document.getElementById('cf-message').value = '';
     setTimeout(() => {
-      btn.textContent = 'Send Message →';
-      btn.style.background = '';
-      btn.disabled = false;
-    }, 3000);
-  }, 1000);
-}
-</script></body></html>
+      btn.textContent = '
+</script>
+</body>
+</html>

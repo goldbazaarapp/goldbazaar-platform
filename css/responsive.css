@@ -1,0 +1,93 @@
+/* GoldBazaar Global Responsive Fixes */
+*, *::before, *::after { box-sizing: border-box; }
+body { overflow-x: hidden; }
+img, video { max-width: 100%; height: auto; }
+
+/* Cap width for large screens/TVs */
+.gb-container {
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Fluid typography */
+h1 { font-size: clamp(1.75rem, 5vw, 3.5rem); line-height: 1.2; }
+h2 { font-size: clamp(1.4rem, 3.5vw, 2.5rem); line-height: 1.3; }
+h3 { font-size: clamp(1.1rem, 2.5vw, 1.75rem); line-height: 1.4; }
+
+/* Tables scrollable on mobile */
+.table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
+
+/* Mobile <=768px */
+@media (max-width: 768px) {
+  body { font-size: 15px; }
+  section { padding: 2.5rem 1rem !important; }
+
+  /* Grids collapse to 1 col */
+  [class*="grid-cols-2"],
+  [class*="grid-cols-3"],
+  [class*="grid-cols-4"],
+  [class*="grid-cols-5"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Flex rows stack */
+  .flex { flex-wrap: wrap; }
+
+  /* Hero adjustments */
+  [class*="hero"],
+  [class*="-hero"] {
+    min-height: auto !important;
+    padding-top: 5rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  /* Nav */
+  nav a.nav-link { display: none !important; }
+
+  /* Footer stacks */
+  footer .grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+
+  /* Padding resets */
+  .px-8, .px-10, .px-12, .px-16 { padding-left: 1rem !important; padding-right: 1rem !important; }
+  .py-16, .py-20, .py-24 { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
+
+  /* Font sizes */
+  h1 { font-size: clamp(1.6rem, 8vw, 2.5rem) !important; }
+  h2 { font-size: clamp(1.3rem, 6vw, 2rem) !important; }
+  h3 { font-size: clamp(1.1rem, 4vw, 1.5rem) !important; }
+
+  /* Buttons */
+  .btn, [class*="btn-"], button.cta { width: 100%; text-align: center; }
+
+  /* Images */
+  img { max-width: 100% !important; height: auto !important; }
+
+  /* Hide decorative large elements */
+  [class*="absolute"][class*="w-96"] { display: none; }
+}
+
+/* Tablet 769-1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  section { padding: 3rem 2rem; }
+  [class*="grid-cols-3"],
+  [class*="grid-cols-4"],
+  [class*="grid-cols-5"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  h1 { font-size: clamp(2rem, 4vw, 3rem) !important; }
+}
+
+/* Large screens / TV >=1440px */
+@media (min-width: 1440px) {
+  body { font-size: 17px; }
+}
+@media (min-width: 1920px) {
+  body { font-size: 18px; }
+  h1 { font-size: 4.5rem !important; }
+  h2 { font-size: 3rem !important; }
+  .gb-container { max-width: 1600px; }
+}

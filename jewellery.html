@@ -19,7 +19,7 @@ img{display:block;max-width:100%}
 :root{--accent:#ec4899;--accent-l:#f472b6;--accent-rgb:236,72,153}
 html[data-theme="dark"]{--b0:#000;--b1:#0A0A0A;--b2:#111;--b3:#161616;--b4:#1E1E1E;--text-primary:#FFF;--text-secondary:rgba(255,255,255,.7);--text-tertiary:rgba(255,255,255,.5);--bg-primary:#000}
 html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#E8E8E8;--text-primary:#1A1A1A;--text-secondary:#333;--text-tertiary:#555;--bg-primary:#FFF}
-.wrap{max-width:1280px;margin:0 auto;padding:0 48px}
+.wrap{max-max-width:1280px;margin:0 auto;padding:0 48px}
 @media(max-width:600px){.wrap{padding:0 20px}}
 .section{padding:40px 0}
 .alt{background:var(--b2)}
@@ -28,7 +28,7 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
 .eyebrow::before{content:'';width:20px;height:1.5px;background:var(--accent);display:inline-block}
 .sec-title{font-family:var(--fd);font-size:clamp(26px,3.4vw,42px);font-weight:700;letter-spacing:-.03em;line-height:1.18;margin-bottom:16px;color:var(--text-primary)}
-.sec-body{font-size:15px;font-weight:300;color:var(--text-secondary);max-width:560px;line-height:1.78}
+.sec-body{font-size:15px;font-weight:300;color:var(--text-secondary);max-max-width:560px;line-height:1.78}
 .sec-head{text-align:center;margin-bottom:48px}
 .sec-head .sec-body{margin:0 auto}
 .btn-gold{display:inline-flex;align-items:center;gap:7px;padding:13px 28px;border-radius:50px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:14px;font-weight:700;transition:transform .2s,box-shadow .2s}
@@ -216,7 +216,7 @@ html[data-theme="light"] #mob-nav a{color:rgba(0,0,0,.65)}
 
 /* ── FOOTER ── */
 footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40px 0 24px}
-.foot-inner{max-width:1280px;margin:0 auto;padding:0 48px}
+.foot-inner{max-max-width:1280px;margin:0 auto;padding:0 48px}
 .foot-col-brand img{height:48px;margin-bottom:12px}
 .foot-col-brand p{font-size:12px;color:rgba(255,255,255,.35);line-height:1.7;max-width:180px}
 .foot-col h5{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.7);margin-bottom:12px}
@@ -265,7 +265,7 @@ html[data-theme="light"] .vb-card{background:linear-gradient(145deg,#fdf2f8,#fce
 .ve-scheme-section.green .ve-scheme-bullets li::before{color:#4ade80}
 /* FOOTER */
 footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
-.foot-inner{max-width:1200px;margin:0 auto;padding:48px 48px 24px}
+.foot-inner{max-max-width:1200px;margin:0 auto;padding:48px 48px 24px}
 .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
 @media(max-width:1100px){.foot-grid{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr}.foot-inner{padding:32px 20px 20px}}
@@ -290,12 +290,13 @@ html[data-theme="light"] .foot-bottom p{color:rgba(0,0,0,.4)}
 html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1);color:rgba(0,0,0,.5)}
 html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-color:var(--g);color:var(--g)}
 </style>
-<link rel="stylesheet" href="responsive.css"/>
+
 <script>
 (function(){var vh=window.innerHeight*.01;document.documentElement.style.setProperty('--real-vh',vh+'px');window.addEventListener('resize',function(){var vh=window.innerHeight*.01;document.documentElement.style.setProperty('--real-vh',vh+'px')})})();
 </script>
 <script src="hero-links.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link rel="stylesheet" href="css/responsive.css"/>
 </head>
 <body>
 
@@ -566,7 +567,7 @@ function heroRenderContent(slide){
   el.innerHTML = `
     <div class="hero-eyebrow">${slide.tag}</div>
     <h1 style="margin-bottom:10px">${slide.h1}</h1>
-    <p style="max-width:480px;margin-bottom:22px;font-size:15px">${slide.sub}</p>
+    <p style="max-max-width:480px;margin-bottom:22px;font-size:15px">${slide.sub}</p>
     <a href="#jewellery-list" class="btn-gold" style="font-size:11px;padding:8px 18px" onclick="event.preventDefault();document.getElementById('jewellery-list').scrollIntoView({behavior:'smooth'})">Explore Collection</a>`;
 }
 function heroGo(i){
