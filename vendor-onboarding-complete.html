@@ -715,7 +715,7 @@
 #uploadModal{display:none;position:fixed;inset:0;z-index:2000;align-items:center;justify-content:center;padding:20px}
 #uploadModal.open{display:flex}
 .um-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px)}
-.um-box{position:relative;z-index:1;background:rgba(10,9,6,.92);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:32px;width:100%;max-max-width:480px;box-shadow:0 24px 64px rgba(0,0,0,.6)}
+.um-box{position:relative;z-index:1;background:rgba(10,9,6,.92);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:32px;width:100%;max-width:480px;box-shadow:0 24px 64px rgba(0,0,0,.6)}
 .um-close{position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,.4);font-size:20px;cursor:pointer;line-height:1}
 .um-close:hover{color:var(--g)}
 .um-title{font-family:var(--fd);font-size:20px;font-weight:600;color:var(--gl);margin-bottom:6px}
@@ -923,14 +923,19 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
         <form onsubmit="handleOtpRequest(event)">
           <div class="form-group">
             <label for="mobile">Mobile Number</label>
-            <input
-              type="tel"
-              id="mobile"
-              name="mobile"
-              placeholder="+91 98765 43210"
-              pattern="[0-9\s+\-\(\)]+"
-              required
-            />
+            <div style="display:flex;align-items:center;gap:0">
+              <span style="padding:12px 14px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-right:none;border-radius:10px 0 0 10px;font-size:14px;font-weight:700;color:var(--g);white-space:nowrap">+91</span>
+              <input
+                type="tel"
+                id="mobile"
+                name="mobile"
+                placeholder="98765 43210"
+                maxlength="10"
+                required
+                oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)"
+                style="border-radius:0 10px 10px 0;border-left:none"
+              />
+            </div>
             <div class="error-message" id="mobileError"></div>
           </div>
 
@@ -1126,7 +1131,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
               <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;">
                 <div>
                   <label class="fi-label">Mobile Number *</label>
-                  <input type="tel" id="vendorMobile" name="vendorMobile" placeholder="+91 98765 43210" class="form-input fi-compact"/>
+                  <input type="tel" id="vendorMobile" name="vendorMobile" placeholder="98765 43210" maxlength="10" oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)" class="form-input fi-compact"/>
                   <span class="error-msg" id="vendorMobileError"></span>
                 </div>
                 <div>
@@ -2083,66 +2088,70 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   </div>
 
   <!-- ═══════════════════ PENDING REVIEW SCREEN ═══════════════════ -->
-  <div id="pendingScreen" style="display:none; position:fixed; top:68px; left:0; right:0; bottom:0; z-index:900; background:#050505; flex-direction:column; align-items:center; justify-content:center; padding:20px 24px 16px; overflow:hidden;">
+  <!-- pendingScreen: modal popup overlay -->
+  <div id="pendingScreen" style="display:none; position:fixed; inset:0; z-index:2000; align-items:center; justify-content:center; padding:20px; background:rgba(0,0,0,0.75); backdrop-filter:blur(6px);">
+    <!-- inner scrollable box -->
+    <div style="position:relative; background:rgba(10,9,6,0.96); border:1px solid rgba(201,168,76,0.3); border-radius:20px; padding:28px 28px 24px; width:100%; max-width:500px; text-align:center; box-shadow:0 24px 64px rgba(0,0,0,0.7); flex-direction:column; align-items:center; display:flex;">
 
     <style>
       @keyframes pendingPulse { 0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0.35)} 50%{box-shadow:0 0 0 22px rgba(201,168,76,0)} }
       @keyframes pendingSpin  { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
       @keyframes pendingFadeUp{ from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
       .pending-icon-wrap {
-        width:64px; height:64px; border-radius:50%;
+        width:52px; height:52px; border-radius:50%;
         background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(232,201,106,0.08));
         border:2px solid rgba(201,168,76,0.35);
         display:flex; align-items:center; justify-content:center;
-        font-size:26px; margin-bottom:12px; flex-shrink:0;
+        font-size:22px; margin-bottom:10px; flex-shrink:0;
         animation:pendingPulse 2.8s 0.5s infinite;
       }
       .pending-headline {
-        font-family:var(--fd); font-size:clamp(20px,3vw,32px); font-weight:700;
+        font-family:var(--fd); font-size:24px; font-weight:700;
         color:#fff; line-height:1.15; margin-bottom:6px; text-align:center;
         animation:pendingFadeUp .5s .2s both;
       }
       .pending-sub {
-        font-size:13px; color:rgba(255,255,255,0.55); margin-bottom:14px;
-        text-align:center; line-height:1.55; max-max-width:460px;
+        font-size:12.5px; color:rgba(255,255,255,0.55); margin-bottom:12px;
+        text-align:center; line-height:1.5; max-width:420px;
         animation:pendingFadeUp .5s .35s both;
       }
       .pending-card {
-        max-max-width:500px; width:100%;
+        width:100%;
         background:rgba(18,18,18,0.9); border:1px solid rgba(201,168,76,0.15);
-        border-radius:12px; padding:14px 20px; margin-bottom:14px;
+        border-radius:12px; padding:12px 16px; margin-bottom:12px;
+        text-align:left;
         animation:pendingFadeUp .5s .45s both;
       }
       .pending-card-title {
         font-size:10px; font-weight:700; text-transform:uppercase;
-        letter-spacing:0.08em; color:rgba(255,255,255,0.3); margin-bottom:10px;
+        letter-spacing:0.08em; color:rgba(255,255,255,0.3); margin-bottom:8px;
       }
       .pending-timeline { list-style:none; padding:0; margin:0; }
       .pending-timeline li {
-        display:flex; align-items:flex-start; gap:10px; padding:7px 0;
+        display:flex; align-items:flex-start; gap:8px; padding:5px 0;
         border-bottom:1px solid rgba(255,255,255,0.05);
-        font-size:12px; color:rgba(255,255,255,0.7); line-height:1.4;
+        font-size:11.5px; color:rgba(255,255,255,0.7); line-height:1.35;
       }
       .pending-timeline li:last-child { border-bottom:none; padding-bottom:0; }
       .pending-tl-dot {
-        width:20px; height:20px; border-radius:50%; flex-shrink:0;
+        width:18px; height:18px; border-radius:50%; flex-shrink:0;
         display:flex; align-items:center; justify-content:center;
-        font-size:10px; font-weight:800; margin-top:1px;
+        font-size:9px; font-weight:800; margin-top:1px;
       }
       .pending-tl-dot.done  { background:linear-gradient(135deg,var(--g),var(--gl)); color:#000; }
       .pending-tl-dot.active{ background:rgba(201,168,76,0.2); border:1.5px solid var(--g); color:var(--gl); }
       .pending-tl-dot.wait  { background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.12); color:rgba(255,255,255,0.3); }
-      .pending-tl-text strong{ display:block; font-size:12px; color:#fff; margin-bottom:1px; }
-      .pending-tl-text span  { font-size:11px; color:rgba(255,255,255,0.4); }
+      .pending-tl-text strong{ display:block; font-size:11.5px; color:#fff; margin-bottom:1px; }
+      .pending-tl-text span  { font-size:10.5px; color:rgba(255,255,255,0.4); }
       .pending-badge {
-        display:inline-flex; align-items:center; gap:8px;
+        display:inline-flex; align-items:center; gap:7px;
         background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.25);
-        border-radius:30px; padding:6px 16px; margin-bottom:14px;
-        font-size:12px; color:var(--gl); font-weight:600;
+        border-radius:30px; padding:5px 14px; margin-bottom:12px;
+        font-size:11.5px; color:var(--gl); font-weight:600;
         animation:pendingFadeUp .5s .55s both;
       }
       .pending-badge-dot {
-        width:7px; height:7px; border-radius:50%; background:var(--g);
+        width:6px; height:6px; border-radius:50%; background:var(--g);
         animation:pendingPulse 1.8s infinite;
       }
       .pending-ref {
@@ -2151,7 +2160,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
         letter-spacing:0.04em;
       }
       .pending-home-btn {
-        padding:11px 36px; background:linear-gradient(135deg,var(--g),var(--gl));
+        padding:10px 32px; background:linear-gradient(135deg,var(--g),var(--gl));
         color:#000; border:none; border-radius:10px; font-size:13px; font-weight:800;
         cursor:pointer; font-family:inherit; transition:all .2s;
         animation:pendingFadeUp .5s .65s both;
@@ -2210,6 +2219,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
     <p class="pending-ref">Reference: <span id="pendingRef">GB-XXXX-XXXX</span> &nbsp;·&nbsp; Check your SMS for updates</p>
     <button class="pending-home-btn" onclick="window.location.href='index.html'">← Back to GoldBazaar</button>
 
+    </div><!-- /inner box -->
   </div>
 
   <!-- Toast -->
@@ -2961,7 +2971,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       // ── Step 1: Upload banner to GitHub repo ──────────────────────────
       const GH_OWNER  = 'goldbazaarapp';
       const GH_REPO   = 'goldbazaar-platform';
-      const GH_PAT    = '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';
+      const GH_PAT    = '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';
       const GH_BRANCH = 'main';
       let bannerDriveUrl = '';
 

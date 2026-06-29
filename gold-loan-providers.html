@@ -474,7 +474,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   </div>
   <div class="nav-right">
     <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
-    <a href="login.html" class="nav-cta">Get Started</a>
+    
   </div>
   <button class="hamburger" onclick="mobToggle()"><span></span><span></span><span></span></button>
 </nav>
@@ -830,6 +830,7 @@ async function loadProviderData() {
 
 function stars(n){ return '★'.repeat(n) + '☆'.repeat(5-n); }
 
+const PROVIDER_NAMES = ['Kubera Treasury','Vijayanagara Treasury','Krishnadevaraya Vault','Vikramaditya Reserve','Chandragupta Capital'];
 function buildBanner(){
   const track = document.getElementById('vb-track');
   if(!track) return;
@@ -837,7 +838,7 @@ function buildBanner(){
   const items = [...featured, ...featured];
   const LOGO = 'images/logo.png';
   track.innerHTML = items.map((p, i) => {
-    const label = 'Gold Lender - ' + ((i % featured.length) + 1);
+    const label = PROVIDER_NAMES[i % featured.length] || ('Gold Lender - ' + ((i % featured.length) + 1));
     return `
     <div class="vb-card" onclick="scrollToProvider(${i % featured.length})">
       <span class="vb-card-badge">⭐ FEATURED</span>
@@ -871,7 +872,7 @@ function buildProviderCards(){
   const LOGO = 'images/logo.png';
 
   GL_PROVIDERS.slice(0, 5).forEach((p, idx) => {
-    const label = 'Gold Lender - ' + (idx + 1);
+    const label = PROVIDER_NAMES[idx] || ('Gold Lender - ' + (idx + 1));
     // Main card
     const card = document.createElement('div');
     card.className = 'mkt-card';

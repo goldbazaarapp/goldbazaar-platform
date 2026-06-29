@@ -308,7 +308,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   </div>
   <div class="nav-right">
     <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
-    <a href="login.html" class="nav-cta">Get Started</a>
+    
   </div>
   <button class="hamburger" onclick="mobToggle()"><span></span><span></span><span></span></button>
 </nav>
@@ -720,6 +720,7 @@ function renderSchemeSection(name, color, details) {
     </div>${bullets}</div>`;
 }
 
+const JEWELLER_NAMES = ['Suvarna Jewels','Bangara Jewels','Sona Jewels','Bangaram Jewels','Thangam Jewels'];
 function buildBanner(){
   const track = document.getElementById('vb-track');
   if(!track) return;
@@ -727,7 +728,7 @@ function buildBanner(){
   const items = [...featured, ...featured];
   const LOGO = 'images/logo.png';
   track.innerHTML = items.map((j, i) => {
-    const label = 'Jeweller - ' + ((i % featured.length) + 1);
+    const label = JEWELLER_NAMES[i % featured.length] || ('Jeweller - ' + ((i % featured.length) + 1));
     return `
     <div class="vb-card" onclick="scrollToVendor(${j.id})">
       <span class="vb-card-badge">⭐ FEATURED</span>
@@ -868,7 +869,7 @@ function renderVendors(data){
 
   const LOGO = 'images/logo.png';
   data.slice(0, 5).forEach((j, listIdx) => {
-    const label = 'Jeweller - ' + (listIdx + 1);
+    const label = JEWELLER_NAMES[listIdx] || ('Jeweller - ' + (listIdx + 1));
     const card = document.createElement('div');
     card.className = 'vendor-card';
     card.id = 'vc-'+j.id;
