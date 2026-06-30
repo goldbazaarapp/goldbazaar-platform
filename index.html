@@ -1242,7 +1242,7 @@ const GoldRateManager = {
   /* Forex: try two free APIs, take first that returns a plausible INR rate */
   async fetchForex() {
     const apis = [
-      () => this._get('https://open.er-api.com/v6/latest/USD').then(d => d.rates?.INR),
+      () => this._get('/api/forex').then(d => d.rates?.INR),
       () => this._get('https://api.frankfurter.app/latest?from=USD&to=INR').then(d => d.rates?.INR),
     ];
     for (const fn of apis) {
@@ -1258,8 +1258,8 @@ const GoldRateManager = {
   async fetchGoldApi() {
     const [usdInr, goldData, silverData] = await Promise.all([
       this.fetchForex(),
-      this._get('https://api.gold-api.com/price/XAU'),
-      this._get('https://api.gold-api.com/price/XAG'),
+      this._get('/api/gold/XAU'),
+      this._get('/api/gold/XAG'),
     ]);
     const goldUsd   = goldData?.price;
     const silverUsd = silverData?.price;
