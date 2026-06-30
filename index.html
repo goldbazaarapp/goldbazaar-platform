@@ -66,7 +66,7 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 .gold-widget-footer{padding:9px 16px;font-size:10px;color:rgba(255,255,255,.45);text-align:center;border-top:1px solid rgba(201,168,76,.1);background:rgba(0,0,0,.15)}
 @media(max-width:768px){.gold-widget{display:none}.hamburger{display:flex}.nav-center{display:none}}
 /* HERO */
-#hero{width:100%;margin-top:var(--nav-h);height:calc(100vh - var(--nav-h));position:relative;overflow:hidden;background:#000}
+#hero{width:100%;margin-top:var(--nav-h);aspect-ratio:16/9;height:auto;position:relative;overflow:hidden;background:#000}
 .hero-bg{position:absolute;inset:0;z-index:0}
 .hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;cursor:pointer;pointer-events:none}
 .hero-scene.active{opacity:1;pointer-events:auto}
@@ -513,19 +513,28 @@ html[data-theme="light"] .ad-card:hover{border-color:rgba(201,168,76,.6)!importa
 <link rel="stylesheet" href="responsive.css"/>
 <!-- Override responsive.css — must come AFTER the link to win -->
 <style>
-/* Force full-viewport hero height — matches vendor-onboarding-complete.html (calc(100vh - 124px)) */
+/* Hero: force 16:9 aspect ratio to exactly match image dimensions — eliminates all side-cropping.
+   object-fit:cover on a same-ratio container = zero crop in any direction. */
 #hero{
-  height:calc(100vh - 124px)!important;
-  height:calc(100svh - 124px)!important;
-  aspect-ratio:unset!important;
+  aspect-ratio:16/9!important;
+  height:auto!important;
   max-height:none!important;
-  min-height:200px!important;
+  min-height:180px!important;
+  width:100%!important;
 }
 @media(max-width:768px){
-  #hero{height:calc(100vh - 124px)!important;height:calc(100svh - 124px)!important;aspect-ratio:unset!important;min-height:200px!important;max-height:none!important}
+  #hero{
+    aspect-ratio:16/9!important;
+    height:auto!important;
+    min-height:160px!important;
+  }
 }
 @media(max-width:480px){
-  #hero{height:calc(100vh - 124px)!important;height:calc(100svh - 124px)!important;aspect-ratio:unset!important;min-height:160px!important}
+  #hero{
+    aspect-ratio:16/9!important;
+    height:auto!important;
+    min-height:120px!important;
+  }
 }
 </style>
 <script>

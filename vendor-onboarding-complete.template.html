@@ -3014,7 +3014,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       // ── Step 1: Upload banner to GitHub repo ──────────────────────────
       const GH_OWNER  = 'goldbazaarapp';
       const GH_REPO   = 'goldbazaar-platform';
-      const GH_PAT    = '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';
+      const GH_PAT    = '__VENDOR_UPLOAD_TOKEN__';
       const GH_BRANCH = 'main';
       let bannerDriveUrl = '';
 
@@ -3247,42 +3247,4 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       reqDetails:{'Total Weight':'350g','Coins':'200g 24K','Jewellery':'150g 22K','Expected Value':'₹22–25L'},
       budget:'—', weight:'350g', contactTime:'Morning (9–12 AM)',
       notes:'Large lot — premium buyer. Deal closed successfully.', otpVerified:true,
-      source:'Referral', intent:'High Intent', status:'Converted', date:'05 Jun 2026',
-      timeline:['Lead Received','Lead Accepted','Customer Contacted','Appointment Scheduled','Store Visit','Conversion Updated']
-    },
-    {
-      id:'GB-2026-001185', name:'Deepa Nair', mobile:'+91 87654 32109', email:'deepa.nair@email.com',
-      service:'Gold Loan', location:'Banashankari, Bangalore', area:'Banashankari',
-      requirement:'Loan Amount: ₹1,50,000 | Gold Weight: 42g',
-      reqDetails:{'Loan Amount':'₹1,50,000','Gold Weight':'42g','Tenure':'6 months','Purpose':'Medical expense'},
-      budget:'₹1,50,000', weight:'42g', contactTime:'Morning (9–12 AM)',
-      notes:'Urgent — medical emergency. Processed same-day.', otpVerified:true,
-      source:'GoldBazaar App', intent:'High Intent', status:'Converted', date:'05 Jun 2026',
-      timeline:['Lead Received','Lead Accepted','Customer Contacted','Appointment Scheduled','Store Visit','Conversion Updated']
-    }
-  ];
-
-  // ── Status colour map ──
-  const STATUS_COLORS = {
-    'New':'rgba(96,165,250,0.15)',
-    'Accepted':'rgba(201,168,76,0.15)',
-    'Contacted':'rgba(249,115,22,0.15)',
-    'Appointment Scheduled':'rgba(139,92,246,0.15)',
-    'Visited Store':'rgba(6,182,212,0.15)',
-    'Converted':'rgba(74,222,128,0.15)',
-    'Closed':'rgba(255,255,255,0.08)',
-    'Rejected':'rgba(239,68,68,0.12)'
-  };
-  const STATUS_TEXT = {
-    'New':'#60a5fa','Accepted':'#C9A84C','Contacted':'#f97316',
-    'Appointment Scheduled':'#a78bfa','Visited Store':'#22d3ee',
-    'Converted':'#4ade80','Closed':'rgba(255,255,255,0.4)','Rejected':'#ef4444'
-  };
-  const INTENT_COLORS = {'High Intent':'#4ade80','Medium Intent':'#facc15','General Enquiry':'rgba(255,255,255,0.35)'};
-
-  let currentDrawerLead = null;
-
-  function renderLeads() {
-    const q     = (document.getElementById('leadSearchInput')?.value || '').toLowerCase();
-    const svc   = document.getElementById('fltService')?.value || '';
-    const stat  = docu
+      source:'Ref
