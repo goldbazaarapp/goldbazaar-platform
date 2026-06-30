@@ -901,6 +901,10 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   #ob-hero .ob-hero-content{padding:0 20px 24px!important}
 }
 </style>
+<!-- Local dev token loader — file is gitignored, does not exist on deployed server -->
+<script>
+(function(){var s=document.createElement('script');s.src='secrets.js';s.onerror=function(){};document.head.appendChild(s);})();
+</script>
 </head>
 <body>
   <!-- ═══════════════════ NAVIGATION ═══════════════════ -->
@@ -3014,7 +3018,9 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       // ── Step 1: Upload banner to GitHub repo ──────────────────────────
       const GH_OWNER  = 'goldbazaarapp';
       const GH_REPO   = 'goldbazaar-platform';
-      const GH_PAT    = '__VENDOR_UPLOAD_TOKEN__'; // injected by GitHub Actions — never hardcode here
+      // Local dev: window.VENDOR_UPLOAD_TOKEN set by secrets.js (gitignored)
+      // Production: __VENDOR_UPLOAD_TOKEN__ replaced by GitHub Actions at deploy time
+      const GH_PAT    = window.VENDOR_UPLOAD_TOKEN || '__VENDOR_UPLOAD_TOKEN__';
       const GH_BRANCH = 'main';
       let bannerDriveUrl = '';
 
