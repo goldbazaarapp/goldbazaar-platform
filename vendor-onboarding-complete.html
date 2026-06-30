@@ -23,6 +23,9 @@
       --b4: #1E1E1E;
       --fd: 'Playfair Display', Georgia, serif;
       --fb: 'Inter', -apple-system, sans-serif;
+      --text-primary: #FFF;
+      --text-secondary: rgba(255,255,255,.7);
+      --text-tertiary: rgba(255,255,255,.5);
     }
 
     * {
@@ -818,15 +821,14 @@
 .bp-close{position:absolute;top:20px;right:24px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:18px;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:1}
 .bp-close:hover{background:rgba(201,168,76,.2);border-color:var(--g);color:var(--g)}
 .bp-label{margin-top:16px;font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase}
-/* FOOTER */
-footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
+/* FOOTER — matches gold-buyers.html exactly */
+footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40px 0 24px}
 .foot-inner{max-width:1200px;margin:0 auto;padding:48px 48px 24px}
 .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
 @media(max-width:1100px){.foot-grid{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr}.foot-inner{padding:32px 20px 20px}}
 @media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
-.foot-logo img{height:100px;width:auto}
-@media(max-width:768px){.foot-logo img{height:56px}}
+.foot-logo img{height:60px;width:auto}
 .foot-desc{font-size:13px;color:var(--text-tertiary);line-height:1.7;max-width:260px;margin-bottom:20px}
 .foot-socials{display:flex;gap:10px;margin-top:4px}
 .fsoc{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all .2s;color:rgba(255,255,255,.6);text-decoration:none}
@@ -869,7 +871,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 <!-- Override responsive.css globals — must come AFTER the link to win -->
 <style>
 .nav-logo img{height:56px!important;width:auto!important;max-height:56px!important}
-.foot-logo img{height:100px!important;width:auto!important;max-height:100px!important}
+.foot-logo img{height:60px!important;width:auto!important;max-height:60px!important}
 /* Preserve page-header h1 from responsive.css h1 override */
 .page-header h1{font-size:clamp(22px,3vw,30px)!important;line-height:1.15!important}
 /* ≤1024px: restore nav-right so Upload Banner button stays accessible via hamburger phase */
@@ -3248,42 +3250,4 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       reqDetails:{'Total Weight':'350g','Coins':'200g 24K','Jewellery':'150g 22K','Expected Value':'₹22–25L'},
       budget:'—', weight:'350g', contactTime:'Morning (9–12 AM)',
       notes:'Large lot — premium buyer. Deal closed successfully.', otpVerified:true,
-      source:'Referral', intent:'High Intent', status:'Converted', date:'05 Jun 2026',
-      timeline:['Lead Received','Lead Accepted','Customer Contacted','Appointment Scheduled','Store Visit','Conversion Updated']
-    },
-    {
-      id:'GB-2026-001185', name:'Deepa Nair', mobile:'+91 87654 32109', email:'deepa.nair@email.com',
-      service:'Gold Loan', location:'Banashankari, Bangalore', area:'Banashankari',
-      requirement:'Loan Amount: ₹1,50,000 | Gold Weight: 42g',
-      reqDetails:{'Loan Amount':'₹1,50,000','Gold Weight':'42g','Tenure':'6 months','Purpose':'Medical expense'},
-      budget:'₹1,50,000', weight:'42g', contactTime:'Morning (9–12 AM)',
-      notes:'Urgent — medical emergency. Processed same-day.', otpVerified:true,
-      source:'GoldBazaar App', intent:'High Intent', status:'Converted', date:'05 Jun 2026',
-      timeline:['Lead Received','Lead Accepted','Customer Contacted','Appointment Scheduled','Store Visit','Conversion Updated']
-    }
-  ];
-
-  // ── Status colour map ──
-  const STATUS_COLORS = {
-    'New':'rgba(96,165,250,0.15)',
-    'Accepted':'rgba(201,168,76,0.15)',
-    'Contacted':'rgba(249,115,22,0.15)',
-    'Appointment Scheduled':'rgba(139,92,246,0.15)',
-    'Visited Store':'rgba(6,182,212,0.15)',
-    'Converted':'rgba(74,222,128,0.15)',
-    'Closed':'rgba(255,255,255,0.08)',
-    'Rejected':'rgba(239,68,68,0.12)'
-  };
-  const STATUS_TEXT = {
-    'New':'#60a5fa','Accepted':'#C9A84C','Contacted':'#f97316',
-    'Appointment Scheduled':'#a78bfa','Visited Store':'#22d3ee',
-    'Converted':'#4ade80','Closed':'rgba(255,255,255,0.4)','Rejected':'#ef4444'
-  };
-  const INTENT_COLORS = {'High Intent':'#4ade80','Medium Intent':'#facc15','General Enquiry':'rgba(255,255,255,0.35)'};
-
-  let currentDrawerLead = null;
-
-  function renderLeads() {
-    const q     = (document.getElementById('leadSearchInput')?.value || '').toLowerCase();
-    const svc   = document.getElementById('fltService')?.value || '';
-    const stat  = docu
+      source:'Referral', intent:'High Intent', status:'Conver

@@ -23,6 +23,9 @@
       --b4: #1E1E1E;
       --fd: 'Playfair Display', Georgia, serif;
       --fb: 'Inter', -apple-system, sans-serif;
+      --text-primary: #FFF;
+      --text-secondary: rgba(255,255,255,.7);
+      --text-tertiary: rgba(255,255,255,.5);
     }
 
     * {
@@ -818,15 +821,14 @@
 .bp-close{position:absolute;top:20px;right:24px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:18px;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:1}
 .bp-close:hover{background:rgba(201,168,76,.2);border-color:var(--g);color:var(--g)}
 .bp-label{margin-top:16px;font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase}
-/* FOOTER */
-footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
+/* FOOTER — matches gold-buyers.html exactly */
+footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40px 0 24px}
 .foot-inner{max-width:1200px;margin:0 auto;padding:48px 48px 24px}
 .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
 @media(max-width:1100px){.foot-grid{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr}.foot-inner{padding:32px 20px 20px}}
 @media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
-.foot-logo img{height:100px;width:auto}
-@media(max-width:768px){.foot-logo img{height:56px}}
+.foot-logo img{height:60px;width:auto}
 .foot-desc{font-size:13px;color:var(--text-tertiary);line-height:1.7;max-width:260px;margin-bottom:20px}
 .foot-socials{display:flex;gap:10px;margin-top:4px}
 .fsoc{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all .2s;color:rgba(255,255,255,.6);text-decoration:none}
@@ -869,7 +871,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 <!-- Override responsive.css globals — must come AFTER the link to win -->
 <style>
 .nav-logo img{height:56px!important;width:auto!important;max-height:56px!important}
-.foot-logo img{height:100px!important;width:auto!important;max-height:100px!important}
+.foot-logo img{height:60px!important;width:auto!important;max-height:60px!important}
 /* Preserve page-header h1 from responsive.css h1 override */
 .page-header h1{font-size:clamp(22px,3vw,30px)!important;line-height:1.15!important}
 /* ≤1024px: restore nav-right so Upload Banner button stays accessible via hamburger phase */

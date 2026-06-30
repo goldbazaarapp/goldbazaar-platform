@@ -267,7 +267,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
 @media(max-width:1100px){.foot-grid{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr}.foot-inner{padding:32px 20px 20px}}
 @media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
-.foot-logo img{height:100px;width:auto}
+.foot-logo img{height:60px;width:auto}
 .foot-desc{font-size:13px;color:var(--text-tertiary);line-height:1.7;max-width:260px;margin-bottom:20px}
 .foot-socials{display:flex;gap:10px;margin-top:4px}
 .fsoc{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all .2s;color:rgba(255,255,255,.6);text-decoration:none}
@@ -352,7 +352,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 /* Prevent responsive.css [class*="btn-"] making buttons full-width on mobile */
 .btn-gold,.btn-pink{width:auto!important;display:inline-flex!important}
 .nav-logo img{height:56px!important;width:auto!important;max-height:56px!important}
-.foot-logo img{height:100px!important;width:auto!important;max-height:100px!important}
+.foot-logo img{height:60px!important;width:auto!important;max-height:60px!important}
 @media(max-width:768px){
   .nav-logo img{height:38px!important;max-height:38px!important}
   #nav{padding:0 16px!important}
@@ -1008,65 +1008,4 @@ function renderVendors(data){
               <div class="ve-item"><span class="ve-lbl">📍 Location</span><span class="ve-val">${j.loc}</span></div>
               <div class="ve-item"><span class="ve-lbl">💍 Gold Purity</span><span class="ve-val ve-val-highlight">${j.purity}</span></div>
               <div class="ve-item"><span class="ve-lbl">🔨 Making Charges</span><span class="ve-val ve-val-highlight">${j.makingCharge}</span></div>
-              <div class="ve-item"><span class="ve-lbl">🏅 Hallmark</span><span class="ve-val">BIS Hallmark · HUID Tagged</span></div>
-              <div class="ve-item"><span class="ve-lbl">🛍️ Total Designs</span><span class="ve-val">${j.pieces} designs listed</span></div>
-              <div class="ve-item"><span class="ve-lbl">⭐ Rating</span><span class="ve-val">${j.starStr} · Verified Seller</span></div>
-              <div class="ve-item" style="grid-column:1/-1"><span class="ve-lbl">💎 Collections</span><span class="ve-val">${j.categories.map(c=>c.charAt(0).toUpperCase()+c.slice(1)+'s').join(' · ')}</span></div>
-              <div class="ve-item" style="grid-column:1/-1"><span class="ve-lbl">✅ Trust Assurance</span><span class="ve-val">BIS Certified · Zero Hidden Charges · Live MCX-based Gold Rate · Transparent Making Charges</span></div>
-            </div>
-            ${renderSchemeSection(j.scheme1, j.scheme1Color, j.scheme1Details)}
-            ${renderSchemeSection(j.scheme2, j.scheme2Color, j.scheme2Details)}
-            <div class="jwl-grid" style="margin-top:20px">
-              ${renderJewelleryItems(j)}
-            </div>
-          </div>
-        </div>
-      </div>`;
-    list.appendChild(card);
-    requestAnimationFrame(()=>card.classList.add('in'));
-  });
-}
-
-/* ── Toggle expand ── */
-function toggleVendor(id){
-  if(openVendorId === id){
-    document.getElementById('ve-'+id).classList.remove('open');
-    document.getElementById('ta-'+id).style.transform='';
-    openVendorId=-1; return;
-  }
-  if(openVendorId !== -1){
-    document.getElementById('ve-'+openVendorId).classList.remove('open');
-    document.getElementById('ta-'+openVendorId).style.transform='';
-  }
-  const ve = document.getElementById('ve-'+id);
-  if(ve){ ve.classList.add('open'); setTimeout(()=>ve.scrollIntoView({behavior:'smooth',block:'nearest'}),50); }
-  document.getElementById('ta-'+id).style.transform='rotate(180deg)';
-  openVendorId=id;
-}
-
-/* ── Load jewellers from Excel ── */
-async function loadJewellers(){
-  const loadingEl = document.getElementById('jewellers-loading');
-  try {
-    const resp = await fetch('data/jewellers.xlsx');
-    if(!resp.ok) throw new Error('HTTP '+resp.status);
-    const buf = await resp.arrayBuffer();
-    const wb  = XLSX.read(buf,{type:'array'});
-    const ws  = wb.Sheets[wb.SheetNames[0]];
-    const rows= XLSX.utils.sheet_to_json(ws,{defval:''});
-    JEWELLERS = rows.map((r,i)=>xlsxRowToJeweller(r,i)).filter(j=>j.active);
-    buildBanner();
-    applyFilters();
-  } catch(e){
-    if(loadingEl){
-      loadingEl.innerHTML='⚠️ Please open via <strong>Start GoldBazaar.bat</strong> → visit '+
-        '<a href="http://localhost:8080/jewellery.html" style="color:var(--accent-l)">localhost:8080</a> to load live data from Excel.';
-    }
-  }
-}
-
-document.addEventListener('DOMContentLoaded',()=>{ ThemeManager.init(); loadJewellers(); initHero(); });
-</script>
-
-</body>
-</html>
+              <div class="ve-item"><span class="ve-lbl">🏅 Hallmark</span><span class="ve-val">BIS Hallmark · HUID Ta
