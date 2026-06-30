@@ -5,7 +5,7 @@
 
 ## 1. INFORMATION ARCHITECTURE
 
-### 1.1 Platform Overview
+### 1.1 Platform Overview 
 
 ```
 GoldBazaar Platform
