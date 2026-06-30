@@ -901,9 +901,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   #ob-hero .ob-hero-content{padding:0 20px 24px!important}
 }
 </style>
-<!-- secrets.js loads the token for localhost testing — gitignored, never on GitHub -->
-<!-- On GitHub Pages this 404s silently; GitHub Actions injects the token instead -->
-<script src="secrets.js" onerror="void 0"></script>
+<!-- No token needed here — uploads go through the Cloudflare Worker proxy (token stored server-side) -->
 </head>
 <body>
   <!-- ═══════════════════ NAVIGATION ═══════════════════ -->
@@ -3014,26 +3012,23 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
                          .join(', ');
       const websiteUrl = (document.getElementById('websiteUrl')?.value || '').trim();
 
-      // ── Step 1: Upload banner to GitHub repo ──────────────────────────
-      const GH_OWNER  = 'goldbazaarapp';
-      const GH_REPO   = 'goldbazaar-platform';
-      // localhost: token comes from secrets.js (gitignored, local only)
-      // GitHub Pages: __VENDOR_UPLOAD_TOKEN__ is replaced by GitHub Actions at deploy time
-      const GH_PAT    = window.VENDOR_UPLOAD_TOKEN || '__VENDOR_UPLOAD_TOKEN__';
-      const GH_BRANCH = 'main';
+      // ── Step 1: Upload banner via Cloudflare Worker proxy ────────────
+      // The Worker holds the GitHub token server-side — nothing sensitive in this file.
+      // Worker source: cloudflare-worker/upload-proxy.js
+      // Set your Worker URL below after deploying to Cloudflare (free):
+      const UPLOAD_PROXY = 'https://goldbazaar-upload.goldbazaar-app.workers.dev';
+      const GH_BRANCH    = 'main';
       let bannerDriveUrl = '';
 
       if (uploadedBlobUrl && uploadedFileObj) {
         try {
-          const base64 = uploadedBlobUrl.split(',')[1];
-          const filePath = 'vendor-banners/' + uploadedFileName;
-          const apiUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${filePath}`;
+          const base64    = uploadedBlobUrl.split(',')[1];
+          const filePath  = 'vendor-banners/' + uploadedFileName;
+          const proxyUrl  = UPLOAD_PROXY + '/' + filePath;
 
           // Check if file already exists (need SHA to overwrite)
-          let sha = undefined;
-          const checkRes = await fetch(apiUrl, {
-            headers: { Authorization: 'Bearer ' + GH_PAT, Accept: 'application/vnd.github+json' }
-          });
+          let sha;
+          const checkRes = await fetch(proxyUrl);
           if (checkRes.ok) {
             const existing = await checkRes.json();
             sha = existing.sha;
@@ -3042,17 +3037,18 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
           // Upload file
           const body = { message: 'Upload vendor banner: ' + uploadedFileName, content: base64, branch: GH_BRANCH };
           if (sha) body.sha = sha;
-          const uploadRes = await fetch(apiUrl, {
+
+          const uploadRes = await fetch(proxyUrl, {
             method: 'PUT',
-            headers: { Authorization: 'Bearer ' + GH_PAT, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
           });
           const uploadData = await uploadRes.json();
           if (uploadData.content?.html_url) {
-            bannerDriveUrl = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${GH_BRANCH}/${filePath}`;
-            console.log('Banner uploaded to GitHub:', bannerDriveUrl);
+            bannerDriveUrl = `https://raw.githubusercontent.com/goldbazaarapp/goldbazaar-platform/${GH_BRANCH}/${filePath}`;
+            console.log('Banner uploaded via proxy:', bannerDriveUrl);
           } else {
-            console.error('GitHub upload error:', JSON.stringify(uploadData));
+            console.error('Upload proxy error:', JSON.stringify(uploadData));
           }
         } catch(e) { console.warn('Banner upload failed:', e); }
       }
