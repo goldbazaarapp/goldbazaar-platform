@@ -1008,4 +1008,40 @@ function renderVendors(data){
               <div class="ve-item"><span class="ve-lbl">📍 Location</span><span class="ve-val">${j.loc}</span></div>
               <div class="ve-item"><span class="ve-lbl">💍 Gold Purity</span><span class="ve-val ve-val-highlight">${j.purity}</span></div>
               <div class="ve-item"><span class="ve-lbl">🔨 Making Charges</span><span class="ve-val ve-val-highlight">${j.makingCharge}</span></div>
-              <div class="ve-item"><span class="ve-lbl">🏅 Hallmark</span><span class="ve-val">BIS Hallmark · HUID Ta
+              <div class="ve-item"><span class="ve-lbl">🏅 Hallmark</span><span class="ve-val">BIS Hallmark · HUID Tagged</span></div>
+              <div class="ve-item"><span class="ve-lbl">🎨 Total Designs</span><span class="ve-val">${j.pieces} designs</span></div>
+            </div>
+            ${renderSchemeSection(j.scheme1, j.scheme1Color, j.scheme1Details)}
+            ${renderSchemeSection(j.scheme2, j.scheme2Color, j.scheme2Details)}
+          </div>
+        </div>
+        ${renderJewelleryItems(j)}
+      </div>`;
+    list.appendChild(card);
+  });
+}
+
+function toggleVendor(id){
+  const expand = document.getElementById('ve-'+id);
+  const arrow  = document.getElementById('ta-'+id);
+  if(!expand) return;
+  const isOpen = expand.classList.contains('open');
+  if(openVendorId !== -1 && openVendorId !== id){
+    const prev = document.getElementById('ve-'+openVendorId);
+    const prevArrow = document.getElementById('ta-'+openVendorId);
+    if(prev) prev.classList.remove('open');
+    if(prevArrow) prevArrow.style.transform = '';
+  }
+  if(isOpen){
+    expand.classList.remove('open');
+    if(arrow) arrow.style.transform = '';
+    openVendorId = -1;
+  } else {
+    expand.classList.add('open');
+    if(arrow) arrow.style.transform = 'rotate(180deg)';
+    openVendorId = id;
+  }
+}
+</script>
+</body>
+</html>

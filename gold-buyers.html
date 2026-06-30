@@ -835,7 +835,7 @@ document.addEventListener('DOMContentLoaded', () => { ThemeManager.init(); loadB
    ──────────────────────────────────────────────────────────────────── */
 const HERO_SLIDES_SELL=[
   {src:'https://images.unsplash.com/photo-1611107683227-e9060eccd846?w=1600&h=600&fit=crop&crop=entropy&q=90', tag:'Sell Gold', h1:'Get the Best Price for Your Gold.', sub:'Instant valuation from verified gold buyers across India.'},
-  <!---{src:'https://images.unsplash.com/photo-1650455221359-3aebf920bcc5?w=1600&h=600&fit=crop&crop=entropy&q=90', tag:'Trusted Buyers', h1:'Sell with  <!---Confidence.', sub:'BIS-certified, transparent weighing and same-day payment guaranteed.'},
+  // {src:'https://images.unsplash.com/photo-1650455221359-3aebf920bcc5?w=1600&h=600&fit=crop&crop=entropy&q=90', tag:'Trusted Buyers', h1:'Sell with Confidence.', sub:'BIS-certified, transparent weighing and same-day payment guaranteed.'},
   {src:'https://images.unsplash.com/photo-1611955167811-4711904bb9f8?w=1600&h=600&fit=crop&crop=entropy&q=90', tag:'Zero Hidden Charges', h1:'What You See Is What You Get.', sub:'No deductions, no surprises — fair market rate every time.'},
   {src:'https://images.unsplash.com/photo-1622398925373-3f91b1e275f5?w=1600&h=600&fit=crop&crop=entropy&q=90', tag:'Gold Buyers Near You', h1:'Walk In. Walk Out Richer.', sub:'Find top-rated gold buyers in your city with real-time gold rates.'},
   {src:'https://images.pexels.com/photos/31605845/pexels-photo-31605845.jpeg?auto=compress&cs=tinysrgb&w=1600&h=600&fit=crop', tag:'Jewellery Buyers', h1:'Every Piece Has Its Price.', sub:'Expert valuation for necklaces, pendants, bangles — any gold jewellery.'},
@@ -857,4 +857,39 @@ const HeroManager={
     // To use your own branded images: add images/gold-buyers/hero-1.png
     // to the repo, then uncomment the line below.
     // this._scanLocal('images/gold-buyers/hero-', bg, dotsEl);
-    // ─────────────────────────────────�
+    // ─────────────────────────────────────────────────────────────────── */
+  },
+  _build(bg,dotsEl){
+    this.items.forEach((item,i)=>{
+      const sc=document.createElement('div');sc.className='hero-scene'+(i===0?' active':'');
+      sc.style.backgroundImage='url('+item.src+')';bg.appendChild(sc);
+      if(dotsEl){const d=document.createElement('button');d.className='hero-dot'+(i===0?' active':'');
+        d.onclick=(e)=>{e.stopPropagation();this.go(i);};dotsEl.appendChild(d);}
+    });
+  },
+  renderContent(slide){
+    const el=document.getElementById('hero-slide-content');
+    if(!el||!slide)return;
+    el.style.animation='none';el.offsetHeight;el.style.animation='';
+    el.innerHTML=slide.h1?`<div class="hero-eyebrow">${slide.tag}</div>
+      <h1 style="margin-bottom:10px">${slide.h1}</h1>
+      <p style="max-width:380px;margin-bottom:18px">${slide.sub}</p>
+      <a href="#buyers-grid" class="btn-gold" style="font-size:13px;padding:11px 24px"
+        onclick="event.preventDefault();document.getElementById('buyers-grid')?.scrollIntoView({behavior:'smooth'})">Compare Buyers</a>`:'';
+  },
+  go(n){
+    const scenes=document.querySelectorAll('.hero-scene');
+    const dots=document.querySelectorAll('.hero-dot');
+    scenes[this.current]?.classList.remove('active');
+    dots[this.current]?.classList.remove('active');
+    this.current=n;
+    scenes[n]?.classList.add('active');
+    dots[n]?.classList.add('active');
+    this.renderContent(this.items[n]);
+  },
+  next(){this.go((this.current+1)%this.items.length)}
+};
+document.addEventListener('DOMContentLoaded',()=>{HeroManager.init();loadBuyerData();});
+</script>
+</body>
+</html>

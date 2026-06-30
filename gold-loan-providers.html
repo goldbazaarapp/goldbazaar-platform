@@ -1029,4 +1029,47 @@ function buildProviderCards(){
           <img src="${LOGO}" alt="${label}" class="pe-logo" style="background:transparent;padding:8px"/>
           <div class="pe-name">${label}</div>
           <div class="pe-type">${p.type}</div>
-          <div class="pe-stars">${stars(p.stars)} <span class="pe-badge
+          <div class="pe-stars">${stars(p.stars)} <span class="pe-badge">✓ ${p.trustBadge}</span></div>
+        </div>
+        <div class="pe-right">
+          <div class="pe-grid">
+            <div class="pe-item"><div class="pe-lbl">📊 Interest Rate</div><div class="pe-val" style="color:var(--g);font-weight:700">${p.rate}</div></div>
+            <div class="pe-item"><div class="pe-lbl">⚖️ LTV Ratio</div><div class="pe-val">${p.ltv}</div></div>
+            <div class="pe-item"><div class="pe-lbl">⚡ Disbursal</div><div class="pe-val">${p.disburse}</div></div>
+            <div class="pe-item"><div class="pe-lbl">🔄 Processing</div><div class="pe-val">${p.processing}</div></div>
+            <div class="pe-item"><div class="pe-lbl">💰 Loan Range</div><div class="pe-val">${p.loanMin}–${p.loanMax}</div></div>
+            <div class="pe-item"><div class="pe-lbl">📋 Eligibility</div><div class="pe-val">${p.eligibility}</div></div>
+            <div class="pe-item" style="grid-column:1/-1"><div class="pe-lbl">📄 Documents</div><div class="pe-val">${p.documents}</div></div>
+            <div class="pe-item" style="grid-column:1/-1"><div class="pe-lbl">📍 Locations</div><div class="pe-val">${p.location}</div></div>
+          </div>
+          ${renderSchemeSection(p.scheme1, p.scheme1Color, p.scheme1Details, 'Special Scheme')}
+          ${renderSchemeSection(p.scheme2, p.scheme2Color, p.scheme2Details, 'Also Available')}
+          <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            ${p.website ? `<a href="${p.website}" target="_blank" rel="noopener" class="view-btn">Visit Website →</a>` : ''}
+            <button class="view-btn" style="background:transparent;border:1px solid rgba(201,168,76,.3);color:var(--g)" onclick="toggleProvider(${idx})">✕ Close</button>
+          </div>
+        </div>
+      </div>`;
+    grid.appendChild(panel);
+  });
+}
+
+function toggleProvider(idx){
+  const panel = document.getElementById('expand-'+idx);
+  const arrow = document.getElementById('arrow-'+idx);
+  if(!panel) return;
+  const isOpen = panel.classList.contains('open');
+  document.querySelectorAll('.provider-expand.open').forEach(p=>{p.classList.remove('open');});
+  document.querySelectorAll('[id^="arrow-"]').forEach(a=>{a.style.transform='';});
+  if(!isOpen){panel.classList.add('open');if(arrow)arrow.style.transform='rotate(180deg)';}
+}
+
+function scrollToProvider(idx){
+  const card = document.getElementById('card-'+idx);
+  if(card){card.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>toggleProvider(idx),400);}
+}
+
+document.addEventListener('DOMContentLoaded',()=>loadProviderData());
+</script>
+</body>
+</html>
