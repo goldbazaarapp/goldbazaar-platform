@@ -888,19 +888,33 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   .page-header h1{font-size:clamp(18px,4vw,26px)!important}
   .page-header .ph-inner{padding:0 16px!important}
   .tab-content{padding:24px 16px!important}
-  /* Hero text — match gold-buyers/jewellery at mobile */
-  #ob-hero .ob-hero-content h1{font-size:22px!important;line-height:1.2!important}
-  #ob-hero .ob-hero-content p{font-size:13px!important}
-  #ob-hero .ob-hero-content{padding:0 24px 36px!important}
+  /* Hero text — span full height, push content to bottom together */
+  #ob-hero .ob-hero-content{
+    top:0!important;
+    bottom:0!important;
+    justify-content:flex-end!important;
+    padding:0 20px 28px!important;
+    gap:6px!important;
+  }
+  #ob-hero .ob-hero-content h1{font-size:20px!important;line-height:1.2!important;margin-bottom:0!important}
+  #ob-hero .ob-hero-content p{font-size:13px!important;margin-bottom:0!important}
+  #ob-hero .ob-hero-content .ob-tag{margin-bottom:4px!important}
 }
 @media(max-width:480px){
   .nav-logo img{height:32px!important;max-height:32px!important}
   .foot-logo img{height:44px!important;max-height:44px!important}
   .foot-inner{padding:28px 16px 16px!important}
-  #hero-upload-wrap{aspect-ratio:4/3!important;}
-  #ob-hero .ob-hero-content h1{font-size:18px!important;line-height:1.2!important;margin-bottom:8px!important}
+  #hero-upload-wrap{aspect-ratio:3/2!important;}
+  #ob-hero .ob-hero-content{
+    top:0!important;
+    bottom:0!important;
+    justify-content:flex-end!important;
+    padding:0 18px 24px!important;
+    gap:5px!important;
+  }
+  #ob-hero .ob-hero-content h1{font-size:17px!important;line-height:1.2!important;margin-bottom:0!important}
   #ob-hero .ob-hero-content p{font-size:12px!important;margin-bottom:0!important}
-  #ob-hero .ob-hero-content{padding:0 20px 32px!important}
+  #ob-hero .ob-hero-content .ob-tag{margin-bottom:2px!important;font-size:10px!important}
 }
 </style>
 <!-- No token needed here — uploads go through the Cloudflare Worker proxy (token stored server-side) -->
