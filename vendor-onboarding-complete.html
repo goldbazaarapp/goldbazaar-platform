@@ -408,17 +408,24 @@
         rgba(5,3,0,0) 75%);
       pointer-events: none;
     }
-    /* ── Bottom-left hero text (consistent with other GoldBazaar pages) ── */
+    /* ── Hero text: full-height container, content grouped at bottom ── */
+    /* ── Hero content: matches gold-buyers.html pattern exactly ── */
     #ob-hero .ob-hero-content {
       position: absolute;
-      bottom: 0; left: 0;
+      top: 0; left: 0; bottom: 0;
       width: 100%;
+      z-index: 3;
+      display: flex;
+      align-items: flex-end;   /* row direction → cross-axis pushes to bottom */
+      padding: 0 48px 36px;
+      pointer-events: none;
+    }
+    /* Inner wrapper stacks tag + h1 + p vertically */
+    #ob-hero .ob-text-group {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      padding: 0 52px 52px;
-      z-index: 2;
-      pointer-events: none;
+      gap: 8px;
     }
     #ob-hero .ob-hero-content .ob-tag {
       display: flex;
@@ -429,7 +436,7 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--g, #C9A84C);
-      margin-bottom: 10px;
+      margin: 0;
     }
     #ob-hero .ob-hero-content .ob-tag::before {
       content: '';
@@ -439,21 +446,21 @@
     }
     #ob-hero .ob-hero-content h1 {
       font-family: var(--fd, 'Cormorant Garamond', serif);
-      font-size: clamp(13px, 1.3vw, 20px);
+      font-size: clamp(16px, 1.8vw, 28px);
       font-weight: 700;
       color: #fff;
       letter-spacing: -0.03em;
       line-height: 1.18;
-      margin: 0 0 10px;
-      max-width: 380px;
+      margin: 0;
+      max-width: 480px;
       text-shadow: 0 2px 16px rgba(0,0,0,1), 0 4px 32px rgba(0,0,0,.9);
     }
     #ob-hero .ob-hero-content p {
-      font-size: clamp(10px, 1.1vw, 13px);
+      font-size: clamp(12px, 1.1vw, 14px);
       color: rgba(255,255,255,0.88);
-      max-width: 420px;
-      line-height: 1.7;
-      margin: 0 0 20px;
+      max-width: 440px;
+      line-height: 1.65;
+      margin: 0;
       text-shadow: 0 1px 10px rgba(0,0,0,1);
     }
     .ob-hero-text-enter {
@@ -888,33 +895,20 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   .page-header h1{font-size:clamp(18px,4vw,26px)!important}
   .page-header .ph-inner{padding:0 16px!important}
   .tab-content{padding:24px 16px!important}
-  /* Hero text — span full height, push content to bottom together */
-  #ob-hero .ob-hero-content{
-    top:0!important;
-    bottom:0!important;
-    justify-content:flex-end!important;
-    padding:0 20px 28px!important;
-    gap:6px!important;
-  }
-  #ob-hero .ob-hero-content h1{font-size:20px!important;line-height:1.2!important;margin-bottom:0!important}
-  #ob-hero .ob-hero-content p{font-size:13px!important;margin-bottom:0!important}
-  #ob-hero .ob-hero-content .ob-tag{margin-bottom:4px!important}
+  /* Hero text mobile adjustments */
+  #ob-hero .ob-hero-content{ padding:0 20px 22px!important; }
+  #ob-hero .ob-hero-content h1{ font-size:clamp(14px,3.5vw,20px)!important; }
+  #ob-hero .ob-hero-content p{ font-size:12px!important; }
 }
 @media(max-width:480px){
   .nav-logo img{height:32px!important;max-height:32px!important}
   .foot-logo img{height:44px!important;max-height:44px!important}
   .foot-inner{padding:28px 16px 16px!important}
   #hero-upload-wrap{aspect-ratio:3/2!important;}
-  #ob-hero .ob-hero-content{
-    top:0!important;
-    bottom:0!important;
-    justify-content:flex-end!important;
-    padding:0 18px 24px!important;
-    gap:5px!important;
-  }
-  #ob-hero .ob-hero-content h1{font-size:17px!important;line-height:1.2!important;margin-bottom:0!important}
-  #ob-hero .ob-hero-content p{font-size:12px!important;margin-bottom:0!important}
-  #ob-hero .ob-hero-content .ob-tag{margin-bottom:2px!important;font-size:10px!important}
+  #ob-hero .ob-hero-content{ padding:0 16px 18px!important; }
+  #ob-hero .ob-hero-content h1{ font-size:clamp(12px,3.5vw,16px)!important; margin-bottom:6px!important; }
+  #ob-hero .ob-hero-content p{ display:none!important; }
+  #ob-hero .ob-hero-content .ob-tag{ font-size:10px!important; }
 }
 </style>
 <!-- No token needed here — uploads go through the Cloudflare Worker proxy (token stored server-side) -->
@@ -1045,9 +1039,11 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       <!-- bg-scene divs injected by JS -->
       <div class="ob-overlay"></div>
       <div class="ob-hero-content" id="obHeroContent">
-        <div class="ob-tag" id="obTag"></div>
-        <h1 id="obH1"></h1>
-        <p id="obSub"></p>
+        <div class="ob-text-group">
+          <div class="ob-tag" id="obTag"></div>
+          <h1 id="obH1"></h1>
+          <p id="obSub"></p>
+        </div>
       </div>
       <div class="ob-dots" id="obDots"></div>
     </div>
@@ -2291,7 +2287,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   <div class="foot-inner">
     <div class="foot-grid">
       <div>
-        <div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div>
+        <a href="index.html" class="foot-logo" style="display:block;cursor:pointer;"><img src="images/logo.png" alt="GoldBazaar"/></a>
         <p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions.</p>
         <div class="foot-socials">
           <a href="https://linkedin.com" target="_blank" class="fsoc" title="LinkedIn">in</a>
@@ -2701,12 +2697,13 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
         tagEl.textContent = slide.tag || '';
         h1El.textContent  = slide.h1  || '';
         subEl.textContent = slide.sub || '';
-        // Trigger entrance animation
-        cont.querySelectorAll('.ob-tag, h1, p').forEach(el => {
-          el.classList.remove('ob-hero-text-enter');
-          void el.offsetWidth; // reflow
-          el.classList.add('ob-hero-text-enter');
-        });
+        // Trigger entrance animation on the text group
+        const grp = cont.querySelector('.ob-text-group');
+        if (grp) {
+          grp.classList.remove('ob-hero-text-enter');
+          void grp.offsetWidth; // reflow
+          grp.classList.add('ob-hero-text-enter');
+        }
       }
 
       function buildSlider(items) {
@@ -3254,14 +3251,4 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       reqDetails:{'Exchange Weight':'80g','Current Gold':'18K bangles','Desired':'22K necklace set','Timeline':'Within 2 weeks'},
       budget:'—', weight:'80g', contactTime:'Anytime',
       notes:'Basic enquiry — no specific urgency', otpVerified:false,
-      source:'Google Search', intent:'General Enquiry', status:'New', date:'07 Jun 2026',
-      timeline:['Lead Received']
-    },
-    {
-      id:'GB-2026-001198', name:'Suresh Kumar', mobile:'+91 88765 43210', email:'suresh.kumar@email.com',
-      service:'Gold Sell', location:'Rajajinagar, Bangalore', area:'Rajajinagar',
-      requirement:'Sell 350g mixed gold — coins (200g 24K) + jewellery (150g 22K)',
-      reqDetails:{'Total Weight':'350g','Coins':'200g 24K','Jewellery':'150g 22K','Expected Value':'₹22–25L'},
-      budget:'—', weight:'350g', contactTime:'Morning (9–12 AM)',
-      notes:'Large lot — premium buyer. Deal closed successfully.', otpVerified:true,
-      source:'Referral', intent:'High Intent', status:'Conver
+      source:'Google Search', intent:'General Enquiry', status:'New', date:'07 Ju
