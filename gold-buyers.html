@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Sell Gold — GoldBazaar</title>
 <meta name="description" content="Sell your gold at the best rates. Compare 200+ verified gold buyers across India. BIS certified, instant payment."/>
+<!-- Preload first hero image for instant display -->
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin/>
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1611107683227-e9060eccd846?w=1600&h=600&fit=crop&crop=entropy&q=90"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
@@ -50,7 +53,7 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 #mob-nav a{font-size:15px;font-weight:500;color:rgba(255,255,255,.72);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
 /* PAGE HERO */
 /* PAGE ACCENT */
-:root{--accent:#22c55e;--accent-l:#4ade80;--accent-rgb:34,197,94}
+:root{--accent:#0F766E;--accent-l:#14B8A6;--accent-rgb:15,118,110}
 /* FILTER BAR */
 .filter-bar{display:flex;align-items:center;gap:16px;margin-bottom:32px;flex-wrap:wrap;background:var(--b3);border:1px solid var(--b4);border-radius:12px;padding:20px}
 .filter-group{display:flex;align-items:center;gap:10px;flex:1;min-width:200px}
@@ -59,29 +62,29 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 .filter-group input:focus,.filter-group select:focus{border-color:var(--accent)}
 .filter-group input::placeholder{color:rgba(255,255,255,.3)}
 .filter-group select option{background:#000}
-.filter-reset{padding:8px 16px;border:1px solid rgba(34,197,94,.3);border-radius:8px;font-size:12px;font-weight:600;color:var(--accent-l);background:rgba(34,197,94,.07);cursor:pointer;transition:all .2s;white-space:nowrap}
-.filter-reset:hover{background:rgba(34,197,94,.12);border-color:var(--accent)}
+.filter-reset{padding:8px 16px;border:1px solid rgba(15,118,110,.3);border-radius:8px;font-size:12px;font-weight:600;color:var(--accent-l);background:rgba(15,118,110,.07);cursor:pointer;transition:all .2s;white-space:nowrap}
+.filter-reset:hover{background:rgba(15,118,110,.12);border-color:var(--accent)}
 /* VIEW TOGGLE */
 .mkt-view-toggle{display:flex;gap:6px;align-items:center;margin-left:auto}
-.mkt-view-btn{padding:7px 16px;border:1.5px solid rgba(34,197,94,.3);border-radius:7px;background:none;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;font-family:inherit}
+.mkt-view-btn{padding:7px 16px;border:1.5px solid rgba(15,118,110,.3);border-radius:7px;background:none;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;font-family:inherit}
 .mkt-view-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent-l));color:#000;border-color:var(--accent)}
 /* LIST/TILE GRID */
 .mkt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.mkt-grid.list-view{grid-template-columns:1fr;gap:0;background:var(--b3);border:1px solid rgba(34,197,94,.12);border-radius:14px;overflow:hidden}
-.mkt-table-header{display:none;padding:12px 20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.4);border-bottom:1px solid rgba(34,197,94,.1)}
+.mkt-grid.list-view{grid-template-columns:1fr;gap:0;background:var(--b3);border:1px solid rgba(15,118,110,.12);border-radius:14px;overflow:hidden}
+.mkt-table-header{display:none;padding:12px 20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.4);border-bottom:1px solid rgba(15,118,110,.1)}
 .mkt-grid.list-view .mkt-table-header{display:grid;grid-template-columns:80px 2fr 1.5fr 1fr 2fr 1fr 1fr;gap:12px}
-.mkt-card{background:var(--b3);border:1px solid rgba(34,197,94,.1);border-radius:14px;padding:20px;display:flex;gap:16px;transition:all .3s;cursor:pointer}
-.mkt-card:hover{border-color:rgba(34,197,94,.3);box-shadow:0 8px 24px rgba(34,197,94,.08)}
+.mkt-card{background:var(--b3);border:1px solid rgba(15,118,110,.1);border-radius:14px;padding:20px;display:flex;gap:16px;transition:all .3s;cursor:pointer}
+.mkt-card:hover{border-color:rgba(15,118,110,.3);box-shadow:0 8px 24px rgba(15,118,110,.08)}
 html[data-theme="light"] .mkt-card{background:#fff;border-color:rgba(0,0,0,.07)}
-.mkt-grid.list-view .mkt-card{border-radius:0;border:none;border-bottom:1px solid rgba(34,197,94,.07);padding:14px 20px;display:grid;grid-template-columns:80px 2fr 1.5fr 1fr 2fr 1fr 1fr;gap:12px;align-items:center;min-width:700px}
+.mkt-grid.list-view .mkt-card{border-radius:0;border:none;border-bottom:1px solid rgba(15,118,110,.07);padding:14px 20px;display:grid;grid-template-columns:80px 2fr 1.5fr 1fr 2fr 1fr 1fr;gap:12px;align-items:center;min-width:700px}
 .mkt-grid.list-view .mkt-card:last-child{border-bottom:none}
-.mkt-card-img{height:90px;width:90px;background:linear-gradient(135deg,#001a08,#002d10);display:flex;align-items:center;justify-content:center;border-radius:10px;flex-shrink:0;overflow:hidden;border:1px solid rgba(34,197,94,.15)}
+.mkt-card-img{height:90px;width:90px;background:linear-gradient(135deg,#001a08,#002d10);display:flex;align-items:center;justify-content:center;border-radius:10px;flex-shrink:0;overflow:hidden;border:1px solid rgba(15,118,110,.15)}
 .mkt-card-img .jeweler-logo{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
 .mkt-card-img .jeweler-logo-fallback{font-size:36px;display:none}
 .mkt-grid.list-view .mkt-card-img{display:flex;width:64px;height:52px;border-radius:10px}
 .mkt-card-body{flex:1;display:flex;flex-direction:column;gap:7px}
 .mkt-grid.list-view .mkt-card-body{display:contents}
-.mkt-card-tag{display:inline-flex;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:rgba(34,197,94,.1);color:var(--accent-l);border:1px solid rgba(34,197,94,.2);width:fit-content}
+.mkt-card-tag{display:inline-flex;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:rgba(15,118,110,.1);color:var(--accent-l);border:1px solid rgba(15,118,110,.2);width:fit-content}
 .mkt-grid.list-view .mkt-card-tag{display:none}
 .mkt-card-name{font-size:15px;font-weight:700;color:var(--text-primary)}
 .mkt-card-loc{font-size:12px;color:var(--text-tertiary)}
@@ -89,17 +92,17 @@ html[data-theme="light"] .mkt-card{background:#fff;border-color:rgba(0,0,0,.07)}
 .mkt-card-rate-lbl{font-size:11px;color:rgba(255,255,255,.4)}
 .mkt-grid.list-view .mkt-card-rate-lbl{display:none}
 .mkt-card-meta{display:flex;gap:6px;flex-wrap:wrap}
-.meta-chip{font-size:11px;padding:3px 8px;background:var(--b4);border:1px solid rgba(34,197,94,.1);border-radius:20px;color:rgba(255,255,255,.55)}
-.mkt-card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid rgba(34,197,94,.08)}
+.meta-chip{font-size:11px;padding:3px 8px;background:var(--b4);border:1px solid rgba(15,118,110,.1);border-radius:20px;color:rgba(255,255,255,.55)}
+.mkt-card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid rgba(15,118,110,.08)}
 .mkt-grid.list-view .mkt-card-footer{display:contents}
 .mkt-grid.list-view .mkt-card-footer>div{display:flex;align-items:center;gap:6px}
 .stars{color:var(--accent);font-size:12px}
 .trust-badge{font-size:11px;color:rgba(255,255,255,.4)}
-.action-btn{font-size:11px;font-weight:700;color:var(--accent-l);background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);padding:6px 14px;border-radius:6px;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:inherit}
-.action-btn:hover{background:rgba(34,197,94,.18)}
+.action-btn{font-size:11px;font-weight:700;color:var(--accent-l);background:rgba(15,118,110,.1);border:1px solid rgba(15,118,110,.25);padding:6px 14px;border-radius:6px;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:inherit}
+.action-btn:hover{background:rgba(15,118,110,.18)}
 /* PAGINATION */
 .pagination{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:32px;flex-wrap:wrap}
-.page-num{width:36px;height:36px;border-radius:8px;background:var(--b3);border:1px solid rgba(34,197,94,.15);font-size:13px;font-weight:600;color:rgba(255,255,255,.6);cursor:pointer;transition:all .2s;font-family:inherit}
+.page-num{width:36px;height:36px;border-radius:8px;background:var(--b3);border:1px solid rgba(15,118,110,.15);font-size:13px;font-weight:600;color:rgba(255,255,255,.6);cursor:pointer;transition:all .2s;font-family:inherit}
 .page-num.active,.page-num:hover{background:linear-gradient(135deg,var(--accent),var(--accent-l));color:#000;border-color:var(--accent)}
 .page-info{font-size:12px;color:rgba(255,255,255,.4);margin-left:8px}
 /* FOOTER */
@@ -152,9 +155,9 @@ html[data-theme="light"] .process-card{background:#fff;border-color:rgba(201,168
 html[data-theme="light"] .process-title{color:#1a1a1a}
 html[data-theme="light"] .process-desc{color:#555}
 /* Filter bar */
-html[data-theme="light"] .filter-bar{background:#fff;border-color:rgba(34,197,94,.2)}
+html[data-theme="light"] .filter-bar{background:#fff;border-color:rgba(15,118,110,.2)}
 html[data-theme="light"] .filter-group label{color:rgba(0,0,0,.5)}
-html[data-theme="light"] .filter-group input,html[data-theme="light"] .filter-group select{background:#F8F8F8;border-color:rgba(34,197,94,.2);color:#1a1a1a}
+html[data-theme="light"] .filter-group input,html[data-theme="light"] .filter-group select{background:#F8F8F8;border-color:rgba(15,118,110,.2);color:#1a1a1a}
 html[data-theme="light"] .filter-group input::placeholder{color:rgba(0,0,0,.35)}
 html[data-theme="light"] .filter-group select option{background:#fff;color:#1a1a1a}
 /* List view grid */
@@ -185,17 +188,17 @@ html[data-theme="light"] .alt{background:#F5F5F0}
 
 
 /* gold-buyers specific light overrides */
-html[data-theme="light"] .filter-bar{background:#fff;border-color:rgba(34,197,94,.2)}
+html[data-theme="light"] .filter-bar{background:#fff;border-color:rgba(15,118,110,.2)}
 html[data-theme="light"] .filter-group label{color:rgba(0,0,0,.5)}
-html[data-theme="light"] .filter-group input,html[data-theme="light"] .filter-group select{background:#F8F8F8;border-color:rgba(34,197,94,.2);color:#1a1a1a}
+html[data-theme="light"] .filter-group input,html[data-theme="light"] .filter-group select{background:#F8F8F8;border-color:rgba(15,118,110,.2);color:#1a1a1a}
 html[data-theme="light"] .filter-group input::placeholder{color:rgba(0,0,0,.35)}
-html[data-theme="light"] .mkt-grid.list-view{background:#fff;border-color:rgba(34,197,94,.2)}
+html[data-theme="light"] .mkt-grid.list-view{background:#fff;border-color:rgba(15,118,110,.2)}
 html[data-theme="light"] .mkt-card-rate-lbl{color:#888}
 html[data-theme="light"] .meta-chip{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.1);color:#555}
 html[data-theme="light"] .trust-badge{color:#666}
-html[data-theme="light"] .page-num{background:#fff;border-color:rgba(34,197,94,.25);color:#555}
+html[data-theme="light"] .page-num{background:#fff;border-color:rgba(15,118,110,.25);color:#555}
 html[data-theme="light"] .page-info{color:#888}
-html[data-theme="light"] .mkt-table-header{background:linear-gradient(90deg,rgba(34,197,94,.15),rgba(34,197,94,.06));border-bottom-color:rgba(34,197,94,.25)}
+html[data-theme="light"] .mkt-table-header{background:linear-gradient(90deg,rgba(15,118,110,.15),rgba(15,118,110,.06));border-bottom-color:rgba(15,118,110,.25)}
 
 
 html[data-theme="light"] .nav-back-dim{border-color:rgba(0,0,0,.15)!important;color:rgba(0,0,0,.5)!important}
@@ -254,12 +257,12 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 
 /* ── Vendor Rolling Banner (Gold Buyers) ── */
 .vb-wrap{position:relative;background:var(--b1);overflow:hidden}
-.vb-header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px 14px;border-bottom:1px solid rgba(34,197,94,.12)}
+.vb-header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px 14px;border-bottom:1px solid rgba(15,118,110,.12)}
 .vb-header-left{display:flex;align-items:center;gap:12px}
 .vb-header-icon{width:36px;height:36px;background:linear-gradient(135deg,#22c55e,#4ade80);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
 .vb-header-title{font-size:15px;font-weight:700;color:#fff;letter-spacing:.02em}
 .vb-header-sub{font-size:11px;color:rgba(255,255,255,.35);margin-top:1px}
-.vb-header-count{font-size:11px;color:rgba(34,197,94,.7);background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);padding:4px 12px;border-radius:20px}
+.vb-header-count{font-size:11px;color:rgba(15,118,110,.7);background:rgba(15,118,110,.08);border:1px solid rgba(15,118,110,.2);padding:4px 12px;border-radius:20px}
 .vb-track-outer{overflow:hidden;padding:20px 0 24px;position:relative}
 .vb-track-outer::before,.vb-track-outer::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
 .vb-track-outer::before{left:0;background:linear-gradient(90deg,var(--b1),transparent)}
@@ -267,8 +270,8 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 .vb-track{display:flex;gap:16px;width:max-content;animation:vbScroll 60s linear infinite;padding:0 8px}
 .vb-track:hover{animation-play-state:paused}
 @keyframes vbScroll{0%{transform:translateX(0)}100%{transform:translateX(calc(-50% - 8px))}}
-.vb-card{position:relative;width:300px;border-radius:16px;overflow:hidden;cursor:pointer;flex-shrink:0;background:linear-gradient(160deg,#011a06,#02300c);border:1px solid rgba(34,197,94,.2);transition:transform .3s,box-shadow .3s,border-color .3s}
-.vb-card:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 16px 48px rgba(34,197,94,.2);border-color:rgba(34,197,94,.55)}
+.vb-card{position:relative;width:300px;border-radius:16px;overflow:hidden;cursor:pointer;flex-shrink:0;background:linear-gradient(160deg,#011a06,#02300c);border:1px solid rgba(15,118,110,.2);transition:transform .3s,box-shadow .3s,border-color .3s}
+.vb-card:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 16px 48px rgba(15,118,110,.2);border-color:rgba(15,118,110,.55)}
 .vb-card-logo-wrap{height:180px;display:flex;align-items:center;justify-content:center;padding:24px;background:transparent;overflow:hidden;position:relative}
 .vb-card-logo-wrap img{max-width:100%;max-height:130px;width:auto;height:auto;object-fit:contain;border-radius:10px;transition:transform .3s}
 .vb-card:hover .vb-card-logo-wrap img{transform:scale(1.06)}
@@ -276,31 +279,31 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 .vb-card-body{padding:12px 14px 14px}
 .vb-card-name{font-size:13px;font-weight:800;color:#fff;margin-bottom:1px}
 .vb-card-type{font-size:9px;color:rgba(255,255,255,.35);margin-bottom:8px}
-.vb-scheme-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid rgba(34,197,94,.1)}
+.vb-scheme-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid rgba(15,118,110,.1)}
 .vb-scheme-label{font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.3);font-weight:600;margin-bottom:2px}
 .vb-scheme-val{font-size:12px;font-weight:800;color:var(--accent)}
 .vb-scheme-val.gold{color:#C9A84C}
-.vb-card-cta{display:block;width:100%;padding:6px 0;border-radius:7px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);color:var(--accent-l);font-size:10px;font-weight:700;text-align:center;letter-spacing:.05em;transition:background .2s;margin-top:8px}
-.vb-card:hover .vb-card-cta{background:rgba(34,197,94,.25)}
-.vb-chip{font-size:9px;padding:3px 7px;border-radius:20px;background:rgba(34,197,94,.08);color:rgba(255,255,255,.55);border:1px solid rgba(34,197,94,.15);white-space:nowrap}
+.vb-card-cta{display:block;width:100%;padding:6px 0;border-radius:7px;background:rgba(15,118,110,.12);border:1px solid rgba(15,118,110,.3);color:var(--accent-l);font-size:10px;font-weight:700;text-align:center;letter-spacing:.05em;transition:background .2s;margin-top:8px}
+.vb-card:hover .vb-card-cta{background:rgba(15,118,110,.25)}
+.vb-chip{font-size:9px;padding:3px 7px;border-radius:20px;background:rgba(15,118,110,.08);color:rgba(255,255,255,.55);border:1px solid rgba(15,118,110,.15);white-space:nowrap}
 
 /* ── Expand Panel ── */
-.provider-expand{display:none;grid-column:1/-1;background:linear-gradient(135deg,#021a08,#032e0f);border:1px solid rgba(34,197,94,.2);border-radius:14px;margin:4px 0 8px;overflow:hidden}
+.provider-expand{display:none;grid-column:1/-1;background:linear-gradient(135deg,#021a08,#032e0f);border:1px solid rgba(15,118,110,.2);border-radius:14px;margin:4px 0 8px;overflow:hidden}
 .provider-expand.open{display:block;animation:peSlideIn .3s ease}
 @keyframes peSlideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
 .pe-inner{display:grid;grid-template-columns:200px 1fr;gap:24px;padding:24px 28px}
-.pe-left{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;border-right:1px solid rgba(34,197,94,.12);padding-right:24px}
+.pe-left{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;border-right:1px solid rgba(15,118,110,.12);padding-right:24px}
 .pe-logo{width:140px;height:70px;object-fit:contain;background:#fff;border-radius:10px;padding:10px}
 .pe-name{font-size:15px;font-weight:700;color:#fff}
 .pe-type{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
 .pe-stars{font-size:13px;color:var(--accent);margin-top:4px}
 .pe-badge{font-size:10px;color:rgba(255,255,255,.5);margin-left:6px}
 .pe-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.pe-item{display:flex;flex-direction:column;gap:3px;background:rgba(34,197,94,.04);border-radius:8px;padding:10px 12px;border:1px solid rgba(34,197,94,.08)}
+.pe-item{display:flex;flex-direction:column;gap:3px;background:rgba(15,118,110,.04);border-radius:8px;padding:10px 12px;border:1px solid rgba(15,118,110,.08)}
 .pe-lbl{font-size:10px;color:rgba(255,255,255,.4);font-weight:600;letter-spacing:.05em;text-transform:uppercase}
 .pe-val{font-size:13px;color:rgba(255,255,255,.85);line-height:1.5}
-.view-btn{font-size:11px;font-weight:700;color:var(--accent-l);background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:8px;padding:8px 16px;cursor:pointer;transition:all .2s}
-.view-btn:hover{background:rgba(34,197,94,.2)}
+.view-btn{font-size:11px;font-weight:700;color:var(--accent-l);background:rgba(15,118,110,.1);border:1px solid rgba(15,118,110,.25);border-radius:8px;padding:8px 16px;cursor:pointer;transition:all .2s}
+.view-btn:hover{background:rgba(15,118,110,.2)}
 .toggle-arrow{font-size:11px;color:var(--accent);transition:transform .3s}
 
 /* ── Footer Grid ── */
@@ -314,7 +317,7 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 .foot-bottom-row p{font-size:11px;color:rgba(255,255,255,.25)}
 @media(max-width:768px){
   .pe-inner{grid-template-columns:1fr;padding:16px}
-  .pe-left{border-right:none;border-bottom:1px solid rgba(34,197,94,.12);padding-right:0;padding-bottom:16px}
+  .pe-left{border-right:none;border-bottom:1px solid rgba(15,118,110,.12);padding-right:0;padding-bottom:16px}
   .pe-grid{grid-template-columns:1fr}
   }
 @media(max-width:480px){}
@@ -330,8 +333,8 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 .provider-list.tile-view .pc-right{text-align:left}
 .provider-list.tile-view .pc-chips{justify-content:flex-start}
 .provider-list.tile-view .pc-expand-btn{display:none}
-.provider-card{display:grid;grid-template-columns:90px 1fr auto 50px;align-items:center;gap:16px;background:linear-gradient(135deg,#021a08,#032e0f);border:1px solid rgba(34,197,94,.15);border-radius:14px;padding:16px 20px;cursor:pointer;transition:border-color .25s,box-shadow .25s}
-.provider-card:hover{border-color:rgba(34,197,94,.4);box-shadow:0 4px 24px rgba(34,197,94,.1)}
+.provider-card{display:grid;grid-template-columns:90px 1fr auto 50px;align-items:center;gap:16px;background:linear-gradient(135deg,#021a08,#032e0f);border:1px solid rgba(15,118,110,.15);border-radius:14px;padding:16px 20px;cursor:pointer;transition:border-color .25s,box-shadow .25s}
+.provider-card:hover{border-color:rgba(15,118,110,.4);box-shadow:0 4px 24px rgba(15,118,110,.1)}
 .pc-left{display:flex;align-items:center;gap:10px}
 .pc-rank{font-size:11px;font-weight:800;color:rgba(255,255,255,.18);letter-spacing:.06em;min-width:22px}
 .pc-logo-box{width:60px;height:36px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:4px}
@@ -345,16 +348,16 @@ html[data-theme="dark"] .nav-back-dim{border-color:rgba(255,255,255,.15)!importa
 .pc-rate{font-size:20px;font-weight:900;color:var(--accent)}
 .pc-rate-lbl{font-size:10px;color:rgba(255,255,255,.35);margin-bottom:6px}
 .pc-chips{display:flex;gap:4px;justify-content:flex-end;flex-wrap:wrap}
-.pc-chip{font-size:9px;padding:3px 8px;border-radius:20px;background:rgba(34,197,94,.08);color:rgba(255,255,255,.5);border:1px solid rgba(34,197,94,.15)}
-.pc-expand-btn{width:36px;height:36px;border-radius:50%;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:var(--accent);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
-.pc-expand-btn:hover{background:rgba(34,197,94,.18)}
+.pc-chip{font-size:9px;padding:3px 8px;border-radius:20px;background:rgba(15,118,110,.08);color:rgba(255,255,255,.5);border:1px solid rgba(15,118,110,.15)}
+.pc-expand-btn{width:36px;height:36px;border-radius:50%;background:rgba(15,118,110,.08);border:1px solid rgba(15,118,110,.2);color:var(--accent);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.pc-expand-btn:hover{background:rgba(15,118,110,.18)}
 @media(max-width:600px){
   .provider-card{grid-template-columns:60px 1fr 50px;gap:10px}
   .pc-right{display:none}
 }
 
 /* ── Scheme Sections (vertical, below expand grid) ── */
-.pe-scheme-section{margin-top:18px;border-radius:12px;padding:16px 18px;border:1px solid rgba(34,197,94,.25);background:linear-gradient(135deg,rgba(34,197,94,.06),rgba(34,197,94,.02))}
+.pe-scheme-section{margin-top:18px;border-radius:12px;padding:16px 18px;border:1px solid rgba(15,118,110,.25);background:linear-gradient(135deg,rgba(15,118,110,.06),rgba(15,118,110,.02))}
 .pe-scheme-section.gold{border-color:rgba(201,168,76,.3);background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(201,168,76,.02))}
 .pe-scheme-section-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
 .pe-scheme-section-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4)}
@@ -441,7 +444,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   .filter-group input,.filter-group select{width:100%!important}
   .mkt-view-toggle{margin-left:0!important;width:100%!important}
   .pe-inner{grid-template-columns:1fr!important;padding:14px!important;gap:14px!important}
-  .pe-left{border-right:none!important;border-bottom:1px solid rgba(34,197,94,.12)!important;padding-bottom:12px!important;padding-right:0!important}
+  .pe-left{border-right:none!important;border-bottom:1px solid rgba(15,118,110,.12)!important;padding-bottom:12px!important;padding-right:0!important}
   .pe-grid{grid-template-columns:1fr 1fr!important}
 }
 @media(max-width:480px){
@@ -537,7 +540,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   <div class="foot-inner">
     <div class="foot-grid">
       <div>
-        <div class="foot-logo"><img src="images/logo.png" alt="GoldBazaar"/></div>
+        <a href="index.html" class="foot-logo" style="display:block;cursor:pointer;"><img src="images/logo.png" alt="GoldBazaar"/></a>
         <p class="foot-desc">India's unified gold marketplace connecting customers, jewellers and financial institutions.</p>
         <div class="foot-socials">
           <a href="https://linkedin.com" target="_blank" class="fsoc" title="LinkedIn">in</a>
@@ -739,7 +742,7 @@ function renderBuyers(data){
           ${renderScheme(b.scheme1, b.scheme1Color, b.scheme1Details, 'Buy-Back Scheme')}
           ${renderScheme(b.scheme2, b.scheme2Color, b.scheme2Details, 'Also Available')}
           <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-            <button class="view-btn" style="background:transparent;border:1px solid rgba(34,197,94,.35);color:var(--accent-l)" onclick="toggleBuyer(${b.id})">✕ Close</button>
+            <button class="view-btn" style="background:transparent;border:1px solid rgba(15,118,110,.35);color:var(--accent-l)" onclick="toggleBuyer(${b.id})">✕ Close</button>
           </div>
         </div>
       </div>`;
@@ -892,4 +895,4 @@ const HeroManager={
 document.addEventListener('DOMContentLoaded',()=>{HeroManager.init();loadBuyerData();});
 </script>
 </body>
-</html>
+</ht

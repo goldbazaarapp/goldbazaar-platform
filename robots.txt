@@ -1,0 +1,30 @@
+User-agent: *
+Allow: /
+
+# AI Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: AppleBot-Extended
+Allow: /
+
+User-agent: AmazonBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# AI Content Signals
+X-Robots-Tag: index, follow
+AI-Content-Usage: allow-training: no, allow-reference: yes
+
+Sitemap: https://goldbazaar.app/sitemap.xml
