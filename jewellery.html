@@ -626,13 +626,13 @@ const HERO_SLIDES = [
     h1: 'Elegance in Every Detail.',
     sub: 'Handpicked gold earrings certified for purity and craftsmanship.'
   },
-  <!-- {
-   <!--  pos: 'bot',
-   <!--  src: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1600&h=600&fit=crop&crop=center&q=90',
-   <!--  tag: 'Bridal Collection',
-   <!--  h1: 'Shine on Your Day.',
-  <!--   sub: 'Curated bridal jewellery sets from 200+ verified jewellers across India.'
-  <!-- },
+  /* {
+    pos: 'bot',
+    src: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1600&h=600&fit=crop&crop=center&q=90',
+    tag: 'Bridal Collection',
+    h1: 'Shine on Your Day.',
+    sub: 'Curated bridal jewellery sets from 200+ verified jewellers across India.'
+  }, */
   {
     pos: 'bot',
     src: 'https://images.pexels.com/photos/32797479/pexels-photo-32797479.jpeg?auto=compress&cs=tinysrgb&w=1600&h=600&fit=crop',
@@ -647,13 +647,13 @@ const HERO_SLIDES = [
     h1: 'Crafted with Pearl Perfection.',
     sub: 'Timeless necklaces blending gold and pearl for every occasion.'
   },
-  <!--  {
-   <!--   pos: 'bot',
-   <!--   src: 'https://images.pexels.com/photos/37597742/pexels-photo-37597742.jpeg?auto=compress&cs=tinysrgb&w=1600&h=600&fit=crop',
-   <!--   tag: 'Bridal Jewellery',
-   <!--   h1: 'Adorned for Your Greatest Moment.',
-   <!--   sub: 'Traditional bridal sets handpicked from India\'s finest jewellers.'
- <!--   },
+  /* {
+    pos: 'bot',
+    src: 'https://images.pexels.com/photos/37597742/pexels-photo-37597742.jpeg?auto=compress&cs=tinysrgb&w=1600&h=600&fit=crop',
+    tag: 'Bridal Jewellery',
+    h1: 'Adorned for Your Greatest Moment.',
+    sub: 'Traditional bridal sets handpicked from India\'s finest jewellers.'
+  }, */
 ];
 let heroIdx = 0, heroTimer = null;
 function heroRenderContent(slide){
@@ -683,12 +683,41 @@ function heroGo(i){
   heroRenderContent(slide);
 }
 function heroNext(){ heroGo((heroIdx+1) % HERO_SLIDES.length); }
-/* ── Hero: CDN-primary, local-override — hosting-agnostic ── */
-function initHero(){
+/* ── Hero: verify images load; CDN → local jewellery → landing fallback ── */
+async function initHero(){
   const bg   = document.getElementById('hero-bg');
   const dots = document.getElementById('hero-dots');
   if(!bg) return;
-  // ① Build CDN slides immediately — no blocking
+
+  const _try = s => new Promise(r=>{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src=s;});
+
+  // Probe each slide: try local jewellery image first, then CDN, then landing-page fallback
+  const resolved = [];
+  for(let i=0; i<HERO_SLIDES.length; i++){
+    const slide      = HERO_SLIDES[i];
+    const localWebP  = `images/jewellery/hero-${i+1}.webp`;
+    const localPNG   = `images/jewellery/hero-${i+1}.png`;
+    const fallback   = `images/hero-${(i%7)+1}.webp`;
+    let src = null;
+    if(await _try(localWebP))     src = localWebP;
+    else if(await _try(localPNG)) src = localPNG;
+    else if(await _try(slide.src))src = slide.src;
+    else if(await _try(fallback)) src = fallback;
+    if(src) resolved.push({...slide, src});
+  }
+
+  if(!resolved.length){
+    // Nothing loaded — show gold gradient so hero isn't black
+    bg.style.background='linear-gradient(135deg,#0a0700 0%,#1a1000 40%,#C9A84C18 100%)';
+    if(dots) dots.style.display='none';
+    heroRenderContent(HERO_SLIDES[0]);
+    return;
+  }
+
+  // Replace HERO_SLIDES in-place so heroGo/heroNext stay in sync
+  HERO_SLIDES.length = 0;
+  resolved.forEach(s=>HERO_SLIDES.push(s));
+
   HERO_SLIDES.forEach((slide,i)=>{
     const sc = document.createElement('div');
     sc.className = 'hero-scene' + (i===0?' active':'');
@@ -702,27 +731,7 @@ function initHero(){
   const wrap = document.getElementById('hero-content');
   if(wrap){ wrap.classList.remove('pos-top','pos-mid','pos-bot'); wrap.classList.add('pos-'+(HERO_SLIDES[0].pos||'bot')); }
   heroRenderContent(HERO_SLIDES[0]);
-  heroTimer = setInterval(heroNext, 5000);
-  /* ── LOCAL IMAGE OVERRIDE (commented out — enable when ready) ──────────
-  // To use your own branded images: add images/jewellery/hero-1.png
-  // to the repo, then uncomment the block below.
-  // (async()=>{
-  //   for(let i=1;i<=5;i++){
-  //     const src='images/jewellery/hero-'+i+'.png';
-  //     const ok=await new Promise(r=>{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src=src;});
-  //     if(!ok)break;
-  //     clearInterval(heroTimer);
-  //     const slide={pos:'mid',src,tag:'',h1:'',sub:''};
-  //     HERO_SLIDES.unshift(slide);
-  //     const sc=document.createElement('div');sc.className='hero-scene active';sc.style.backgroundImage='url('+src+')';
-  //     bg.querySelector('.hero-scene.active')?.classList.remove('active');bg.prepend(sc);
-  //     const d=document.createElement('button');d.className='hero-dot active';
-  //     d.onclick=()=>{clearInterval(heroTimer);heroGo(0);heroTimer=setInterval(heroNext,5000);};
-  //     dots.querySelectorAll('.hero-dot').forEach(x=>x.classList.remove('active'));dots.prepend(d);
-  //     heroIdx=0;heroRenderContent(slide);heroTimer=setInterval(heroNext,5000);
-  //   }
-  // })();
-  // ─────────────────────────────────────────────────────────────────── */
+  if(HERO_SLIDES.length>1) heroTimer = setInterval(heroNext, 5000);
 }
 
 window.addEventListener('DOMContentLoaded',()=>{
