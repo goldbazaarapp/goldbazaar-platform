@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldBazaar — Trifold Brochure</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --gold:       #C9A84C;
+    --gold-lt:    #E2C97E;
+    --gold-dk:    #8B6914;
+    --gold-pale:  #F7EFDB;
+    --cream:      #FDFAF3;
+    --dark:       #0F0A02;
+    --dark2:      #1C1407;
+    --dark3:      #2A1F0A;
+    --text-dark:  #1A1200;
+    --text-mid:   #4A3B18;
+    --text-light: #7A6438;
+    --white:      #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #E8E0D0;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  /* ── PRINT LABEL ── */
+  .print-note {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: #777;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ══════════════════════════════════════════
+     BROCHURE WRAPPER — A4 landscape = 297×210mm
+     At 96dpi: 1122 × 794px  (3 panels × 374px)
+  ══════════════════════════════════════════ */
+  .brochure {
+    width: 1122px;
+    height: 794px;
+    display: grid;
+    grid-template-columns: 374px 374px 374px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.35), 0 8px 20px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* fold lines */
+  .brochure::before,
+  .brochure::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: rgba(0,0,0,0.12);
+    z-index: 10;
+  }
+  .brochure::before { left: 374px; }
+  .brochure::after  { left: 748px; }
+
+  /* ══ SHARED PANEL BASE ══ */
+  .panel {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ══════════════════════════════════
+     PANEL 1 — INSIDE LEFT
+     "How It Works" + "Our Services"
+  ══════════════════════════════════ */
+  .panel-1 {
+    background: var(--cream);
+  }
+
+  .p1-top {
+    background: var(--dark2);
+    padding: 36px 32px 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  .p1-top::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 50%;
+  }
+  .p1-top::after {
+    content: '';
+    position: absolute;
+    top: -20px; right: -20px;
+    width: 120px; height: 120px;
+    border: 1px solid rgba(201,168,76,0.1);
+    border-radius: 50%;
+  }
+
+  .p1-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .p1-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+  }
+  .p1-heading span { color: var(--gold-lt); }
+  .p1-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 8px;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .p1-body {
+    padding: 24px 32px 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .p1-section-label {
+    font-size: 8px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-dk);
+    font-weight: 700;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(201,168,76,0.25);
+  }
+
+  .service-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+  }
+  .service-item:last-child { border-bottom: none; }
+
+  .si-icon {
+    width: 34px;
+    height: 34px;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dk) 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+  .si-text {}
+  .si-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-dark);
+    letter-spacing: 0.01em;
+    margin-bottom: 2px;
+  }
+  .si-detail {
+    font-size: 10px;
+    color: var(--text-light);
+    line-height: 1.4;
+  }
+  .si-badge {
+    display: inline-block;
+    font-size: 8px;
+    font-weight: 700;
+    color: var(--gold-dk);
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 3px;
+    padding: 1px 5px;
+    margin-top: 3px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .p1-footer {
+    background: var(--dark);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .p1-footer-text {
+    font-size: 9px;
+    color: rgba(255,255,255,0.4);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+  .p1-footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  /* ══════════════════════════════════
+     PANEL 2 — INSIDE CENTRE
+     "One Platform" hero + steps
+  ══════════════════════════════════ */
+  .panel-2 {
+    background: var(--dark);
+    position: relative;
+  }
+
+  /* decorative ring */
+  .p2-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.1);
+    pointer-events: none;
+  }
+  .p2-ring-1 { width: 600px; height: 600px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+  .p2-ring-2 { width: 460px; height: 460px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+  .p2-ring-3 { width: 330px; height: 330px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+
+  /* large decorative gold circle top-right */
+  .p2-orb {
+    position: absolute;
+    width: 220px; height: 220px;
+    top: -70px; right: -70px;
+    background: radial-gradient(circle at 35% 35%, var(--gold-lt) 0%, var(--gold-dk) 60%, transparent 100%);
+    border-radius: 50%;
+    opacity: 0.12;
+    pointer-events: none;
+  }
+
+  .p2-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 44px 36px 32px;
+  }
+
+  .p2-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .p2-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .p2-headline .gold-line {
+    display: block;
+    background: linear-gradient(90deg, var(--gold-lt), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .p2-divider {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin-bottom: 20px;
+  }
+
+  .p2-body {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 28px;
+    max-width: 290px;
+  }
+
+  /* how it works steps */
+  .steps-label {
+    font-size: 8px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 14px;
+    opacity: 0.7;
+  }
+
+  .steps-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: auto;
+  }
+
+  .step-chip {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+  .sc-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .sc-label {
+    font-size: 9px;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+
+  /* connector lines between steps */
+  .step-connector {
+    width: 12px;
+    height: 1px;
+    background: rgba(201,168,76,0.25);
+    align-self: center;
+    margin-top: -12px;
+    flex-shrink: 0;
+  }
+
+  /* stats row */
+  .p2-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .stat-box {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--gold-lt);
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .stat-lbl {
+    font-size: 9px;
+    color: rgba(255,255,255,0.4);
+    font-weight: 400;
+    letter-spacing: 0.03em;
+  }
+
+  /* ══════════════════════════════════
+     PANEL 3 — COVER (RIGHT, FRONT)
+  ══════════════════════════════════ */
+  .panel-3 {
+    background: linear-gradient(160deg, var(--dark3) 0%, var(--dark) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* large gold circle background element */
+  .p3-bg-circle {
+    position: absolute;
+    width: 480px; height: 480px;
+    bottom: -160px; right: -140px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(201,168,76,0.22) 0%, rgba(139,105,20,0.08) 60%, transparent 100%);
+    pointer-events: none;
+  }
+  .p3-bg-ring {
+    position: absolute;
+    width: 360px; height: 360px;
+    bottom: -100px; right: -80px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.12);
+    pointer-events: none;
+  }
+  .p3-bg-ring-2 {
+    position: absolute;
+    width: 260px; height: 260px;
+    bottom: -60px; right: -40px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.08);
+    pointer-events: none;
+  }
+
+  /* top gold accent stripe */
+  .p3-stripe {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold-dk), var(--gold-lt), var(--gold-dk));
+  }
+
+  .p3-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 48px 36px 36px;
+  }
+
+  /* ── Logo area ── */
+  .p3-logo-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .p3-logo-icon {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--gold-lt) 0%, var(--gold-dk) 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .p3-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+  .p3-logo-text span {
+    background: linear-gradient(90deg, var(--gold-lt), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .p3-tagline-small {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.6);
+    font-weight: 500;
+    margin-bottom: 48px;
+  }
+
+  /* main cover headline */
+  .p3-main-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .p3-main-headline .gold-word {
+    background: linear-gradient(135deg, var(--gold-lt) 0%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .p3-cover-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 36px;
+    max-width: 260px;
+  }
+
+  /* gold ornamental divider */
+  .p3-ornament {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+  .p3-orn-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4));
+  }
+  .p3-orn-line-r {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(201,168,76,0.4), transparent);
+  }
+  .p3-orn-diamond {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  .p3-service-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: auto;
+  }
+  .pill {
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--gold-lt);
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 20px;
+    padding: 4px 10px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .pill.active {
+    background: rgba(201,168,76,0.18);
+    border-color: rgba(201,168,76,0.45);
+  }
+
+  /* contact block at bottom */
+  .p3-contact {
+    border-top: 1px solid rgba(201,168,76,0.15);
+    padding-top: 20px;
+  }
+  .p3-contact-label {
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 10px;
+    opacity: 0.7;
+  }
+  .contact-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .cl-icon {
+    font-size: 11px;
+    width: 16px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .cl-text {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 400;
+  }
+  .cl-text a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+  }
+  .cl-text strong {
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+  }
+
+  /* ── PRINT STYLES ── */
+  @media print {
+    body {
+      background: white;
+      padding: 0;
+      margin: 0;
+    }
+    .print-note { display: none; }
+    .brochure {
+      width: 297mm;
+      height: 210mm;
+      box-shadow: none;
+      page-break-after: avoid;
+    }
+  }
+</style>
+</head>
+<body>
+
+<p class="print-note">Print: A4 Landscape · Ctrl+P → "More settings" → Landscape → No margins → Save as PDF</p>
+
+<div class="brochure">
+
+  <!-- ═══════════════════════════════
+       PANEL 1 — INSIDE LEFT
+       Our Services
+  ═══════════════════════════════ -->
+  <div class="panel panel-1">
+
+    <div class="p1-top">
+      <div class="p1-eyebrow">Our Services</div>
+      <div class="p1-heading">Everything Gold,<br><span>One Platform</span></div>
+      <p class="p1-sub">From gold loans to digital investments — GoldBazaar connects you to India's most trusted gold services.</p>
+    </div>
+
+    <div class="p1-body">
+      <div class="p1-section-label">Active Services</div>
+
+      <div class="service-item">
+        <div class="si-icon">🏦</div>
+        <div class="si-text">
+          <div class="si-name">Gold Loan</div>
+          <div class="si-detail">Instant liquidity against your gold. Competitive rates, fast disbursals.</div>
+          <span class="si-badge">From 7.5% p.a. · Up to 80% LTV</span>
+        </div>
+      </div>
+
+      <div class="service-item">
+        <div class="si-icon">💰</div>
+        <div class="si-text">
+          <div class="si-name">Sell Gold</div>
+          <div class="si-detail">Get the best price from verified buyers. Zero hidden charges.</div>
+          <span class="si-badge">Same-day Payment</span>
+        </div>
+      </div>
+
+      <div class="service-item">
+        <div class="si-icon">💍</div>
+        <div class="si-text">
+          <div class="si-name">Jewellery</div>
+          <div class="si-detail">Explore certified designs from trusted jewellers across India.</div>
+          <span class="si-badge">BIS Hallmarked · Pan India</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 18px;">
+        <div class="p1-section-label">Coming Soon</div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:2px;">
+          <span style="font-size:9px;color:var(--text-light);background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.18);border-radius:4px;padding:3px 8px;font-weight:500;">Digital Gold</span>
+          <span style="font-size:9px;color:var(--text-light);background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.18);border-radius:4px;padding:3px 8px;font-weight:500;">Gold Exchange</span>
+          <span style="font-size:9px;color:var(--text-light);background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.18);border-radius:4px;padding:3px 8px;font-weight:500;">Gold Insurance</span>
+          <span style="font-size:9px;color:var(--text-light);background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.18);border-radius:4px;padding:3px 8px;font-weight:500;">Savings Scheme</span>
+          <span style="font-size:9px;color:var(--text-light);background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.18);border-radius:4px;padding:3px 8px;font-weight:500;">Gold ETFs & SGBs</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="p1-footer">
+      <span class="p1-footer-text">India's Unified Gold Marketplace</span>
+      <span class="p1-footer-brand">GoldBazaar</span>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════
+       PANEL 2 — INSIDE CENTRE
+       Value Proposition + Steps
+  ═══════════════════════════════ -->
+  <div class="panel panel-2">
+    <div class="p2-ring p2-ring-1"></div>
+    <div class="p2-ring p2-ring-2"></div>
+    <div class="p2-ring p2-ring-3"></div>
+    <div class="p2-orb"></div>
+
+    <div class="p2-inner">
+      <div class="p2-eyebrow">India's Unified Gold Marketplace</div>
+
+      <div class="p2-headline">
+        One Platform.<br>
+        <span class="gold-line">Multiple Services.</span>
+        Unlimited Growth.
+      </div>
+
+      <div class="p2-divider"></div>
+
+      <p class="p2-body">
+        GoldBazaar brings together India's most trusted gold services under one roof — so you can discover, compare, and connect with verified providers in minutes.
+      </p>
+
+      <div class="steps-label">How It Works</div>
+
+      <div style="display:flex; align-items:center; gap:0; margin-bottom: 28px;">
+        <div class="step-chip">
+          <div class="sc-num">1</div>
+          <div class="sc-label">Discover</div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-chip">
+          <div class="sc-num">2</div>
+          <div class="sc-label">Explore</div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-chip">
+          <div class="sc-num">3</div>
+          <div class="sc-label">Verify</div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-chip">
+          <div class="sc-num">4</div>
+          <div class="sc-label">Connect</div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-chip">
+          <div class="sc-num">5</div>
+          <div class="sc-label">Transact</div>
+        </div>
+      </div>
+
+      <div class="p2-stats">
+        <div class="stat-box">
+          <div class="stat-num">100+</div>
+          <div class="stat-lbl">Business Categories</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">1000+</div>
+          <div class="stat-lbl">Trusted Businesses</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">10K+</div>
+          <div class="stat-lbl">Happy Customers</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">24/7</div>
+          <div class="stat-lbl">Support Available</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       PANEL 3 — COVER (FRONT)
+  ═══════════════════════════════ -->
+  <div class="panel panel-3">
+    <div class="p3-stripe"></div>
+    <div class="p3-bg-circle"></div>
+    <div class="p3-bg-ring"></div>
+    <div class="p3-bg-ring-2"></div>
+
+    <div class="p3-inner">
+
+      <div class="p3-logo-row">
+        <div class="p3-logo-icon">✦</div>
+        <div class="p3-logo-text">Gold<span>Bazaar</span></div>
+      </div>
+      <div class="p3-tagline-small">Where Gold Meets Infinity</div>
+
+      <div class="p3-main-headline">
+        Indian Gold.<br>
+        <span class="gold-word">Infinite</span><br>
+        Possibilities.
+      </div>
+
+      <p class="p3-cover-desc">
+        More than gold — a world of opportunities. Discover, compare and connect with India's most trusted gold service providers, all in one place.
+      </p>
+
+      <div class="p3-ornament">
+        <div class="p3-orn-line"></div>
+        <div class="p3-orn-diamond"></div>
+        <div class="p3-orn-line-r"></div>
+      </div>
+
+      <div class="p3-service-pills">
+        <span class="pill active">Gold Loan</span>
+        <span class="pill active">Sell Gold</span>
+        <span class="pill active">Jewellery</span>
+        <span class="pill">Digital Gold</span>
+        <span class="pill">Gold Exchange</span>
+        <span class="pill">Investment</span>
+      </div>
+
+      <div style="flex:1; min-height:20px;"></div>
+
+      <div class="p3-contact">
+        <div class="p3-contact-label">Get in Touch</div>
+        <div class="contact-line">
+          <span class="cl-icon">🌐</span>
+          <span class="cl-text"><strong>www.goldbazaar.app</strong></span>
+        </div>
+        <div class="contact-line">
+          <span class="cl-icon">✉</span>
+          <span class="cl-text">hello@goldbazaar.app</span>
+        </div>
+        <div class="contact-line">
+          <span class="cl-icon">📍</span>
+          <span class="cl-text">PAN India Presence</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

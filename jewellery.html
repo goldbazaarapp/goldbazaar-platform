@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
@@ -13,21 +13,61 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px}
-body{background:var(--bg-primary);color:var(--text-primary);font-family:'Inter',-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:var(--transition)}
+body{background:#FFFFFF;color:var(--text-primary);font-family:'Inter',-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:var(--transition)}
 a{text-decoration:none;color:inherit}
 button{font-family:inherit;cursor:pointer;border:none;background:none}
 img{display:block;max-width:100%}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#9B7B2E;border-radius:2px}
 :root{--g:#C9A84C;--gl:#E8C96A;--fd:'Playfair Display',Georgia,serif;--ease:cubic-bezier(.4,0,.2,1);--nav-h:68px;--transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
-:root{--accent:#ec4899;--accent-l:#f472b6;--accent-rgb:236,72,153}
-html[data-theme="dark"]{--b0:#000;--b1:#0A0A0A;--b2:#111;--b3:#161616;--b4:#1E1E1E;--text-primary:#FFF;--text-secondary:rgba(255,255,255,.7);--text-tertiary:rgba(255,255,255,.5);--bg-primary:#000}
-html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#E8E8E8;--text-primary:#1A1A1A;--text-secondary:#333;--text-tertiary:#555;--bg-primary:#FFF}
+:root{--accent:#DB2777;--accent-l:#F472B6;--accent-rgb:219,39,119;--b0:#FFFFFF;--b1:#FFFFFF;--b2:#FFF5FA;--b3:#FFE8F2;--b4:#FFCCE6;--text-primary:#3D0020;--text-secondary:#7B1A47;--text-tertiary:#C0668A;--bg-primary:#FFFFFF}
+
+html[data-theme="dark"]{
+  --b0:#0D0008;--b1:#120010;--b2:#1A0015;--b3:#220018;--b4:#2E001F;
+  --text-primary:#FFE8F2;--text-secondary:#FFB3D4;--text-tertiary:#C0668A;
+  --bg-primary:#0D0008;
+}
+html[data-theme="dark"] body{background:#0D0008}
+html[data-theme="dark"] #nav.scrolled{background:rgba(13,0,8,.97);border-color:rgba(219,39,119,.2)}
+html[data-theme="dark"] .vb-wrap,.vb-header-dark{background:#0D0008}
+html[data-theme="dark"] .vb-header{background:#0D0008;border-color:rgba(219,39,119,.2)}
+html[data-theme="dark"] .vb-track-outer::before{background:linear-gradient(90deg,#0D0008,transparent)}
+html[data-theme="dark"] .vb-track-outer::after{background:linear-gradient(-90deg,#0D0008,transparent)}
+html[data-theme="dark"] .vendor-card{background:#1A0015;border-color:rgba(219,39,119,.15)}
+html[data-theme="dark"] .vendor-card:hover{background:#220018}
+html[data-theme="dark"] .ve-inner{background:#1A0015}
+html[data-theme="dark"] .ve-item{background:#220018}
+html[data-theme="dark"] footer{background:#0D0008;border-color:rgba(219,39,119,.15)}
+html[data-theme="dark"] .filter-bar{background:#1A0015}
+html[data-theme="dark"] .filter-group input,.filter-group-dark select{background:#220018}
+html[data-theme="dark"] .filter-wrap{background:#1A0015}
+html[data-theme="dark"] .mkt-grid.list-view{background:#1A0015}
+html[data-theme="dark"] .mkt-card{background:#220018}
+html[data-theme="dark"] .alt{background:#0D0008}
+html[data-theme="dark"] #mob-nav{background:rgba(13,0,8,.98);border-color:rgba(219,39,119,.2)}
+html[data-theme="dark"] #hero{background:#0A0005}
+html[data-theme="dark"] .vb-card{background:linear-gradient(160deg,#1A0010,#1A0F35);border-color:rgba(219,39,119,.2)}
+html[data-theme="dark"] .vc-logo-box{background:#2E001F}
+html[data-theme="dark"] .nav-center a{color:rgba(255,200,220,.6)}
+html[data-theme="dark"] .cat-tab{border-color:rgba(219,39,119,.25);color:#C0668A}
+html[data-theme="dark"] .filter-group input{background:#220018;color:#FFE8F2}
+html[data-theme="dark"] .filter-group select{background:#220018;color:#FFE8F2}
+html[data-theme="dark"] .filter-bar{background:#1A0015;border-color:rgba(219,39,119,.2)}
+html[data-theme="dark"] .filter-wrap{background:#1A0015}
+html[data-theme="dark"] .hamburger span{background:#FFE8F2}
+html[data-theme="dark"] .foot-col h4{color:#FFB3D4}
+html[data-theme="dark"] .foot-col a{color:rgba(255,200,220,.6)}
+html[data-theme="dark"] .fsoc{background:rgba(219,39,119,.12);color:#FFB3D4}
+html[data-theme="dark"] .foot-bottom{border-color:rgba(219,39,119,.1);color:rgba(255,200,220,.5)}
+
+
+
+
 .wrap{max-width:1280px;margin:0 auto;padding:0 48px}
 @media(max-width:600px){.wrap{padding:0 20px}}
 .section{padding:40px 0}
-.alt{background:var(--b2)}
+.alt{background:#FFF5FA}
 .gold{background:linear-gradient(135deg,#C9A84C 0%,#F5E6C0 50%,#C9A84C 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.pink{background:linear-gradient(135deg,#ec4899,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pink{background:linear-gradient(135deg,#DB2777,#F472B6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
 .eyebrow::before{content:'';width:20px;height:1.5px;background:var(--accent);display:inline-block}
 .sec-title{font-family:var(--fd);font-size:clamp(26px,3.4vw,42px);font-weight:700;letter-spacing:-.03em;line-height:1.18;margin-bottom:16px;color:var(--text-primary)}
@@ -37,31 +77,70 @@ html[data-theme="light"]{--b0:#FFF;--b1:#F8F8F8;--b2:#F5F5F5;--b3:#F0F0F0;--b4:#
 .btn-gold{display:inline-flex;align-items:center;gap:7px;padding:13px 28px;border-radius:50px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:14px;font-weight:700;transition:transform .2s,box-shadow .2s}
 .btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,168,76,.38)}
 .btn-pink{display:inline-flex;align-items:center;gap:7px;padding:13px 28px;border-radius:50px;background:linear-gradient(135deg,var(--accent),var(--accent-l));color:#fff;font-size:14px;font-weight:700;transition:transform .2s,box-shadow .2s}
-.btn-pink:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(236,72,153,.35)}
+.btn-pink:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(219,39,119,.35)}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
 .reveal.in{opacity:1;transform:none}
+/* ── mkt-card grid (jewellery, same structure as gold-loan) ── */
+.mkt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.mkt-grid.list-view{grid-template-columns:1fr;gap:0;background:var(--b3);border:1px solid rgba(219,39,119,.12);border-radius:14px;overflow:hidden}
+.mkt-table-header{display:none;padding:12px 20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-tertiary);border-bottom:1px solid rgba(219,39,119,.12)}
+.mkt-grid.list-view .mkt-table-header{display:grid;grid-template-columns:80px 2fr 1.5fr 1fr 2fr 1fr 1fr;gap:12px}
+.mkt-card{background:var(--b2);border:1px solid rgba(219,39,119,.1);border-radius:14px;padding:20px;display:flex;gap:16px;transition:all .3s;cursor:pointer}
+.mkt-card:hover{border-color:rgba(219,39,119,.3);box-shadow:0 8px 24px rgba(219,39,119,.08)}
+.mkt-grid.list-view .mkt-card{border-radius:0;border:none;border-bottom:1px solid rgba(219,39,119,.07);padding:14px 20px;display:grid;grid-template-columns:80px 2fr 1.5fr 1fr 2fr 1fr 1fr;gap:12px;align-items:center}
+.mkt-grid.list-view .mkt-card:last-of-type{border-bottom:none}
+.mkt-card-img{height:90px;width:90px;background:linear-gradient(135deg,var(--b3),var(--b4));display:flex;align-items:center;justify-content:center;border-radius:10px;flex-shrink:0;overflow:hidden;border:1px solid rgba(219,39,119,.15)}
+.mkt-card-img .jwl-logo{width:100%;height:100%;object-fit:contain;padding:8px;background:transparent}
+.mkt-grid.list-view .mkt-card-img{width:90px;height:70px;border-radius:10px;flex-shrink:0;grid-column:1;align-self:center;justify-self:center;padding:0}
+.mkt-card-body{flex:1;display:flex;flex-direction:column;gap:7px}
+.mkt-grid.list-view .mkt-card-body{display:contents}
+.mkt-card-tag{display:inline-flex;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:rgba(219,39,119,.1);color:var(--accent-l);border:1px solid rgba(219,39,119,.2);width:fit-content}
+.mkt-grid.list-view .mkt-card-tag{display:none}
+.mkt-card-name{font-size:15px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:8px}
+.mkt-card-loc{font-size:12px;color:var(--text-tertiary)}
+.mkt-card-rate{font-size:17px;font-weight:800;color:var(--accent)}
+.mkt-card-rate-lbl{font-size:11px;color:var(--text-tertiary)}
+.mkt-grid.list-view .mkt-card-rate-lbl{display:none}
+.mkt-card-meta{display:flex;gap:6px;flex-wrap:wrap}
+.meta-chip{font-size:11px;padding:3px 8px;background:var(--b4);border:1px solid rgba(219,39,119,.1);border-radius:20px;color:var(--text-secondary)}
+.mkt-card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid rgba(219,39,119,.08)}
+.mkt-grid.list-view .mkt-card-footer{display:contents}
+.mkt-grid.list-view .mkt-card-footer>div{display:flex;align-items:center;gap:6px}
+.stars{color:var(--accent);font-size:12px}
+.trust-badge{font-size:11px;color:var(--text-tertiary)}
+.view-btn{padding:7px 14px;border:none;border-radius:7px;font-size:12px;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent-l));color:#fff;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:inherit}
+.toggle-arrow-jwl{font-size:11px;color:var(--accent-l);transition:transform .3s}
+.filter-bar{display:flex;align-items:flex-end;gap:10px;margin-bottom:24px;background:var(--b2);border:1px solid rgba(219,39,119,.12);border-radius:12px;padding:14px 18px;flex-wrap:nowrap}
+.filter-group{display:flex;flex-direction:column;gap:5px;flex:1;min-width:0}
+.filter-group label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-tertiary);white-space:nowrap}
+.filter-group input,.filter-group select{background:var(--b1);border:1px solid rgba(219,39,119,.15);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--text-primary);font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;width:100%}
+.filter-group input:focus,.filter-group select:focus{border-color:var(--accent)}
+.filter-group input::placeholder{color:var(--text-tertiary)}
+.filter-group select option{background:var(--b1);color:var(--text-primary)}
+.filter-reset-btn{padding:7px 14px;border:1.5px solid rgba(219,39,119,.35);border-radius:7px;font-size:11px;font-weight:600;color:var(--accent);background:rgba(219,39,119,.06);cursor:pointer;transition:all .2s;white-space:nowrap}
+.filter-reset-btn:hover{background:rgba(219,39,119,.12)}
+.mkt-view-toggle{display:flex;gap:4px}
+.mkt-view-btn{padding:7px 14px;border:1.5px solid rgba(219,39,119,.3);border-radius:7px;background:none;font-size:12px;font-weight:600;color:var(--text-tertiary);cursor:pointer;transition:all .2s;font-family:inherit}
+.mkt-view-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent-l));color:#fff;border-color:var(--accent)}
+
 
 /* ── NAV ── */
 #nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 32px;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
-#nav.scrolled{background:rgba(0,0,0,.94);backdrop-filter:blur(20px);border-color:rgba(201,168,76,.12)}
+#nav.scrolled{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-color:rgba(219,39,119,.15);box-shadow:0 2px 20px rgba(219,39,119,.08)}
 .nav-logo img{height:56px;width:auto}
 .nav-center{display:flex;align-items:center;gap:4px}
-.nav-center a{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);padding:7px 12px;border-radius:7px;white-space:nowrap;transition:color .2s}
-.nav-center a:hover,.nav-center a.active{color:var(--g);font-weight:600}
+.nav-center a{font-size:13px;font-weight:500;color:rgba(26,0,80,.6);padding:7px 12px;border-radius:7px;white-space:nowrap;transition:color .2s}
+.nav-center a:hover,.nav-center a.active{color:var(--accent);font-weight:600}
 .nav-right{display:flex;align-items:center;gap:10px}
 .nav-theme{padding:6px 10px;font-size:16px;transition:transform .2s}
 .nav-theme:hover{transform:scale(1.1)}
 .nav-cta{padding:8px 20px;border-radius:8px;background:linear-gradient(135deg,var(--g),var(--gl));color:#000;font-size:13px;font-weight:700;transition:all .2s}
 .hamburger{display:none;flex-direction:column;gap:5px;padding:4px}
-.hamburger span{width:21px;height:1.5px;background:#fff;display:block}
-#mob-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:999;background:rgba(0,0,0,.97);border-bottom:1px solid rgba(201,168,76,.1);backdrop-filter:blur(18px);padding:20px 28px;flex-direction:column;gap:4px}
+.hamburger span{width:21px;height:1.5px;background:#4A0020;display:block}
+#mob-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:999;background:rgba(255,255,255,.98);border-bottom:1px solid rgba(219,39,119,.15);backdrop-filter:blur(18px);padding:20px 28px;flex-direction:column;gap:4px}
 #mob-nav.open{display:flex}
-#mob-nav a{font-size:15px;font-weight:500;color:rgba(255,255,255,.72);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+#mob-nav a{font-size:15px;font-weight:500;color:rgba(26,0,80,.65);padding:10px 0;border-bottom:1px solid rgba(219,39,119,.08)}
 @media(max-width:768px){.nav-center{display:none}.hamburger{display:flex}}
-html[data-theme="light"] #nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 2px 16px rgba(0,0,0,.1)}
-html[data-theme="light"] .hamburger span{background:#1a1a1a}
-html[data-theme="light"] #mob-nav{background:rgba(255,255,255,.98)}
-html[data-theme="light"] #mob-nav a{color:rgba(0,0,0,.65)}
 
 /* ── PAGE HERO (full-bleed slider) ── */
 #hero-bg{position:absolute;inset:0}
@@ -86,181 +165,160 @@ html[data-theme="light"] #mob-nav a{color:rgba(0,0,0,.65)}
 .hero-slide-content{animation:heroFadeUp .6s ease both}
 
 /* ── VENDOR ROLLING BANNER — compact strip ── */
-.vb-wrap{position:relative;background:var(--b1);overflow:hidden;border-bottom:1px solid rgba(236,72,153,.1)}
-.vb-header{display:flex;align-items:center;justify-content:space-between;padding:10px 24px 8px;border-bottom:1px solid rgba(236,72,153,.1)}
+.vb-wrap{position:relative;background:#FFF0F6;overflow:hidden;border-bottom:1px solid rgba(219,39,119,.15)}
+.vb-header{display:flex;align-items:center;justify-content:space-between;padding:10px 24px 8px;border-bottom:1px solid rgba(219,39,119,.15);background:#FFF0F6}
 .vb-header-left{display:flex;align-items:center;gap:10px}
-.vb-header-icon{width:28px;height:28px;background:linear-gradient(135deg,#ec4899,#f472b6);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px}
-.vb-header-title{font-size:13px;font-weight:700;color:#fff}
-.vb-header-sub{font-size:10px;color:rgba(255,255,255,.35);margin-top:1px}
-.vb-header-count{font-size:10px;color:rgba(236,72,153,.8);background:rgba(236,72,153,.08);border:1px solid rgba(236,72,153,.2);padding:3px 10px;border-radius:20px}
+.vb-header-icon{width:28px;height:28px;background:linear-gradient(135deg,#DB2777,#F472B6);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.vb-header-title{font-size:13px;font-weight:700;color:var(--text-primary)}
+.vb-header-sub{font-size:10px;color:var(--text-tertiary);margin-top:1px}
+.vb-header-count{font-size:10px;color:rgba(219,39,119,.8);background:rgba(219,39,119,.08);border:1px solid rgba(219,39,119,.2);padding:3px 10px;border-radius:20px}
 /* compact strip — logo pill row, no big card */
 .vb-track-outer{overflow:hidden;padding:16px 0 10px;position:relative}
 .vb-track-outer::before,.vb-track-outer::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none}
-.vb-track-outer::before{left:0;background:linear-gradient(90deg,var(--b1),transparent)}
-.vb-track-outer::after{right:0;background:linear-gradient(-90deg,var(--b1),transparent)}
+.vb-track-outer::before{left:0;background:linear-gradient(90deg,#FFF0F6,transparent)}
+.vb-track-outer::after{right:0;background:linear-gradient(-90deg,#FFF0F6,transparent)}
 .vb-track{display:flex;gap:16px;width:max-content;animation:vbScroll 45s linear infinite;padding:0 16px}
 .vb-track:hover{animation-play-state:paused}
 @keyframes vbScroll{0%{transform:translateX(0)}100%{transform:translateX(calc(-50% - 6px))}}
 /* large scheme card */
-.vb-card{position:relative;width:300px;border-radius:16px;overflow:hidden;cursor:pointer;flex-shrink:0;background:linear-gradient(160deg,#1a0012,#2d0020);border:1px solid rgba(236,72,153,.2);transition:transform .3s,box-shadow .3s,border-color .3s}
-.vb-card:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 16px 48px rgba(236,72,153,.22);border-color:rgba(236,72,153,.55)}
+.vb-card{position:relative;width:300px;border-radius:16px;overflow:hidden;cursor:pointer;flex-shrink:0;background:linear-gradient(160deg,#6D0D38,#B01860);border:1px solid rgba(219,39,119,.3);transition:transform .3s,box-shadow .3s,border-color .3s}
+.vb-card:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 16px 48px rgba(219,39,119,.22);border-color:rgba(219,39,119,.55)}
 .vb-card-logo-wrap{height:180px;display:flex;align-items:center;justify-content:center;padding:24px;background:transparent;overflow:hidden;position:relative}
 .vb-card-logo-wrap img{max-width:100%;max-height:130px;width:auto;height:auto;object-fit:contain;border-radius:10px;transition:transform .3s}
 .vb-card:hover .vb-card-logo-wrap img{transform:scale(1.06)}
-.vb-card-badge{position:absolute;top:10px;left:10px;background:linear-gradient(135deg,#ec4899,#f472b6);color:#fff;font-size:8px;font-weight:800;padding:3px 9px;border-radius:20px;letter-spacing:.07em}
+.vb-card-badge{position:absolute;top:10px;left:10px;background:linear-gradient(135deg,#DB2777,#F472B6);color:#fff;font-size:8px;font-weight:800;padding:3px 9px;border-radius:20px;letter-spacing:.07em}
 .vb-card-body{padding:12px 14px 14px}
 .vb-card-name{font-size:13px;font-weight:800;color:#fff;margin-bottom:1px}
 .vb-card-type{font-size:9px;color:rgba(255,255,255,.35);margin-bottom:8px}
-.vb-scheme-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid rgba(236,72,153,.1)}
+.vb-scheme-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid rgba(219,39,119,.1)}
 .vb-scheme-label{font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.3);font-weight:600;margin-bottom:2px}
 .vb-scheme-val{font-size:12px;font-weight:800;color:var(--accent)}
 .vb-scheme-val.green{color:#4ade80}
 .vb-details{display:none}
-.vb-card-cta{display:block;width:100%;padding:6px 0;border-radius:7px;background:rgba(236,72,153,.12);border:1px solid rgba(236,72,153,.3);color:var(--accent-l);font-size:10px;font-weight:700;text-align:center;letter-spacing:.05em;transition:background .2s;margin-top:8px}
-.vb-card:hover .vb-card-cta{background:rgba(236,72,153,.25)}
+.vb-card-cta{display:block;width:100%;padding:6px 0;border-radius:7px;background:rgba(219,39,119,.12);border:1px solid rgba(219,39,119,.3);color:var(--accent-l);font-size:10px;font-weight:700;text-align:center;letter-spacing:.05em;transition:background .2s;margin-top:8px}
+.vb-card:hover .vb-card-cta{background:rgba(219,39,119,.25)}
 
 /* ── FILTER BAR ── */
-.filter-wrap{background:var(--b3);border:1px solid rgba(236,72,153,.12);border-radius:14px;padding:20px 24px;margin-bottom:32px}
+.filter-wrap{background:var(--b3);border:1px solid rgba(219,39,119,.12);border-radius:14px;padding:20px 24px;margin-bottom:32px}
 .filter-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .filter-group{display:flex;align-items:center;gap:8px;flex:1;min-width:160px}
 .filter-group label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.4);white-space:nowrap}
-.filter-group input,.filter-group select{flex:1;padding:9px 12px;background:var(--b4);border:1px solid rgba(236,72,153,.15);border-radius:8px;color:var(--text-primary);font-size:13px;font-family:inherit;outline:none;-webkit-appearance:none}
+.filter-group input,.filter-group select{flex:1;padding:9px 12px;background:var(--b4);border:1px solid rgba(219,39,119,.15);border-radius:8px;color:var(--text-primary);font-size:13px;font-family:inherit;outline:none;-webkit-appearance:none}
 .filter-group input:focus,.filter-group select:focus{border-color:var(--accent)}
-.filter-reset{padding:9px 18px;background:none;border:1px solid rgba(236,72,153,.25);border-radius:8px;font-size:12px;font-weight:600;color:var(--accent-l);cursor:pointer;transition:all .2s}
-.filter-reset:hover{background:rgba(236,72,153,.08)}
+.filter-reset{padding:9px 18px;background:none;border:1px solid rgba(219,39,119,.25);border-radius:8px;font-size:12px;font-weight:600;color:var(--accent-l);cursor:pointer;transition:all .2s}
+.filter-reset:hover{background:rgba(219,39,119,.08)}
 /* Category pill tabs */
 .cat-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
-.cat-tab{padding:8px 18px;border:1.5px solid rgba(236,72,153,.2);border-radius:20px;background:none;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;font-family:inherit}
-.cat-tab:hover{border-color:rgba(236,72,153,.5);color:rgba(255,255,255,.8)}
+.cat-tab{padding:8px 18px;border:1.5px solid rgba(219,39,119,.2);border-radius:20px;background:none;font-size:12px;font-weight:600;color:#B05A8A;cursor:pointer;transition:all .2s;font-family:inherit}
+.cat-tab:hover{border-color:rgba(219,39,119,.5);color:#DB2777}
 .cat-tab.active{background:linear-gradient(135deg,var(--accent),var(--accent-l));color:#fff;border-color:var(--accent)}
 
 /* ── VENDOR CARD (list) ── */
 .vendor-list{display:flex;flex-direction:column;gap:6px}
-.vendor-card{background:linear-gradient(135deg,#1a0012,#2a001d);border:1px solid rgba(236,72,153,.14);border-radius:16px;overflow:hidden;cursor:pointer;transition:border-color .25s,box-shadow .25s}
-.vendor-card:hover{border-color:rgba(236,72,153,.38);box-shadow:0 6px 28px rgba(236,72,153,.1)}
+.vendor-card{background:#FFFFFF;border:1px solid rgba(219,39,119,.12);border-radius:16px;overflow:hidden;cursor:pointer;transition:border-color .25s,box-shadow .25s}
+.vendor-card:hover{border-color:rgba(219,39,119,.35);box-shadow:0 6px 28px rgba(219,39,119,.08);background:#FFF5FA}
 .vendor-card-header{display:grid;grid-template-columns:92px 1fr auto 44px;align-items:center;gap:16px;padding:18px 20px}
 .vc-rank{font-size:11px;font-weight:800;color:rgba(255,255,255,.18);letter-spacing:.06em}
 .vc-logo-box{width:60px;height:44px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:4px;flex-shrink:0}
 .vc-logo-box img{width:100%;height:100%;object-fit:contain}
 .vc-left{display:flex;align-items:center;gap:10px}
 .vc-info{flex:1}
-.vc-name{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
-.vc-type{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.35);margin-bottom:4px}
+.vc-name{font-size:15px;font-weight:700;color:#4A0020;margin-bottom:2px}
+.vc-type{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#B05A8A;margin-bottom:4px}
 .vc-stars{font-size:11px;color:var(--accent);margin-bottom:4px}
-.vc-loc{font-size:11px;color:rgba(255,255,255,.4)}
+.vc-loc{font-size:11px;color:#B05A8A}
 .vc-right{text-align:right}
 .vc-pieces{font-size:20px;font-weight:900;color:var(--accent)}
-.vc-pieces-lbl{font-size:10px;color:rgba(255,255,255,.35);margin-bottom:6px}
+.vc-pieces-lbl{font-size:10px;color:#B05A8A;margin-bottom:6px}
 .vc-chips{display:flex;gap:4px;justify-content:flex-end;flex-wrap:wrap}
-.vc-chip{font-size:9px;padding:3px 8px;border-radius:20px;background:rgba(236,72,153,.08);color:rgba(255,255,255,.5);border:1px solid rgba(236,72,153,.15)}
-.vc-toggle{width:36px;height:36px;border-radius:50%;background:rgba(236,72,153,.08);border:1px solid rgba(236,72,153,.2);color:var(--accent);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
-.vc-toggle:hover{background:rgba(236,72,153,.18)}
+.vc-chip{font-size:9px;padding:3px 8px;border-radius:20px;background:#FFE4F0;color:#DB2777;border:1px solid rgba(219,39,119,.2)}
+.vc-toggle{width:36px;height:36px;border-radius:50%;background:rgba(219,39,119,.08);border:1px solid rgba(219,39,119,.2);color:var(--accent);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.vc-toggle:hover{background:rgba(219,39,119,.18)}
 .toggle-arrow{font-size:11px;color:var(--accent);transition:transform .3s;display:inline-block}
 @media(max-width:600px){.vendor-card-header{grid-template-columns:68px 1fr 44px;gap:10px}.vc-right{display:none}.vc-rank{display:none}.vc-left{justify-content:center}}
 
 /* ── EXPAND PANEL — scheme details (gold-loan style) ── */
-.vendor-expand{display:none;border-top:1px solid rgba(236,72,153,.1)}
+.vendor-expand{display:none;border-top:1px solid rgba(219,39,119,.08);background:#FFF5FA}
 .vendor-expand.open{display:block;animation:peSlideIn .3s ease}
 @keyframes peSlideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
-.ve-inner{display:grid;grid-template-columns:180px 1fr;gap:24px;padding:24px 28px;background:linear-gradient(135deg,#0d0008,#1a0012)}
-.ve-left{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;border-right:1px solid rgba(236,72,153,.12);padding-right:24px}
+.ve-inner{display:grid;grid-template-columns:180px 1fr;gap:24px;padding:24px 28px;background:#FFF5FA}
+.ve-left{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;border-right:1px solid rgba(219,39,119,.12);padding-right:24px}
 .ve-brand-logo{width:110px;height:60px;object-fit:contain;background:#fff;border-radius:10px;padding:8px}
-.ve-brand-name{font-size:14px;font-weight:700;color:#fff}
-.ve-brand-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:1px}
+.ve-brand-name{font-size:14px;font-weight:700;color:#4A0020}
+.ve-brand-sub{font-size:11px;color:#B05A8A;margin-top:1px}
 .ve-brand-stars{color:var(--accent);font-size:12px;margin-top:2px}
 .ve-btn{padding:7px 16px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit}
-.ve-btn-outline{background:none;border:1px solid rgba(236,72,153,.3);color:var(--accent-l)}
-.ve-btn-outline:hover{background:rgba(236,72,153,.1)}
+.ve-btn-outline{background:none;border:1px solid rgba(219,39,119,.3);color:var(--accent-l)}
+.ve-btn-outline:hover{background:rgba(219,39,119,.1)}
 .ve-btn-filled{background:linear-gradient(135deg,var(--accent),var(--accent-l));color:#fff;border:none}
 .ve-btn-filled:hover{opacity:.9;transform:translateY(-1px)}
 /* scheme detail grid */
 .ve-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ve-item{display:flex;flex-direction:column;gap:3px;background:rgba(255,255,255,.03);border-radius:8px;padding:10px 12px}
-.ve-lbl{font-size:10px;color:rgba(255,255,255,.4);font-weight:600;letter-spacing:.05em;text-transform:uppercase}
-.ve-val{font-size:13px;color:rgba(255,255,255,.85);line-height:1.5}
+.ve-item{display:flex;flex-direction:column;gap:3px;background:#FFE4F0;border-radius:8px;padding:10px 12px}
+.ve-lbl{font-size:10px;color:#B05A8A;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.ve-val{font-size:13px;color:#4A0020;line-height:1.5}
 .ve-val-highlight{color:var(--accent);font-weight:700}
-@media(max-width:768px){.ve-inner{grid-template-columns:1fr;padding:16px}.ve-left{border-right:none;border-bottom:1px solid rgba(236,72,153,.12);padding-right:0;padding-bottom:14px;flex-direction:row;text-align:left;gap:14px;align-items:flex-start}.ve-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.ve-inner{grid-template-columns:1fr;padding:16px}.ve-left{border-right:none;border-bottom:1px solid rgba(219,39,119,.12);padding-right:0;padding-bottom:14px;flex-direction:row;text-align:left;gap:14px;align-items:flex-start}.ve-grid{grid-template-columns:1fr}}
 /* Jewellery item grid */
 .jwl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 @media(max-width:900px){.jwl-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.jwl-grid{grid-template-columns:repeat(2,1fr);gap:10px}}
-.jwl-card{background:var(--b3);border:1px solid rgba(236,72,153,.1);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .25s;position:relative}
-.jwl-card:hover{border-color:rgba(236,72,153,.35);box-shadow:0 8px 24px rgba(236,72,153,.12);transform:translateY(-2px)}
-.jwl-img{width:100%;aspect-ratio:1;background:#1a0012;position:relative;overflow:hidden}
+.jwl-card{background:var(--b3);border:1px solid rgba(219,39,119,.1);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .25s;position:relative}
+.jwl-card:hover{border-color:rgba(219,39,119,.35);box-shadow:0 8px 24px rgba(219,39,119,.12);transform:translateY(-2px)}
+.jwl-img{width:100%;aspect-ratio:1;background:#FFF5FA;position:relative;overflow:hidden}
 .jwl-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
 .jwl-card:hover .jwl-img img{transform:scale(1.06)}
-.jwl-new-badge{position:absolute;top:8px;left:8px;background:linear-gradient(135deg,#ec4899,#f472b6);color:#fff;font-size:8px;font-weight:700;padding:3px 8px;border-radius:10px;letter-spacing:.06em}
+.jwl-new-badge{position:absolute;top:8px;left:8px;background:linear-gradient(135deg,#DB2777,#F472B6);color:#fff;font-size:8px;font-weight:700;padding:3px 8px;border-radius:10px;letter-spacing:.06em}
 .jwl-trending-badge{position:absolute;top:8px;left:8px;background:linear-gradient(135deg,#f97316,#fb923c);color:#fff;font-size:8px;font-weight:700;padding:3px 8px;border-radius:10px;letter-spacing:.06em}
 .jwl-wishlist{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.4);backdrop-filter:blur(4px);border:none;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:all .2s}
-.jwl-wishlist:hover{background:rgba(236,72,153,.4)}
-.jwl-wishlist.active{background:rgba(236,72,153,.6)}
+.jwl-wishlist:hover{background:rgba(219,39,119,.4)}
+.jwl-wishlist.active{background:rgba(219,39,119,.6)}
 .jwl-body{padding:12px}
 .jwl-name{font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:3px;line-height:1.3}
 .jwl-material{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
 .jwl-quality{font-size:11px;font-weight:700;color:var(--accent);margin-bottom:4px}
 .jwl-chips{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:7px}
-.jwl-chip{font-size:9px;padding:2px 7px;border-radius:10px;background:rgba(236,72,153,.08);color:rgba(255,255,255,.55);border:1px solid rgba(236,72,153,.15)}
-.jwl-view-btn{display:block;width:100%;margin-top:8px;padding:6px 0;border-radius:7px;background:rgba(236,72,153,.12);border:1px solid rgba(236,72,153,.25);color:var(--accent);font-size:10px;font-weight:700;text-align:center;letter-spacing:.04em;transition:background .2s}
-.jwl-view-btn:hover{background:rgba(236,72,153,.22)}
-.jwl-tag{display:inline-block;margin-top:4px;font-size:9px;padding:2px 7px;border-radius:10px;background:rgba(236,72,153,.1);color:rgba(255,255,255,.5);border:1px solid rgba(236,72,153,.15)}
+.jwl-chip{font-size:9px;padding:2px 7px;border-radius:10px;background:rgba(219,39,119,.08);color:rgba(255,255,255,.55);border:1px solid rgba(219,39,119,.15)}
+.jwl-view-btn{display:block;width:100%;margin-top:8px;padding:6px 0;border-radius:7px;background:rgba(219,39,119,.12);border:1px solid rgba(219,39,119,.25);color:var(--accent);font-size:10px;font-weight:700;text-align:center;letter-spacing:.04em;transition:background .2s}
+.jwl-view-btn:hover{background:rgba(219,39,119,.22)}
+.jwl-tag{display:inline-block;margin-top:4px;font-size:9px;padding:2px 7px;border-radius:10px;background:rgba(219,39,119,.1);color:rgba(255,255,255,.5);border:1px solid rgba(219,39,119,.15)}
 
 /* ── EMPTY / NO RESULTS ── */
-#no-results{display:none;text-align:center;padding:48px 0;color:rgba(255,255,255,.4)}
+#no-results{display:none;text-align:center;padding:48px 0;color:#B05A8A}
 
 /* ── INFO STATS BAR ── */
-.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(236,72,153,.1);border:1px solid rgba(236,72,153,.1);border-radius:16px;overflow:hidden;margin-bottom:56px}
-.stat-cell{background:var(--b3);padding:24px;text-align:center}
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(219,39,119,.1);border:1px solid rgba(219,39,119,.1);border-radius:16px;overflow:hidden;margin-bottom:56px}
+.stat-cell{background:#FFFFFF;padding:24px;text-align:center}
 .stat-val{font-size:28px;font-weight:800;color:var(--accent);margin-bottom:4px}
-.stat-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4)}
+.stat-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#B05A8A}
 @media(max-width:600px){.stats-bar{grid-template-columns:repeat(2,1fr)}}
 
 /* ── FOOTER ── */
-footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12);padding:40px 0 24px}
+footer{background:#FFF5FA;border-top:1px solid rgba(219,39,119,.15);padding:40px 0 24px}
 .foot-inner{max-width:1280px;margin:0 auto;padding:0 48px}
 .foot-col-brand img{height:48px;margin-bottom:12px}
-.foot-col-brand p{font-size:12px;color:rgba(255,255,255,.35);line-height:1.7;max-width:180px}
-.foot-col h5{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.7);margin-bottom:12px}
-.foot-col a{display:block;font-size:12px;color:rgba(255,255,255,.45);margin-bottom:7px;transition:color .2s}
+.foot-col-brand p{font-size:12px;color:#B05A8A;line-height:1.7;max-width:180px}
+.foot-col h5{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#DB2777;margin-bottom:12px}
+.foot-col a{display:block;font-size:12px;color:rgba(26,0,80,.55);margin-bottom:7px;transition:color .2s}
 .foot-col a:hover{color:var(--g)}
 .foot-divider{border:none;border-top:1px solid rgba(201,168,76,.08);margin:0 0 16px}
-.foot-bottom-row p{font-size:11px;color:rgba(255,255,255,.25)}
+.foot-bottom-row p{font-size:11px;color:rgba(26,0,80,.4)}
 .foot-disabled{display:none}
 @media(max-width:768px){}
 @media(max-width:480px){}
 
 /* ── LIGHT THEME ── */
-html[data-theme="light"] .vendor-card{background:#fff;border-color:rgba(236,72,153,.12)}
-html[data-theme="light"] .vendor-card:hover{border-color:rgba(236,72,153,.3)}
-html[data-theme="light"] .vc-logo-box{border:1px solid rgba(0,0,0,.08)}
-html[data-theme="light"] .vc-name{color:#1a1a1a}
-html[data-theme="light"] .vc-loc{color:#666}
-html[data-theme="light"] .vc-chip{background:rgba(236,72,153,.06);color:#555;border-color:rgba(236,72,153,.15)}
-html[data-theme="light"] .vendor-expand{background:#f9f0f5}
-html[data-theme="light"] .jwl-card{background:#fff;border-color:rgba(236,72,153,.1)}
-html[data-theme="light"] .jwl-img{background:linear-gradient(135deg,#fdf2f8,#fce7f3)}
-html[data-theme="light"] .jwl-name{color:#1a1a1a}
-html[data-theme="light"] .jwl-material{color:#888}
-html[data-theme="light"] .filter-wrap{background:#fff;border-color:rgba(236,72,153,.2)}
-html[data-theme="light"] .filter-group label{color:rgba(0,0,0,.5)}
-html[data-theme="light"] .filter-group input,html[data-theme="light"] .filter-group select{background:#F8F8F8;border-color:rgba(236,72,153,.2);color:#1a1a1a}
-html[data-theme="light"] .cat-tab{border-color:rgba(236,72,153,.2);color:rgba(0,0,0,.55)}
-html[data-theme="light"] .stats-bar{background:rgba(236,72,153,.06)}
-html[data-theme="light"] .stat-cell{background:#fff}
-html[data-theme="light"] footer{background:#f5f5f0;border-top-color:rgba(201,168,76,.35)}
-html[data-theme="light"] .foot-bottom-row p{color:rgba(0,0,0,.4)}
-html[data-theme="light"] .foot-col a{color:rgba(0,0,0,.55)}
-html[data-theme="light"] .vb-wrap{background:#f8f8f8}
-html[data-theme="light"] .vb-card{background:linear-gradient(145deg,#fdf2f8,#fce7f3)}
+
 
 /* ── Scheme Sections ── */
-.ve-scheme-section{margin-top:18px;border-radius:12px;padding:16px 18px;border:1px solid rgba(236,72,153,.25);background:linear-gradient(135deg,rgba(236,72,153,.06),rgba(236,72,153,.02))}
+.ve-scheme-section{margin-top:18px;border-radius:12px;padding:16px 18px;border:1px solid rgba(219,39,119,.25);background:linear-gradient(135deg,rgba(219,39,119,.06),rgba(219,39,119,.02))}
 .ve-scheme-section.green{border-color:rgba(74,222,128,.3);background:linear-gradient(135deg,rgba(74,222,128,.06),rgba(74,222,128,.02))}
 .ve-scheme-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.ve-scheme-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4)}
+.ve-scheme-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#B05A8A}
 .ve-scheme-name{font-size:14px;font-weight:800;color:var(--accent-l)}
 .ve-scheme-section.green .ve-scheme-name{color:#4ade80}
 .ve-scheme-bullets{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
-.ve-scheme-bullets li{font-size:12.5px;color:rgba(255,255,255,.78);padding-left:18px;position:relative;line-height:1.5}
+.ve-scheme-bullets li{font-size:12.5px;color:#7B1A47;padding-left:18px;position:relative;line-height:1.5}
 .ve-scheme-bullets li::before{content:"•";position:absolute;left:4px;color:var(--accent);font-size:14px;line-height:1.2}
 .ve-scheme-section.green .ve-scheme-bullets li::before{color:#4ade80}
 /* FOOTER */
@@ -281,16 +339,10 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
 .foot-col ul li a:hover{color:var(--g)}
 .foot-col ul li a.cur{color:var(--g);font-weight:600}
 .foot-bottom{border-top:1px solid rgba(201,168,76,.1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
-.foot-bottom p{font-size:12px;color:rgba(255,255,255,.3)}
-html[data-theme="light"] footer{background:#f5f5f0;border-top-color:rgba(201,168,76,.35)}
-html[data-theme="light"] .foot-desc{color:rgba(0,0,0,.45)}
-html[data-theme="light"] .foot-col ul li a{color:rgba(0,0,0,.5)}
-html[data-theme="light"] .foot-col ul li a:hover{color:var(--g)}
-html[data-theme="light"] .foot-bottom p{color:rgba(0,0,0,.4)}
-html[data-theme="light"] .fsoc{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1);color:rgba(0,0,0,.5)}
-html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-color:var(--g);color:var(--g)}
+.foot-bottom p{font-size:12px;color:rgba(26,0,80,.45)}
+
 /* ── HERO SLIDER ── */
-#hero{width:100%;margin-top:var(--nav-h);aspect-ratio:16/6;position:relative;overflow:hidden;background:#0a0700;min-height:260px;max-height:80vh}
+#hero{width:100%;margin-top:var(--nav-h);aspect-ratio:16/6;position:relative;overflow:hidden;background:#FFF0F6;min-height:260px;max-height:80vh}
 .hero-bg{position:absolute;inset:0}
 .hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease;background-size:cover;background-position:center;pointer-events:none}
 .hero-scene img,.hero-scene video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -338,6 +390,33 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   .foot-inner{padding:28px 16px 16px!important}
   .section{padding:32px 0}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </style>
 
@@ -394,6 +473,7 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
   .section{padding:24px 0!important}
   .wrap{padding:0 14px!important}
 }
+
 </style>
 </head>
 <body>
@@ -405,8 +485,8 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
     <a href="jewellery.html" class="active">Jewellery</a>
   </div>
   <div class="nav-right">
-    <button id="theme-toggle" class="nav-theme" onclick="ThemeManager.toggle()">🌙</button>
-    
+    <button class="nav-theme" id="theme-toggle" onclick="ThemeManager.toggle()" title="Toggle theme">☀️</button>
+    <a href="vendor-onboarding-complete.html" class="nav-cta">List Your Store</a>
   </div>
   <button class="hamburger" onclick="mobToggle()"><span></span><span></span><span></span></button>
 </nav>
@@ -446,8 +526,8 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 <section class="section" id="jewellery-list" style="padding-top:20px">
   <div class="wrap">
 
-    <!-- Category tabs -->
-    <div class="cat-tabs reveal" id="cat-tabs">
+    <!-- Category tabs (hidden — filter-cat select handles this) -->
+    <div class="cat-tabs reveal" id="cat-tabs" style="display:none">
       <button class="cat-tab active" onclick="filterCategory('all',this)">All</button>
       <button class="cat-tab" onclick="filterCategory('necklace',this)">💛 Necklaces</button>
       <button class="cat-tab" onclick="filterCategory('ring',this)">💍 Rings</button>
@@ -458,39 +538,68 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       <button class="cat-tab" onclick="filterCategory('bridal',this)">👰 Bridal</button>
     </div>
 
-    <!-- Filter bar -->
-    <div class="filter-wrap reveal">
-      <div class="filter-row">
-        <div class="filter-group">
-          <label>City</label>
-          <input type="text" id="filter-city" placeholder="e.g. Mumbai, Delhi…" oninput="applyFilters()"/>
+    <!-- Filter Bar (1-row, gold-loan style) -->
+    <div class="filter-bar reveal">
+      <div class="filter-group" style="flex:1.4;min-width:160px">
+        <label>Search Jeweller</label>
+        <input type="text" id="filter-search" placeholder="e.g., Bangara Treasures…" oninput="applyFilters()"/>
+      </div>
+      <div class="filter-group">
+        <label>City</label>
+        <input type="text" id="filter-city" placeholder="e.g. Mumbai…" oninput="applyFilters()"/>
+      </div>
+      <div class="filter-group">
+        <label>Gold Purity</label>
+        <select id="filter-purity" onchange="applyFilters()">
+          <option value="">All Purities</option>
+          <option value="22k">22K Gold</option>
+          <option value="18k">18K Gold</option>
+          <option value="diamond">Diamond</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Category</label>
+        <select id="filter-cat" onchange="filterCategorySelect()">
+          <option value="all">All Categories</option>
+          <option value="necklace">💛 Necklaces</option>
+          <option value="ring">💍 Rings</option>
+          <option value="bangle">🟡 Bangles</option>
+          <option value="earring">✨ Earrings</option>
+          <option value="chain">🔗 Chains</option>
+          <option value="bridal">👰 Bridal</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Sort By</label>
+        <select id="filter-sort" onchange="applyFilters()">
+          <option value="popular">Most Popular</option>
+          <option value="designs">Most Designs</option>
+          <option value="rating">Top Rated</option>
+        </select>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0">
+        <label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:transparent;user-select:none">Act</label>
+        <div style="display:flex;gap:6px;align-items:center">
+          <button class="filter-reset-btn" onclick="resetFilters()">Reset</button>
+          <div class="mkt-view-toggle">
+            <button class="mkt-view-btn" onclick="toggleMktViewJwl(this,'tiles')">Tiles</button>
+            <button class="mkt-view-btn active" onclick="toggleMktViewJwl(this,'list')">List</button>
+          </div>
         </div>
-        <div class="filter-group">
-          <label>Gold Purity</label>
-          <select id="filter-purity" onchange="applyFilters()">
-            <option value="">All Purities</option>
-            <option value="22k">22K Gold</option>
-            <option value="18k">18K Gold</option>
-            <option value="diamond">Diamond</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label>Sort By</label>
-          <select id="filter-sort" onchange="applyFilters()">
-            <option value="popular">Most Popular</option>
-            <option value="designs">Most Designs</option>
-            <option value="rating">Top Rated</option>
-          </select>
-        </div>
-        <button class="filter-reset" onclick="resetFilters()">Reset</button>
       </div>
     </div>
 
     <!-- No results -->
     <div id="no-results"><div style="font-size:40px;margin-bottom:12px">💍</div><div style="font-size:16px;font-weight:600;margin-bottom:8px">No jewellers match your filters</div><button onclick="resetFilters()" style="color:var(--accent);font-size:14px;font-weight:600;background:none;border:none;cursor:pointer">Clear filters →</button></div>
 
-    <!-- Vendor list -->
-    <div class="vendor-list reveal" id="vendor-list"></div>
+    <!-- Jeweller list -->
+    <div class="mkt-grid list-view reveal" id="vendor-list">
+      <div class="mkt-table-header">
+        <div>Logo</div><div>Jeweller</div><div>Location</div>
+        <div>Designs</div><div>Speciality</div><div>Rating</div><div>Action</div>
+      </div>
+      <div id="jewellers-loading" style="grid-column:1/-1;text-align:center;padding:40px;color:rgba(219,39,119,.6);font-size:14px">Loading jewellers…</div>
+    </div>
 
   </div>
 </section>
@@ -504,19 +613,19 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       <p class="sec-body">Every design you see is sourced from BIS-certified jewellers with transparent pricing at today's live gold rates.</p>
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px" class="reveal">
-      <div style="background:var(--b3);border:1px solid rgba(236,72,153,.12);border-radius:16px;padding:28px 24px;text-align:center">
+      <div style="background:var(--b2);border:1px solid rgba(219,39,119,.12);border-radius:16px;padding:28px 24px;text-align:center">
         <div style="font-size:36px;margin-bottom:12px">🏅</div>
-        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:8px">100% BIS Hallmarked</div>
+        <div style="font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:8px">100% BIS Hallmarked</div>
         <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.7">Every piece carries BIS hallmark — verified purity you can trust. No mixed alloys, no hidden impurities.</div>
       </div>
-      <div style="background:var(--b3);border:1px solid rgba(236,72,153,.12);border-radius:16px;padding:28px 24px;text-align:center">
+      <div style="background:var(--b2);border:1px solid rgba(219,39,119,.12);border-radius:16px;padding:28px 24px;text-align:center">
         <div style="font-size:36px;margin-bottom:12px">💰</div>
-        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:8px">Live Rate Pricing</div>
+        <div style="font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:8px">Live Rate Pricing</div>
         <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.7">Gold prices update daily from MCX. You always see the real gold value — no inflated base price.</div>
       </div>
-      <div style="background:var(--b3);border:1px solid rgba(236,72,153,.12);border-radius:16px;padding:28px 24px;text-align:center">
+      <div style="background:var(--b2);border:1px solid rgba(219,39,119,.12);border-radius:16px;padding:28px 24px;text-align:center">
         <div style="font-size:36px;margin-bottom:12px">📍</div>
-        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:8px">Compare Locally</div>
+        <div style="font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:8px">Compare Locally</div>
         <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.7">Filter by your city and compare making charges, designs, and ratings before visiting any showroom.</div>
       </div>
     </div>
@@ -572,8 +681,8 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
 
 <script>
 /* ── Theme & Nav ── */
-const ThemeManager={STORAGE_KEY:'gb-theme',DARK:'dark',LIGHT:'light',
-  init(){this.set(localStorage.getItem(this.STORAGE_KEY)||this.DARK)},
+const ThemeManager={STORAGE_KEY:'gb-theme-jwl',DARK:'dark',LIGHT:'light',
+  init(){var saved=localStorage.getItem(this.STORAGE_KEY);this.set(saved||this.LIGHT);},
   get(){return document.documentElement.dataset.theme||this.DARK},
   set(t){const v=t===this.LIGHT?this.LIGHT:this.DARK;document.documentElement.dataset.theme=v;localStorage.setItem(this.STORAGE_KEY,v);this.updateBtn()},
   toggle(){this.set(this.get()===this.DARK?this.LIGHT:this.DARK)},
@@ -792,7 +901,7 @@ function buildBanner(){
   const items = [...featured, ...featured];
   const LOGO = 'images/logo.png';
   track.innerHTML = items.map((j, i) => {
-    const label = JEWELLER_NAMES[i % featured.length] || ('Jeweller - ' + ((i % featured.length) + 1));
+    const label = JEWELLER_NAMES[featured[i % featured.length].id] || JEWELLER_NAMES[i % featured.length] || ('Jeweller - ' + ((i % featured.length) + 1));
     return `
     <div class="vb-card" onclick="scrollToVendor(${j.id})">
       <span class="vb-card-badge">⭐ FEATURED</span>
@@ -850,11 +959,14 @@ function filterCategory(cat, btn){
 
 function applyFilters(){
   if(!document.getElementById('vendor-list')) return;
+  var searchQ = (document.getElementById('filter-search')?.value||'').toLowerCase();
   const city = (document.getElementById('filter-city')?.value||'').toLowerCase();
   const pu   = (document.getElementById('filter-purity')?.value||'').toLowerCase();
   const sort = document.getElementById('filter-sort')?.value || 'popular';
 
   let data = JEWELLERS.filter(j => {
+    var displayLabel=(JEWELLER_NAMES[j.id]||j.name||'').toLowerCase();
+    if(searchQ && !displayLabel.includes(searchQ)) return false;
     if(city && !j.city.includes(city)) return false;
     if(pu && !j.purity.toLowerCase().includes(pu)) return false;
     if(activeCategory !== 'all' && !j.categories.includes(activeCategory)) return false;
@@ -878,138 +990,151 @@ function resetFilters(){
   applyFilters();
 }
 
-/* ── Category image pools ── */
-const CAT_IMGS = {
-  necklace:['photo-1515562141207-7a88fb7ce338','photo-1602173574767-37ac01994b2a','photo-1599707367072-cd6ada2bc375','photo-1611591437281-460bfbe1220a'],
-  ring:    ['photo-1605100804763-247f67b3557e','photo-1573408301185-9519f94f8a35','photo-1561828995-aa79a2db86dd','photo-1589207634478-3b0b2b6b5b5e'],
-  bangle:  ['photo-1611591437281-460bfbe1220a','photo-1506630448388-4e683c67ddb0','photo-1535632066927-ab7c9ab60908','photo-1596944924616-7b38e7cfac36'],
-  earring: ['photo-1535632066927-ab7c9ab60908','photo-1611591437281-460bfbe1220a','photo-1573408301185-9519f94f8a35','photo-1515562141207-7a88fb7ce338'],
-  chain:   ['photo-1599707367072-cd6ada2bc375','photo-1515562141207-7a88fb7ce338','photo-1602173574767-37ac01994b2a','photo-1573408301185-9519f94f8a35'],
-  pendant: ['photo-1602173574767-37ac01994b2a','photo-1515562141207-7a88fb7ce338','photo-1599707367072-cd6ada2bc375','photo-1611591437281-460bfbe1220a'],
-  bridal:  ['photo-1596944924616-7b38e7cfac36','photo-1617038260897-41a1f14a8ca0','photo-1515562141207-7a88fb7ce338','photo-1573408301185-9519f94f8a35'],
-};
-function jwlImg(cat, idx){ const pool=CAT_IMGS[cat]||CAT_IMGS.necklace; return `https://images.unsplash.com/${pool[idx%pool.length]}?w=400&h=400&fit=crop&q=80`; }
-function catLabel(cat){ return{necklace:'💛 Necklace',ring:'💍 Ring',bangle:'🟡 Bangle',earring:'✨ Earrings',chain:'🔗 Chain',pendant:'🌟 Pendant',bridal:'👰 Bridal'}[cat]||cat; }
-
-/* ── Render jewellery item cards ── */
-function renderJewelleryItems(j){
-  const items = activeCategory==='all' ? j.items : j.items.filter(i=>i.cat===activeCategory);
-  const show  = items.length ? items : j.items.slice(0,4);
-  return show.map((item,idx) => {
-    const imgUrl = jwlImg(item.cat, j.id+idx);
-    const wKey   = j.id+'-'+idx;
-    return `
-    <div class="jwl-card">
-      <div class="jwl-img" style="background:#1a0012">
-        <img src="${imgUrl}" alt="${item.name}" loading="lazy"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="jwl-emoji-fb" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:48px">${item.emoji}</span>
-        ${item.badge==='new'?'<span class="jwl-new-badge">NEW</span>':item.badge==='trending'?'<span class="jwl-trending-badge">🔥 TRENDING</span>':''}
-        <button class="jwl-wishlist ${wishlist.has(wKey)?'active':''}" onclick="toggleWishlist(event,${j.id},${idx})" title="Wishlist">${wishlist.has(wKey)?'❤️':'🤍'}</button>
-      </div>
-      <div class="jwl-body">
-        <div class="jwl-name">${item.name}</div>
-        <div class="jwl-material">${item.purity}</div>
-        <div class="jwl-chips">
-          ${item.making?`<span class="jwl-chip">Making: ${item.making}</span>`:''}
-          <span class="jwl-chip">${item.hallmark||'BIS Hallmark'}</span>
-          <span class="jwl-tag">${catLabel(item.cat)}</span>
-        </div>
-        <div class="jwl-quality">${item.quality||''}</div>
-        <a href="${item.linkUrl||j.url}" target="_blank" rel="noopener" class="jwl-view-btn">View Details →</a>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-/* ── Render vendor list ── */
+/* ── Render vendor list (mkt-card style) ── */
 function renderVendors(data){
-  const list = document.getElementById('vendor-list');
+  var list = document.getElementById('vendor-list');
   if(!list) return;
-  // Remove loading placeholder if present
-  const loading = document.getElementById('jewellers-loading');
+  var loading = document.getElementById('jewellers-loading');
   if(loading) loading.remove();
+  // Remove existing cards/expands (keep table header)
+  var header = list.querySelector('.mkt-table-header');
   list.innerHTML = '';
+  if(header) list.appendChild(header);
 
-  const LOGO = 'images/logo.png';
-  data.slice(0, 5).forEach((j, listIdx) => {
-    const label = JEWELLER_NAMES[listIdx] || ('Jeweller - ' + (listIdx + 1));
-    const card = document.createElement('div');
-    card.className = 'vendor-card';
+  var LOGO = 'images/logo.png';
+  data.slice(0,5).forEach(function(j, listIdx){
+    var label = JEWELLER_NAMES[j.id] || JEWELLER_NAMES[listIdx] || ('Jeweller - '+(listIdx+1));
+
+    var card = document.createElement('div');
+    card.className = 'mkt-card';
     card.id = 'vc-'+j.id;
-    card.innerHTML = `
-      <div class="vendor-card-header" onclick="toggleVendor(${j.id})">
-        <div class="vc-left">
-          <div class="vc-rank">${String(listIdx+1).padStart(2,'0')}</div>
-          <div class="vc-logo-box"><img src="${LOGO}" alt="${label}" style="object-fit:contain;padding:4px;background:transparent"></div>
-        </div>
-        <div class="vc-info">
-          <div class="vc-name">${label}</div>
-          <div class="vc-type">${j.type}</div>
-          <div class="vc-stars">${j.starStr}</div>
-          <div class="vc-loc">📍 ${j.loc}</div>
-        </div>
-        <div class="vc-right">
-          <div class="vc-pieces">${j.pieces}</div>
-          <div class="vc-pieces-lbl">Designs</div>
-          <div class="vc-chips">
-            <span class="vc-chip">💎 ${j.purity.split(',')[0]}</span>
-            <span class="vc-chip">Making ${j.makingCharge}</span>
-          </div>
-        </div>
-        <button class="vc-toggle" aria-label="Expand">
-          <span class="toggle-arrow" id="ta-${j.id}">▼</span>
-        </button>
-      </div>
-      <div class="vendor-expand" id="ve-${j.id}">
-        <div class="ve-inner">
-          <div class="ve-left">
-            <img src="${LOGO}" class="ve-brand-logo" alt="${label}" style="background:transparent;padding:8px">
-            <div class="ve-brand-name">${label}</div>
-            <div class="ve-brand-sub">${j.type}</div>
-            <div class="ve-brand-stars">${j.starStr}</div>
-            <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;width:100%">
-              <a href="index.html#contact-us" class="ve-btn ve-btn-filled" style="text-align:center;text-decoration:none">Contact Jeweller</a>
-            </div>
-          </div>
-          <div class="ve-right">
-            <div class="ve-grid">
-              <div class="ve-item"><span class="ve-lbl">📍 Location</span><span class="ve-val">${j.loc}</span></div>
-              <div class="ve-item"><span class="ve-lbl">💍 Gold Purity</span><span class="ve-val ve-val-highlight">${j.purity}</span></div>
-              <div class="ve-item"><span class="ve-lbl">🔨 Making Charges</span><span class="ve-val ve-val-highlight">${j.makingCharge}</span></div>
-              <div class="ve-item"><span class="ve-lbl">🏅 Hallmark</span><span class="ve-val">BIS Hallmark · HUID Tagged</span></div>
-              <div class="ve-item"><span class="ve-lbl">🎨 Total Designs</span><span class="ve-val">${j.pieces} designs</span></div>
-            </div>
-            ${renderSchemeSection(j.scheme1, j.scheme1Color, j.scheme1Details)}
-            ${renderSchemeSection(j.scheme2, j.scheme2Color, j.scheme2Details)}
-          </div>
-        </div>
-        ${renderJewelleryItems(j)}
-      </div>`;
+    card.innerHTML =
+      '<div class="mkt-card-img">' +
+        '<img src="'+LOGO+'" class="jwl-logo" alt="'+label+'" style="width:100%;height:100%;object-fit:contain;padding:8px;background:transparent"/>' +
+      '</div>' +
+      '<div class="mkt-card-body">' +
+        '<div class="mkt-card-tag">Jewellery</div>' +
+        '<div class="mkt-card-name" onclick="toggleVendor('+j.id+')" style="cursor:pointer">' +
+          label+' <span class="toggle-arrow-jwl" id="ta-'+j.id+'">▼</span>' +
+        '</div>' +
+        '<div class="mkt-card-loc">📍 '+j.loc+'</div>' +
+        '<div class="mkt-card-rate">'+j.pieces+'</div>' +
+        '<div class="mkt-card-rate-lbl">designs available</div>' +
+        '<div class="mkt-card-meta">' +
+          '<span class="meta-chip">💎 '+j.purity.split(',')[0]+'</span>' +
+          '<span class="meta-chip">🔨 Making '+j.makingCharge+'</span>' +
+          '<span class="meta-chip">🏅 BIS Hallmark</span>' +
+        '</div>' +
+        '<div class="mkt-card-footer">' +
+          '<div><div class="stars">'+j.starStr+'</div><div class="trust-badge">✓ BIS Verified</div></div>' +
+          '<button class="view-btn" onclick="event.stopPropagation();toggleVendor('+j.id+')">View Details</button>' +
+        '</div>' +
+      '</div>';
     list.appendChild(card);
+
+    // Expand panel
+    var expand = document.createElement('div');
+    expand.id = 've-'+j.id;
+    expand.style.display = 'none';
+    expand.style.cssText = 'grid-column:1/-1;display:none;background:var(--b2);border:1px solid rgba(219,39,119,.15);border-radius:12px;padding:24px;margin:0 0 8px';
+
+    var infoData = [
+      ['📍','LOCATION', j.loc],
+      ['💎','GOLD PURITY', j.purity],
+      ['🔨','MAKING CHARGES', j.makingCharge],
+      ['🏅','HALLMARK', 'BIS Hallmark · HUID Tagged'],
+      ['🎨','TOTAL DESIGNS', j.pieces+' designs'],
+      ['⭐','RATING', j.starStr],
+    ];
+    var infoHtml = infoData.map(function(it){
+      return '<div style="background:var(--b3);border:1px solid rgba(219,39,119,.1);border-radius:8px;padding:12px 14px">' +
+        '<div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-l);margin-bottom:5px">'+it[0]+' '+it[1]+'</div>' +
+        '<div style="font-size:13px;color:var(--text-secondary);line-height:1.5">'+it[2]+'</div>' +
+      '</div>';
+    }).join('');
+
+    var schemesHtml = '';
+    if(j.scheme1){
+      var b1 = j.scheme1Details.map(function(d){return '<li style="margin-bottom:4px">'+d+'</li>';}).join('');
+      schemesHtml += '<div style="grid-column:1/-1;border:1.5px solid rgba(219,39,119,.4);border-radius:10px;padding:16px 20px;background:rgba(219,39,119,.05)">' +
+        '<div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-l);margin-bottom:5px">🏷 SAVINGS SCHEME</div>' +
+        '<div style="font-size:14px;font-weight:700;color:var(--accent-l);margin-bottom:10px">'+j.scheme1+'</div>' +
+        '<ul style="font-size:12px;color:var(--text-secondary);line-height:1.8;padding-left:18px;margin:0">'+b1+'</ul>' +
+      '</div>';
+    }
+    if(j.scheme2){
+      var b2 = j.scheme2Details.map(function(d){return '<li style="margin-bottom:4px">'+d+'</li>';}).join('');
+      schemesHtml += '<div style="grid-column:1/-1;border:1.5px solid rgba(219,39,119,.2);border-radius:10px;padding:16px 20px;background:rgba(219,39,119,.03)">' +
+        '<div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-l);margin-bottom:5px">🏷 ALSO AVAILABLE</div>' +
+        '<div style="font-size:14px;font-weight:700;color:var(--accent-l);margin-bottom:10px">'+j.scheme2+'</div>' +
+        '<ul style="font-size:12px;color:var(--text-secondary);line-height:1.8;padding-left:18px;margin:0">'+b2+'</ul>' +
+      '</div>';
+    }
+
+    expand.innerHTML =
+      '<div style="display:grid;grid-template-columns:220px 1fr;gap:20px">' +
+        '<div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px;background:var(--b3);border:1px solid rgba(219,39,119,.12);border-radius:10px">' +
+          '<img src="'+LOGO+'" style="width:160px;height:160px;object-fit:contain;padding:12px" alt="'+label+'"/>' +
+          '<div style="font-size:15px;font-weight:800;text-align:center;color:var(--text-primary)">'+label+'</div>' +
+          '<div style="font-size:11px;color:var(--text-tertiary);text-align:center">'+j.type+'</div>' +
+          '<div class="stars">'+j.starStr+'</div>' +
+          '<a href="index.html#contact-us" style="display:block;width:100%;padding:8px 0;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent-l));color:#fff;font-size:11px;font-weight:700;text-align:center;text-decoration:none;margin-top:6px">Contact Jeweller</a>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">' +
+          infoHtml + schemesHtml +
+        '</div>' +
+      '</div>';
+
+    list.appendChild(expand);
   });
 }
 
 function toggleVendor(id){
-  const expand = document.getElementById('ve-'+id);
-  const arrow  = document.getElementById('ta-'+id);
-  if(!expand) return;
-  const isOpen = expand.classList.contains('open');
-  if(openVendorId !== -1 && openVendorId !== id){
-    const prev = document.getElementById('ve-'+openVendorId);
-    const prevArrow = document.getElementById('ta-'+openVendorId);
-    if(prev) prev.classList.remove('open');
-    if(prevArrow) prevArrow.style.transform = '';
+  var clickedExpand = document.getElementById('ve-'+id);
+  var clickedArrow  = document.getElementById('ta-'+id);
+  if(!clickedExpand) return;
+  var isOpen = clickedExpand.style.display !== 'none';
+  // Close ALL panels
+  JEWELLERS.forEach(function(j){
+    var e = document.getElementById('ve-'+j.id);
+    var a = document.getElementById('ta-'+j.id);
+    if(e) e.style.display = 'none';
+    if(a) a.style.transform = '';
+  });
+  if(!isOpen){
+    clickedExpand.style.display = 'block';
+    if(clickedArrow) clickedArrow.style.transform = 'rotate(180deg)';
   }
-  if(isOpen){
-    expand.classList.remove('open');
-    if(arrow) arrow.style.transform = '';
-    openVendorId = -1;
-  } else {
-    expand.classList.add('open');
-    if(arrow) arrow.style.transform = 'rotate(180deg)';
-    openVendorId = id;
-  }
+}
+
+function scrollToVendor(id){
+  JEWELLERS.forEach(function(j){
+    var e = document.getElementById('ve-'+j.id);
+    var a = document.getElementById('ta-'+j.id);
+    if(e) e.style.display = 'none';
+    if(a) a.style.transform = '';
+  });
+  var expand = document.getElementById('ve-'+id);
+  var card   = document.getElementById('vc-'+id);
+  if(expand) expand.style.display = 'block';
+  var arrow = document.getElementById('ta-'+id);
+  if(arrow) arrow.style.transform = 'rotate(180deg)';
+  setTimeout(function(){ if(card) card.scrollIntoView({behavior:'smooth',block:'start'}); }, 50);
+}
+
+function toggleMktViewJwl(btn, view){
+  var grid = document.getElementById('vendor-list');
+  if(!grid) return;
+  btn.parentElement.querySelectorAll('.mkt-view-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  if(view==='list') grid.classList.add('list-view');
+  else grid.classList.remove('list-view');
+}
+
+function filterCategorySelect(){
+  var val = document.getElementById('filter-cat')?.value || 'all';
+  activeCategory = val;
+  applyFilters();
 }
 </script>
 </body>
