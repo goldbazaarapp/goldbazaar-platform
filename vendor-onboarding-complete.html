@@ -3011,7 +3011,10 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
     // Countdown timer handle
     let successTimer = null;
 
+    let _formSubmitted = false;
     async function submitForm() {
+      if (_formSubmitted) return;
+      _formSubmitted = true;
       clearAllErrors();
 
       // Collect full vendor details
@@ -3057,12 +3060,14 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
           });
+          console.log('Upload HTTP status:', uploadRes.status);
           const uploadData = await uploadRes.json();
-          if (uploadData.content?.html_url) {
+          console.log('Upload response:', JSON.stringify(uploadData).substring(0, 400));
+          if (uploadRes.status === 201 || uploadRes.status === 200) {
             bannerDriveUrl = `https://raw.githubusercontent.com/goldbazaarapp/goldbazaar-platform/${GH_BRANCH}/${filePath}`;
             console.log('Banner uploaded via proxy:', bannerDriveUrl);
           } else {
-            console.error('Upload proxy error:', JSON.stringify(uploadData));
+            console.error('Upload proxy error (status ' + uploadRes.status + '):', JSON.stringify(uploadData));
           }
         } catch(e) { console.warn('Banner upload failed:', e); }
       }
@@ -3246,10 +3251,4 @@ html[data-theme="light"] .fsoc:hover{background:rgba(201,168,76,.15);border-colo
       timeline:['Lead Received','Lead Accepted','Customer Contacted','Appointment Scheduled']
     },
     {
-      id:'GB-2026-001210', name:'Lakshmi Venkat', mobile:'+91 89876 54321', email:'lakshmi.venkat@email.com',
-      service:'Gold Exchange', location:'BTM Layout, Bangalore', area:'BTM Layout',
-      requirement:'Exchange 80g old bangles for new necklace set',
-      reqDetails:{'Exchange Weight':'80g','Current Gold':'18K bangles','Desired':'22K necklace set','Timeline':'Within 2 weeks'},
-      budget:'—', weight:'80g', contactTime:'Anytime',
-      notes:'Basic enquiry — no specific urgency', otpVerified:false,
-      source:'Google Search', intent:'General Enquiry', status:'New', date:'07 Ju
+      id:'GB-2026-001210', name:'Lakshmi Venkat', mobile:'+91 89876 54321', email:'lakshmi.venkat@e
