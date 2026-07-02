@@ -682,7 +682,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
 <script>
 /* ── Theme & Nav ── */
 const ThemeManager={STORAGE_KEY:'gb-theme-jwl',DARK:'dark',LIGHT:'light',
-  init(){var saved=localStorage.getItem(this.STORAGE_KEY);this.set(saved||this.LIGHT);},
+  init(){var saved=localStorage.getItem(this.STORAGE_KEY);this.set(saved||this.DARK);},
   get(){return document.documentElement.dataset.theme||this.DARK},
   set(t){const v=t===this.LIGHT?this.LIGHT:this.DARK;document.documentElement.dataset.theme=v;localStorage.setItem(this.STORAGE_KEY,v);this.updateBtn()},
   toggle(){this.set(this.get()===this.DARK?this.LIGHT:this.DARK)},
@@ -1139,3 +1139,4 @@ function filterCategorySelect(){
 </script>
 </body>
 </html>
+                                
