@@ -683,42 +683,13 @@ function heroGo(i){
   heroRenderContent(slide);
 }
 function heroNext(){ heroGo((heroIdx+1) % HERO_SLIDES.length); }
-/* ── Hero: verify images load; CDN → local jewellery → landing fallback ── */
-async function initHero(){
+/* ── Hero: use Unsplash/Pexels URLs directly — no probing needed ── */
+function initHero(){
   const bg   = document.getElementById('hero-bg');
   const dots = document.getElementById('hero-dots');
   if(!bg) return;
 
-  const _try = s => new Promise(r=>{const im=new Image();im.onload=()=>r(true);im.onerror=()=>r(false);im.src=s;});
-
-  // Probe each slide: try local jewellery image first, then CDN, then landing-page fallback
-  const resolved = [];
-  for(let i=0; i<HERO_SLIDES.length; i++){
-    const slide      = HERO_SLIDES[i];
-    const localWebP  = `images/jewellery/hero-${i+1}.webp`;
-    const localPNG   = `images/jewellery/hero-${i+1}.png`;
-    const fallback   = `images/hero-${(i%7)+1}.webp`;
-    let src = null;
-    if(await _try(localWebP))     src = localWebP;
-    else if(await _try(localPNG)) src = localPNG;
-    else if(await _try(slide.src))src = slide.src;
-    else if(await _try(fallback)) src = fallback;
-    if(src) resolved.push({...slide, src});
-  }
-
-  if(!resolved.length){
-    // Nothing loaded — show gold gradient so hero isn't black
-    bg.style.background='linear-gradient(135deg,#0a0700 0%,#1a1000 40%,#C9A84C18 100%)';
-    if(dots) dots.style.display='none';
-    heroRenderContent(HERO_SLIDES[0]);
-    return;
-  }
-
-  // Replace HERO_SLIDES in-place so heroGo/heroNext stay in sync
-  HERO_SLIDES.length = 0;
-  resolved.forEach(s=>HERO_SLIDES.push(s));
-
-  HERO_SLIDES.forEach((slide,i)=>{
+  HERO_SLIDES.forEach((slide, i) => {
     const sc = document.createElement('div');
     sc.className = 'hero-scene' + (i===0?' active':'');
     sc.style.backgroundImage = `url(${slide.src})`;
