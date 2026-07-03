@@ -17,7 +17,7 @@ const HERO_LINKS = {
     5: '',
     6: '',
     7: '',
-    8: '',
+    8: 'https://goldbazaar.app/',
     9: '',
     10: ''
   },
