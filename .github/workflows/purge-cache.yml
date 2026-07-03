@@ -9,6 +9,7 @@ on:
       - 'videos/**'
       - 'data/**'
       - '*.html'
+      - '*.js'
       - 'js/**'
       - 'css/**'
 
