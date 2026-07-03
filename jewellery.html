@@ -143,23 +143,24 @@ html[data-theme="dark"] .foot-bottom{border-color:rgba(219,39,119,.1);color:rgba
 @media(max-width:768px){.nav-center{display:none}.hamburger{display:flex}}
 
 /* ── PAGE HERO (full-bleed slider) ── */
+#hero{width:100%;margin-top:var(--nav-h);aspect-ratio:16/6;position:relative;overflow:hidden;background:#0A0005;min-height:260px;max-height:80vh}
 #hero-bg{position:absolute;inset:0}
 /* Full cover — exact fit to hero dimensions */
 .hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease;background-size:cover;background-repeat:no-repeat;background-position:center center}
 .hero-scene.active{opacity:1}
 /* Left-to-right gradient so text is readable over image */
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(95deg,rgba(5,3,0,.55) 0%,rgba(5,3,0,.38) 25%,rgba(5,3,0,.15) 50%,rgba(5,3,0,0) 70%);z-index:2;pointer-events:none}
-/* Text floats over image — confined to left 46% */
-.hero-content{position:absolute;top:0;left:0;bottom:0;width:46%;z-index:3;display:flex;padding:0 52px}
-.hero-content.pos-top{align-items:flex-start;padding-top:48px}
-.hero-content.pos-mid{align-items:center}
-.hero-content.pos-bot{align-items:flex-end;padding-bottom:48px}
-.hero-content h1{font-family:var(--fd);font-size:clamp(14px,1.4vw,20px);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:6px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,1),0 4px 32px rgba(0,0,0,.9)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(95deg,rgba(5,3,0,.22) 0%,rgba(5,3,0,.10) 25%,transparent 55%,transparent 100%);z-index:2;pointer-events:none}
+/* Text floats over image — confined to left 52% */
+.hero-content{position:absolute;top:0;left:0;bottom:0;width:52%;z-index:3;display:flex;align-items:flex-end;padding:0 48px 36px}
+.hero-content.pos-top{align-items:flex-start;padding-top:36px}
+.hero-content.pos-mid{align-items:center;padding-bottom:0}
+.hero-content.pos-bot{align-items:flex-end;padding-bottom:36px}
+.hero-content h1{font-family:var(--fd);font-size:clamp(12px,1.2vw,18px);font-weight:700;letter-spacing:-.03em;line-height:1.18;margin-bottom:10px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,1),0 4px 32px rgba(0,0,0,.9)}
 .hero-content p{font-size:11px;color:rgba(255,255,255,.92);max-width:300px;line-height:1.6;margin-bottom:14px;text-shadow:0 1px 10px rgba(0,0,0,1),0 2px 20px rgba(0,0,0,.8)}
 .hero-dots{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:4}
 .hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s;border:none}
 .hero-dot.active{background:#C9A84C;width:24px;border-radius:4px}
-.hero-eyebrow{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C9A84C;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C9A84C;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .hero-eyebrow::before{content:'';flex:0 0 24px;height:1px;background:rgba(201,168,76,.6)}
 @keyframes heroFadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 .hero-slide-content{animation:heroFadeUp .6s ease both}
@@ -341,55 +342,7 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
 .foot-bottom{border-top:1px solid rgba(201,168,76,.1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
 .foot-bottom p{font-size:12px;color:rgba(26,0,80,.45)}
 
-/* ── HERO SLIDER ── */
-#hero{width:100%;margin-top:var(--nav-h);aspect-ratio:16/6;position:relative;overflow:hidden;background:#FFF0F6;min-height:260px;max-height:80vh}
-.hero-bg{position:absolute;inset:0}
-.hero-scene{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease;background-size:cover;background-position:center;pointer-events:none}
-.hero-scene img,.hero-scene video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero-scene.active{opacity:1;pointer-events:auto;cursor:pointer}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(95deg,rgba(5,3,0,.72) 0%,rgba(5,3,0,.5) 40%,rgba(5,3,0,.15) 70%,transparent 100%);z-index:2;pointer-events:none}
-.hero-content{position:absolute;top:0;left:0;bottom:0;width:55%;z-index:3;display:flex;align-items:flex-end;padding:0 48px 36px}
-.hero-slide-content{display:flex;flex-direction:column;align-items:flex-start;animation:heroFadeUp .6s ease both}
-.hero-content h1{font-family:var(--fd);font-size:clamp(16px,1.8vw,26px);font-weight:700;letter-spacing:-.03em;line-height:1.18;margin-bottom:10px;max-width:380px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,1),0 4px 32px rgba(0,0,0,.9)}
-.hero-content p{font-size:clamp(12px,1.1vw,14px);color:rgba(255,255,255,.88);max-width:420px;line-height:1.7;margin-bottom:18px;text-shadow:0 1px 10px rgba(0,0,0,1)}
-.hero-content .btn-gold{display:inline-flex!important;width:auto!important;align-self:flex-start;font-size:13px;padding:10px 22px}
-.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C9A84C;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.hero-eyebrow::before{content:'';flex:0 0 24px;height:1px;background:rgba(201,168,76,.6)}
-@keyframes heroFadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.hero-dots{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:4}
-.hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s;border:none}
-.hero-dot.active{background:#fff;width:24px;border-radius:4px}
-.ph-stat{display:flex;flex-direction:column;gap:3px}
-.ph-stat-val{font-size:clamp(18px,2.2vw,26px);font-weight:800;text-shadow:0 2px 8px rgba(0,0,0,.4)}
-.ph-stat-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.55)}
-.page-hero-stats{display:flex;gap:24px;flex-wrap:wrap;margin-top:8px}
-@media(max-width:768px){
-  #hero{aspect-ratio:16/7;min-height:220px}
-  .hero-content{width:82%;padding:0 20px 22px}
-  .hero-content h1{font-size:clamp(14px,3.5vw,20px)}
-  .hero-content p{font-size:12px}
-  .page-hero-stats{gap:12px}
-  .ph-stat-val{font-size:18px}
-  .nav-logo img{height:38px!important}
-  #nav{padding:0 16px!important}
-  .foot-logo img{height:56px!important}
-  .wrap{padding:0 16px}
-  .section{padding:48px 0}
-}
-@media(max-width:480px){
-  #hero{aspect-ratio:16/9;min-height:200px}
-  .hero-content{width:92%;padding:0 16px 18px}
-  .hero-content h1{font-size:clamp(12px,3.5vw,16px);margin-bottom:8px}
-  .hero-content p{display:none}
-  .hero-content .btn-gold{font-size:12px;padding:8px 18px}
-  .page-hero-stats{gap:10px}
-  .ph-stat-val{font-size:16px}
-  .ph-stat-lbl{font-size:9px}
-  .vb-card{width:240px}
-  .foot-logo img{height:44px!important}
-  .foot-inner{padding:28px 16px 16px!important}
-  .section{padding:32px 0}
-}
+/* ── HERO SLIDER (duplicate block removed — all hero CSS lives above) ── */
 
 
 
@@ -428,9 +381,16 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
 <link rel="stylesheet" href="css/responsive.css"/>
 <!-- Override responsive.css globals — must come AFTER the link to win -->
 <style>
-.hero-content{padding:0 52px!important;min-height:auto!important}
-.hero-content h1{font-size:clamp(16px,1.8vw,26px)!important;max-width:380px!important;line-height:1.18!important}
+.hero-content{padding:0 48px 36px!important;min-height:auto!important}
+.hero-content h1{font-size:clamp(12px,1.2vw,18px)!important;max-width:420px!important;line-height:1.18!important}
 .hero-content .btn-gold,.hero-content .btn-pink{width:auto!important;display:inline-flex!important;align-self:flex-start!important}
+/* ── TV / large screen ── */
+@media(min-width:1440px){
+  #hero{max-height:72vh}
+  .hero-content h1{font-size:clamp(16px,1.4vw,22px)!important}
+  .hero-eyebrow{font-size:11px!important}
+  .hero-content .btn-gold{font-size:14px!important;padding:11px 26px!important}
+}
 /* Prevent responsive.css [class*="btn-"] making buttons full-width on mobile */
 .btn-gold,.btn-pink{width:auto!important;display:inline-flex!important}
 .nav-logo img{height:56px!important;width:auto!important;max-height:56px!important}
@@ -439,39 +399,46 @@ footer{background:var(--b1);border-top:1px solid rgba(201,168,76,.12)}
   .nav-logo img{height:38px!important;max-height:38px!important}
   #nav{padding:0 16px!important}
   .hero-content{width:82%!important;padding:0 20px 22px!important}
-  .hero-content h1{font-size:clamp(14px,3.5vw,20px)!important}
+  .hero-content h1{font-size:clamp(11px,3vw,16px)!important}
   .foot-logo img{height:56px!important;max-height:56px!important}
   .foot-inner{padding:32px 16px 16px!important}
-  /* Fix responsive.css [class*="hero"] bleeding padding onto sub-elements */
-  #hero{padding:0!important}
+  #hero{aspect-ratio:16/7!important;min-height:220px!important;padding:0!important}
   .hero-slide-content{padding:0!important;min-height:unset!important}
   .hero-eyebrow{padding:0!important;min-height:unset!important}
   .hero-dot{padding:0!important;width:8px!important;height:8px!important;min-height:unset!important}
   .hero-dot.active{width:24px!important;height:8px!important}
-  /* Fix responsive.css section padding */
   .section{padding:32px 0!important}
   .wrap{padding:0 16px!important}
-  /* Filter bar stacking */
   .filter-wrap{padding:14px 16px!important}
   .filter-row{flex-direction:column!important;gap:10px!important}
   .filter-group{min-width:100%!important;width:100%!important}
   .filter-group input,.filter-group select{width:100%!important}
-  /* Collapse the 3-col "Why GoldBazaar" feature grid */
   .section.alt .wrap .reveal{grid-template-columns:1fr!important;gap:12px!important}
-  /* Expand panel */
   .ve-inner{grid-template-columns:1fr!important;padding:14px!important;gap:14px!important}
   .ve-grid{grid-template-columns:1fr!important}
+  /* Table → horizontal scroll on tablet */
+  .mkt-grid.list-view{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;border-radius:10px!important}
+  .mkt-grid.list-view .mkt-table-header,.mkt-grid.list-view .mkt-card{min-width:580px!important}
+  /* jewellery card grid: 2-col on tablet */
+  .jwl-grid{grid-template-columns:repeat(2,1fr)!important}
 }
 @media(max-width:480px){
   .nav-logo img{height:32px!important;max-height:32px!important}
-  .hero-content{width:92%!important;padding:0 16px 18px!important}
-  .hero-content h1{font-size:clamp(12px,3.5vw,16px)!important;margin-bottom:8px!important}
+  #hero{aspect-ratio:16/9!important;min-height:200px!important}
+  .hero-content{width:94%!important;padding:0 16px 18px!important}
+  .hero-content h1{font-size:clamp(11px,3.5vw,15px)!important;margin-bottom:10px!important}
   .hero-content p{display:none!important}
-  .hero-content .btn-gold,.hero-content .btn-pink{font-size:12px!important;padding:8px 18px!important}
+  .hero-content .btn-gold,.hero-content .btn-pink{font-size:12px!important;padding:9px 20px!important}
+  .hero-eyebrow{font-size:9px!important}
   .foot-logo img{height:44px!important;max-height:44px!important}
   .foot-inner{padding:28px 16px 16px!important}
   .section{padding:24px 0!important}
   .wrap{padding:0 14px!important}
+  /* jewellery card grid: 1-col on mobile */
+  .jwl-grid{grid-template-columns:1fr!important}
+  /* filter bar stacking */
+  .filter-bar{flex-direction:column!important;gap:8px!important;padding:12px!important}
+  .filter-group{min-width:100%!important;width:100%!important}
 }
 
 </style>
@@ -759,9 +726,8 @@ function heroRenderContent(slide){
   el.style.animation = '';
   el.innerHTML = `
     <div class="hero-eyebrow">${slide.tag}</div>
-    <h1 style="margin-bottom:10px">${slide.h1}</h1>
-    <p style="max-width:480px;margin-bottom:22px;font-size:15px">${slide.sub}</p>
-    <a href="#jewellery-list" class="btn-gold" style="font-size:11px;padding:8px 18px" onclick="event.preventDefault();document.getElementById('jewellery-list').scrollIntoView({behavior:'smooth'})">Explore Collection</a>`;
+    <h1 style="margin-bottom:22px">${slide.h1}</h1>
+    <a href="#jewellery-list" class="btn-gold" style="font-size:13px;padding:11px 24px" onclick="event.preventDefault();document.getElementById('jewellery-list').scrollIntoView({behavior:'smooth'})">Explore Collection</a>`;
 }
 function heroGo(i){
   const scenes = document.querySelectorAll('.hero-scene');
@@ -783,21 +749,38 @@ function initHero(){
   const bg   = document.getElementById('hero-bg');
   const dots = document.getElementById('hero-dots');
   if(!bg) return;
-
-  HERO_SLIDES.forEach((slide, i) => {
-    const sc = document.createElement('div');
-    sc.className = 'hero-scene' + (i===0?' active':'');
-    sc.style.backgroundImage = `url(${slide.src})`;
-    bg.appendChild(sc);
-    const d = document.createElement('button');
-    d.className = 'hero-dot' + (i===0?' active':'');
-    d.onclick = ()=>{ clearInterval(heroTimer); heroGo(i); heroTimer=setInterval(heroNext,5000); };
-    dots.appendChild(d);
-  });
-  const wrap = document.getElementById('hero-content');
-  if(wrap){ wrap.classList.remove('pos-top','pos-mid','pos-bot'); wrap.classList.add('pos-'+(HERO_SLIDES[0].pos||'bot')); }
-  heroRenderContent(HERO_SLIDES[0]);
-  if(HERO_SLIDES.length>1) heroTimer = setInterval(heroNext, 5000);
+  // Probe local images first — build slider ONCE with correct source (no flash).
+  // Local images take priority; CDN slides are the fallback if none found.
+  (async()=>{
+    const prefix='images/jewellery/hero-', exts=['.webp','.png'], ts=Date.now();
+    const locals=[];
+    for(let i=1;i<=10;i++){
+      let found=null;
+      for(const ext of exts){
+        const url=prefix+i+ext+'?t='+ts;
+        const ok=await new Promise(r=>{const m=new Image();m.onload=()=>r(url);m.onerror=()=>r(null);m.src=url;});
+        if(ok){found=ok;break;}
+      }
+      if(!found)break;
+      const cdn=HERO_SLIDES[i-1]||HERO_SLIDES[HERO_SLIDES.length-1];
+      locals.push({...cdn,src:found});
+    }
+    const slides=locals.length?locals:HERO_SLIDES;
+    slides.forEach((slide,i)=>{
+      const sc=document.createElement('div');
+      sc.className='hero-scene'+(i===0?' active':'');
+      sc.style.backgroundImage=`url(${slide.src})`;
+      bg.appendChild(sc);
+      const d=document.createElement('button');
+      d.className='hero-dot'+(i===0?' active':'');
+      d.onclick=()=>{clearInterval(heroTimer);heroGo(i);heroTimer=setInterval(heroNext,5000);};
+      dots.appendChild(d);
+    });
+    const wrap=document.getElementById('hero-content');
+    if(wrap){wrap.classList.remove('pos-top','pos-mid','pos-bot');wrap.classList.add('pos-'+(slides[0].pos||'bot'));}
+    heroRenderContent(slides[0]);
+    if(slides.length>1)heroTimer=setInterval(heroNext,5000);
+  })();
 }
 
 window.addEventListener('DOMContentLoaded',()=>{
