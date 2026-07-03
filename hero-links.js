@@ -53,7 +53,7 @@ const HERO_LINKS = {
   /* ── JEWELLERY PAGE (jewellery.html) — images/jewellery/hero-{n}.webp */
   'jewellery': {
     1: '',
-    2: '',
+    2: 'https://www.praveenjewels.com/',
     3: 'https://www.praveenjewels.com/',
     4: '',
     5: '',
