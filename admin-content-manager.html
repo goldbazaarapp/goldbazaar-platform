@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GoldBazaar — Content Manager</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',Arial,sans-serif;background:#08000C;color:#eee;min-height:100vh}
+:root{--g:#C9A84C;--gl:#E8C96A;--red:#c0392b;--green:#27ae60;--blue:#2980b9;--card:#120010;--border:#2a0020}
+
+/* ── Layout ── */
+.topbar{background:#0d0010;border-bottom:1px solid #2a0020;padding:14px 24px;display:flex;align-items:center;gap:14px}
+.topbar h1{font-size:16px;font-weight:700;color:var(--g)}
+.topbar span{font-size:11px;color:#555}
+.main{max-width:1300px;margin:0 auto;padding:24px 20px}
+
+/* ── Token card ── */
+.token-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.token-card input{flex:1;min-width:280px;padding:9px 13px;background:#080008;border:1px solid #3a0030;border-radius:6px;color:#fff;font-size:13px}
+.session-info{font-size:11px;color:#555}
+.session-active{color:var(--green)!important}
+
+/* ── Buttons ── */
+.btn{padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700;transition:opacity .15s}
+.btn:disabled{opacity:.3;cursor:not-allowed}
+.btn:not(:disabled):hover{opacity:.82}
+.btn-gold{background:var(--g);color:#000}
+.btn-green{background:var(--green);color:#fff}
+.btn-red{background:var(--red);color:#fff}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-dim{background:#2a2a2a;color:#bbb}
+
+/* ── Tabs ── */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:20px;flex-wrap:wrap}
+.tab{padding:10px 18px;font-size:12px;font-weight:700;color:#666;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
+.tab:hover{color:#aaa}
+.tab.active{color:var(--g);border-bottom-color:var(--g)}
+
+/* ── Section header ── */
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.sec-title{font-size:14px;font-weight:700;color:var(--g)}
+.sec-note{font-size:11px;color:#555;margin-top:4px}
+
+/* ── Hero grid ── */
+.hero-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.slot-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .2s}
+.slot-card.has-image{border-color:rgba(201,168,76,.35)}
+.slot-card.uploading{border-color:var(--blue);opacity:.7}
+
+.slot-header{padding:10px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.slot-num{font-size:11px;font-weight:700;color:var(--g)}
+.slot-status{font-size:10px;padding:2px 7px;border-radius:10px;background:#1a0015;color:#555}
+.slot-status.live{background:rgba(39,174,96,.15);color:var(--green)}
+
+.slot-preview{height:130px;background:#080008;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;cursor:pointer}
+.slot-preview img{width:100%;height:100%;object-fit:cover}
+.slot-preview .empty-icon{font-size:32px;color:#2a0020}
+.slot-preview .upload-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;font-size:12px;color:var(--g);font-weight:700}
+.slot-preview:hover .upload-overlay{display:flex}
+
+.slot-body{padding:12px}
+.slot-url{width:100%;padding:7px 10px;background:#080008;border:1px solid var(--border);border-radius:5px;color:#ccc;font-size:11px;margin-bottom:8px}
+.slot-url:focus{outline:none;border-color:var(--g)}
+.slot-url::placeholder{color:#444}
+
+.slot-actions{display:flex;gap:6px}
+.slot-actions .btn{flex:1;padding:7px 8px;font-size:11px}
+
+.file-input{display:none}
+
+/* ── Upload drag zone ── */
+.drop-zone{border:1.5px dashed #2a0020;border-radius:6px;padding:16px;text-align:center;font-size:11px;color:#555;cursor:pointer;margin-bottom:8px;transition:border-color .2s}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--g);color:var(--g)}
+.drop-zone.has-file{border-color:var(--green);color:var(--green)}
+
+/* ── Progress bar ── */
+.progress-wrap{display:none;margin-top:6px}
+.progress-bar{height:3px;background:#1a0015;border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--g);width:0%;transition:width .3s}
+.progress-label{font-size:10px;color:#666;margin-top:4px;text-align:center}
+
+/* ── Log ── */
+.log-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-top:20px}
+#log{font-family:monospace;font-size:12px;max-height:200px;overflow-y:auto;white-space:pre-wrap;line-height:1.8}
+.ok{color:var(--green)}.err{color:#e74c3c}.inf{color:var(--g)}.dim{color:#555}
+
+/* ── Toast ── */
+#toast{position:fixed;bottom:20px;right:20px;background:#1e3a1e;color:var(--green);border:1px solid var(--green);border-radius:8px;padding:10px 16px;font-size:12px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;max-width:300px}
+#toast.err{background:#3a1e1e;color:#e74c3c;border-color:#e74c3c}
+#toast.show{opacity:1}
+
+/* ── Spin ── */
+.spin{display:inline-block;width:12px;height:12px;border:2px solid #333;border-top-color:var(--g);border-radius:50%;animation:sp .7s linear infinite;vertical-align:middle;margin-right:4px}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* ── Rolling banner tab ── */
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
+.info-card h3{font-size:13px;font-weight:700;color:var(--g);margin-bottom:10px}
+.info-card p{font-size:12px;color:#888;line-height:1.7;margin-bottom:10px}
+.info-card a{color:var(--g);text-decoration:none}
+.vendor-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:10px}
+.vendor-table th{padding:8px 10px;text-align:left;color:#666;font-weight:600;border-bottom:1px solid var(--border)}
+.vendor-table td{padding:8px 10px;border-bottom:1px solid rgba(42,0,32,.5);color:#ccc;vertical-align:middle}
+.vendor-table tr:hover td{background:rgba(201,168,76,.03)}
+.vendor-img{width:48px;height:32px;object-fit:contain;border-radius:4px;background:#080008}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <h1>⚙️ GoldBazaar — Content Manager</h1>
+    <span>Manage hero images, click links and rolling banners for all pages</span>
+  </div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <input type="password" id="tokenInput" placeholder="GitHub token (ghp_...)" style="padding:7px 12px;background:#080008;border:1px solid #3a0030;border-radius:6px;color:#fff;font-size:12px;width:240px">
+    <button class="btn btn-gold" onclick="init()">🔍 Connect</button>
+    <button class="btn btn-blue" onclick="purgeNow()" title="Purge Cloudflare cache immediately">🔄 Purge Cache</button>
+    <span class="session-info" id="sessionInfo"></span>
+    <button class="btn btn-dim" id="clearBtn" style="display:none;font-size:11px" onclick="clearSession()">✕ Sign out</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('landing',this)">🏠 Landing</div>
+    <div class="tab" onclick="switchTab('gold-loan',this)">💰 Gold Loan</div>
+    <div class="tab" onclick="switchTab('sell-gold',this)">🏅 Gold Sell</div>
+    <div class="tab" onclick="switchTab('jewellery',this)">💍 Jewellery</div>
+    <div class="tab" onclick="switchTab('vendor-onboarding',this)">🏪 Vendor Onboarding</div>
+    <div class="tab" onclick="switchTab('rolling-banners',this)">🎡 Rolling Banners</div>
+  </div>
+
+  <!-- Purge status banner -->
+  <div id="purgeBanner" style="display:none;background:#0d1a2a;border:1px solid #1a3a5a;border-radius:8px;padding:10px 16px;margin-bottom:16px;display:none;align-items:center;gap:12px;font-size:12px">
+    <span id="purgeIcon">⏱</span>
+    <span id="purgeMsg" style="color:#7ab3d4">Waiting for GitHub Pages to deploy before purging cache...</span>
+    <div style="margin-left:auto;display:flex;gap:8px">
+      <button class="btn btn-blue" style="font-size:11px;padding:5px 10px" onclick="purgeNow()">Purge Now</button>
+      <button class="btn btn-dim" style="font-size:11px;padding:5px 10px" onclick="cancelCountdown()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Page content -->
+  <div id="pageContent">
+    <div style="text-align:center;padding:60px;color:#333">Connect with your GitHub token to begin</div>
+  </div>
+
+  <!-- Log -->
+  <div class="log-card" id="logCard" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <span style="font-size:12px;font-weight:700;color:var(--g)">Activity Log</span>
+      <button class="btn btn-dim" style="font-size:11px;padding:4px 10px" onclick="document.getElementById('log').innerHTML=''">Clear</button>
+    </div>
+    <div id="log"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ══════════════════════════════════════════════
+   CONFIG
+══════════════════════════════════════════════ */
+const OWNER  = 'goldbazaarapp';
+const REPO   = 'goldbazaar-platform';
+const BRANCH = 'main';
+const RAW    = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/`;
+const API    = `https://api.github.com/repos/${OWNER}/${REPO}/contents/`;
+const SK     = 'gb_cm_token';
+const SE     = 'gb_cm_exp';
+
+const PAGES = {
+  'landing':           { label:'Landing Page',       file:'index.html',                      folder:'images/',                 prefix:'hero-',  ext:'.webp', extFallback:'.png', linkKey:'landing',           max:10 },
+  'gold-loan':         { label:'Gold Loan',           file:'gold-loan-providers.html',         folder:'images/gold-loan/',        prefix:'hero-',  ext:'.webp', extFallback:'.png', linkKey:'gold-loan',         max:10 },
+  'sell-gold':         { label:'Gold Sell',           file:'gold-buyers.html',                 folder:'images/gold-buyers/',      prefix:'hero-',  ext:'.webp', extFallback:'.png', linkKey:'sell-gold',         max:10 },
+  'jewellery':         { label:'Jewellery',           file:'jewellery.html',                   folder:'images/jewellery/',        prefix:'hero-',  ext:'.webp', extFallback:'.png', linkKey:'jewellery',         max:10 },
+  'vendor-onboarding': { label:'Vendor Onboarding',  file:'vendor-onboarding-complete.html',  folder:'images/onboarding-hero/', prefix:'slide-', ext:'.webp', extFallback:'.jpg', linkKey:'vendor-onboarding', max:10 }
+};
+
+let heroLinks  = null;  // parsed HERO_LINKS from GitHub
+let heroLinksS = '';    // raw JS string
+let heroLinksH = '';    // SHA of hero-links.js
+let currentTab = 'landing';
+let pendingFiles = {};  // { slotKey: File }
+
+/* ══════════════════════════════════════════════
+   SESSION
+══════════════════════════════════════════════ */
+function saveSession(t){
+  const exp = Date.now() + 24*3600*1000;
+  localStorage.setItem(SK, t);
+  localStorage.setItem(SE, exp);
+  updateSessionUI(exp);
+}
+function clearSession(){
+  localStorage.removeItem(SK); localStorage.removeItem(SE);
+  document.getElementById('tokenInput').value='';
+  document.getElementById('sessionInfo').textContent='';
+  document.getElementById('clearBtn').style.display='none';
+  heroLinks=null; heroLinksS=''; heroLinksH='';
+  showPlaceholder('Signed out. Enter token to reconnect.');
+}
+function updateSessionUI(exp){
+  const rem=exp-Date.now();
+  if(rem<=0){clearSession();return;}
+  const h=Math.floor(rem/3600000), m=Math.floor((rem%3600000)/60000);
+  const el=document.getElementById('sessionInfo');
+  el.textContent=`🔐 Session: ${h}h ${m}m`;
+  el.className='session-info session-active';
+  document.getElementById('clearBtn').style.display='inline-block';
+}
+function restoreSession(){
+  const t=localStorage.getItem(SK), exp=+localStorage.getItem(SE)||0;
+  if(!t||Date.now()>exp){return false;}
+  document.getElementById('tokenInput').value=t;
+  updateSessionUI(exp);
+  return true;
+}
+setInterval(()=>{const e=+localStorage.getItem(SE)||0;if(e)updateSessionUI(e);},60000);
+
+/* ══════════════════════════════════════════════
+   GITHUB API HELPERS
+══════════════════════════════════════════════ */
+function ghHeaders(){
+  return {
+    'Authorization':'Bearer '+localStorage.getItem(SK),
+    'Accept':'application/vnd.github+json',
+    'X-GitHub-Api-Version':'2022-11-28'
+  };
+}
+
+async function ghGet(path){
+  const r=await fetch(API+path+'?ref='+BRANCH+'&t='+Date.now(),{headers:ghHeaders(),cache:'no-store'});
+  if(r.status===404)return null;
+  if(!r.ok)throw new Error('GitHub GET failed: '+r.status);
+  return r.json();
+}
+
+async function ghPut(path, content64, msg, sha){
+  const body={message:msg, content:content64, branch:BRANCH};
+  if(sha)body.sha=sha;
+  const r=await fetch(API+path,{method:'PUT',headers:{...ghHeaders(),'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const data=await r.json();
+  if(!r.ok)throw new Error(data.message||'GitHub PUT failed: '+r.status);
+  return data;
+}
+
+function toBase64(str){return btoa(unescape(encodeURIComponent(str)));}
+function fromBase64(b64){return decodeURIComponent(escape(atob(b64.replace(/\n/g,''))));}
+
+async function fileToBase64(file){
+  return new Promise((res,rej)=>{
+    const fr=new FileReader();
+    fr.onload=()=>res(fr.result.split(',')[1]);
+    fr.onerror=rej;
+    fr.readAsDataURL(file);
+  });
+}
+
+/* Convert image to WebP via canvas */
+async function toWebP(file, quality=0.88){
+  return new Promise((res)=>{
+    const img=new Image();
+    const url=URL.createObjectURL(file);
+    img.onload=()=>{
+      const c=document.createElement('canvas');
+      c.width=img.naturalWidth; c.height=img.naturalHeight;
+      c.getContext('2d').drawImage(img,0,0);
+      c.toBlob(b=>{URL.revokeObjectURL(url);res(b);},'image/webp',quality);
+    };
+    img.onerror=()=>{URL.revokeObjectURL(url);res(file);};
+    img.src=url;
+  });
+}
+
+/* ══════════════════════════════════════════════
+   HERO LINKS
+══════════════════════════════════════════════ */
+async function loadHeroLinks(){
+  log('<span class="inf">Loading hero-links.js...</span>');
+  const data=await ghGet('hero-links.js');
+  if(!data){
+    log('<span class="err">hero-links.js not found in repo.</span>');
+    return false;
+  }
+  heroLinksH = data.sha;
+  heroLinksS  = fromBase64(data.content);
+  // Parse HERO_LINKS object safely
+  try{
+    const fn=new Function(heroLinksS+'\nreturn HERO_LINKS;');
+    heroLinks=fn();
+    log('<span class="ok">✓ hero-links.js loaded</span>');
+    return true;
+  }catch(e){
+    log('<span class="err">Failed to parse hero-links.js: '+e.message+'</span>');
+    return false;
+  }
+}
+
+function getCurrentLink(pageKey, slot){
+  if(!heroLinks)return '';
+  return (heroLinks[pageKey]&&heroLinks[pageKey][slot])||'';
+}
+
+async function saveHeroLink(pageKey, slot, url){
+  if(!heroLinks)heroLinks={};
+  if(!heroLinks[pageKey])heroLinks[pageKey]={};
+  heroLinks[pageKey][slot]=url;
+
+  // Rebuild hero-links.js content
+  const newContent = buildHeroLinksJs(heroLinks);
+  const b64 = toBase64(newContent);
+  const res = await ghPut('hero-links.js', b64,
+    `Update hero link: ${pageKey} slot ${slot}`, heroLinksH);
+  heroLinksH = res.content.sha;
+  heroLinksS = newContent;
+  return true;
+}
+
+function buildHeroLinksJs(links){
+  let s=`/**
+ * ╔══════════════════════════════════════════════════════════════╗
+ * ║         GOLDBAZAAR — HERO IMAGE LINK MAPPING               ║
+ * ╠══════════════════════════════════════════════════════════════╣
+ * ║  Edit via: goldbazaar.app/admin-content-manager.html        ║
+ * ╚══════════════════════════════════════════════════════════════╝
+ */
+
+const HERO_LINKS = {\n`;
+
+  const order=['landing','gold-loan','sell-gold','jewellery','vendor-onboarding'];
+  const labels={
+    'landing':           'LANDING PAGE (index.html) — images/hero-{n}.webp',
+    'gold-loan':         'GOLD LOAN PAGE (gold-loan-providers.html) — images/gold-loan/hero-{n}.webp',
+    'sell-gold':         'SELL GOLD PAGE (gold-buyers.html) — images/gold-buyers/hero-{n}.webp',
+    'jewellery':         'JEWELLERY PAGE (jewellery.html) — images/jewellery/hero-{n}.webp',
+    'vendor-onboarding': 'VENDOR ONBOARDING (vendor-onboarding-complete.html) — images/onboarding-hero/slide-{n}.webp'
+  };
+
+  order.forEach((key,ki)=>{
+    const block=links[key]||{};
+    s+=`\n  /* ── ${labels[key]} */\n`;
+    s+=`  '${key}': {\n`;
+    for(let i=1;i<=10;i++){
+      const v=block[i]||'';
+      s+=`    ${i}: '${v}'${i<10?',':''}\n`;
+    }
+    s+=`  }${ki<order.length-1?',':''}\n`;
+  });
+
+  s+=`\n};\n\nfunction getHeroLink(page,index){\n  return(HERO_LINKS[page]&&HERO_LINKS[page][index])||'';\n}\n`;
+  return s;
+}
+
+/* ══════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════ */
+async function init(){
+  const token=document.getElementById('tokenInput').value.trim();
+  if(!token){toast('Enter your GitHub token first.',true);return;}
+  saveSession(token);
+  showLoading('Connecting to GitHub...');
+  const ok=await loadHeroLinks();
+  if(ok){
+    toast('Connected ✓');
+    switchTab(currentTab, document.querySelector('.tab.active'));
+  } else {
+    toast('Failed to connect. Check your token.',true);
+  }
+}
+
+/* ══════════════════════════════════════════════
+   TABS
+══════════════════════════════════════════════ */
+function switchTab(key, el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  if(el)el.classList.add('active');
+  currentTab=key;
+  if(!heroLinks && key!=='rolling-banners'){
+    showPlaceholder('Please connect with your GitHub token first.');
+    return;
+  }
+  if(key==='rolling-banners'){renderRollingBanners();return;}
+  renderPage(key);
+}
+
+function showPlaceholder(msg){
+  document.getElementById('pageContent').innerHTML=
+    `<div style="text-align:center;padding:60px;color:#333;font-size:13px">${msg}</div>`;
+}
+function showLoading(msg){
+  document.getElementById('pageContent').innerHTML=
+    `<div style="text-align:center;padding:60px;color:#555;font-size:13px"><span class="spin"></span>${msg}</div>`;
+}
+
+/* ══════════════════════════════════════════════
+   RENDER HERO PAGE
+══════════════════════════════════════════════ */
+async function renderPage(pageKey){
+  const pg=PAGES[pageKey];
+  if(!pg){showPlaceholder('Unknown page.');return;}
+
+  showLoading('Loading current images...');
+  document.getElementById('logCard').style.display='block';
+
+  // Check which slots have images
+  const exists=await checkSlots(pg);
+
+  let html=`
+    <div class="sec-head">
+      <div>
+        <div class="sec-title">📄 ${pg.label} — Hero Images</div>
+        <div class="sec-note">File: <code>${pg.file}</code> · Folder: <code>${pg.folder}</code> · Format: <code>${pg.prefix}N${pg.ext}</code></div>
+        ${pageKey==='jewellery'?'<div class="sec-note" style="color:#e67e22;margin-top:4px">⚠ jewellery.html currently uses Unsplash images. Upload images here to prepare them — a code update is needed to switch jewellery.html to local images.</div>':''}
+      </div>
+    </div>
+    <div class="hero-grid" id="heroGrid-${pageKey}">`;
+
+  for(let i=1;i<=pg.max;i++){
+    const info=exists[i]||{found:false,ext:pg.ext};
+    const live=info.found;
+    const activeExt=info.ext||pg.ext;
+    const currentUrl=getCurrentLink(pageKey,i);
+    const imgSrc=live?`${RAW}${pg.folder}${pg.prefix}${i}${activeExt}`:'';
+    const slotKey=`${pageKey}-${i}`;
+    html+=`
+      <div class="slot-card ${live?'has-image':''}" id="card-${slotKey}">
+        <div class="slot-header">
+          <span class="slot-num">${pg.prefix}${i}${activeExt}</span>
+          <span class="slot-status ${live?'live':''}">${live?'● LIVE':'○ EMPTY'}</span>
+        </div>
+        <div class="slot-preview" onclick="triggerFile('${slotKey}')">
+          ${live?`<img id="img-${slotKey}" src="${imgSrc}?t=${Date.now()}" alt="hero-${i}" onerror="this.parentNode.innerHTML='<span class=\\'empty-icon\\'>🖼</span>'">`:
+                 `<span class="empty-icon">🖼</span>`}
+          <div class="upload-overlay">📤 Click to upload</div>
+        </div>
+        <div class="slot-body">
+          <div class="drop-zone" id="drop-${slotKey}"
+            ondragover="onDragOver(event,'${slotKey}')"
+            ondragleave="onDragLeave('${slotKey}')"
+            ondrop="onDrop(event,'${slotKey}')"
+            onclick="triggerFile('${slotKey}')">
+            📂 Drop image here or click
+          </div>
+          <input type="text" class="slot-url" id="url-${slotKey}"
+            placeholder="https://vendor-website.com" value="${escHtml(currentUrl)}">
+          <div class="slot-actions">
+            <button class="btn btn-green" onclick="saveSlot('${pageKey}',${i})">💾 Save</button>
+            ${live?`<button class="btn btn-dim" onclick="previewSlot('${pageKey}',${i})">👁 Preview</button>`:''}
+          </div>
+          <div class="progress-wrap" id="prog-${slotKey}">
+            <div class="progress-bar"><div class="progress-fill" id="fill-${slotKey}"></div></div>
+            <div class="progress-label" id="proglbl-${slotKey}">Uploading...</div>
+          </div>
+        </div>
+        <input type="file" class="file-input" id="file-${slotKey}"
+          accept="image/*" onchange="onFileSelect(event,'${slotKey}')">
+      </div>`;
+  }
+  html+='</div>';
+  document.getElementById('pageContent').innerHTML=html;
+}
+
+/* ══════════════════════════════════════════════
+   CHECK WHICH SLOTS HAVE IMAGES
+   Returns: { 1: { found:true, ext:'.webp' }, ... }
+══════════════════════════════════════════════ */
+async function checkSlots(pg){
+  const ts=Date.now();
+  const checks=[];
+  for(let i=1;i<=pg.max;i++){
+    const urlMain=`${RAW}${pg.folder}${pg.prefix}${i}${pg.ext}?t=${ts}`;
+    const urlFb  =pg.extFallback?`${RAW}${pg.folder}${pg.prefix}${i}${pg.extFallback}?t=${ts}`:'';
+    checks.push(
+      fetch(urlMain,{method:'HEAD',cache:'no-store'}).then(r=>r.ok?{found:true,ext:pg.ext}:null).catch(()=>null)
+        .then(async r=>{
+          if(r)return r;
+          if(!urlFb)return{found:false,ext:pg.ext};
+          const r2=await fetch(urlFb,{method:'HEAD',cache:'no-store'}).then(r=>r.ok).catch(()=>false);
+          return r2?{found:true,ext:pg.extFallback}:{found:false,ext:pg.ext};
+        })
+    );
+  }
+  const results=await Promise.all(checks);
+  const map={};
+  results.forEach((r,idx)=>{map[idx+1]=r;});
+  return map;
+}
+
+/* ══════════════════════════════════════════════
+   FILE HANDLING
+══════════════════════════════════════════════ */
+function triggerFile(slotKey){
+  document.getElementById('file-'+slotKey)?.click();
+}
+
+function onDragOver(e,slotKey){
+  e.preventDefault();
+  document.getElementById('drop-'+slotKey)?.classList.add('drag-over');
+}
+function onDragLeave(slotKey){
+  document.getElementById('drop-'+slotKey)?.classList.remove('drag-over');
+}
+function onDrop(e,slotKey){
+  e.preventDefault();
+  onDragLeave(slotKey);
+  const file=e.dataTransfer.files[0];
+  if(file&&file.type.startsWith('image/'))setFile(slotKey,file);
+}
+function onFileSelect(e,slotKey){
+  const file=e.target.files[0];
+  if(file)setFile(slotKey,file);
+}
+function setFile(slotKey,file){
+  pendingFiles[slotKey]=file;
+  const dz=document.getElementById('drop-'+slotKey);
+  if(dz){
+    dz.textContent=`✓ ${file.name} (${(file.size/1024).toFixed(0)} KB)`;
+    dz.classList.add('has-file');
+    dz.classList.remove('drag-over');
+  }
+}
+
+/* ══════════════════════════════════════════════
+   SAVE SLOT
+══════════════════════════════════════════════ */
+async function saveSlot(pageKey, slot){
+  const slotKey=`${pageKey}-${slot}`;
+  const pg=PAGES[pageKey];
+  const file=pendingFiles[slotKey];
+  const url=(document.getElementById('url-'+slotKey)?.value||'').trim();
+
+  if(!file && !url){toast('Upload an image or set a URL first.',true);return;}
+
+  const card=document.getElementById('card-'+slotKey);
+  const prog=document.getElementById('prog-'+slotKey);
+  const fill=document.getElementById('fill-'+slotKey);
+  const lbl =document.getElementById('proglbl-'+slotKey);
+  if(card)card.classList.add('uploading');
+  if(prog)prog.style.display='block';
+  document.getElementById('logCard').style.display='block';
+
+  try{
+    /* ── Upload image ── */
+    if(file){
+      setProgress(fill,lbl,10,'Converting to WebP...');
+      log(`<span class="inf">📤 Uploading ${pg.prefix}${slot}${pg.ext} for ${pg.label}...</span>`);
+
+      let uploadFile=file;
+      // Convert to webp if needed
+      if(!file.name.endsWith('.webp')){
+        const wb=await toWebP(file);
+        if(wb)uploadFile=new File([wb],`${pg.prefix}${slot}.webp`,{type:'image/webp'});
+      }
+
+      setProgress(fill,lbl,30,'Reading file...');
+      const b64=await fileToBase64(uploadFile);
+
+      // Check if file exists (get SHA for update)
+      setProgress(fill,lbl,50,'Checking GitHub...');
+      const existing=await ghGet(pg.folder+pg.prefix+slot+pg.ext);
+      const sha=existing?.sha;
+
+      setProgress(fill,lbl,70,'Uploading to GitHub...');
+      await ghPut(
+        pg.folder+pg.prefix+slot+pg.ext,
+        b64,
+        `Upload ${pg.prefix}${slot}${pg.ext} for ${pg.label}`,
+        sha
+      );
+
+      setProgress(fill,lbl,90,'Image saved ✓');
+      log(`<span class="ok">  ✓ Image uploaded → ${pg.folder}${pg.prefix}${slot}${pg.ext}</span>`);
+      delete pendingFiles[slotKey];
+
+      // Update preview
+      const imgEl=document.getElementById('img-'+slotKey);
+      const preview=card?.querySelector('.slot-preview');
+      const newSrc=`${RAW}${pg.folder}${pg.prefix}${slot}${pg.ext}?t=${Date.now()}`;
+      if(imgEl){ imgEl.src=newSrc; }
+      else if(preview){
+        preview.innerHTML=`<img id="img-${slotKey}" src="${newSrc}" alt="hero-${slot}"><div class="upload-overlay">📤 Click to upload</div>`;
+      }
+      card?.classList.add('has-image');
+      const statusEl=card?.querySelector('.slot-status');
+      if(statusEl){statusEl.textContent='● LIVE';statusEl.classList.add('live');}
+
+      const dz=document.getElementById('drop-'+slotKey);
+      if(dz){dz.textContent='📂 Drop image here or click';dz.classList.remove('has-file');}
+    }
+
+    /* ── Update hero link ── */
+    if(url !== undefined){
+      setProgress(fill,lbl,file?95:50,'Updating hero-links.js...');
+      await saveHeroLink(pageKey, slot, url);
+      log(`<span class="ok">  ✓ Link updated → ${url||'(cleared)'}</span>`);
+    }
+
+    setProgress(fill,lbl,100,'Done ✓');
+    toast(`Slot ${slot} saved successfully ✓`);
+    log(`<span class="ok">✓ ${pg.label} slot ${slot} complete\n</span>`);
+
+    // Start auto-purge countdown (180s = 3min for GitHub Pages to propagate)
+    if(file) startPurgeCountdown(180);
+
+  }catch(e){
+    log(`<span class="err">✗ Error: ${e.message}</span>`);
+    toast('Error: '+e.message, true);
+  }
+
+  if(card)card.classList.remove('uploading');
+  setTimeout(()=>{if(prog)prog.style.display='none';},2000);
+}
+
+function setProgress(fill,lbl,pct,msg){
+  if(fill)fill.style.width=pct+'%';
+  if(lbl)lbl.textContent=msg;
+}
+
+function previewSlot(pageKey,slot){
+  const pg=PAGES[pageKey];
+  const url=`${RAW}${pg.folder}${pg.prefix}${slot}${pg.ext}?t=${Date.now()}`;
+  window.open(url,'_blank');
+}
+
+/* ══════════════════════════════════════════════
+   ROLLING BANNERS TAB
+══════════════════════════════════════════════ */
+function renderRollingBanners(){
+  document.getElementById('pageContent').innerHTML=`
+    <div class="info-card">
+      <h3>🎡 Rolling Banner Overview</h3>
+      <p>Rolling banners on each page are driven by different data sources:</p>
+      <table class="vendor-table">
+        <tr><th>Page</th><th>Data Source</th><th>How to Update</th></tr>
+        <tr>
+          <td>🏠 Landing (index.html)</td>
+          <td>Vendor-submitted banners (approved)</td>
+          <td>Approve vendor submissions via admin dashboard</td>
+        </tr>
+        <tr>
+          <td>💰 Gold Loan</td>
+          <td><code>data/gold-loan-providers.xlsx</code></td>
+          <td>Update Excel file in GitHub repo</td>
+        </tr>
+        <tr>
+          <td>🏅 Gold Sell</td>
+          <td><code>data/gold-buyers.xlsx</code></td>
+          <td>Update Excel file in GitHub repo</td>
+        </tr>
+        <tr>
+          <td>💍 Jewellery</td>
+          <td><code>data/jewellers.xlsx</code></td>
+          <td>Update Excel file in GitHub repo</td>
+        </tr>
+        <tr>
+          <td>🏪 Vendor Onboarding</td>
+          <td>Static hero slides only</td>
+          <td>Use the hero slots above</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="info-card">
+      <h3>📁 Vendor Banner Files</h3>
+      <p>Vendor-submitted banner images are stored in the <code>vendor-banners/</code> folder on GitHub.</p>
+      <p>Use the dedicated manager tool to view, download, or delete these files:</p>
+      <a href="manage-vendor-banners.html" target="_blank">
+        <button class="btn btn-gold" style="margin-top:6px">Open Vendor Banners Manager →</button>
+      </a>
+    </div>
+
+    <div class="info-card">
+      <h3>📊 Excel Data Files</h3>
+      <p>The rolling banners for Gold Loan, Gold Sell and Jewellery pages read from Excel (.xlsx) files in the <code>data/</code> folder. To update:</p>
+      <p>1. Download the Excel file from GitHub<br>
+         2. Add/edit vendor rows<br>
+         3. Upload the updated file back to GitHub<br>
+         4. The page auto-loads the new data</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+        <button class="btn btn-blue" onclick="openFile('data/gold-loan-providers.xlsx')">⬇ Download Gold Loan xlsx</button>
+        <button class="btn btn-blue" onclick="openFile('data/gold-buyers.xlsx')">⬇ Download Gold Sell xlsx</button>
+        <button class="btn btn-blue" onclick="openFile('data/jewellers.xlsx')">⬇ Download Jewellery xlsx</button>
+      </div>
+    </div>`;
+}
+
+function openFile(path){
+  window.open(`https://github.com/${OWNER}/${REPO}/blob/${BRANCH}/${path}`,'_blank');
+}
+
+/* ══════════════════════════════════════════════
+   CLOUDFLARE PURGE  (via Worker — no CORS issues)
+══════════════════════════════════════════════ */
+const PURGE_URL = 'https://goldbazaar-upload.goldbazaar-app.workers.dev/--purge--';
+let purgeTimer = null;
+
+function restoreCfSession(){ /* no longer needed — Worker holds credentials */ }
+
+async function purgeNow(){
+  cancelCountdown();
+  showPurgeBanner('⏳', 'Purging Cloudflare cache...', '#7ab3d4');
+  log('<span class="inf">🔄 Purging Cloudflare cache via Worker...</span>');
+  try{
+    const r = await fetch(PURGE_URL, { method:'POST' });
+    const data = await r.json();
+    if(data.success){
+      showPurgeBanner('✅', 'Cache purged — new images are now live on goldbazaar.app', '#27ae60');
+      log('<span class="ok">✅ Cloudflare cache purged — new images are live!</span>');
+      toast('Cache purged ✅ — new image is now live!');
+      setTimeout(hidePurgeBanner, 5000);
+    } else {
+      const errMsg = JSON.stringify(data.errors||data.error||data);
+      showPurgeBanner('❌', 'Purge failed: '+errMsg, '#e74c3c');
+      log(`<span class="err">❌ Purge failed: ${errMsg}</span>`);
+      toast('Purge failed — check Worker secrets CF_ZONE_ID and CF_API_TOKEN', true);
+    }
+  }catch(e){
+    showPurgeBanner('❌', 'Purge error: '+e.message, '#e74c3c');
+    log(`<span class="err">❌ Purge error: ${e.message}</span>`);
+    toast('Purge error: '+e.message, true);
+  }
+}
+
+function startPurgeCountdown(seconds){
+  cancelCountdown();
+  let remaining = seconds;
+  showPurgeBanner('⏱', `Auto-purging in ${fmt(remaining)} — waiting for GitHub Pages to deploy...`, '#7ab3d4');
+  purgeTimer = setInterval(()=>{
+    remaining--;
+    if(remaining <= 0){
+      clearInterval(purgeTimer);
+      purgeTimer = null;
+      purgeNow();
+    } else {
+      showPurgeBanner('⏱', `Auto-purging in ${fmt(remaining)} — waiting for GitHub Pages to deploy...`, '#7ab3d4');
+    }
+  }, 1000);
+}
+
+function cancelCountdown(){
+  if(purgeTimer){ clearInterval(purgeTimer); purgeTimer=null; }
+  hidePurgeBanner();
+}
+
+function showPurgeBanner(icon, msg, color){
+  const b = document.getElementById('purgeBanner');
+  if(b){
+    b.style.display='flex';
+    document.getElementById('purgeIcon').textContent=icon;
+    const m=document.getElementById('purgeMsg');
+    m.textContent=msg; m.style.color=color;
+  }
+}
+function hidePurgeBanner(){
+  const b=document.getElementById('purgeBanner');
+  if(b)b.style.display='none';
+}
+function fmt(s){ return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`; }
+
+/* ══════════════════════════════════════════════
+   UTILS
+══════════════════════════════════════════════ */
+function log(msg){
+  const el=document.getElementById('log');
+  if(!el)return;
+  el.innerHTML+=msg+'\n';
+  el.scrollTop=el.scrollHeight;
+}
+
+function toast(msg,isErr=false){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='show'+(isErr?' err':'');
+  clearTimeout(t._t);
+  t._t=setTimeout(()=>t.className=isErr?'err':'',3500);
+}
+
+function escHtml(s){
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ══════════════════════════════════════════════
+   STARTUP
+══════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded',async()=>{
+  restoreCfSession();
+  if(restoreSession()){
+    await init();
+  }
+});
+</script>
+</body>
+</html>
