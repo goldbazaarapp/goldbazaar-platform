@@ -18,13 +18,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Wait for GitHub Pages to finish deploying
-        run: sleep 90
+        run: sleep 300
 
       - name: Purge Cloudflare Cache
         run: |
-          curl -s -X POST \
+          RESULT=$(curl -s -X POST \
             "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache" \
             -H "Authorization: Bearer ${{ secrets.CF_API_TOKEN }}" \
             -H "Content-Type: application/json" \
-            --data '{"purge_everything":true}' \
-            | jq '{success, errors}'
+            --data '{"purge_everything":true}')
+
+          echo "Cloudflare response: $RESULT"
+
+          SUCCESS=$(echo "$RESULT" | jq -r '.success')
+          if [ "$SUCCESS" != "true" ]; then
+            echo "❌ Cloudflare purge FAILED — check CF_ZONE_ID and CF_API_TOKEN secrets"
+            echo "Errors: $(echo $RESULT | jq '.errors')"
+            exit 1
+          fi
+
+          echo "✅ Cloudflare cache purged successfully"
