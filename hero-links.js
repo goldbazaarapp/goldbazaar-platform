@@ -25,8 +25,8 @@ const HERO_LINKS = {
      Videos: videos/GB_1.mp4  … GB_4.mp4               */
   landing: {
     1: '',   // e.g. 'https://www.bhimagold.com/'
-    2: '',
-    3: 'https://www.bhimagold.com/',
+    2: 'https://www.praveenjewels.com/',
+    3: 'https://www.praveenjewels.com/',
     4: '',
     5: '',
     6: '',
