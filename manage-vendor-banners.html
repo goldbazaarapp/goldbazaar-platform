@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GoldBazaar – Manage Vendor Banners</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #0d0008; color: #eee; min-height: 100vh; padding: 30px 20px; }
+  h1   { color: #C9A84C; margin-bottom: 6px; }
+  p.sub { color: #aaa; font-size: 14px; margin-bottom: 24px; }
+
+  .card { background: #1a0015; border: 1px solid #3a0030; border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+
+  label.lbl { display: block; font-size: 13px; color: #C9A84C; margin-bottom: 6px; }
+  input[type=password] {
+    width: 100%; padding: 10px 14px; border-radius: 6px;
+    border: 1px solid #5a0040; background: #120010; color: #fff; font-size: 14px;
+  }
+
+  .btn { padding: 9px 18px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: bold; transition: opacity .15s; }
+  .btn:disabled { opacity: .35; cursor: not-allowed; }
+  .btn:not(:disabled):hover { opacity: .82; }
+  .btn-gold   { background: #C9A84C; color: #000; }
+  .btn-dark   { background: #3a3a3a; color: #ddd; }
+  .btn-dim    { background: #2a2a2a; color: #bbb; }
+  .btn-red    { background: #c0392b; color: #fff; }
+  .btn-blue   { background: #2980b9; color: #fff; }
+  .btn-green  { background: #27ae60; color: #fff; }
+
+  .toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .pill    { font-size: 12px; color: #aaa; }
+  .ml-auto { margin-left: auto; }
+
+  #fileList { list-style: none; display: flex; flex-direction: column; gap: 7px; max-height: 480px; overflow-y: auto; padding-right: 4px; }
+
+  #fileList li {
+    display: flex; align-items: center; gap: 12px;
+    background: #120010; border: 1px solid #2a0020; border-radius: 6px;
+    padding: 10px 14px; cursor: pointer; transition: background .12s, border-color .12s;
+    user-select: none;
+  }
+  #fileList li:hover   { background: #1d0016; }
+  #fileList li.checked { border-color: #C9A84C; background: #1e0014; }
+  #fileList li.deleting  { opacity: .4; pointer-events: none; }
+  #fileList li.downloading { opacity: .6; }
+
+  .dl-btn {
+    flex-shrink: 0; background: none; border: 1px solid #3a3a3a; border-radius: 5px;
+    color: #27ae60; font-size: 16px; width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background .15s, border-color .15s; pointer-events: all;
+  }
+  .dl-btn:hover { background: #1a2a1a; border-color: #27ae60; }
+  .dl-btn:disabled { opacity: .3; cursor: not-allowed; }
+
+  input[type=checkbox] { accent-color: #C9A84C; width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; }
+
+  .finfo { flex: 1; pointer-events: none; }
+  .fname { font-size: 14px; color: #eee; margin-bottom: 4px; }
+  .fmeta { font-size: 11px; color: #777; display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .badge { display: inline-block; padding: 1px 7px; border-radius: 10px; font-size: 10px; font-weight: bold; background: #2a0020; color: #C9A84C; letter-spacing: .5px; }
+
+  .empty-state { text-align: center; padding: 50px 20px; color: #555; font-size: 14px; }
+
+  .sync-bar { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: #666; margin-bottom: 10px; }
+  .sync-ok   { color: #2ecc71; }
+  .sync-warn { color: #e67e22; }
+
+  #logCard { display: none; }
+  #log { background: #080008; border: 1px solid #2a0020; border-radius: 6px; padding: 14px;
+         font-family: monospace; font-size: 13px; max-height: 240px; overflow-y: auto; white-space: pre-wrap; line-height: 1.7; }
+  .ok  { color: #2ecc71; }
+  .err { color: #e74c3c; }
+  .inf { color: #C9A84C; }
+  .dim { color: #666; }
+
+  .spin { display: inline-block; width: 13px; height: 13px; border: 2px solid #444; border-top-color: #C9A84C; border-radius: 50%; animation: sp .7s linear infinite; vertical-align: middle; margin-right: 5px; }
+  @keyframes sp { to { transform: rotate(360deg); } }
+
+  #fileSection { display: none; }
+
+  /* toast */
+  #toast { position: fixed; bottom: 24px; right: 24px; background: #1e3a1e; color: #2ecc71;
+           border: 1px solid #2ecc71; border-radius: 8px; padding: 12px 18px;
+           font-size: 13px; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999; }
+  #toast.err-toast { background: #3a1e1e; color: #e74c3c; border-color: #e74c3c; }
+  #toast.show { opacity: 1; }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+
+<h1>⚙️ GoldBazaar – Vendor Banners Manager</h1>
+<p class="sub">View, select, and delete files inside <code>vendor-banners/</code> on GitHub.</p>
+
+<!-- Token -->
+<div class="card" id="tokenCard">
+  <label class="lbl">GitHub Personal Access Token (repo scope)</label>
+  <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxx" />
+  <div style="display:flex;gap:10px;margin-top:12px;align-items:center;flex-wrap:wrap;">
+    <button class="btn btn-gold" onclick="loadFiles(true)">🔍 Load Files</button>
+    <span id="sessionInfo" style="font-size:12px;color:#666;"></span>
+    <button class="btn btn-dim" id="clearSessionBtn" style="display:none;padding:6px 12px;font-size:12px;" onclick="clearSession()">✕ Clear Session</button>
+  </div>
+</div>
+
+<!-- File list -->
+<div class="card" id="fileSection">
+
+  <div class="sync-bar">
+    <span id="syncStatus">—</span>
+    <button class="btn btn-blue" style="padding:5px 14px;font-size:12px;" onclick="loadFiles(true)">↻ Refresh</button>
+  </div>
+
+  <div class="toolbar">
+    <button class="btn btn-dark"  onclick="selectAll()">☑ Select All</button>
+    <button class="btn btn-dim"   onclick="deselectAll()">☐ Deselect All</button>
+    <span class="pill" id="selCount">0 selected</span>
+    <span class="pill" id="totalCount" style="color:#555;"></span>
+    <button class="btn btn-green" id="dlBtn" disabled onclick="downloadSelected()">⬇ Download Selected</button>
+    <button class="btn btn-red" id="delBtn" disabled onclick="deleteSelected()">🗑 Delete Selected</button>
+  </div>
+
+  <ul id="fileList"></ul>
+</div>
+
+<!-- Log -->
+<div class="card" id="logCard">
+  <label class="lbl" style="margin-bottom:10px;">Activity Log</label>
+  <div id="log"></div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const OWNER    = 'goldbazaarapp';
+const REPO     = 'goldbazaar-platform';
+const FOLDER   = 'vendor-banners';
+const BRANCH   = 'main';
+const SESSION_KEY  = 'gb_banner_mgr_token';
+const SESSION_EXP  = 'gb_banner_mgr_exp';
+const SESSION_HRS  = 24;
+
+let allFiles   = [];
+let isLoading  = false;
+let isDeleting = false;
+
+/* ── Session management ──────────────────────────────────── */
+function saveSession(token) {
+  const exp = Date.now() + SESSION_HRS * 60 * 60 * 1000;
+  localStorage.setItem(SESSION_KEY, token);
+  localStorage.setItem(SESSION_EXP, exp);
+  updateSessionUI(exp);
+}
+
+function clearSession() {
+  localStorage.removeItem(SESSION_KEY);
+  localStorage.removeItem(SESSION_EXP);
+  document.getElementById('tokenInput').value = '';
+  document.getElementById('sessionInfo').textContent = '';
+  document.getElementById('clearSessionBtn').style.display = 'none';
+  document.getElementById('fileSection').style.display = 'none';
+  toast('Session cleared. Enter your token again when needed.');
+}
+
+function updateSessionUI(exp) {
+  const remaining = exp - Date.now();
+  if (remaining <= 0) { clearSession(); return; }
+  const hrs  = Math.floor(remaining / 3600000);
+  const mins = Math.floor((remaining % 3600000) / 60000);
+  const txt  = hrs > 0 ? `Session valid for ${hrs}h ${mins}m` : `Session expires in ${mins}m`;
+  document.getElementById('sessionInfo').textContent = '🔐 ' + txt;
+  document.getElementById('clearSessionBtn').style.display = 'inline-block';
+}
+
+function restoreSession() {
+  const token = localStorage.getItem(SESSION_KEY);
+  const exp   = parseInt(localStorage.getItem(SESSION_EXP) || '0', 10);
+  if (!token || Date.now() > exp) {
+    localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(SESSION_EXP);
+    return false;
+  }
+  document.getElementById('tokenInput').value = token;
+  updateSessionUI(exp);
+  return true;
+}
+
+// Refresh session UI every minute
+setInterval(() => {
+  const exp = parseInt(localStorage.getItem(SESSION_EXP) || '0', 10);
+  if (exp) updateSessionUI(exp);
+}, 60000);
+
+// On page load — restore token and auto-load if session is active
+window.addEventListener('DOMContentLoaded', () => {
+  if (restoreSession()) {
+    loadFiles(true);
+  }
+});
+
+/* ── Helpers ─────────────────────────────────────────────── */
+function getHeaders() {
+  return {
+    'Authorization': `Bearer ${document.getElementById('tokenInput').value.trim()}`,
+    'Accept':        'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28'
+  };
+}
+
+function fmtDate(iso) {
+  if (!iso) return 'Unknown date';
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' })
+       + ' ' + d.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
+}
+
+function toast(msg, isErr = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'show' + (isErr ? ' err-toast' : '');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.className = isErr ? 'err-toast' : '', 3000);
+}
+
+function setSyncStatus(msg, cls) {
+  const el = document.getElementById('syncStatus');
+  el.textContent = msg;
+  el.className = cls || '';
+}
+
+/* ── Load files from GitHub ──────────────────────────────── */
+async function loadFiles(showSpinner = false) {
+  if (isLoading) return;
+  const token = document.getElementById('tokenInput').value.trim();
+  if (!token) { toast('Please enter your GitHub token first.', true); return; }
+
+  isLoading = true;
+  document.getElementById('fileSection').style.display = 'block';
+  if (showSpinner) setSyncStatus('⏳ Loading…');
+
+  // Save token to session on every successful use
+  const activeToken = document.getElementById('tokenInput').value.trim();
+
+  try {
+    const res  = await fetch(
+      `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FOLDER}?ref=${BRANCH}&t=${Date.now()}`,
+      { headers: getHeaders(), cache: 'no-store' }
+    );
+
+    if (res.status === 401 || res.status === 403) {
+      setSyncStatus('⛔ Invalid or expired token', 'sync-warn');
+      toast('Token rejected by GitHub. Check your token.', true);
+      // Clear saved session — token is no longer valid
+      localStorage.removeItem(SESSION_KEY);
+      localStorage.removeItem(SESSION_EXP);
+      document.getElementById('sessionInfo').textContent = '';
+      document.getElementById('clearSessionBtn').style.display = 'none';
+      isLoading = false; return;
+    }
+
+    // Token worked — save session
+    saveSession(activeToken);
+
+    if (res.status === 404) {
+      allFiles = [];
+      renderEmpty('Folder is empty — it will be created automatically when the next vendor submits a banner.');
+      setSyncStatus('✓ Synced · folder empty', 'sync-ok');
+      isLoading = false; return;
+    }
+
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      setSyncStatus('⚠ GitHub error: ' + (body.message || res.status), 'sync-warn');
+      isLoading = false; return;
+    }
+
+    const data = await res.json();
+    if (!Array.isArray(data)) {
+      setSyncStatus('⚠ Unexpected response from GitHub', 'sync-warn');
+      isLoading = false; return;
+    }
+
+    const files = data.filter(f => f.type === 'file');
+
+    if (files.length === 0) {
+      allFiles = [];
+      renderEmpty('No files in vendor-banners folder.');
+      setSyncStatus('✓ Synced · 0 files', 'sync-ok');
+      isLoading = false; return;
+    }
+
+    // Fetch commit dates in parallel (with cache-bust)
+    setSyncStatus('⏳ Fetching upload dates…');
+    const dates = await Promise.all(
+      files.map(f =>
+        fetch(
+          `https://api.github.com/repos/${OWNER}/${REPO}/commits?path=${encodeURIComponent(f.path)}&per_page=1&t=${Date.now()}`,
+          { headers: getHeaders(), cache: 'no-store' }
+        )
+        .then(r => r.ok ? r.json() : [])
+        .then(c  => c[0]?.commit?.author?.date || null)
+        .catch(() => null)
+      )
+    );
+
+    allFiles = files.map((f, i) => ({ ...f, uploadedAt: dates[i] }));
+    renderList();
+    setSyncStatus('✓ Synced · ' + new Date().toLocaleTimeString(), 'sync-ok');
+
+  } catch (e) {
+    setSyncStatus('⚠ Network error — check your connection', 'sync-warn');
+    toast('Network error: ' + e.message, true);
+  }
+
+  isLoading = false;
+}
+
+/* ── Render ──────────────────────────────────────────────── */
+function renderEmpty(msg) {
+  document.getElementById('fileList').innerHTML = `<div class="empty-state">📂 ${msg}</div>`;
+  document.getElementById('selCount').textContent  = '0 selected';
+  document.getElementById('totalCount').textContent = '';
+  document.getElementById('delBtn').disabled = true;
+  allFiles = [];
+}
+
+function renderList() {
+  const ul = document.getElementById('fileList');
+  ul.innerHTML = '';
+
+  allFiles.forEach((f, i) => {
+    const sizeKb = f.size >= 1024
+      ? (f.size / 1024).toFixed(1) + ' KB'
+      : f.size + ' B';
+    const ext = f.name.includes('.') ? f.name.split('.').pop().toUpperCase() : 'FILE';
+
+    const li = document.createElement('li');
+    li.id = 'row-' + i;
+    li.innerHTML = `
+      <input type="checkbox" id="cb${i}" onchange="onCheck(this)">
+      <div class="finfo">
+        <div class="fname">${escHtml(f.name)}</div>
+        <div class="fmeta">
+          <span>📅 ${fmtDate(f.uploadedAt)}</span>
+          <span>📦 ${sizeKb}</span>
+          <span class="badge">${ext}</span>
+        </div>
+      </div>
+      <button class="dl-btn" title="Download ${escHtml(f.name)}" onclick="downloadSingle(event, ${i})">⬇</button>`;
+    li.onclick = e => {
+      if (e.target.tagName === 'INPUT') return;
+      const cb = document.getElementById('cb' + i);
+      cb.checked = !cb.checked;
+      li.classList.toggle('checked', cb.checked);
+      updateCount();
+    };
+    ul.appendChild(li);
+  });
+
+  document.getElementById('totalCount').textContent = '(' + allFiles.length + ' total)';
+  updateCount();
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ── Selection ───────────────────────────────────────────── */
+function onCheck(cb) {
+  cb.closest('li').classList.toggle('checked', cb.checked);
+  updateCount();
+}
+
+function updateCount() {
+  const n = document.querySelectorAll('#fileList input[type=checkbox]:checked').length;
+  document.getElementById('selCount').textContent = n + ' selected';
+  document.getElementById('delBtn').disabled = n === 0 || isDeleting;
+  document.getElementById('dlBtn').disabled  = n === 0;
+}
+
+/* ── Download single file ────────────────────────────────── */
+async function downloadSingle(e, idx) {
+  e.stopPropagation();
+  const f   = allFiles[idx];
+  const btn = e.currentTarget;
+  const row = document.getElementById('row-' + idx);
+
+  btn.disabled = true;
+  btn.textContent = '⏳';
+  if (row) row.classList.add('downloading');
+
+  try {
+    const res = await fetch(f.download_url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const blob = await res.blob();
+    triggerDownload(blob, f.name);
+    toast('⬇ Downloaded: ' + f.name);
+  } catch(err) {
+    toast('Download failed: ' + err.message, true);
+  }
+
+  btn.disabled = false;
+  btn.textContent = '⬇';
+  if (row) row.classList.remove('downloading');
+}
+
+/* ── Download selected files (zip if multiple) ───────────── */
+async function downloadSelected() {
+  const selected = allFiles.filter((_, i) => {
+    const cb = document.getElementById('cb' + i);
+    return cb && cb.checked;
+  });
+  if (!selected.length) return;
+
+  const dlBtn = document.getElementById('dlBtn');
+  dlBtn.disabled = true;
+  dlBtn.textContent = '⏳ Downloading…';
+
+  // Single file — download directly, no zip
+  if (selected.length === 1) {
+    const f = selected[0];
+    try {
+      const res = await fetch(f.download_url);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const blob = await res.blob();
+      triggerDownload(blob, f.name);
+      toast('⬇ Downloaded: ' + f.name);
+    } catch(err) {
+      toast('Download failed: ' + err.message, true);
+    }
+    dlBtn.disabled = false;
+    dlBtn.textContent = '⬇ Download Selected';
+    return;
+  }
+
+  // Multiple files — zip them
+  document.getElementById('logCard').style.display = 'block';
+  const log = document.getElementById('log');
+  log.innerHTML = `<span class="inf">Zipping ${selected.length} file(s)...\n</span>`;
+
+  const zip = new JSZip();
+  let ok = 0, fail = 0;
+
+  await Promise.all(selected.map(async f => {
+    try {
+      const res = await fetch(f.download_url);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const buf = await res.arrayBuffer();
+      zip.file(f.name, buf);
+      log.innerHTML += `<span class="ok">  ✓ Added    ${escHtml(f.name)}</span>\n`;
+      ok++;
+    } catch(err) {
+      log.innerHTML += `<span class="err">  ✗ Failed   ${escHtml(f.name)} → ${err.message}</span>\n`;
+      fail++;
+    }
+    log.scrollTop = log.scrollHeight;
+  }));
+
+  if (ok > 0) {
+    log.innerHTML += `\n<span class="inf">Creating zip file...\n</span>`;
+    try {
+      const zipBlob = await zip.generateAsync({ type: 'blob' });
+      const ts      = new Date().toISOString().slice(0,10);
+      triggerDownload(zipBlob, `vendor-banners-${ts}.zip`);
+      log.innerHTML += `<span class="ok">✓ Downloaded vendor-banners-${ts}.zip (${ok} files)</span>`;
+      toast(`⬇ Zip downloaded — ${ok} file(s)`);
+    } catch(err) {
+      log.innerHTML += `<span class="err">Zip creation failed: ${err.message}</span>`;
+      toast('Zip failed: ' + err.message, true);
+    }
+  } else {
+    log.innerHTML += `<span class="err">No files downloaded successfully.</span>`;
+    toast('All downloads failed.', true);
+  }
+
+  log.scrollTop = log.scrollHeight;
+  dlBtn.disabled = false;
+  dlBtn.textContent = '⬇ Download Selected';
+}
+
+/* ── Trigger browser file download ──────────────────────── */
+function triggerDownload(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a   = document.createElement('a');
+  a.href     = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+}
+
+function selectAll() {
+  document.querySelectorAll('#fileList input[type=checkbox]').forEach(cb => {
+    cb.checked = true;
+    cb.closest('li').classList.add('checked');
+  });
+  updateCount();
+}
+
+function deselectAll() {
+  document.querySelectorAll('#fileList input[type=checkbox]').forEach(cb => {
+    cb.checked = false;
+    cb.closest('li').classList.remove('checked');
+  });
+  updateCount();
+}
+
+/* ── Delete ──────────────────────────────────────────────── */
+async function deleteSelected() {
+  if (isDeleting) return;
+
+  const selected = allFiles.filter((_, i) => {
+    const cb = document.getElementById('cb' + i);
+    return cb && cb.checked;
+  });
+
+  if (!selected.length) return;
+
+  const names = selected.map(f => '• ' + f.name).join('\n');
+  if (!confirm(`Permanently delete ${selected.length} file(s) from GitHub?\n\n${names}`)) return;
+
+  isDeleting = true;
+  document.getElementById('delBtn').disabled   = true;
+  document.getElementById('logCard').style.display = 'block';
+
+  const log = document.getElementById('log');
+  log.innerHTML = `<span class="inf">Deleting ${selected.length} file(s)...\n</span>`;
+
+  let ok = 0, fail = 0;
+  const failedFiles = [];
+
+  for (const f of selected) {
+    // Immediately fade the row out — no waiting for GitHub
+    const idx = allFiles.findIndex(x => x.path === f.path);
+    const row = document.getElementById('row-' + idx);
+    if (row) row.classList.add('deleting');
+
+    try {
+      const res = await fetch(
+        `https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(f.path)}`,
+        {
+          method: 'DELETE',
+          headers: { ...getHeaders(), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: `Remove: ${f.name}`, sha: f.sha, branch: BRANCH })
+        }
+      );
+
+      if (res.status === 200) {
+        log.innerHTML += `<span class="ok">  ✓ Deleted   ${escHtml(f.name)}</span>\n`;
+        ok++;
+        // Remove immediately from local array
+        const i2 = allFiles.findIndex(x => x.path === f.path);
+        if (i2 !== -1) allFiles.splice(i2, 1);
+      } else {
+        let msg = res.status;
+        try { const j = await res.json(); msg = j.message || res.status; } catch(_){}
+
+        if (res.status === 401 || res.status === 403) {
+          log.innerHTML += `<span class="err">  ✗ Auth error — token may be invalid or expired.</span>\n`;
+          toast('Token rejected. Check your GitHub token.', true);
+          if (row) row.classList.remove('deleting');
+          failedFiles.push(f); fail++;
+          break; // no point continuing
+        } else if (res.status === 422) {
+          log.innerHTML += `<span class="err">  ✗ ${escHtml(f.name)} — SHA mismatch. Try refreshing and deleting again.</span>\n`;
+        } else {
+          log.innerHTML += `<span class="err">  ✗ ${escHtml(f.name)} — ${msg}</span>\n`;
+        }
+        if (row) row.classList.remove('deleting');
+        failedFiles.push(f); fail++;
+      }
+    } catch(e) {
+      log.innerHTML += `<span class="err">  ✗ ${escHtml(f.name)} — Network error: ${e.message}</span>\n`;
+      if (row) row.classList.remove('deleting');
+      failedFiles.push(f); fail++;
+    }
+
+    log.scrollTop = log.scrollHeight;
+  }
+
+  log.innerHTML += `\n<span class="inf">Done — ${ok} deleted, ${fail} failed.</span>`;
+  if (fail > 0) log.innerHTML += `\n<span class="dim">Failed files remain in the list. Refresh to re-sync with GitHub.</span>`;
+  log.scrollTop = log.scrollHeight;
+
+  isDeleting = false;
+
+  // Re-render immediately from updated local array (no API call)
+  if (allFiles.length === 0) {
+    renderEmpty('Folder is empty — it will be created automatically when the next vendor submits a banner.');
+    setSyncStatus('✓ All files deleted', 'sync-ok');
+  } else {
+    renderList();
+    setSyncStatus('✓ Partial delete done · ' + new Date().toLocaleTimeString(), 'sync-ok');
+  }
+
+  toast(ok + ' file(s) deleted' + (fail ? ', ' + fail + ' failed' : '') + '.', fail > 0);
+
+  // Silent background sync after 4 seconds to confirm GitHub state
+  setTimeout(() => loadFiles(false), 4000);
+}
+</script>
+</body>
+</html>
