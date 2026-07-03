@@ -54,7 +54,7 @@ const HERO_LINKS = {
   'jewellery': {
     1: '',
     2: '',
-    3: '',
+    3: 'https://www.praveenjewels.com/',
     4: '',
     5: '',
     6: '',
