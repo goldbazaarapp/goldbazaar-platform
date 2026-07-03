@@ -25,7 +25,7 @@ const HERO_LINKS = {
   /* ── GOLD LOAN PAGE (gold-loan-providers.html) — images/gold-loan/hero-{n}.webp */
   'gold-loan': {
     1: 'https://www.praveenjewels.com/',
-    2: '',
+    2: 'https://goldbazaar.app/',
     3: '',
     4: '',
     5: '',
