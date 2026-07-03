@@ -66,7 +66,7 @@ const HERO_LINKS = {
 
   /* ── VENDOR ONBOARDING (vendor-onboarding-complete.html) — images/onboarding-hero/slide-{n}.webp */
   'vendor-onboarding': {
-    1: 'https://www.kalyanjewellers.net',
+    1: 'https://goldbazaar.app/',
     2: 'https://www.bhimagold.com/',
     3: 'https://www.malabargoldanddiamonds.com',
     4: 'https://www.manappuram.com',
