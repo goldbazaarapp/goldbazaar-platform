@@ -38,7 +38,7 @@ const HERO_LINKS = {
 
   /* ── SELL GOLD PAGE (gold-buyers.html) — images/gold-buyers/hero-{n}.webp */
   'sell-gold': {
-    1: 'https://www.tanishq.co.in',
+    1: 'https://goldbazaar.app/',
     2: '',
     3: '',
     4: '',
