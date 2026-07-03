@@ -10,7 +10,7 @@ const HERO_LINKS = {
 
   /* ── LANDING PAGE (index.html) — images/hero-{n}.webp */
   'landing': {
-    1: 'https://goldbazaar.app/',
+    1: 'https://www.praveenjewels.com/',
     2: 'https://www.praveenjewels.com/',
     3: 'https://www.praveenjewels.com/',
     4: '',
