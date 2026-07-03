@@ -55,7 +55,7 @@ const HERO_LINKS = {
     1: '',
     2: 'https://www.praveenjewels.com/',
     3: 'https://www.praveenjewels.com/',
-    4: '',
+    4: 'https://goldbazaar.app/',
     5: '',
     6: '',
     7: '',
