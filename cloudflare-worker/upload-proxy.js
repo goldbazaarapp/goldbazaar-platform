@@ -5,21 +5,21 @@
  * Token is stored as a Cloudflare Worker Secret (GITHUB_TOKEN).
  *
  * Handles:
- *   GET  /<path>  → check if file exists (returns SHA if yes)
- *   PUT  /<path>  → upload/overwrite file
+ *   GET  /<path>       → check if file exists (returns SHA if yes)
+ *   PUT  /<path>       → upload/overwrite file
+ *   POST /--purge--    → purge Cloudflare cache (uses CF_ZONE_ID + CF_API_TOKEN secrets)
  */
 
-const GH_OWNER  = 'goldbazaarapp';
-const GH_REPO   = 'goldbazaar-platform';
-const ALLOWED_ORIGIN = 'https://goldbazaarapp.github.io';
+const GH_OWNER = 'goldbazaarapp';
+const GH_REPO  = 'goldbazaar-platform';
 
 export default {
   async fetch(request, env) {
 
     // ── CORS preflight ──────────────────────────────────────────
     const corsHeaders = {
-      'Access-Control-Allow-Origin': '*',          // lock to ALLOWED_ORIGIN in production
-      'Access-Control-Allow-Methods': 'GET, PUT, OPTIONS',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, PUT, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
     };
 
@@ -27,10 +27,40 @@ export default {
       return new Response(null, { status: 204, headers: corsHeaders });
     }
 
-    // ── Build GitHub API URL from Worker path ───────────────────
     const url  = new URL(request.url);
-    const path = url.pathname.replace(/^\//, ''); // strip leading /
+    const path = url.pathname.replace(/^\//, '');
 
+    // ── Cloudflare Cache Purge ──────────────────────────────────
+    if (path === '--purge--' && request.method === 'POST') {
+      const zoneId  = env.CF_ZONE_ID;
+      const cfToken = env.CF_API_TOKEN;
+
+      if (!zoneId || !cfToken) {
+        return new Response(JSON.stringify({ success: false, error: 'CF_ZONE_ID or CF_API_TOKEN secret not set in Worker' }), {
+          status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+      }
+
+      const purgeRes = await fetch(
+        `https://api.cloudflare.com/client/v4/zones/${zoneId}/purge_cache`,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${cfToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ purge_everything: true }),
+        }
+      );
+
+      const data = await purgeRes.text();
+      return new Response(data, {
+        status: purgeRes.status,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    // ── GitHub Contents API proxy ───────────────────────────────
     if (!path) {
       return new Response(JSON.stringify({ error: 'No file path provided' }), {
         status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -39,7 +69,6 @@ export default {
 
     const ghUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`;
 
-    // ── Forward request to GitHub API ───────────────────────────
     const ghRes = await fetch(ghUrl, {
       method: request.method,
       headers: {
