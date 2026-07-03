@@ -24,7 +24,7 @@ const HERO_LINKS = {
 
   /* ── GOLD LOAN PAGE (gold-loan-providers.html) — images/gold-loan/hero-{n}.webp */
   'gold-loan': {
-    1: 'https://www.manappuram.com',
+    1: 'https://www.praveenjewels.com/',
     2: '',
     3: '',
     4: '',
